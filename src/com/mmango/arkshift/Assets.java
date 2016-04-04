@@ -11,7 +11,6 @@ public class Assets {
 	public static Texture mainScreenBackground;
 	public static TextureRegion mainScreenBackgroundRegion;
 	
-	
 	public static Texture userInterfaceElements;
 	public static TextureRegion mainScreenMenuRegion;
 	public static TextureRegion readyBannerRegion;
@@ -48,6 +47,7 @@ public class Assets {
 	public static Sound shiftSound;
 	public static Sound gameOverSound;
 	public static Sound gameOverLongSound;
+	public static Sound levelPassedSound;
 
 
 	public static void load(GLGame game) {
@@ -114,6 +114,7 @@ public class Assets {
 		gameOverSound = game.getAudio().newSound("game_over.ogg");
 		gameOverLongSound = game.getAudio().newSound(
 				"game_over_long_8b_22050Hz.ogg");
+		levelPassedSound = game.getAudio().newSound("level_passed.ogg");
 	}
 
 	public static void reload() {

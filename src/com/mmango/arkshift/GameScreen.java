@@ -46,7 +46,7 @@ public class GameScreen extends GLScreen {
 		super(game);
 		guiCam = new Camera2D(glGraphics, 1080, 1920);
 		touchPoint = new Vector2();
-		batcher = new SpriteBatcher(glGraphics, 500);
+		batcher = new SpriteBatcher(glGraphics, 300);
 		worldListener = new WorldListener() {
 
 			public void hitAtRacquet() {
@@ -67,6 +67,14 @@ public class GameScreen extends GLScreen {
 
 			public void shiftBrick() {
 				Assets.playSound(Assets.shiftSound);
+			}
+			
+			public void levelPassed() {
+				Assets.playSound(Assets.levelPassedSound);
+			}
+			
+			public void gameOver() {
+				Assets.playSound(Assets.gameOverLongSound);
 			}
 		};
 
@@ -217,7 +225,7 @@ public class GameScreen extends GLScreen {
 		guiCam.setViewportAndMatrices();
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		batcher.beginBatch(Assets.items);
+		batcher.beginBatch(Assets.userInterfaceElements);
 		switch (state) {
 		case GAME_READY:
 			presentReady();
