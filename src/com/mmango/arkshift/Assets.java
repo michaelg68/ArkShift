@@ -52,7 +52,7 @@ public class Assets {
 
 	public static void load(GLGame game) {
 		mainScreenBackground = new Texture(game,
-				"background_mainscreen2_1080x1920.png");
+				"background_mainscreen_1080x1920.png");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,
 				0, 1080, 1920);
 		
@@ -74,6 +74,7 @@ public class Assets {
 		ballWhite = new TextureRegion(gameScreenElements, 256, 192, 64, 64);
 		ballYellow = new TextureRegion(gameScreenElements, 320, 192, 64, 64);
 		ballRed = new TextureRegion(gameScreenElements, 384, 192, 64, 64);
+		
 		brickGold = new TextureRegion(gameScreenElements, 0, 0, 128, 128);
 		brickGreen = new TextureRegion(gameScreenElements, 128, 0, 128, 128);
 		brickBlue = new TextureRegion(gameScreenElements, 256, 0, 128, 128);

@@ -48,7 +48,7 @@ public class MainMenuScreen extends GLScreen {
                 
                 if(OverlapTester.pointInRectangle(playBounds, touchPoint)) {
                     Assets.playSound(Assets.clickSound);
-                    //game.setScreen(new GameScreen(game));
+                    game.setScreen(new GameScreen(game));
                     return;
                 }
                 if(OverlapTester.pointInRectangle(settingsBounds, touchPoint)) {
@@ -93,7 +93,7 @@ public class MainMenuScreen extends GLScreen {
         gl.glEnable(GL10.GL_BLEND);
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);               
         
-        batcher.beginBatch(Assets.mainScreenMenu);                 
+        batcher.beginBatch(Assets.userInterfaceElements);                 
         batcher.drawSprite(1080/2, 700, 700, 1000, Assets.mainScreenMenuRegion);
         
         batcher.endBatch();

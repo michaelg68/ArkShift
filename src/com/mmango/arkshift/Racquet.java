@@ -4,7 +4,7 @@ import com.badlogic.androidgames.framework.DynamicGameObject;
 import com.mmango.arkshift.World;
 
 public class Racquet extends DynamicGameObject {
-	public static final int RACQUET_STATE_STOPPED = 0;
+	public static final int RACQUET_STATE_STILL = 0;
 	public static final int RACQUET_STATE_MOVING_LEFT = 1;
 	public static final int RACQUET_STATE_MOVING_RIGHT = 2;
 	public static final float RACQUET_MOVE_VELOCITY = 0;
@@ -16,12 +16,12 @@ public class Racquet extends DynamicGameObject {
 
 	public Racquet(float x, float y) {
 		super(x, y, RACQUET_WIDTH, RACQUET_HEIGHT);
-		state = RACQUET_STATE_STOPPED;
+		state = RACQUET_STATE_STILL;
 		stateTime = 0;
 	}
 
 	public void update(float deltaTime) {
-		velocity.add(0 * deltaTime, 0 * deltaTime);
+		//velocity.add(0 * deltaTime, 0 * deltaTime);
 		position.add(velocity.x * deltaTime, velocity.y * deltaTime);
 		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
 
@@ -38,8 +38,8 @@ public class Racquet extends DynamicGameObject {
 
 		if (position.x < 0)
 			position.x = 0;
-		if (position.x > World.WORLD_WIDTH)
-			position.x = World.WORLD_WIDTH;
+		if (position.x > World.GAME_FIELD_WIDTH)
+			position.x = World.GAME_FIELD_WIDTH;
 
 		stateTime += deltaTime;
 	}
