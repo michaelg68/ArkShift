@@ -27,10 +27,10 @@ public class MainMenuScreen extends GLScreen {
         super(game);
         guiCam = new Camera2D(glGraphics, 1080, 1920);
         batcher = new SpriteBatcher(glGraphics, 100);
-        playBounds = new Rectangle(540 - 350, 960 + 500, 700, 250);
-        settingsBounds = new Rectangle(540 - 350, 960 + 250, 700, 250);
-        highscoresBounds = new Rectangle(540 - 350, 960, 700, 250);
-        helpBounds = new Rectangle(540 - 350, 960 - 250, 700, 250);
+        playBounds = new Rectangle(540 - 350, 200 + 1000, 700, 250);
+        settingsBounds = new Rectangle(540 - 350, 200 + 750, 700, 250);
+        highscoresBounds = new Rectangle(540 - 350, 200 + 500, 700, 250);
+        helpBounds = new Rectangle(540 - 350, 200 + 250, 700, 250);
         touchPoint = new Vector2();               
     }       
 
@@ -94,7 +94,7 @@ public class MainMenuScreen extends GLScreen {
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);               
         
         batcher.beginBatch(Assets.mainScreenMenu);                 
-        batcher.drawSprite(1080/2, 1920/2 - 200, 700, 1000, Assets.mainScreenMenuRegion);
+        batcher.drawSprite(1080/2, 700, 700, 1000, Assets.mainScreenMenuRegion);
         
         batcher.endBatch();
         

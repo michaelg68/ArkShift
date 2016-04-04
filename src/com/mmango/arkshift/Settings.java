@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import com.badlogic.androidgames.framework.FileIO;
 
 public class Settings {
-	public static boolean soundEnabled = false;
+	public static boolean soundEnabled = true;
 	public static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
 	// public static int[] highscores = new int[] { 9, 8, 5, 3, 1 };
 	public final static String file = ".arkshift";

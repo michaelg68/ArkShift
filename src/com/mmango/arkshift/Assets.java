@@ -14,6 +14,12 @@ public class Assets {
 	public static TextureRegion mainScreenMenuRegion;
 	public static Texture gameScreenBackground;
 	public static TextureRegion gameScreenBackgroundRegion;
+	public static Texture readyBanner;
+	public static TextureRegion readyBannerRegion;
+	public static Texture resumeQuitMenu;
+	public static TextureRegion resumeQuitMenuRegion;
+	public static Texture gameOverBanner;
+	public static TextureRegion gameOverBannerRegion;	
 	public static Texture gameScreenElements;
 	public static TextureRegion racquet;
 	public static TextureRegion ballWhite;
@@ -44,7 +50,7 @@ public class Assets {
 
 	public static void load(GLGame game) {
 		mainScreenBackground = new Texture(game,
-				"background_mainscreen_1080x1920.png");
+				"background_mainscreen2_1080x1920.png");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,
 				0, 1080, 1920);
 		mainScreenMenu = new Texture(game, "main_menu.png");
@@ -54,7 +60,17 @@ public class Assets {
 		gameScreenBackground = new Texture(game, "atlas_background.png");
 		gameScreenBackgroundRegion = new TextureRegion(gameScreenBackground, 0,
 				0, 1080, 1920);
+		
+		readyBanner = new Texture(game, "ready_banner.png");
+		readyBannerRegion = new TextureRegion(readyBanner, 0,
+				0, 700, 250);
+		
+		resumeQuitMenu = new Texture(game, "resume_quit_menu.png");
+		resumeQuitMenuRegion = new TextureRegion(resumeQuitMenu, 0,	0, 700, 500);
 
+		gameOverBanner = new Texture(game, "game_over_banner.png");
+		gameOverBannerRegion = new TextureRegion(gameOverBanner, 0,	0, 700, 500);
+		
 		gameScreenElements = new Texture(game, "atlas_gamescreen_elements.png");
 		racquet = new TextureRegion(gameScreenElements, 256, 128, 512, 64);
 		ballWhite = new TextureRegion(gameScreenElements, 256, 192, 64, 64);
