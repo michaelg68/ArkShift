@@ -10,16 +10,21 @@ import com.badlogic.androidgames.framework.impl.GLGame;
 public class Assets {
 	public static Texture mainScreenBackground;
 	public static TextureRegion mainScreenBackgroundRegion;
-	public static Texture mainScreenMenu;
+	
+	
+	public static Texture userInterfaceElements;
 	public static TextureRegion mainScreenMenuRegion;
+	public static TextureRegion readyBannerRegion;
+	public static TextureRegion resumeQuitMenuRegion;
+	public static TextureRegion gameOverBannerRegion;	
+	public static TextureRegion buttonPause;
+	public static TextureRegion buttonHome;
+	public static TextureRegion buttonBack;
+	public static TextureRegion buttonForward;
+	
 	public static Texture gameScreenBackground;
 	public static TextureRegion gameScreenBackgroundRegion;
-	public static Texture readyBanner;
-	public static TextureRegion readyBannerRegion;
-	public static Texture resumeQuitMenu;
-	public static TextureRegion resumeQuitMenuRegion;
-	public static Texture gameOverBanner;
-	public static TextureRegion gameOverBannerRegion;	
+
 	public static Texture gameScreenElements;
 	public static TextureRegion racquet;
 	public static TextureRegion ballWhite;
@@ -35,9 +40,6 @@ public class Assets {
 	public static TextureRegion brickWheat;
 	public static TextureRegion brickViolet;
 	public static TextureRegion brickPurple;
-	public static TextureRegion buttonPause;
-
-	public static Texture fontTexture;
 	public static Font font;
 
 	public static Music music;
@@ -53,24 +55,20 @@ public class Assets {
 				"background_mainscreen2_1080x1920.png");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,
 				0, 1080, 1920);
-		mainScreenMenu = new Texture(game, "main_menu.png");
-		mainScreenMenuRegion = new TextureRegion(mainScreenMenu, 0, 0, 700,
-				1000);
-
+		
+		userInterfaceElements = new Texture(game, "atlas_ui_elements.png");
+		mainScreenMenuRegion = new TextureRegion(userInterfaceElements, 0, 0, 700, 1000);
+		readyBannerRegion = new TextureRegion(userInterfaceElements, 0, 1500, 700, 250);
+		resumeQuitMenuRegion = new TextureRegion(userInterfaceElements, 0, 1000, 700, 500);
+		gameOverBannerRegion = new TextureRegion(userInterfaceElements, 700, 0, 700, 500);
+		buttonPause = new TextureRegion(userInterfaceElements, 228, 1878, 128, 128);
+		buttonHome = new TextureRegion(userInterfaceElements, 100, 1750, 128, 128);
+		buttonBack = new TextureRegion(userInterfaceElements, 228, 1750, 128, 128);
+		buttonForward = new TextureRegion(userInterfaceElements, 100, 1878, 128, 128);
+		
 		gameScreenBackground = new Texture(game, "atlas_background.png");
 		gameScreenBackgroundRegion = new TextureRegion(gameScreenBackground, 0,
 				0, 1080, 1920);
-		
-		readyBanner = new Texture(game, "ready_banner.png");
-		readyBannerRegion = new TextureRegion(readyBanner, 0,
-				0, 700, 250);
-		
-		resumeQuitMenu = new Texture(game, "resume_quit_menu.png");
-		resumeQuitMenuRegion = new TextureRegion(resumeQuitMenu, 0,	0, 700, 500);
-
-		gameOverBanner = new Texture(game, "game_over_banner.png");
-		gameOverBannerRegion = new TextureRegion(gameOverBanner, 0,	0, 700, 500);
-		
 		gameScreenElements = new Texture(game, "atlas_gamescreen_elements.png");
 		racquet = new TextureRegion(gameScreenElements, 256, 128, 512, 64);
 		ballWhite = new TextureRegion(gameScreenElements, 256, 192, 64, 64);
@@ -86,10 +84,8 @@ public class Assets {
 		brickWheat = new TextureRegion(gameScreenElements, 896, 0, 128, 128);
 		brickViolet = new TextureRegion(gameScreenElements, 0, 128, 128, 128);
 		brickPurple = new TextureRegion(gameScreenElements, 128, 128, 128, 128);
-		buttonPause = new TextureRegion(gameScreenElements, 768, 128, 128, 128);
+		font = new Font(gameScreenElements, 356, 1750, 16, 32, 32);
 
-		fontTexture = new Texture(game, "goodbyeDespair.bmp");
-		font = new Font(fontTexture, 0, 0, 16, 32, 32);
 
 		music = game.getAudio().newMusic("jewelbeat_-_electrify.ogg");
 		/* http://www.jewelbeat.com/free */
@@ -122,11 +118,9 @@ public class Assets {
 
 	public static void reload() {
 		mainScreenBackground.reload();
-		mainScreenMenu.reload();
+		userInterfaceElements.reload();
 		gameScreenBackground.reload();
 		gameScreenElements.reload();
-		fontTexture.reload();
-
 	}
 
 	public static void playSound(Sound sound) {
