@@ -81,10 +81,10 @@ public class GameScreen extends GLScreen {
 		world = new World(worldListener);
 		renderer = new WorldRenderer(glGraphics, batcher, world);
 		pauseBounds = new Rectangle(1080 - 123, 1920 - 22, 100, 100);
-		resumeBounds = new Rectangle(540 - 350, 1300, 700, 250);
-		quitBounds = new Rectangle(540 - 350, 1050, 700, 250);
-		moveRacquetLeftTouchZone = new Rectangle(0, 1500, 540, 1500);
-		moveRacquetRightTouchZone = new Rectangle(540, 1500, 540, 1500);
+		resumeBounds = new Rectangle(1080 / 2 - 350, 1050, 700, 250);
+		quitBounds = new Rectangle(1080 / 2 - 350, 800, 700, 250);
+		moveRacquetLeftTouchZone = new Rectangle(0, 0, 540, 1500);
+		moveRacquetRightTouchZone = new Rectangle(540, 0, 540, 1500);
 		lastScore = 0;
 		scoreString = "score: 0";
 	}
@@ -248,16 +248,19 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentReady() {
-		batcher.drawSprite(160, 240, 192, 32, Assets.readyBannerRegion);
+		batcher.drawSprite(1080 / 2, 1920 / 2, 700, 250, Assets.readyBannerRegion);
 	}
 
 	private void presentRunning() {
-		batcher.drawSprite(320 - 32, 480 - 32, 64, 64, Assets.buttonPause);
-		Assets.font.drawText(batcher, scoreString, 16, 480 - 20);
+		//1080 - 123, 1920 - 22, 100, 100
+		batcher.drawSprite(1080 - 73 , 1920 - 72, 100, 100, Assets.buttonPause);
+		//Assets.font.drawTextZoomed(batcher, scoreString, 1080 / 2 , 1920/2, 12, 12);
+		Assets.font.drawText(batcher, "S", 1080 / 2 - 200 , 1920/2);
+		//Assets.font.drawTextZoomed(batcher, "score", 1080 / 2 - 200 , 1920/2, 2, 2);
 	}
 
 	private void presentPaused() {
-		batcher.drawSprite(160, 240, 192, 96, Assets.resumeQuitMenuRegion);
+		batcher.drawSprite(1080 / 2, 1920 / 2, 700, 500, Assets.resumeQuitMenuRegion);
 		Assets.font.drawText(batcher, scoreString, 16, 480 - 20);
 	}
 

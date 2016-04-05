@@ -54,6 +54,11 @@ public class WorldRenderer {
     
     private void renderRacquet() {
         Racquet racquet = world.racquet;
-        batcher.drawSprite(racquet.position.x, racquet.position.y, 2, 2, Assets.racquet);
+        batcher.drawSprite(racquet.position.x , racquet.position.y , 40, 5, Assets.racquet);
     }
+    
+    /*private void renderBricks() {
+        Racquet racquet = world.racquet;
+        batcher.drawSprite(racquet.position.x + racquet.RACQUET_WIDTH / 2, racquet.position.y - racquet.RACQUET_HEIGHT / 2, 40, 5.4f, Assets.racquet);
+    }*/
 }

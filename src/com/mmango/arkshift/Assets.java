@@ -85,7 +85,7 @@ public class Assets {
 		brickWheat = new TextureRegion(gameScreenElements, 896, 0, 128, 128);
 		brickViolet = new TextureRegion(gameScreenElements, 0, 128, 128, 128);
 		brickPurple = new TextureRegion(gameScreenElements, 128, 128, 128, 128);
-		font = new Font(gameScreenElements, 356, 1750, 16, 32, 32);
+		font = new Font(gameScreenElements, 356, 1750, 8, 32, 32);
 
 
 		music = game.getAudio().newMusic("jewelbeat_-_electrify.ogg");
