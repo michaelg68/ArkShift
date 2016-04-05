@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
@@ -96,18 +98,23 @@ public class GameScreen extends GLScreen {
 
 		switch (state) {
 		case GAME_READY:
+			//Log.d("GameScreen", "case GAME_READY");
 			updateReady();
 			break;
 		case GAME_RUNNING:
+			//Log.d("GameScreen", "case GAME_RUNNING");
 			updateRunning(deltaTime);
 			break;
 		case GAME_PAUSED:
+			//Log.d("GameScreen", "case GAME_PAUSED");
 			updatePaused();
 			break;
 		case GAME_LEVEL_END:
+			//Log.d("GameScreen", "case GAME_LEVEL_END");
 			updateLevelEnd();
 			break;
 		case GAME_OVER:
+			//Log.d("GameScreen", "case GAME_OVER");
 			updateGameOver();
 			break;
 		}
@@ -255,7 +262,7 @@ public class GameScreen extends GLScreen {
 		//1080 - 123, 1920 - 22, 100, 100
 		batcher.drawSprite(1080 - 73 , 1920 - 72, 100, 100, Assets.buttonPause);
 		//Assets.font.drawTextZoomed(batcher, scoreString, 1080 / 2 , 1920/2, 12, 12);
-		Assets.font.drawText(batcher, "S", 1080 / 2 - 200 , 1920/2);
+		//Assets.font.drawText(batcher, "Score", 1080 / 2 - 200 , 1920/2);
 		//Assets.font.drawTextZoomed(batcher, "score", 1080 / 2 - 200 , 1920/2, 2, 2);
 	}
 

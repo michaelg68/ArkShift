@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.math.OverlapTester;
 import com.badlogic.androidgames.framework.math.Vector2;
-
 import com.mmango.arkshift.Assets;
 
 public class World {
@@ -48,23 +49,31 @@ public class World {
 
 	public World(WorldListener listener) {
 		this.racquet = new Racquet(54 - 20, 2 + 10 + 5.4f);
-		this.ball = new Ball(54 - 5.4f, 2 + 10 + 5.4f, Ball.BALL_COLOR_WHITE);
+		this.ball = new Ball(54 - 5.4f, 2 + 10 + 5.4f + 5.4f, Ball.BALL_COLOR_WHITE);
 		this.bricks = new ArrayList<Brick>();
 		this.listener = listener;
 		rand = new Random();
-		generateLevel(1);
+		columns = 10;
+		generateLevel(columns, 3);
 
 		ballsLeft = 9;
-		columns = 10;
+
 		this.score = 0;
 		this.state = WORLD_STATE_RUNNING;
 	}
 
-	private void generateLevel(int rows) {
+	private void generateLevel(int columns, int rows) {
 		TextureRegion brickRegion;
 		for (int y = 0; y < rows; y++) {
+	        Log.d("World", "y = " + Integer.toString(y));
+
 			for (int x = 0; x < columns; x++) {
+		        Log.d("World", "x = " + Integer.toString(x));
+
 				int brick_color = rand.nextInt(10);
+				//int brick_color = 0;
+		        Log.d("World", "brick_color = " + Integer.toString(brick_color));
+
 				switch (brick_color) {
 				case 0:
 					brickRegion = Assets.brickGold;
@@ -101,7 +110,9 @@ public class World {
 					break;
 				}
 
-				Brick brick = new Brick(2 + 10.4f * x, 17 + 10.4f * x, brickRegion);
+				Brick brick = new Brick(2.0f + 5.2f  + 10.4f * x, 192 - 17 - 5.2f - 10.4f * y, brickRegion);
+				//2.0f + 5.2f + 10.4f, 192 - 17 - 5.2f
+				Log.d("World", "Adding a brick");
 				bricks.add(brick);
 			}
 		}
