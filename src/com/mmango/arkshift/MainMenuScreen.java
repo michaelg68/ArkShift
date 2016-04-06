@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
@@ -45,6 +47,8 @@ public class MainMenuScreen extends GLScreen {
             TouchEvent event = touchEvents.get(i);                        
             if(event.type == TouchEvent.TOUCH_UP) {
                 touchPoint.set(event.x, event.y);
+                //Log.d("GameScreen:", "event.x = " + Float.toString(event.x));
+    			//Log.d("GameScreen:", "event.y = " + Float.toString(event.y));                
                 guiCam.touchToWorld(touchPoint);
                 
                 if(OverlapTester.pointInRectangle(playBounds, touchPoint)) {

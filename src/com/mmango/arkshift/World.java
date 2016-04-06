@@ -129,6 +129,7 @@ public class World {
 	}
 
 	private void updateRacquet(float deltaTime, float accelX) {
+		
 	}
 
 	private void updateBall(float deltaTime) {

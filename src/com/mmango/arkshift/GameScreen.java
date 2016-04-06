@@ -82,9 +82,11 @@ public class GameScreen extends GLScreen {
 
 		world = new World(worldListener);
 		renderer = new WorldRenderer(glGraphics, batcher, world);
-		pauseBounds = new Rectangle(1080 - 123, 1920 - 22, 100, 100);
-		resumeBounds = new Rectangle(1080 / 2 - 350, 1050, 700, 250);
-		quitBounds = new Rectangle(1080 / 2 - 350, 800, 700, 250);
+		//remember - in Rectange x and y coordinates point to the lowerLeft corner of the rectangle! Counting from the lower left corner of the screen!
+		pauseBounds = new Rectangle(1080 - 123, 1920 - 122, 100, 100);
+		
+		resumeBounds = new Rectangle(1080 / 2 - 350, 1920 / 2, 700, 250);
+		quitBounds = new Rectangle(1080 / 2 - 350, 1920 / 2 - 250, 700, 250);
 		moveRacquetLeftTouchZone = new Rectangle(0, 0, 540, 1500);
 		moveRacquetRightTouchZone = new Rectangle(540, 0, 540, 1500);
 		lastScore = 0;
@@ -134,9 +136,12 @@ public class GameScreen extends GLScreen {
 				continue;
 
 			touchPoint.set(event.x, event.y);
+			//Log.d("GameScreen:", "event.x = " + Float.toString(event.x));
+			//Log.d("GameScreen:", "event.y = " + Float.toString(event.y));			
 			guiCam.touchToWorld(touchPoint);
 
 			if (OverlapTester.pointInRectangle(pauseBounds, touchPoint)) {
+				Log.d("GameScreen:", "touched in pauseBounds");
 				Assets.playSound(Assets.clickSound);
 				state = GAME_PAUSED;
 				return;
@@ -144,7 +149,7 @@ public class GameScreen extends GLScreen {
 
 		}
 
-		world.update(deltaTime, game.getInput().getAccelX());
+/*		world.update(deltaTime, game.getInput().getAccelX());
 		if (world.score != lastScore)
 
 		{
@@ -166,7 +171,7 @@ public class GameScreen extends GLScreen {
 				scoreString = "score: " + lastScore;
 			Settings.addScore(lastScore);
 			Settings.save(game.getFileIO());
-		}
+		}*/
 
 	}
 
@@ -268,7 +273,7 @@ public class GameScreen extends GLScreen {
 
 	private void presentPaused() {
 		batcher.drawSprite(1080 / 2, 1920 / 2, 700, 500, Assets.resumeQuitMenuRegion);
-		Assets.font.drawText(batcher, scoreString, 16, 480 - 20);
+		//Assets.font.drawText(batcher, scoreString, 16, 480 - 20);
 	}
 
 	private void presentLevelEnd() {
