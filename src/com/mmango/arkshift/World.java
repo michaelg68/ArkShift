@@ -35,8 +35,10 @@ public class World {
 	public static final int WORLD_STATE_RUNNING = 0;
 	public static final int WORLD_STATE_NEXT_LEVEL = 1;
 	public static final int WORLD_STATE_GAME_OVER = 2;
+	static final int RACQUET_MOVING_LEFT = 0;
+	static final int RACQUET_MOVING_RIGHT = 1;
 
-	public final Racquet racquet;
+	public Racquet racquet;
 	public Ball ball;
 	public final List<Brick> bricks;
 
@@ -121,16 +123,14 @@ public class World {
 	}
 
 	public void update(float deltaTime, float accelX) {
-		updateRacquet(deltaTime, accelX);
+		racquet.update(deltaTime, accelX);
 		updateBall(deltaTime);
 		updateBricks(deltaTime);
 		checkCollisions();
 		checkGameOver();
 	}
 
-	private void updateRacquet(float deltaTime, float accelX) {
-		
-	}
+
 
 	private void updateBall(float deltaTime) {
 	}
@@ -150,6 +150,17 @@ public class World {
 	private void checkGameOver() {
 		if (ballsLeft < 1) {
 			state = WORLD_STATE_GAME_OVER;
+		}
+	}
+
+	public void moveRacket(int direction, float deltaTime) {
+		if (state == WORLD_STATE_GAME_OVER)
+			return;
+		if ((direction == RACQUET_MOVING_LEFT) && (racquet.position.x >= racquet.RACQUET_WIDTH / 2)) {
+			racquet.update(-5, deltaTime);
+		}
+		if ((direction == RACQUET_MOVING_RIGHT) && (racquet.position.x <= WORLD_WIDTH / 2 - racquet.RACQUET_WIDTH / 2)) {
+			racquet.update(5, deltaTime);
 		}
 	}
 }

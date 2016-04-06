@@ -29,6 +29,7 @@ public class GameScreen extends GLScreen {
 	static final int GAME_LEVEL_END = 3;
 	static final int GAME_OVER = 4;
 
+
 	int state;
 	Camera2D guiCam;
 	Vector2 touchPoint;
@@ -87,8 +88,8 @@ public class GameScreen extends GLScreen {
 		
 		resumeBounds = new Rectangle(1080 / 2 - 350, 1920 / 2, 700, 250);
 		quitBounds = new Rectangle(1080 / 2 - 350, 1920 / 2 - 250, 700, 250);
-		moveRacquetLeftTouchZone = new Rectangle(0, 0, 540, 1500);
-		moveRacquetRightTouchZone = new Rectangle(540, 0, 540, 1500);
+		moveRacquetLeftTouchZone = new Rectangle(0, 0, 1080 /2, 1920 - 170);
+		moveRacquetRightTouchZone = new Rectangle(540, 0, 1080 /2, 1920 - 170);
 		lastScore = 0;
 		scoreString = "score: 0";
 	}
@@ -146,6 +147,19 @@ public class GameScreen extends GLScreen {
 				state = GAME_PAUSED;
 				return;
 			}
+	
+			world.update(deltaTime, calculateInputAcceleration());
+
+/*			if (OverlapTester.pointInRectangle(moveRacquetLeftTouchZone, touchPoint)) {
+				Log.d("GameScreen:", "touched in moveRacquetLeftTouchZone");
+				world.moveRacket(World.RACQUET_MOVING_LEFT, deltaTime);
+				return;
+			}
+						if (OverlapTester.pointInRectangle(moveRacquetRightTouchZone, touchPoint)) {
+				Log.d("GameScreen:", "touched in moveRacquetRightTouchZone");
+				//world.moveRacketRight();
+				return;
+			}*/
 
 		}
 
@@ -173,6 +187,27 @@ public class GameScreen extends GLScreen {
 			Settings.save(game.getFileIO());
 		}*/
 
+	}
+	
+	private float calculateInputAcceleration() {
+		float accelX = 0;
+		if (Settings.touchEnabled) {
+			for (int i = 0; i < 2; i++) {
+				if (game.getInput().isTouchDown(i)) {
+					guiCam.touchToWorld(touchPoint.set(game.getInput()
+							.getTouchX(i), game.getInput().getTouchY(i)));
+					if (OverlapTester.pointInRectangle(moveRacquetLeftTouchZone, touchPoint)) {
+						accelX = -world.racquet.RACQUET_VELOCITY / 5;
+					}
+					if (OverlapTester.pointInRectangle(moveRacquetRightTouchZone, touchPoint)) {
+						accelX = world.racquet.RACQUET_VELOCITY / 5;
+					}
+				}
+			}
+		} else {
+			accelX = game.getInput().getAccelY();
+		}
+		return accelX;
 	}
 
 	private void updatePaused() {
