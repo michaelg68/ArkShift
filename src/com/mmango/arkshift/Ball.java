@@ -28,6 +28,8 @@ public class Ball extends DynamicGameObject {
         state = BALL_STATE_STILL;
         stateTime = 0;
         this.ballTexture = ballTexture;
+        velocity.x = 20;
+        velocity.y = 100;
     }
     
     public void update(float deltaTime) {
@@ -39,11 +41,7 @@ public class Ball extends DynamicGameObject {
 			state = BALL_STATE_MOVING;
 			stateTime = 0;
 		}
-		
-		if (position.x < 0)
-			position.x = 0;
-		if (position.x > World.GAME_FIELD_WIDTH)
-			position.x = World.GAME_FIELD_WIDTH;
+
 
 		stateTime += deltaTime;
 	}

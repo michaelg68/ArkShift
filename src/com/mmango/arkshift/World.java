@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.math.OverlapTester;
+import com.badlogic.androidgames.framework.math.Rectangle;
 import com.badlogic.androidgames.framework.math.Vector2;
 import com.mmango.arkshift.Assets;
 
@@ -37,10 +38,12 @@ public class World {
 	public static final int WORLD_STATE_GAME_OVER = 2;
 	static final int RACQUET_MOVING_LEFT = 0;
 	static final int RACQUET_MOVING_RIGHT = 1;
+	static public Rectangle gameField;
 
 	public Racquet racquet;
 	public Ball ball;
 	public final List<Brick> bricks;
+	
 
 	public final WorldListener listener;
 	public final Random rand;
@@ -50,6 +53,7 @@ public class World {
 	public int state;
 
 	public World(WorldListener listener) {
+		gameField = new Rectangle(2f, 2f, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
 		rand = new Random();
 
 		this.racquet = new Racquet(108f / 2, 2 + 10f + 2.7f);
@@ -124,27 +128,27 @@ public class World {
 
 	public void update(float deltaTime, float accelX) {
 		racquet.update(deltaTime, accelX);
-		//updateBall(deltaTime);
+		updateBall(deltaTime);
 		//updateBricks(deltaTime);
-		//checkCollisions();
+		//checkBallCollisions();
 		//checkGameOver();
 	}
 
 
 
 	private void updateBall(float deltaTime) {
+		ball.update(deltaTime);
 	}
 
 	private void updateBricks(float deltaTime) {
 	}
 
-	private void checkCollisions() {
-		checkBallCollisions();
-	}
+
 
 	private void checkBallCollisions() {
-		// TODO Auto-generated method stub
-
+		if (OverlapTester.overlapRectangles(ball.bounds, gameField))
+			ball.velocity.x = -2;
+			ball.velocity.y = -100;
 	}
 
 	private void checkGameOver() {

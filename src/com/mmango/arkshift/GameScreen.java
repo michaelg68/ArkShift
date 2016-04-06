@@ -151,33 +151,6 @@ public class GameScreen extends GLScreen {
 		}
 		world.update(deltaTime, calculateInputAcceleration());
 
-		/*
-		 * if (OverlapTester.pointInRectangle(moveRacquetLeftTouchZone,
-		 * touchPoint)) { Log.d("GameScreen:",
-		 * "touched in moveRacquetLeftTouchZone");
-		 * world.moveRacket(World.RACQUET_MOVING_LEFT, deltaTime); return; } if
-		 * (OverlapTester.pointInRectangle(moveRacquetRightTouchZone,
-		 * touchPoint)) { Log.d("GameScreen:",
-		 * "touched in moveRacquetRightTouchZone"); //world.moveRacketRight();
-		 * return; }
-		 */
-
-		/*
-		 * world.update(deltaTime, game.getInput().getAccelX()); if (world.score
-		 * != lastScore)
-		 * 
-		 * { lastScore = world.score; scoreString = "" + lastScore; } if
-		 * (world.state == World.WORLD_STATE_NEXT_LEVEL)
-		 * 
-		 * { state = GAME_LEVEL_END; } if (world.state ==
-		 * World.WORLD_STATE_GAME_OVER)
-		 * 
-		 * { state = GAME_OVER; if (lastScore >= Settings.highscores[4])
-		 * scoreString = "new highscore: " + lastScore; else scoreString =
-		 * "score: " + lastScore; Settings.addScore(lastScore);
-		 * Settings.save(game.getFileIO()); }
-		 */
-
 	}
 
 	private float calculateInputAcceleration() {
