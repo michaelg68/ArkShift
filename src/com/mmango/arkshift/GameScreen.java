@@ -220,7 +220,7 @@ public class GameScreen extends GLScreen {
 			}
 		} else {
 			Log.d("GameScreen:", "Reading the Accelerometer data");
-			accelX = game.getInput().getAccelX();
+			accelX = -game.getInput().getAccelX() * 1.5f;
 			Log.d("GameScreen: Accelerometer",
 					"accelX = " + Float.toString(accelX));
 		}
