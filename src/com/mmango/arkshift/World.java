@@ -48,11 +48,16 @@ public class World {
 	public int state;
 
 	public World(WorldListener listener) {
-		this.racquet = new Racquet(54 - 20, 2 + 10 + 5.4f);
-		this.ball = new Ball(54 - 5.4f, 2 + 10 + 5.4f + 5.4f, Ball.BALL_COLOR_WHITE);
+		rand = new Random();
+
+		this.racquet = new Racquet(108f / 2, 2 + 10f + 2.7f);
+		//randomize the x coordinate of the ball on the racquet: shift it from the center of the racquet in range from -18f to +18f
+		float ballXOffset = rand.nextFloat() * 36 - 18;
+        Log.d("World", "ballXOffset = " + Float.toString(ballXOffset));
+
+		this.ball = new Ball(108f / 2 + ballXOffset, 2 + 10 + 5.4f + 2.7f, Assets.ballWhite);
 		this.bricks = new ArrayList<Brick>();
 		this.listener = listener;
-		rand = new Random();
 		columns = 10;
 		generateLevel(columns, 3);
 
@@ -65,15 +70,11 @@ public class World {
 	private void generateLevel(int columns, int rows) {
 		TextureRegion brickRegion;
 		for (int y = 0; y < rows; y++) {
-	        Log.d("World", "y = " + Integer.toString(y));
-
+	        //Log.d("World", "y = " + Integer.toString(y));
 			for (int x = 0; x < columns; x++) {
-		        Log.d("World", "x = " + Integer.toString(x));
-
+		        //Log.d("World", "x = " + Integer.toString(x));
 				int brick_color = rand.nextInt(10);
-				//int brick_color = 0;
-		        Log.d("World", "brick_color = " + Integer.toString(brick_color));
-
+		        //Log.d("World", "brick_color = " + Integer.toString(brick_color));
 				switch (brick_color) {
 				case 0:
 					brickRegion = Assets.brickGold;
@@ -112,7 +113,7 @@ public class World {
 
 				Brick brick = new Brick(2.0f + 5.2f  + 10.4f * x, 192 - 17 - 5.2f - 10.4f * y, brickRegion);
 				//2.0f + 5.2f + 10.4f, 192 - 17 - 5.2f
-				Log.d("World", "Adding a brick");
+				//Log.d("World", "Adding a brick");
 				bricks.add(brick);
 			}
 		}

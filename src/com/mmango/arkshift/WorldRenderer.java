@@ -62,7 +62,8 @@ public class WorldRenderer {
         Racquet racquet = world.racquet;
         //Log.d("WorldRenderer:renderRacquet", "inside method renderRacquet, before drawSprite");
         //batcher.drawSprite(54, 2f + 10.4f + 2.7f , 40f, 5f, Assets.racquet);
-        batcher.drawSprite(racquet.position.x + racquet.RACQUET_WIDTH / 2, racquet.position.y - racquet.RACQUET_HEIGHT / 2, 40f, 5.4f, Assets.racquet);
+        //batcher.drawSprite(racquet.position.x + racquet.RACQUET_WIDTH / 2, racquet.position.y - racquet.RACQUET_HEIGHT / 2, 40f, 5.4f, Assets.racquet);
+        batcher.drawSprite(racquet.position.x, racquet.position.y, 40f, 5.4f, Assets.racquet);
 
         //Log.d("WorldRenderer:renderRacquet", "inside method renderRacquet, after drawSprite");
        // batcher.drawSprite(racquet.position.x, racquet.position.y, 40f, 5f,	racquetRegion)
@@ -71,7 +72,8 @@ public class WorldRenderer {
     private void renderBall() {
         Ball ball = world.ball;
         //Log.d("WorldRenderer:renderBall", "inside method renderBall, before drawSprite");
-        batcher.drawSprite(ball.position.x + ball.BALL_WIDTH / 2, ball.position.y - ball.BALL_HEIGHT / 2, 5.4f, 5.4f, Assets.ballWhite);
+        //batcher.drawSprite(ball.position.x + ball.BALL_WIDTH / 2, ball.position.y - ball.BALL_HEIGHT / 2, 5.4f, 5.4f, Assets.ballWhite);
+        batcher.drawSprite(ball.position.x, ball.position.y, 5.4f, 5.4f, ball.ballTexture);
         //Log.d("WorldRenderer:renderBall", "inside method renderBall, after drawSprite");
     }
     

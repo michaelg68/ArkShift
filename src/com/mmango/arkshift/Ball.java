@@ -1,6 +1,7 @@
 package com.mmango.arkshift;
 
 import com.badlogic.androidgames.framework.DynamicGameObject;
+import com.badlogic.androidgames.framework.gl.TextureRegion;
 
 public class Ball extends DynamicGameObject {
 	public static final int BALL_STATE_STILL = 0;
@@ -12,19 +13,21 @@ public class Ball extends DynamicGameObject {
 	public static final float BALL_MOVE_VELOCITY = 0;
 	public static final float BALL_WIDTH = 40f;
 	public static final float BALL_HEIGHT = 5f;
-	public static final int BALL_COLOR_WHITE = 0;
-	public static final int BALL_COLOR_YELLOW = 1;
-	public static final int BALL_COLOR_RED = 2;
+//	public static final int BALL_COLOR_WHITE = 0;
+//	public static final int BALL_COLOR_YELLOW = 1;
+//	public static final int BALL_COLOR_RED = 2;
+	public TextureRegion ballTexture;
+
 	
-	public int color;
+	//public int color;
     int state;
     float stateTime;  
 	
-    public Ball(float x, float y, int color) {
+    public Ball(float x, float y, TextureRegion ballTexture) {
         super(x, y, BALL_WIDTH, BALL_WIDTH);
         state = BALL_STATE_STILL;
         stateTime = 0;
-        this.color = color;
+        this.ballTexture = ballTexture;
     }
     
     public void update(float deltaTime) {
@@ -68,5 +71,9 @@ public class Ball extends DynamicGameObject {
         state = BALL_STATE_HIT_FRAME;        
         stateTime = 0;
     }
+
+	public void setBallTexture(TextureRegion ballTexture) {
+		this.ballTexture = ballTexture;
+	}
 
 }
