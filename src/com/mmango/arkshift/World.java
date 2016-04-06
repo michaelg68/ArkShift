@@ -124,10 +124,10 @@ public class World {
 
 	public void update(float deltaTime, float accelX) {
 		racquet.update(deltaTime, accelX);
-		updateBall(deltaTime);
-		updateBricks(deltaTime);
-		checkCollisions();
-		checkGameOver();
+		//updateBall(deltaTime);
+		//updateBricks(deltaTime);
+		//checkCollisions();
+		//checkGameOver();
 	}
 
 
@@ -153,7 +153,7 @@ public class World {
 		}
 	}
 
-	public void moveRacket(int direction, float deltaTime) {
+/*	public void moveRacket(int direction, float deltaTime) {
 		if (state == WORLD_STATE_GAME_OVER)
 			return;
 		if ((direction == RACQUET_MOVING_LEFT) && (racquet.position.x >= racquet.RACQUET_WIDTH / 2)) {
@@ -162,5 +162,5 @@ public class World {
 		if ((direction == RACQUET_MOVING_RIGHT) && (racquet.position.x <= WORLD_WIDTH / 2 - racquet.RACQUET_WIDTH / 2)) {
 			racquet.update(5, deltaTime);
 		}
-	}
+	}*/
 }
