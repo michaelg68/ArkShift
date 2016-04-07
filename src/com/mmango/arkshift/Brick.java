@@ -6,8 +6,8 @@ import com.badlogic.androidgames.framework.gl.TextureRegion;
 public class Brick extends DynamicGameObject {
 	public static final int BRICK_STATE_STILL = 0;
 	public static final int BRICK_STATE_MOVING = 1;
-	public static final float BRICK_WIDTH = 40f;
-	public static final float BRICK_HEIGHT = 5f;
+	public static final float BRICK_WIDTH = 10.4f;
+	public static final float BRICK_HEIGHT = 10.4f;
 	
 /*	public static final int BRICK_COLOR_GOLD = 0;
 	public static final int BRICK_COLOR_GREEN = 1;

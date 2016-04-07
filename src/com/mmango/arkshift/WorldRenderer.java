@@ -10,13 +10,12 @@ import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLGraphics;
 import com.mmango.arkshift.Assets;
 import com.mmango.arkshift.World;
+import com.mmango.arkshift.Racquet;
 
 public class WorldRenderer {
 	
 	//static final float FRUSTUM_WIDTH = 10;
     //static final float FRUSTUM_HEIGHT = 15; 
-	final float WORLD_HEIGHT = 192f;
-	final float WORLD_WIDTH = 108f;
     GLGraphics glGraphics;
     World world;
     Camera2D cam;
@@ -26,7 +25,7 @@ public class WorldRenderer {
         this.glGraphics = glGraphics;
         this.world = world;
         //this.cam = new Camera2D(glGraphics, FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
-		this.cam = new Camera2D(glGraphics, WORLD_WIDTH, WORLD_HEIGHT);
+		this.cam = new Camera2D(glGraphics, World.WORLD_WIDTH, World.WORLD_HEIGHT);
 
         this.batcher = batcher;        
     }
@@ -40,7 +39,7 @@ public class WorldRenderer {
     
     public void renderBackground() {
         batcher.beginBatch(Assets.gameScreenBackground);
-        batcher.drawSprite(cam.position.x, cam.position.y, WORLD_WIDTH, WORLD_HEIGHT, 
+        batcher.drawSprite(cam.position.x, cam.position.y, World.WORLD_WIDTH, World.WORLD_HEIGHT, 
                            Assets.gameScreenBackgroundRegion);
         batcher.endBatch();
     }
@@ -63,7 +62,7 @@ public class WorldRenderer {
         //Log.d("WorldRenderer:renderRacquet", "inside method renderRacquet, before drawSprite");
         //batcher.drawSprite(54, 2f + 10.4f + 2.7f , 40f, 5f, Assets.racquet);
         //batcher.drawSprite(racquet.position.x + racquet.RACQUET_WIDTH / 2, racquet.position.y - racquet.RACQUET_HEIGHT / 2, 40f, 5.4f, Assets.racquet);
-        batcher.drawSprite(racquet.position.x, racquet.position.y, 40f, 5.4f, Assets.racquet);
+        batcher.drawSprite(racquet.position.x, racquet.position.y, Racquet.RACQUET_WIDTH, Racquet.RACQUET_HEIGHT, Assets.racquet);
 
         //Log.d("WorldRenderer:renderRacquet", "inside method renderRacquet, after drawSprite");
        // batcher.drawSprite(racquet.position.x, racquet.position.y, 40f, 5f,	racquetRegion)

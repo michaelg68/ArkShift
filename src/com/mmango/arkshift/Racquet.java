@@ -7,7 +7,7 @@ public class Racquet extends DynamicGameObject {
 	public static final int RACQUET_STATE_STILL = 0;
 	public static final int RACQUET_STATE_MOVING_LEFT = 1;
 	public static final int RACQUET_STATE_MOVING_RIGHT = 2;
-	public static final float RACQUET_MOVE_VELOCITY = 0;
+	//public static final float RACQUET_MOVE_VELOCITY = 0;
 	public static final float RACQUET_WIDTH = 40f;
 	public static final float RACQUET_HEIGHT = 5f;
 	static float RACQUET_VELOCITY = 10f;

@@ -11,6 +11,7 @@ import com.badlogic.androidgames.framework.math.OverlapTester;
 import com.badlogic.androidgames.framework.math.Rectangle;
 import com.badlogic.androidgames.framework.math.Vector2;
 import com.mmango.arkshift.Assets;
+import com.mmango.arkshift.Racquet;
 
 public class World {
 	public interface WorldListener {
@@ -29,16 +30,21 @@ public class World {
 		public void levelPassed();
 	}
 
-	public static final float WORLD_HEIGHT = 192;
-	public static final float WORLD_WIDTH = 108;
-	public static final float GAME_FIELD_HEIGHT = 192 - 2 - 2 - 15;
-	public static final float GAME_FIELD_WIDTH = 108 - 2 - 2;
+	public static final float WORLD_HEIGHT = 192f;
+	public static final float WORLD_WIDTH = 108f;
+	public static final float NOTIFICATION_AREA_HEIGHT = 15f;
+	public static final float NOTIFICATION_AREA_WIDTH = 108f;
+	public static final float FRAME_WIDTH = 2f;
+	public static final float GAME_FIELD_HEIGHT = WORLD_HEIGHT - FRAME_WIDTH - FRAME_WIDTH - NOTIFICATION_AREA_HEIGHT;
+	public static final float GAME_FIELD_WIDTH = WORLD_WIDTH - FRAME_WIDTH - FRAME_WIDTH;
+	
 	public static final int WORLD_STATE_RUNNING = 0;
 	public static final int WORLD_STATE_NEXT_LEVEL = 1;
 	public static final int WORLD_STATE_GAME_OVER = 2;
-	static final int RACQUET_MOVING_LEFT = 0;
-	static final int RACQUET_MOVING_RIGHT = 1;
-	static public Rectangle gameField;
+	public static final int RACQUET_MOVING_LEFT = 0;
+	public static final int RACQUET_MOVING_RIGHT = 1;
+	
+	public static Rectangle gameField;
 
 	public Racquet racquet;
 	public Ball ball;
@@ -51,21 +57,24 @@ public class World {
 	public int columns;
 	public int score;
 	public int state;
+	public int level;
 
 	public World(WorldListener listener) {
-		gameField = new Rectangle(2f, 2f, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
+		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
 		rand = new Random();
+		level = 1;
 
-		this.racquet = new Racquet(108f / 2, 2 + 10f + 2.7f);
+		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH + Brick.BRICK_WIDTH * level + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
 		//randomize the x coordinate of the ball on the racquet: shift it from the center of the racquet in range from -18f to +18f
-		float ballXOffset = rand.nextFloat() * 36 - 18;
-        Log.d("World", "ballXOffset = " + Float.toString(ballXOffset));
+		float ballXOffset = rand.nextFloat() * (Racquet.RACQUET_WIDTH * 0.8f) - (Racquet.RACQUET_WIDTH * 0.8f) / 2;
+        //Log.d("World", "ballXOffset = " + Float.toString(ballXOffset));
 
-		this.ball = new Ball(108f / 2 + ballXOffset, 2 + 10 + 5.4f + 2.7f, Assets.ballWhite);
+		this.ball = new Ball(WORLD_WIDTH / 2 + ballXOffset, FRAME_WIDTH + Brick.BRICK_WIDTH 
+				+ Racquet.RACQUET_HEIGHT + Ball.BALL_DIAMETER / 2, Assets.ballWhite);
 		this.bricks = new ArrayList<Brick>();
 		this.listener = listener;
 		columns = 10;
-		generateLevel(columns, 3);
+		generateLevel(columns, level);
 
 		ballsLeft = 9;
 
@@ -117,7 +126,7 @@ public class World {
 					break;
 				}
 
-				Brick brick = new Brick(2.0f + 5.2f  + 10.4f * x, 192 - 17 - 5.2f - 10.4f * y, brickRegion);
+				Brick brick = new Brick(FRAME_WIDTH + Brick.BRICK_WIDTH / 2  + Brick.BRICK_WIDTH * x, 192 - 17 - 5.2f - 10.4f * y, brickRegion);
 				//2.0f + 5.2f + 10.4f, 192 - 17 - 5.2f
 				//Log.d("World", "Adding a brick");
 				bricks.add(brick);
@@ -129,8 +138,9 @@ public class World {
 	public void update(float deltaTime, float accelX) {
 		racquet.update(deltaTime, accelX);
 		updateBall(deltaTime);
+		checkBallCollisions();
 		//updateBricks(deltaTime);
-		//checkBallCollisions();
+
 		//checkGameOver();
 	}
 
@@ -146,9 +156,13 @@ public class World {
 
 
 	private void checkBallCollisions() {
-		if (OverlapTester.overlapRectangles(ball.bounds, gameField))
-			ball.velocity.x = -2;
-			ball.velocity.y = -100;
+		if (! OverlapTester.overlapRectangles(ball.bounds, gameField)) {
+		//if (ball.position.y >= GAME_FIELD_HEIGHT) {
+			Log.d("World:checkBallCollisions", "ball.position.y = " + Float.toString(ball.position.y));
+			//ball.velocity.x = -2;
+			//ball.velocity.y = -100;
+			ball.velocity.mul(-1);
+		}
 	}
 
 	private void checkGameOver() {
@@ -156,15 +170,4 @@ public class World {
 			state = WORLD_STATE_GAME_OVER;
 		}
 	}
-
-/*	public void moveRacket(int direction, float deltaTime) {
-		if (state == WORLD_STATE_GAME_OVER)
-			return;
-		if ((direction == RACQUET_MOVING_LEFT) && (racquet.position.x >= racquet.RACQUET_WIDTH / 2)) {
-			racquet.update(-5, deltaTime);
-		}
-		if ((direction == RACQUET_MOVING_RIGHT) && (racquet.position.x <= WORLD_WIDTH / 2 - racquet.RACQUET_WIDTH / 2)) {
-			racquet.update(5, deltaTime);
-		}
-	}*/
 }
