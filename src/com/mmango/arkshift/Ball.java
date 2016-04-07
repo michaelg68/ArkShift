@@ -1,9 +1,9 @@
 package com.mmango.arkshift;
 
-import com.badlogic.androidgames.framework.DynamicGameObject;
+import com.badlogic.androidgames.framework.DynamicGameObjectCircle;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 
-public class Ball extends DynamicGameObject {
+public class Ball extends DynamicGameObjectCircle {
 	public static final int BALL_STATE_STILL = 0;
 	public static final int BALL_STATE_MOVING = 1;
 	public static final int BALL_STATE_HIT_RACQUET = 2;
@@ -24,18 +24,19 @@ public class Ball extends DynamicGameObject {
     float stateTime;  
 	
     public Ball(float x, float y, TextureRegion ballTexture) {
-        super(x, y, BALL_DIAMETER, BALL_DIAMETER);
+        super(x, y, BALL_DIAMETER / 2);
         state = BALL_STATE_STILL;
         stateTime = 0;
         this.ballTexture = ballTexture;
-        velocity.x = 20;
-        velocity.y = 100;
+        //velocity.x = 20;
+        //velocity.y = 100;
+        velocity.set(20, 100);
     }
     
     public void update(float deltaTime) {
 		//velocity.add(0 * deltaTime, 0 * deltaTime);
 		position.add(velocity.x * deltaTime, velocity.y * deltaTime);
-		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
+		bounds.center.set(position);
 
 		if (velocity.x != 0 || velocity.y != 0) {
 			state = BALL_STATE_MOVING;

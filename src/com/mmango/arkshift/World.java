@@ -156,7 +156,9 @@ public class World {
 
 
 	private void checkBallCollisions() {
-		if (! OverlapTester.overlapRectangles(ball.bounds, gameField)) {
+		
+		
+		if (! OverlapTester.circleCompletelyInsideRectangle(ball.bounds, gameField)) {
 		//if (ball.position.y >= GAME_FIELD_HEIGHT) {
 			Log.d("World:checkBallCollisions", "ball.position.y = " + Float.toString(ball.position.y));
 			//ball.velocity.x = -2;
