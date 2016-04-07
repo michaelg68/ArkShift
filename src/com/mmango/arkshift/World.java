@@ -156,16 +156,33 @@ public class World {
 
 
 	private void checkBallCollisions() {
-		
-		
+		int breaktrhough = OverlapTester.circleCompletelyInsideRectangle(ball.bounds, gameField);
+		if (breaktrhough == 1) {
+			//X collision
+			ball.velocity.y = ball.velocity.y * (-1);
+		} else if (breaktrhough == 2){
+			//Y collision
+			ball.velocity.x = ball.velocity.x * (-1);
+		}
+	}
+	
+/*	private void checkBallCollisions() {
 		if (! OverlapTester.circleCompletelyInsideRectangle(ball.bounds, gameField)) {
 		//if (ball.position.y >= GAME_FIELD_HEIGHT) {
 			Log.d("World:checkBallCollisions", "ball.position.y = " + Float.toString(ball.position.y));
 			//ball.velocity.x = -2;
 			//ball.velocity.y = -100;
-			ball.velocity.mul(-1);
+			//ball.velocity.mul(-1);
+			float angleX = ball.velocity.angle();
+			float angleB = 90 - (angleX - 180);
+			float angleRotate = 180 + 2 * angleB;
+			ball.velocity.rotate(angleRotate);
+
+			Log.d("World:checkBallCollisions", "angleX = " + Float.toString(angleX));
+			Log.d("World:checkBallCollisions", "angleRotate = " + Float.toString(angleRotate));
+
 		}
-	}
+	}*/
 
 	private void checkGameOver() {
 		if (ballsLeft < 1) {

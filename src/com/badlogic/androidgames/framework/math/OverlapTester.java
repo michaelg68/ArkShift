@@ -40,7 +40,31 @@ public class OverlapTester {
         return c.center.distSquared(closestX, closestY) < c.radius * c.radius;           
     }
     
-    public static boolean circleCompletelyInsideRectangle(Circle c, Rectangle r) {
+    
+    public static int circleCompletelyInsideRectangle(Circle c, Rectangle r) {
+    	//to test if the circle is COMPLETELY inside the Rectangle 
+    	int inside = 0;
+    	//inside 0 -> no collision; 1 -> collision x, 2 -> collision y//
+        
+        if(c.center.x - c.radius < r.lowerLeft.x ) {
+            inside = 2; 
+        } 
+        else if(c.center.x + c.radius > r.lowerLeft.x + r.width) {
+            inside = 2; 
+        }
+        else if(c.center.y - c.radius < r.lowerLeft.y) {
+            inside = 1; 
+        } 
+        else if(c.center.y + c.radius > r.lowerLeft.y + r.height) {
+            inside = 1; 
+        }
+        
+        //Log.d("OverlapTester:circleCompletelyInsideRectangle", "inside=" + Boolean.toString(inside));
+
+        return inside;           
+    }
+    
+/*    public static boolean circleCompletelyInsideRectangle(Circle c, Rectangle r) {
     	//to test if the circle is COMPLETELY inside the Rectangle 
         boolean inside = true;
         if(c.center.x - c.radius < r.lowerLeft.x ) {
@@ -56,10 +80,10 @@ public class OverlapTester {
             inside = false; 
         }
         
-        Log.d("OverlapTester:circleCompletelyInsideRectangle", "inside=" + Boolean.toString(inside));
+        //Log.d("OverlapTester:circleCompletelyInsideRectangle", "inside=" + Boolean.toString(inside));
 
         return inside;           
-    }
+    }*/
     
 /*    public static boolean circleCompletelyInsideRectangle(Circle c, Rectangle r) {
     	//to test if the circle is COMPLETELY inside the Rectangle 
