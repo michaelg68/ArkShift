@@ -156,13 +156,54 @@ public class World {
 
 
 	private void checkBallCollisions() {
+		checkBallCollisionsWithFrame();
+		checkBallCollisionsWithRacquet();
+		
+	}
+	
+	private void checkBallCollisionsWithFrame() {
 		int breaktrhough = OverlapTester.circleCompletelyInsideRectangle(ball.bounds, gameField);
 		if (breaktrhough == 1) {
 			//X collision
+			//ball.position.y = 
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == 2){
 			//Y collision
+			//ball.position.x =
 			ball.velocity.x = ball.velocity.x * (-1);
+		}
+	}
+	
+	private void checkBallCollisionsWithRacquet() {
+		boolean racquetContact = OverlapTester.overlapCircleRectangle(ball.bounds, racquet.bounds);
+		//Log.d("World:checkBallCollisionsWithRacquet", "racquetContact = " + racquetContact );
+		if (racquetContact) {
+			Log.d("World:checkBallCollisionsWithRacquet", "there was a contact!" );
+			
+			Log.d("World:checkBallCollisionsWithRacquet", "oldAngle = " + ball.velocity.angle());
+			Log.d("World:checkBallCollisionsWithRacquet", "racquetAngle = " + racquet.velocity.angle());
+
+			ball.velocity.y = ball.velocity.y * (-1);
+			
+			float angleTmp = ball.velocity.angle();
+			Log.d("World:checkBallCollisionsWithRacquet", "angleTmp = " + angleTmp);
+			
+			//Create a copy of ball.velocity
+			Vector2 ballVelocityCopy = ball.velocity.cpy();
+			
+			//get sum of ballVelocityCopy and racquet.velocity
+			ballVelocityCopy.add(racquet.velocity);
+			
+			//get the angle between the temp ballVelocityCopy and X 
+			float angle = ballVelocityCopy.angle();
+			Log.d("World:checkBallCollisionsWithRacquet", "angle = " + angle);
+
+			
+			//rotate ball.velocity on that angle
+			ball.velocity.rotate(angle - angleTmp );
+			Log.d("World:checkBallCollisionsWithRacquet", "newAngle = " + ball.velocity.angle());
+			
+
 		}
 	}
 	

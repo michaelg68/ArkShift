@@ -30,7 +30,8 @@ public class Racquet extends DynamicGameObject {
 			position.x = 2f + RACQUET_WIDTH / 2;
 		if (position.x + RACQUET_WIDTH / 2 > World.GAME_FIELD_WIDTH + 2f)
 			position.x = World.GAME_FIELD_WIDTH + 2f - RACQUET_WIDTH / 2;
-
+		//bounds.lowerLeftposition.x - RACQUET_WIDTH, position.y - RACQUET_HEIGHT, RACQUET_WIDTH, RACQUET_HEIGHT);
+		bounds.lowerLeft.set(position).sub(RACQUET_WIDTH / 2, RACQUET_HEIGHT / 2);
 		/*
 		 * if (velocity.x > 0) { state = RACQUET_STATE_MOVING_RIGHT; stateTime =
 		 * 0; }
