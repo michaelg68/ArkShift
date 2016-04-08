@@ -9,6 +9,7 @@ import android.util.Log;
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
+import com.badlogic.androidgames.framework.gl.FPSCounter;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
 import com.badlogic.androidgames.framework.impl.GLScreen;
 import com.badlogic.androidgames.framework.math.OverlapTester;
@@ -20,6 +21,8 @@ import com.mmango.arkshift.Settings;
 import com.mmango.arkshift.World;
 import com.mmango.arkshift.WorldRenderer;
 import com.mmango.arkshift.World.WorldListener;
+import com.badlogic.androidgames.framework.gl.FPSCounter;
+
 
 public class GameScreen extends GLScreen {
 
@@ -51,6 +54,7 @@ public class GameScreen extends GLScreen {
 	Rectangle moveRacquetRightTouchZone;
 	int lastScore;
 	String scoreString;
+	FPSCounter fpsCounter;
 	
 
 	public GameScreen(Game game) {
@@ -102,6 +106,7 @@ public class GameScreen extends GLScreen {
 		moveRacquetRightTouchZone = new Rectangle(RESOLUTION_X / 2, 0, RESOLUTION_X, RESOLUTION_Y - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH);
 		lastScore = 0;
 		scoreString = "score: 0";
+		fpsCounter = new FPSCounter();
 	}
 
 	@Override
@@ -288,6 +293,8 @@ public class GameScreen extends GLScreen {
 		}
 		batcher.endBatch();
 		gl.glDisable(GL10.GL_BLEND);
+		fpsCounter.logFrame();
+
 	}
 
 	private void presentReady() {

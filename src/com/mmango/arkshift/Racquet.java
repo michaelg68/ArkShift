@@ -1,5 +1,7 @@
 package com.mmango.arkshift;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.DynamicGameObject;
 import com.mmango.arkshift.World;
 
@@ -10,6 +12,7 @@ public class Racquet extends DynamicGameObject {
 	//public static final float RACQUET_MOVE_VELOCITY = 0;
 	public static final float RACQUET_WIDTH = 40f;
 	public static final float RACQUET_HEIGHT = 5f;
+	//static float RACQUET_ACCELERATION = 100f;
 	static float RACQUET_VELOCITY = 10f;
 
 	int state;
@@ -22,8 +25,11 @@ public class Racquet extends DynamicGameObject {
 	}
 
 	public void update(float deltaTime, float accelX) {
+        //accel.add(RACQUET_VELOCITY, 0);
 
 		velocity.set(accelX * RACQUET_VELOCITY, 0);
+		//velocity.add(RACQUET_ACCELERATION * deltaTime, 0);
+		//Log.d("Racquet:update", "velocity.x = " + velocity.x);
 		position.add(velocity.x * deltaTime, 0);
 
 		if (position.x - RACQUET_WIDTH / 2 < 2f)

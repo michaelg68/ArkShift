@@ -1,5 +1,7 @@
 package com.mmango.arkshift;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.DynamicGameObjectCircle;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 
@@ -37,6 +39,11 @@ public class Ball extends DynamicGameObjectCircle {
 		//velocity.add(0 * deltaTime, 0 * deltaTime);
 		position.add(velocity.x * deltaTime, velocity.y * deltaTime);
 		bounds.center.set(position);
+		Log.d("Ball:update", "position.x = " + position.x);
+		Log.d("Ball:update", "position.y = " + position.y);
+		Log.d("Ball:update", "velocity.x = " + velocity.x);
+		Log.d("Ball:update", "velocity.y = " + velocity.y);
+
 
 		if (velocity.x != 0 || velocity.y != 0) {
 			state = BALL_STATE_MOVING;

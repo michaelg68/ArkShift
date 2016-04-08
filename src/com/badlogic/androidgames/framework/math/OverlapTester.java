@@ -43,25 +43,31 @@ public class OverlapTester {
     
     public static int circleCompletelyInsideRectangle(Circle c, Rectangle r) {
     	//to test if the circle is COMPLETELY inside the Rectangle 
-    	int inside = 0;
-    	//inside 0 -> no collision; 1 -> collision x, 2 -> collision y//
+    	int border = 0;
+    	final int TOP_BORDER = 1;
+    	final int BOTTOM_BORDER = 2;
+    	final int LEFT_BORDER = 3;
+    	final int RIGHT_BORDER = 4;
+    	
+    	
+    	////
         
         if(c.center.x - c.radius < r.lowerLeft.x ) {
-            inside = 2; 
+        	border = LEFT_BORDER; 
         } 
         else if(c.center.x + c.radius > r.lowerLeft.x + r.width) {
-            inside = 2; 
+        	border = RIGHT_BORDER; 
         }
         else if(c.center.y - c.radius < r.lowerLeft.y) {
-            inside = 1; 
+        	border = BOTTOM_BORDER; 
         } 
         else if(c.center.y + c.radius > r.lowerLeft.y + r.height) {
-            inside = 1; 
+        	border = TOP_BORDER; 
         }
         
-        //Log.d("OverlapTester:circleCompletelyInsideRectangle", "inside=" + Boolean.toString(inside));
+        //Log.d("OverlapTester:circleCompletelyInsideRectangle", "border=" + Boolean.toString(border));
 
-        return inside;           
+        return border;           
     }
     
 /*    public static boolean circleCompletelyInsideRectangle(Circle c, Rectangle r) {
