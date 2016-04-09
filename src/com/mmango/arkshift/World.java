@@ -264,6 +264,8 @@ public class World {
 		int len = floorBricks.size();
 		for (int i = 0; i < len; i++) {
 			Brick brick = floorBricks.get(i);
+			Log.d("World:checkBallCollisionsWithFloorBricks", "brick id = " + i);
+
 			if(OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) && 
 					brick.state == Brick.BRICK_STATE_STILL) {
 				Log.d("World:checkBallCollisionsWithFloorBricks", "brick.position.x = " + brick.position.x);
