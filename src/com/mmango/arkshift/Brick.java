@@ -1,11 +1,15 @@
 package com.mmango.arkshift;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.DynamicGameObject;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 
 public class Brick extends DynamicGameObject {
 	public static final int BRICK_STATE_STILL = 0;
-	public static final int BRICK_STATE_MOVING = 1;
+	public static final int BRICK_STATE_MOVING_DOWN = 1;
+	public static final int BRICK_STATE_MOVING_UP = 2;
+
 	public static final float BRICK_WIDTH = 10.4f;
 	public static final float BRICK_HEIGHT = 10.4f;
 	
@@ -37,10 +41,10 @@ public class Brick extends DynamicGameObject {
 		position.add(velocity.x * deltaTime, velocity.y * deltaTime);
 		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
 
-		if (velocity.y != 0 || velocity.y != 0) {
+/*		if (velocity.y != 0) {
 			state = BRICK_STATE_MOVING;
 			stateTime = 0;
-		}
+		}*/
 		
 		if (position.y < 0)
 			position.y = 0;
@@ -49,6 +53,16 @@ public class Brick extends DynamicGameObject {
 
 		stateTime += deltaTime;
 	}
+    
+    public void moveDown() {
+    	state=Brick.BRICK_STATE_MOVING_DOWN;
+    	Log.d("Brick:moveDown", "moving the brick down");
+    }
+
+    public void moveUp() {
+    	state=Brick.BRICK_STATE_MOVING_UP;
+    	Log.d("Brick:moveUp", "moving the brick up");
+    }
 
 
 }

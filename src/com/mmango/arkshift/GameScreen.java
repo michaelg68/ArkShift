@@ -293,7 +293,7 @@ public class GameScreen extends GLScreen {
 		}
 		batcher.endBatch();
 		gl.glDisable(GL10.GL_BLEND);
-		fpsCounter.logFrame();
+		//fpsCounter.logFrame();
 
 	}
 

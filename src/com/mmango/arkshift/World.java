@@ -55,7 +55,8 @@ public class World {
 
 	public Racquet racquet;
 	public Ball ball;
-	public final List<Brick> bricks;
+	public final List<Brick> ceilingBricks;
+	public final List<Brick> floorBricks;
 
 	public final WorldListener listener;
 	public final Random rand;
@@ -82,7 +83,8 @@ public class World {
 		this.ball = new Ball(WORLD_WIDTH / 2 + ballXOffset, FRAME_WIDTH
 				+ Brick.BRICK_WIDTH + Racquet.RACQUET_HEIGHT
 				+ Ball.BALL_DIAMETER / 2, Assets.ballWhite);
-		this.bricks = new ArrayList<Brick>();
+		this.ceilingBricks = new ArrayList<Brick>();
+		this.floorBricks = new ArrayList<Brick>();
 		this.listener = listener;
 		columns = 10;
 		generateLevel(columns, level);
@@ -139,11 +141,11 @@ public class World {
 				}
 
 				Brick brick = new Brick(FRAME_WIDTH + Brick.BRICK_WIDTH / 2
-						+ Brick.BRICK_WIDTH * x, 192 - 17 - 5.2f - 10.4f * y,
-						brickRegion);
+						+ Brick.BRICK_WIDTH * x, WORLD_HEIGHT - NOTIFICATION_AREA_HEIGHT 
+						- FRAME_WIDTH - Brick.BRICK_WIDTH / 2 - Brick.BRICK_WIDTH * y, brickRegion);
 				// 2.0f + 5.2f + 10.4f, 192 - 17 - 5.2f
 				// Log.d("World", "Adding a brick");
-				bricks.add(brick);
+				ceilingBricks.add(brick);
 			}
 		}
 
@@ -168,6 +170,8 @@ public class World {
 	private void checkBallCollisions() {
 		checkBallCollisionsWithFrame();
 		checkBallCollisionsWithRacquet();
+		checkBallCollisionsWithCeilingBricks();
+		checkBallCollisionsWithFloorBricks();
 
 	}
 
@@ -227,6 +231,57 @@ public class World {
 			Log.d("World:checkBallCollisionsWithRacquet", "newAngle = "
 					+ ball.velocity.angle());
 
+		}
+	}
+	
+	private void checkBallCollisionsWithCeilingBricks(){
+		int len = ceilingBricks.size();
+		for (int i = 0; i < len; i++) {
+			Brick brick = ceilingBricks.get(i);
+			if(OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) && 
+					brick.state == Brick.BRICK_STATE_STILL) {
+				ball.velocity.y = ball.velocity.y * (-1);
+				listener.hitAtBrick();
+				brick.moveDown();
+				listener.shiftBrick();
+				ceilingBricks.remove(i);
+				brick.position.y = FRAME_WIDTH + Brick.BRICK_WIDTH / 2;
+				Log.d("World:checkBallCollisionsWithCeilingBricks", "Before. brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
+				brick.bounds.lowerLeft.set(brick.position).sub(brick.bounds.width / 2, brick.bounds.height / 2);
+				Log.d("World:checkBallCollisionsWithCeilingBricks", "After. brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
+				
+				floorBricks.add(brick);
+				Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.position.x = " + brick.position.x);
+				Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.position.y = " + brick.position.y);
+				i--;
+				len--;
+				break;
+			}
+		}
+	}
+
+	private void checkBallCollisionsWithFloorBricks(){
+		int len = floorBricks.size();
+		for (int i = 0; i < len; i++) {
+			Brick brick = floorBricks.get(i);
+			if(OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) && 
+					brick.state == Brick.BRICK_STATE_STILL) {
+				Log.d("World:checkBallCollisionsWithFloorBricks", "brick.position.x = " + brick.position.x);
+				Log.d("World:checkBallCollisionsWithFloorBricks", "brick.position.x = " + brick.position.x);
+
+				ball.velocity.y = ball.velocity.y * (-1);
+				listener.hitAtBrick();
+				brick.moveUp();
+				listener.shiftBrick();
+				floorBricks.remove(i);
+				brick.position.y = WORLD_HEIGHT - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH - Brick.BRICK_WIDTH / 2;
+				brick.bounds.lowerLeft.set(brick.position).sub(brick.bounds.width / 2, brick.bounds.height / 2);
+
+				ceilingBricks.add(brick);
+				i--;
+				len--;
+				break;
+			}
 		}
 	}
 
