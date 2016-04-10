@@ -51,6 +51,7 @@ public class World {
 	public static final int RACQUET_MOVING_LEFT = 0;
 	public static final int RACQUET_MOVING_RIGHT = 1;
 	public static final int COLUMNS = 10;
+	public static final int NO_OBJECT_ID = 99999;
 
 	public static Rectangle gameField;
 
@@ -72,7 +73,7 @@ public class World {
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
 		rand = new Random();
-		level = 1;
+		level = 2;
 
 		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH
 				+ Brick.BRICK_WIDTH * level + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
@@ -153,7 +154,7 @@ public class World {
 				ceilingBricksId[x][y] = brickId;
 				brickId++;
 				//populate the floorBricksId array with 99999 which stands for "there is no brick"
-				floorBricksId[x][y] = 99999;  
+				floorBricksId[x][y] = NO_OBJECT_ID;  
 			}
 		}
 
@@ -258,20 +259,23 @@ public class World {
 		int len = ceilingBricks.size();
 		for (int i = 0; i < len; i++) {
 			Brick brick = ceilingBricks.get(i);
-			if(OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) && 
-					brick.state == Brick.BRICK_STATE_STILL) {
+			Log.d("World:checkBallCollisionsWithCeilingBricks", "brick id = " + i);
+			Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
+			Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
+
+			if(OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds)) {
+				Log.d("World:checkBallCollisionsWithCeilingBricks", "A collision with a ceiling brick just happened!");
 				ball.velocity.y = ball.velocity.y * (-1);
 				listener.hitAtBrick();
-				brick.moveDown();
-				listener.shiftBrick();
+				int column = brick.column;
+				int row = brick.row;
 				ceilingBricks.remove(i);
-				brick.position.y = FRAME_WIDTH + Brick.BRICK_WIDTH / 2;
-//				Log.d("World:checkBallCollisionsWithCeilingBricks", "Before. brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
-				brick.bounds.lowerLeft.set(brick.position).sub(brick.bounds.width / 2, brick.bounds.height / 2);
-//				Log.d("World:checkBallCollisionsWithCeilingBricks", "After. brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
+				ceilingBricksId[column][row] = NO_OBJECT_ID;
+				brick.atCeiling = false;
+				int nextId=floorBricks.size();
+				floorBricksId[column][row] = nextId;
 				floorBricks.add(brick);
-//				Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.position.x = " + brick.position.x);
-//				Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.position.y = " + brick.position.y);
+				brick.move();
 				i--;
 				len--;
 				break;
@@ -281,29 +285,20 @@ public class World {
 
 	private void checkBallCollisionsWithFloorBricks(){
 		int len = floorBricks.size();
-//		Log.d("World:checkBallCollisionsWithFloorBricks", "ball.bounds.center.x = " + ball.bounds.center.x);
-//		Log.d("World:checkBallCollisionsWithFloorBricks", "ball.bounds.center.y = " + ball.bounds.center.y);
 		for (int i = 0; i < len; i++) {
 			Brick brick = floorBricks.get(i);
-//			Log.d("World:checkBallCollisionsWithFloorBricks", "brick id = " + i);
-//			Log.d("World:checkBallCollisionsWithFloorBricks", "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
-//			Log.d("World:checkBallCollisionsWithFloorBricks", "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
-			brick.bounds.lowerLeft.set(brick.position).sub(brick.bounds.width / 2, brick.bounds.height / 2);
-
-
-			if(OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) && 
-					brick.state == Brick.BRICK_STATE_STILL) {
-				//Log.d("World:checkBallCollisionsWithFloorBricks", "brick.position.x = " + brick.position.x);
-				//Log.d("World:checkBallCollisionsWithFloorBricks", "brick.position.x = " + brick.position.x);
-
+			if(OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds)) {
 				ball.velocity.y = ball.velocity.y * (-1);
 				listener.hitAtBrick();
-				brick.moveUp();
-				listener.shiftBrick();
+				int column = brick.column;
+				int row = brick.row;
 				floorBricks.remove(i);
-				brick.position.y = WORLD_HEIGHT - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH - Brick.BRICK_WIDTH / 2;
-				brick.bounds.lowerLeft.set(brick.position).sub(brick.bounds.width / 2, brick.bounds.height / 2);
+				floorBricksId[column][row] = NO_OBJECT_ID;
+				brick.atCeiling = true;
+				int nextId=ceilingBricks.size();
+				ceilingBricksId[column][row] = nextId;
 				ceilingBricks.add(brick);
+				brick.move();
 				i--;
 				len--;
 				break;

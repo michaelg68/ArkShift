@@ -72,7 +72,7 @@ public class WorldRenderer {
         Ball ball = world.ball;
         //Log.d("WorldRenderer:renderBall", "inside method renderBall, before drawSprite");
         //batcher.drawSprite(ball.position.x + ball.BALL_WIDTH / 2, ball.position.y - ball.BALL_HEIGHT / 2, 5.4f, 5.4f, Assets.ballWhite);
-        batcher.drawSprite(ball.position.x, ball.position.y, 5.4f, 5.4f, ball.ballTexture);
+        batcher.drawSprite(ball.position.x, ball.position.y, Ball.BALL_DIAMETER, Ball.BALL_DIAMETER, ball.ballTexture);
         //Log.d("WorldRenderer:renderBall", "inside method renderBall, after drawSprite");
     }
     
@@ -85,7 +85,7 @@ public class WorldRenderer {
         for(int i = 0; i < lenCeiling; i++) {
             Brick brick = world.ceilingBricks.get(i);
             //Log.d("WorldRenderer", "inside method renderBricks, before drawSprite");
-            batcher.drawSprite(brick.position.x, brick.position.y, 10.4f, 10.4f, brick.brickTexture);
+            batcher.drawSprite(brick.position.x, brick.position.y, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brick.brickTexture);
         }
         
         int lenFloor = world.floorBricks.size();
@@ -94,7 +94,7 @@ public class WorldRenderer {
         for(int i = 0; i < lenFloor; i++) {
             Brick brick = world.floorBricks.get(i);
             //Log.d("WorldRenderer", "inside method renderBricks, before drawSprite");
-            batcher.drawSprite(brick.position.x, brick.position.y, 10.4f, 10.4f, brick.brickTexture);
+            batcher.drawSprite(brick.position.x, brick.position.y, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brick.brickTexture);
         }
     }
 }

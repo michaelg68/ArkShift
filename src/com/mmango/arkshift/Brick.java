@@ -9,6 +9,7 @@ import com.badlogic.androidgames.framework.math.Vector2;
 
 
 	//public class Brick extends DynamicGameObject {
+	//we will not inherit from DynamicGameObject here anymore
 	public class Brick {
 
 	public static final int BRICK_STATE_STILL = 0;
@@ -22,6 +23,7 @@ import com.badlogic.androidgames.framework.math.Vector2;
 	public final Rectangle bounds;
 	public final Vector2 velocity;
 	public final Vector2 accel;
+	public boolean atCeiling;
 	
 /*	public static final int BRICK_COLOR_GOLD = 0;
 	public static final int BRICK_COLOR_GREEN = 1;
@@ -42,6 +44,7 @@ import com.badlogic.androidgames.framework.math.Vector2;
     float y;
     public int row;
     public int column;
+   
     
     public Brick(int column, int row, TextureRegion brickTexture) {
     	this.column = column;
@@ -53,10 +56,14 @@ import com.badlogic.androidgames.framework.math.Vector2;
     	velocity = new Vector2();
 		accel = new Vector2();
     	this.position = new Vector2(x, y);
-		this.bounds = new Rectangle(x - BRICK_WIDTH / 2, y - BRICK_WIDTH / 2, BRICK_WIDTH, BRICK_WIDTH);
+		this.bounds = new Rectangle(0, 0, 1, 1);
+
 	    this.brickTexture = brickTexture;
+	    //all objects will be created at ceiling.
+	    atCeiling = true;
         state = BRICK_STATE_STILL;
         stateTime = 0;
+        bounds.lowerLeft.set(position).sub(BRICK_WIDTH / 2, BRICK_WIDTH / 2);
     }
 	
    /* public Brick(float x, float y, TextureRegion brickTexture) {
@@ -67,32 +74,25 @@ import com.badlogic.androidgames.framework.math.Vector2;
     }*/
     
     public void update(float deltaTime) {
-		//velocity.add(0 * deltaTime, 0 * deltaTime);
-		position.add(velocity.x * deltaTime, velocity.y * deltaTime);
-		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
-
-/*		if (velocity.y != 0) {
-			state = BRICK_STATE_MOVING;
-			stateTime = 0;
-		}*/
-		
-		if (position.y < 0)
-			position.y = 0;
-		if (position.y > World.GAME_FIELD_HEIGHT)
-			position.y = World.GAME_FIELD_HEIGHT;
-
 		stateTime += deltaTime;
 	}
     
-    public void moveDown() {
-    	//state=Brick.BRICK_STATE_MOVING_DOWN;
-    	Log.d("Brick:moveDown", "moving the brick down");
-    }
+ public void move() {
+ 	if (atCeiling) {
+    	position.y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH * (float)row;
+	} else {
+    	position.y = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_HEIGHT * (float)row;
 
-    public void moveUp() {
+	}
+	position.x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float)column;
+	bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
+ }
+
+ /*   public void moveUp() {
     	//state=Brick.BRICK_STATE_MOVING_UP;
+	    atCeiling = true;
     	Log.d("Brick:moveUp", "moving the brick up");
     }
-
+*/
 
 }
