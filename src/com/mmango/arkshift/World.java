@@ -73,18 +73,17 @@ public class World {
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
 		rand = new Random();
-		level = 2;
+		level = 5;
 
 		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH
-				+ Brick.BRICK_WIDTH * level + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
+				+ Brick.BRICK_WIDTH * (level) + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
 		// randomize the x coordinate of the ball on the racquet: shift it from
 		// the center of the racquet in range from -18f to +18f
 		float ballXOffset = rand.nextFloat() * (Racquet.RACQUET_WIDTH * 0.8f)
 				- (Racquet.RACQUET_WIDTH * 0.8f) / 2;
 		// Log.d("World", "ballXOffset = " + Float.toString(ballXOffset));
 
-		this.ball = new Ball(WORLD_WIDTH / 2 + ballXOffset, FRAME_WIDTH
-				+ Brick.BRICK_WIDTH + Racquet.RACQUET_HEIGHT
+		this.ball = new Ball(WORLD_WIDTH / 2 + ballXOffset, racquet.position.y + Racquet.RACQUET_HEIGHT / 2
 				+ Ball.BALL_DIAMETER / 2, Assets.ballWhite);
 		this.ceilingBricks = new ArrayList<Brick>();
 		this.floorBricks = new ArrayList<Brick>();
@@ -259,9 +258,9 @@ public class World {
 		int len = ceilingBricks.size();
 		for (int i = 0; i < len; i++) {
 			Brick brick = ceilingBricks.get(i);
-			Log.d("World:checkBallCollisionsWithCeilingBricks", "brick id = " + i);
-			Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
-			Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
+			//Log.d("World:checkBallCollisionsWithCeilingBricks", "brick id = " + i);
+			//Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
+			//Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
 
 			if(OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds)) {
 				Log.d("World:checkBallCollisionsWithCeilingBricks", "A collision with a ceiling brick just happened!");
