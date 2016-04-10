@@ -55,12 +55,12 @@ public class Brick extends DynamicGameObject {
 	}
     
     public void moveDown() {
-    	state=Brick.BRICK_STATE_MOVING_DOWN;
+    	//state=Brick.BRICK_STATE_MOVING_DOWN;
     	Log.d("Brick:moveDown", "moving the brick down");
     }
 
     public void moveUp() {
-    	state=Brick.BRICK_STATE_MOVING_UP;
+    	//state=Brick.BRICK_STATE_MOVING_UP;
     	Log.d("Brick:moveUp", "moving the brick up");
     }
 

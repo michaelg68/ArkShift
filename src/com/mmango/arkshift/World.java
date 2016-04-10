@@ -225,11 +225,23 @@ public class World {
 			// get the angle between the temp ballVelocityCopy and X
 			float angle = ballVelocityCopy.angle();
 			Log.d("World:checkBallCollisionsWithRacquet", "angle = " + angle);
-
+			
+			//avoid too flat angles, if the angle is less that 45 degrees than make it equal 45 + a random float between 1f to 5f 
+			if ((angle > 90f) && (angle > 135f)) {
+				float randangle = rand.nextFloat() * (5 - 1 ) + 1;
+				Log.d("World:checkBallCollisionsWithRacquet", "randangle = " + randangle);
+				angle = 135f - randangle;
+			}
+			if ((angle < 90f) && (angle < 45f)) {
+				float randangle = rand.nextFloat() * (5 - 1 ) + 1;
+				Log.d("World:checkBallCollisionsWithRacquet", "randangle = " + randangle);
+				angle = 45 + randangle;
+			}
+			
+			float newAngle = angle - angleTmp;
 			// rotate ball.velocity on that angle
-			ball.velocity.rotate(angle - angleTmp);
-			Log.d("World:checkBallCollisionsWithRacquet", "newAngle = "
-					+ ball.velocity.angle());
+			ball.velocity.rotate(newAngle);
+			Log.d("World:checkBallCollisionsWithRacquet", "newAngle = "	+ newAngle);
 
 		}
 	}
@@ -246,13 +258,12 @@ public class World {
 				listener.shiftBrick();
 				ceilingBricks.remove(i);
 				brick.position.y = FRAME_WIDTH + Brick.BRICK_WIDTH / 2;
-				Log.d("World:checkBallCollisionsWithCeilingBricks", "Before. brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
+//				Log.d("World:checkBallCollisionsWithCeilingBricks", "Before. brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
 				brick.bounds.lowerLeft.set(brick.position).sub(brick.bounds.width / 2, brick.bounds.height / 2);
-				Log.d("World:checkBallCollisionsWithCeilingBricks", "After. brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
-				
+//				Log.d("World:checkBallCollisionsWithCeilingBricks", "After. brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
 				floorBricks.add(brick);
-				Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.position.x = " + brick.position.x);
-				Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.position.y = " + brick.position.y);
+//				Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.position.x = " + brick.position.x);
+//				Log.d("World:checkBallCollisionsWithCeilingBricks", "brick.position.y = " + brick.position.y);
 				i--;
 				len--;
 				break;
@@ -262,14 +273,20 @@ public class World {
 
 	private void checkBallCollisionsWithFloorBricks(){
 		int len = floorBricks.size();
+//		Log.d("World:checkBallCollisionsWithFloorBricks", "ball.bounds.center.x = " + ball.bounds.center.x);
+//		Log.d("World:checkBallCollisionsWithFloorBricks", "ball.bounds.center.y = " + ball.bounds.center.y);
 		for (int i = 0; i < len; i++) {
 			Brick brick = floorBricks.get(i);
-			Log.d("World:checkBallCollisionsWithFloorBricks", "brick id = " + i);
+//			Log.d("World:checkBallCollisionsWithFloorBricks", "brick id = " + i);
+//			Log.d("World:checkBallCollisionsWithFloorBricks", "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
+//			Log.d("World:checkBallCollisionsWithFloorBricks", "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
+			brick.bounds.lowerLeft.set(brick.position).sub(brick.bounds.width / 2, brick.bounds.height / 2);
+
 
 			if(OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) && 
 					brick.state == Brick.BRICK_STATE_STILL) {
-				Log.d("World:checkBallCollisionsWithFloorBricks", "brick.position.x = " + brick.position.x);
-				Log.d("World:checkBallCollisionsWithFloorBricks", "brick.position.x = " + brick.position.x);
+				//Log.d("World:checkBallCollisionsWithFloorBricks", "brick.position.x = " + brick.position.x);
+				//Log.d("World:checkBallCollisionsWithFloorBricks", "brick.position.x = " + brick.position.x);
 
 				ball.velocity.y = ball.velocity.y * (-1);
 				listener.hitAtBrick();
@@ -278,7 +295,6 @@ public class World {
 				floorBricks.remove(i);
 				brick.position.y = WORLD_HEIGHT - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH - Brick.BRICK_WIDTH / 2;
 				brick.bounds.lowerLeft.set(brick.position).sub(brick.bounds.width / 2, brick.bounds.height / 2);
-
 				ceilingBricks.add(brick);
 				i--;
 				len--;
