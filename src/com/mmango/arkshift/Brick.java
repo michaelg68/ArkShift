@@ -54,14 +54,20 @@ public class Brick extends DynamicGameObject {
 		stateTime += deltaTime;
 	}
     
-    public void moveDown() {
+    public void moveDown(int row, int line) {
     	//state=Brick.BRICK_STATE_MOVING_DOWN;
     	Log.d("Brick:moveDown", "moving the brick down");
+    	position.x = World.FRAME_WIDTH + Brick.BRICK_WIDTH / 2 + Brick.BRICK_WIDTH * row;
+    	position.y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH - Brick.BRICK_WIDTH / 2 - Brick.BRICK_WIDTH * line;
+		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
     }
 
-    public void moveUp() {
+    public void moveUp(int row, int line) {
     	//state=Brick.BRICK_STATE_MOVING_UP;
     	Log.d("Brick:moveUp", "moving the brick up");
+    	position.x = World.FRAME_WIDTH + Brick.BRICK_WIDTH / 2 + Brick.BRICK_WIDTH * row;
+    	position.y = World.FRAME_WIDTH + Brick.BRICK_WIDTH / 2 + Brick.BRICK_WIDTH * line;
+		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);    	
     }
 
 
