@@ -56,14 +56,14 @@ import com.badlogic.androidgames.framework.math.Vector2;
     	velocity = new Vector2();
 		accel = new Vector2();
     	this.position = new Vector2(x, y);
-		this.bounds = new Rectangle(0, 0, 1, 1);
+		this.bounds = new Rectangle(position.x - BRICK_WIDTH / 2, position.y - BRICK_HEIGHT / 2, BRICK_WIDTH,  BRICK_HEIGHT);
 
 	    this.brickTexture = brickTexture;
 	    //all objects will be created at ceiling.
 	    atCeiling = true;
         state = BRICK_STATE_STILL;
         stateTime = 0;
-        bounds.lowerLeft.set(position).sub(BRICK_WIDTH / 2, BRICK_WIDTH / 2);
+        //bounds.lowerLeft.set(position).sub(BRICK_WIDTH / 2, BRICK_WIDTH / 2);
     }
 	
    /* public Brick(float x, float y, TextureRegion brickTexture) {
