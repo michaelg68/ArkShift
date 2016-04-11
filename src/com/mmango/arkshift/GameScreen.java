@@ -124,7 +124,7 @@ public class GameScreen extends GLScreen {
 			updateRunning(deltaTime);
 			break;
 		case GAME_PAUSED:
-			Log.d("GameScreen", "case GAME_PAUSED");
+			//Log.d("GameScreen", "case GAME_PAUSED");
 			updatePaused();
 			break;
 		case GAME_LEVEL_END:
@@ -341,8 +341,8 @@ public class GameScreen extends GLScreen {
 
 	@Override
 	public void resume() {
-		if (state == GAME_RUNNING)
-			state = GAME_PAUSED;
+//		if (state == GAME_RUNNING)
+//			state = GAME_PAUSED;
 	}
 
 	@Override

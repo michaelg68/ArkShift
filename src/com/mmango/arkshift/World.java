@@ -73,7 +73,7 @@ public class World {
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
 		rand = new Random();
-		level = 5;
+		level = 1;
 
 		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH
 				+ Brick.BRICK_WIDTH * (level) + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
@@ -277,6 +277,18 @@ public class World {
 				brick.move();
 				i--;
 				len--;
+				
+				for (int r = 0; r < level; r++) {
+					for (int c = 0; c < COLUMNS; c++) {
+						Log.d("World:checkBallCollisionsWithCeilingBricks", "c = " + c);
+						Log.d("World:checkBallCollisionsWithCeilingBricks", "r = " + r);
+						Log.d("World:checkBallCollisionsWithCeilingBricks", "ceilingBricksId[][] = " + ceilingBricksId[c][r]);
+
+						Log.d("World:checkBallCollisionsWithCeilingBricks", "floorBricksId[][] = " + floorBricksId[c][r]);
+					}
+					
+				}
+				
 				break;
 			}
 		}
