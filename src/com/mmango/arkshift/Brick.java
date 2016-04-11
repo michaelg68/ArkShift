@@ -88,6 +88,12 @@ import com.badlogic.androidgames.framework.math.Vector2;
 	bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
  }
 
+
+public void setCell(int column, int row) {
+	this.column = column;
+	this.row = row;
+}
+
  /*   public void moveUp() {
     	//state=Brick.BRICK_STATE_MOVING_UP;
 	    atCeiling = true;

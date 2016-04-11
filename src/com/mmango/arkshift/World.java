@@ -51,7 +51,7 @@ public class World {
 	public static final int RACQUET_MOVING_LEFT = 0;
 	public static final int RACQUET_MOVING_RIGHT = 1;
 	public static final int COLUMNS = 10;
-	public static final int NO_OBJECT_ID = 99999;
+	public static final int NO_OBJECT_ID = 99999;  //an empty cell
 
 	public static Rectangle gameField;
 
@@ -70,7 +70,7 @@ public class World {
 	public int level;
 
 	public World(WorldListener listener) {
-		level = 4;
+		level = 2;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
@@ -267,12 +267,41 @@ public class World {
 				listener.hitAtBrick();
 				int column = brick.column;
 				int row = brick.row;
-				ceilingBricks.remove(i);
-				ceilingBricksId[column][row] = NO_OBJECT_ID;
-				brick.atCeiling = false;
+				
+				
+				
+				//the upper bricks on the floor will shift up
+				for (int y = level - 1; y > 1; y--) {
+					floorBricksId[column][y] = ceilingBricksId[column][y - 1];
+					if (floorBricksId[column][y] != NO_OBJECT_ID)
+						floorBricks.get(floorBricksId[column][y]).setCell(column, y);
+				}
+				//Add the most upper ceiling brick into the floor List
 				int nextId=floorBricks.size();
-				floorBricksId[column][row] = nextId;
-				floorBricks.add(brick);
+				//in case of brick collision the most top brick goes to floor:
+				int movingToFloorId = ceilingBricksId[column][0];
+				floorBricks.add(ceilingBricks.get(movingToFloorId));
+				ceilingBricks.get(movingToFloorId).atCeiling = false;	
+				ceilingBricks.remove(movingToFloorId);
+				//floorBricks.get(movingToFloorId).setCell(column, 0);
+				
+
+				//other bricks in this column will shift one cell up:
+				for (int y = 1; y < row; y++) {
+					ceilingBricksId[column][y - 1] = ceilingBricksId[column][y];
+					if (ceilingBricksId[column][y - 1] != NO_OBJECT_ID)
+						ceilingBricks.get(ceilingBricksId[column][y]).setCell(column, y - 1);
+				}
+				//put "empty" at the cell which was hit
+				ceilingBricksId[column][row] = NO_OBJECT_ID;
+				
+				
+//				ceilingBricks.remove(i);
+//				ceilingBricksId[column][row] = NO_OBJECT_ID;
+//				brick.atCeiling = false;
+//				int nextId=floorBricks.size();
+//				floorBricksId[column][row] = nextId;
+//				floorBricks.add(brick);
 				brick.move();
 				i--;
 				len--;
