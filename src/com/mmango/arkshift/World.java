@@ -350,7 +350,7 @@ public class World {
 					}
 
 					// put "empty" at the cell which was hit
-					ceilingBricksId[column][row] = NO_OBJECT_ID;
+					floorBricksId[column][row] = NO_OBJECT_ID;
 				}
 
 			}
