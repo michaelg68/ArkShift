@@ -273,6 +273,9 @@ public class World {
 				listener.hitAtBrick();
 				int column = brick.column;
 				int row = brick.row;
+				
+				//We do not care which brick in the column was hit, 
+				// we always shift the whole column either up or down
 
 				if (brick.atCeiling) {
 
@@ -299,12 +302,11 @@ public class World {
 					// up:
 					for (int y = 0; y < level - 1; y++) {
 						ceilingBricksId[column][y] = ceilingBricksId[column][y + 1];
-						if (ceilingBricksId[column][y + 1] != NO_OBJECT_ID)
-							bricks.get(ceilingBricksId[column][y]).setCell(
-									column, y);
+						if (ceilingBricksId[column][y] != NO_OBJECT_ID)
+							bricks.get(ceilingBricksId[column][y]).setCell(column, y);
 					}
-					// put "empty" at the cell which was hit
-					ceilingBricksId[column][row] = NO_OBJECT_ID;
+					// always put "empty" at the cell in last row of the ceiling when the ceiling got hit
+					ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
 
 					for (int r = 0; r < level; r++) {
 						for (int c = 0; c < COLUMNS; c++) {
@@ -344,13 +346,14 @@ public class World {
 					// down:
 					for (int y = 0; y < level - 1; y++) {
 						floorBricksId[column][y] = floorBricksId[column][y + 1];
-						if (floorBricksId[column][y + 1] != NO_OBJECT_ID)
+						if (floorBricksId[column][y] != NO_OBJECT_ID)
 							bricks.get(floorBricksId[column][y]).setCell(
 									column, y);
 					}
 
-					// put "empty" at the cell which was hit
-					floorBricksId[column][row] = NO_OBJECT_ID;
+					// always put "empty" at the cell in last row of the floor when the floor got hit
+					floorBricksId[column][level - 1] = NO_OBJECT_ID;
+					break;
 				}
 
 			}
