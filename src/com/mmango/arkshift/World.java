@@ -235,19 +235,22 @@ public class World {
 			float angle = ballVelocityCopy.angle();
 			Log.d("World:checkBallCollisionsWithRacquet", "angle = " + angle);
 
-			// avoid too flat angles, if the angle is less that 45 degrees than
-			// make it equal 45 + a random float between 1f to 5f
-			if ((angle > 90f) && (angle > 135f)) {
-				float randangle = rand.nextFloat() * (5 - 1) + 1;
-				Log.d("World:checkBallCollisionsWithRacquet", "randangle = "
-						+ randangle);
-				angle = 135f - randangle;
-			}
-			if ((angle < 90f) && (angle < 45f)) {
-				float randangle = rand.nextFloat() * (5 - 1) + 1;
-				Log.d("World:checkBallCollisionsWithRacquet", "randangle = "
-						+ randangle);
-				angle = 45 + randangle;
+			if (ball.velocity.y < 0) { //only if the ball moves downward!
+				// avoid too flat angles, if the angle is less that 45 degrees
+				// than
+				// make it equal 45 + a random float between 1f to 5f
+				if ((angle > 90f) && (angle > 135f)) {
+					float randangle = rand.nextFloat() * (5 - 1) + 1;
+					Log.d("World:checkBallCollisionsWithRacquet",
+							"randangle = " + randangle);
+					angle = 135f - randangle;
+				}
+				if ((angle < 90f) && (angle < 45f)) {
+					float randangle = rand.nextFloat() * (5 - 1) + 1;
+					Log.d("World:checkBallCollisionsWithRacquet",
+							"randangle = " + randangle);
+					angle = 45 + randangle;
+				}
 			}
 
 			float newAngle = angle - angleTmp;
@@ -272,9 +275,9 @@ public class World {
 				ball.velocity.y = ball.velocity.y * (-1);
 				listener.hitAtBrick();
 				int column = brick.column;
-				int row = brick.row;
-				
-				//We do not care which brick in the column was hit, 
+				//int row = brick.row;
+
+				// We do not care which brick in the column was hit,
 				// we always shift the whole column either up or down
 
 				if (brick.atCeiling) {
@@ -295,17 +298,17 @@ public class World {
 					floorBricksId[column][0] = topBrick;
 					bricks.get(topBrick).atCeiling = false;
 					bricks.get(topBrick).setCell(column, 0);
-					
-					
 
 					// other ceiling bricks in this column will shift one cell
 					// up:
 					for (int y = 0; y < level - 1; y++) {
 						ceilingBricksId[column][y] = ceilingBricksId[column][y + 1];
 						if (ceilingBricksId[column][y] != NO_OBJECT_ID)
-							bricks.get(ceilingBricksId[column][y]).setCell(column, y);
+							bricks.get(ceilingBricksId[column][y]).setCell(
+									column, y);
 					}
-					// always put "empty" at the cell in last row of the ceiling when the ceiling got hit
+					// always put "empty" at the cell in last row of the ceiling
+					// when the ceiling got hit
 					ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
 
 					for (int r = 0; r < level; r++) {
@@ -351,7 +354,8 @@ public class World {
 									column, y);
 					}
 
-					// always put "empty" at the cell in last row of the floor when the floor got hit
+					// always put "empty" at the cell in last row of the floor
+					// when the floor got hit
 					floorBricksId[column][level - 1] = NO_OBJECT_ID;
 					break;
 				}
