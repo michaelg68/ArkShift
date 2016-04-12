@@ -77,7 +77,7 @@ import com.badlogic.androidgames.framework.math.Vector2;
 		stateTime += deltaTime;
 	}
     
- public void move() {
+/* public void move() {
  	if (atCeiling) {
     	position.y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH * (float)row;
 	} else {
@@ -86,12 +86,20 @@ import com.badlogic.androidgames.framework.math.Vector2;
 	}
 	position.x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float)column;
 	bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
- }
+ }*/
 
 
 public void setCell(int column, int row) {
 	this.column = column;
 	this.row = row;
+ 	if (atCeiling) {
+    	position.y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH * (float)row;
+	} else {
+    	position.y = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_HEIGHT * (float)row;
+
+	}
+	position.x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float)column;
+	bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);	
 }
 
  /*   public void moveUp() {

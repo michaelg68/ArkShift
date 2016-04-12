@@ -79,22 +79,22 @@ public class WorldRenderer {
     private void renderBricks() {
        // Log.d("WorldRenderer", "inside method renderBricks, before world.bricks.size");
 
-        int lenCeiling = world.ceilingBricks.size();
+        int len = world.bricks.size();
         //Log.d("WorldRenderer", "world.bricks.size(): " + Integer.toString(len));
         
-        for(int i = 0; i < lenCeiling; i++) {
-            Brick brick = world.ceilingBricks.get(i);
+        for(int i = 0; i < len; i++) {
+            Brick brick = world.bricks.get(i);
             //Log.d("WorldRenderer", "inside method renderBricks, before drawSprite");
             batcher.drawSprite(brick.position.x, brick.position.y, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brick.brickTexture);
         }
         
-        int lenFloor = world.floorBricks.size();
+/*        int lenFloor = world.floorBricks.size();
         //Log.d("WorldRenderer", "world.bricks.size(): " + Integer.toString(len));
         
         for(int i = 0; i < lenFloor; i++) {
             Brick brick = world.floorBricks.get(i);
             //Log.d("WorldRenderer", "inside method renderBricks, before drawSprite");
             batcher.drawSprite(brick.position.x, brick.position.y, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brick.brickTexture);
-        }
+        }*/
     }
 }
