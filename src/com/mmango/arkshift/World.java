@@ -218,27 +218,35 @@ public class World {
 					+ ball.velocity.angle());
 			Log.d("World:checkBallCollisionsWithRacquet", "racquetAngle = "
 					+ racquet.velocity.angle());
+			
+			Log.d("World:checkBallCollisionsWithRacquet", "before changing ball.velocity.y = "
+					+ ball.velocity.y);
 
 			ball.velocity.y = ball.velocity.y * (-1);
+			
+			Log.d("World:checkBallCollisionsWithRacquet", "after changing ball.velocity.y = "
+					+ ball.velocity.y);
+			if (ball.velocity.y < 0) { // only if the ball moves downward!
+				Log.d("World:checkBallCollisionsWithRacquet","Contact with the racket TOP!");
 
-			float angleTmp = ball.velocity.angle();
-			Log.d("World:checkBallCollisionsWithRacquet", "angleTmp = "
-					+ angleTmp);
 
-			// Create a copy of ball.velocity
-			Vector2 ballVelocityCopy = ball.velocity.cpy();
+				float angleTmp = ball.velocity.angle();
+				Log.d("World:checkBallCollisionsWithRacquet", "angleTmp = "
+						+ angleTmp);
 
-			// get sum of ballVelocityCopy and racquet.velocity
-			ballVelocityCopy.add(racquet.velocity);
+				// Create a copy of ball.velocity
+				Vector2 ballVelocityCopy = ball.velocity.cpy();
 
-			// get the angle between the temp ballVelocityCopy and X
-			float angle = ballVelocityCopy.angle();
-			Log.d("World:checkBallCollisionsWithRacquet", "angle = " + angle);
+				// get sum of ballVelocityCopy and racquet.velocity
+				ballVelocityCopy.add(racquet.velocity);
 
-			if (ball.velocity.y < 0) { //only if the ball moves downward!
+				// get the angle between the temp ballVelocityCopy and X
+				float angle = ballVelocityCopy.angle();
+				Log.d("World:checkBallCollisionsWithRacquet", "angle = "
+						+ angle);
+
 				// avoid too flat angles, if the angle is less that 45 degrees
-				// than
-				// make it equal 45 + a random float between 1f to 5f
+				// than make it equal 45 + a random float between 1f to 5f
 				if ((angle > 90f) && (angle > 135f)) {
 					float randangle = rand.nextFloat() * (5 - 1) + 1;
 					Log.d("World:checkBallCollisionsWithRacquet",
@@ -251,13 +259,14 @@ public class World {
 							"randangle = " + randangle);
 					angle = 45 + randangle;
 				}
+				float newAngle = angle - angleTmp;
+				// rotate ball.velocity on that angle
+				ball.velocity.rotate(newAngle);
+				Log.d("World:checkBallCollisionsWithRacquet", "newAngle = "
+						+ newAngle);
+			} else {
+				Log.d("World:checkBallCollisionsWithRacquet","Contact with the racket BOTTOM!");
 			}
-
-			float newAngle = angle - angleTmp;
-			// rotate ball.velocity on that angle
-			ball.velocity.rotate(newAngle);
-			Log.d("World:checkBallCollisionsWithRacquet", "newAngle = "
-					+ newAngle);
 
 		}
 	}
@@ -275,7 +284,7 @@ public class World {
 				ball.velocity.y = ball.velocity.y * (-1);
 				listener.hitAtBrick();
 				int column = brick.column;
-				//int row = brick.row;
+				// int row = brick.row;
 
 				// We do not care which brick in the column was hit,
 				// we always shift the whole column either up or down
@@ -311,7 +320,7 @@ public class World {
 					// when the ceiling got hit
 					ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
 
-					for (int r = 0; r < level; r++) {
+/*					for (int r = 0; r < level; r++) {
 						for (int c = 0; c < COLUMNS; c++) {
 							Log.d("World:checkBallCollisionsWithCeilingBricks",
 									"c = " + c);
@@ -325,7 +334,7 @@ public class World {
 											+ floorBricksId[c][r]);
 						}
 
-					}
+					}*/
 
 					break;
 				} else { // the collisions happened with a bottom brick
