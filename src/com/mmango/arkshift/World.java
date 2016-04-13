@@ -70,14 +70,18 @@ public class World {
 	public int level;
 
 	public World(WorldListener listener) {
-		level = 3;
+		level = 0;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
 		rand = new Random();
+		
+		
+		//this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH + Brick.BRICK_HEIGHT * (level) + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
 		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH
-				+ Brick.BRICK_HEIGHT * (level) + Racquet.RACQUET_HEIGHT / 2
+				+ Brick.BRICK_HEIGHT * (5) + Racquet.RACQUET_HEIGHT / 2
 				+ 0.5f);
+		
 		// randomize the x coordinate of the ball on the racquet: shift it from
 		// the center of the racquet in range from -18f to +18f
 		float ballXOffset = rand.nextFloat() * (Racquet.RACQUET_WIDTH * 0.8f)
@@ -222,7 +226,7 @@ public class World {
 			Log.d("World:checkBallCollisionsWithRacquet", "before changing ball.velocity.y = "
 					+ ball.velocity.y);
 
-			ball.velocity.y = ball.velocity.y * (-1);
+			//ball.velocity.y = ball.velocity.y * (-1);
 			
 			Log.d("World:checkBallCollisionsWithRacquet", "after changing ball.velocity.y = "
 					+ ball.velocity.y);
@@ -266,6 +270,7 @@ public class World {
 						+ newAngle);
 			} else {
 				Log.d("World:checkBallCollisionsWithRacquet","Contact with the racket BOTTOM!");
+				ball.velocity.y = ball.velocity.y * (-1);
 			}
 
 		}
