@@ -55,9 +55,9 @@ public class World {
 	public static final int COLUMNS = 10;
 	public static final int NO_OBJECT_ID = 99999; // an empty cell
 	
-	public final static int NO_COLLISION = 0;
-	public final static int COLLISION_WITH_X = 1;
-	public final static int COLLISION_WITH_Y = 2;
+//	public final static int NO_COLLISION = 0;
+//	public final static int COLLISION_WITH_X = 1;
+//	public final static int COLLISION_WITH_Y = 2;
 
 	public static Rectangle gameField;
 
@@ -301,7 +301,7 @@ public class World {
 
 	private void checkBallCollisionsWithBricks() {
 		int len = bricks.size();
-		int collisionStatus = NO_COLLISION;
+		//int collisionStatus = NO_COLLISION;
 		for (int i = 0; i < len; i++) {
 			Brick brick = bricks.get(i);
 			// Log.d("World:checkBallCollisionsWithBricks", "brick id = " + i);
@@ -309,13 +309,9 @@ public class World {
 			// "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
 			// Log.d("World:checkBallCollisionsWithBricks",
 			// "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
-			collisionStatus = MyOverlapTester.overlapCircleRectangleAdv(ball.bounds, brick.bounds);
-			if (collisionStatus != NO_COLLISION) {
-				if (collisionStatus == COLLISION_WITH_X) {
-					ball.velocity.y = ball.velocity.y * (-1);
-				} else {
-					ball.velocity.x = ball.velocity.x * (-1);
-				}
+			if (OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds)) {
+				ball.velocity.y = ball.velocity.y * (-1);
+
 				listener.hitAtBrick();
 				int column = brick.column;
 				// int row = brick.row;
