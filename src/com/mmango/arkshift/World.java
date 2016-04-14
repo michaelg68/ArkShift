@@ -85,7 +85,7 @@ public class World {
 		
 		//this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH + Brick.BRICK_HEIGHT * (level) + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
 		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH
-				+ Brick.BRICK_HEIGHT * (5) + Racquet.RACQUET_HEIGHT / 2
+				+ Racquet.RACQUET_HEIGHT / 2
 				+ 0.5f);
 		
 		// randomize the x coordinate of the ball on the racquet: shift it from
@@ -171,12 +171,27 @@ public class World {
 	}
 
 	public void update(float deltaTime, float accelX) {
-		racquet.update(deltaTime, accelX);
+		updateRacquet(deltaTime, accelX);
 		updateBall(deltaTime);
 		checkBallCollisions();
 		// updateBricks(deltaTime);
 
 		// checkGameOver();
+	}
+
+	private void updateRacquet(float deltaTime, float accelX) {
+		//calculate racquet Y coordinate
+		int bricksInTheHighestFloorColumn = 0;
+		for (int y = 0; y < level; y++) {
+			for (int x = 0; x < COLUMNS; x++) {
+				if (floorBricksId[x][y] != NO_OBJECT_ID) {
+					bricksInTheHighestFloorColumn = y + 1;
+					break;
+				}
+			}
+		}
+		racquet.position.y = FRAME_WIDTH + Brick.BRICK_HEIGHT * bricksInTheHighestFloorColumn + Racquet.RACQUET_HEIGHT / 2 + 0.5f;
+		racquet.update(deltaTime, accelX); 
 	}
 
 	private void updateBall(float deltaTime) {
