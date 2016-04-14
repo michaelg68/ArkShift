@@ -14,6 +14,7 @@ public class Ball extends DynamicGameObjectCircle {
 	public static final int BALL_STATE_HIT_FRAME = 5;
 	public static final float BALL_MOVE_VELOCITY = 0;
 	public static final float BALL_DIAMETER = 5.4f;
+	public static final float BALL_RADIUS = 2.7f;
 //	public static final float BALL_HEIGHT = 5.4f;
 //	public static final int BALL_COLOR_WHITE = 0;
 //	public static final int BALL_COLOR_YELLOW = 1;
@@ -26,7 +27,7 @@ public class Ball extends DynamicGameObjectCircle {
     float stateTime;  
 	
     public Ball(float x, float y, TextureRegion ballTexture) {
-        super(x, y, BALL_DIAMETER / 2);
+        super(x, y, BALL_RADIUS);
         state = BALL_STATE_STILL;
         stateTime = 0;
         this.ballTexture = ballTexture;
@@ -54,7 +55,7 @@ public class Ball extends DynamicGameObjectCircle {
 		stateTime += deltaTime;
 	}
     
-    public void hitCielingBrick () {
+/*    public void hitCielingBrick () {
         velocity.set(0,0);
         state = BALL_STATE_HIT_CEILING_BRICK;        
         stateTime = 0;
@@ -76,7 +77,7 @@ public class Ball extends DynamicGameObjectCircle {
         velocity.set(0,0);
         state = BALL_STATE_HIT_FRAME;        
         stateTime = 0;
-    }
+    }*/
 
 	public void setBallTexture(TextureRegion ballTexture) {
 		this.ballTexture = ballTexture;

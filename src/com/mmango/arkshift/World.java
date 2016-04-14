@@ -70,7 +70,7 @@ public class World {
 	public int level;
 
 	public World(WorldListener listener) {
-		level = 0;
+		level = 3;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
@@ -193,18 +193,18 @@ public class World {
 				ball.bounds, gameField);
 		if (breaktrhough == FRAME_TOP_BORDER_ID) {
 			// X collision
-			// ball.position.y = FRAME_WIDTH + GAME_FIELD_HEIGHT;
+			ball.position.y = FRAME_WIDTH + GAME_FIELD_HEIGHT - Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_BOTTOM_BORDER_ID) {
-			// ball.position.y = FRAME_WIDTH;
+			ball.position.y = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_LEFT_BORDER_ID) {
 			// Y collision
-			// ball.position.x = FRAME_WIDTH;
+			ball.position.x = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
 		} else if (breaktrhough == FRAME_RIGHT_BORDER_ID) {
 			// Y collision
-			// ball.position.x = FRAME_WIDTH + GAME_FIELD_WIDTH;
+			ball.position.x = FRAME_WIDTH + GAME_FIELD_WIDTH - Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
 		}
 	}
@@ -233,7 +233,8 @@ public class World {
 			if (ball.velocity.y < 0) { // only if the ball moves downward!
 				Log.d("World:checkBallCollisionsWithRacquet","Contact with the racket TOP!");
 
-
+				ball.position.y = racquet.position.y + Racquet.RACQUET_HEIGHT / 2 + Ball.BALL_RADIUS;
+						
 				float angleTmp = ball.velocity.angle();
 				Log.d("World:checkBallCollisionsWithRacquet", "angleTmp = "
 						+ angleTmp);
@@ -270,6 +271,7 @@ public class World {
 						+ newAngle);
 			} else {
 				Log.d("World:checkBallCollisionsWithRacquet","Contact with the racket BOTTOM!");
+				ball.position.y = racquet.position.y - Racquet.RACQUET_HEIGHT / 2 - Ball.BALL_RADIUS;
 				ball.velocity.y = ball.velocity.y * (-1);
 			}
 
