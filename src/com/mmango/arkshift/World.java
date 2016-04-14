@@ -10,6 +10,8 @@ import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.math.OverlapTester;
 import com.badlogic.androidgames.framework.math.Rectangle;
 import com.badlogic.androidgames.framework.math.Vector2;
+
+import com.mmango.games.framework.math.MyOverlapTester;
 import com.mmango.arkshift.Assets;
 import com.mmango.arkshift.Racquet;
 
@@ -189,7 +191,7 @@ public class World {
 	}
 
 	private void checkBallCollisionsWithFrame() {
-		int breaktrhough = OverlapTester.circleCompletelyInsideRectangle(
+		int breaktrhough = MyOverlapTester.circleCompletelyInsideRectangle(
 				ball.bounds, gameField);
 		if (breaktrhough == FRAME_TOP_BORDER_ID) {
 			// X collision
