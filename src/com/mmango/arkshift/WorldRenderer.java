@@ -30,7 +30,7 @@ public class WorldRenderer {
         this.world = world;
         //this.cam = new Camera2D(glGraphics, FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 		this.cam = new Camera2D(glGraphics, World.WORLD_WIDTH, World.WORLD_HEIGHT);
-		this.camGameField = new Camera2DCustSize(glGraphics, 1920, 1080);
+		this.camGameField = new Camera2DCustSize(glGraphics, World.WORLD_WIDTH, World.WORLD_HEIGHT);
 		
 
         this.batcher = batcher;        
