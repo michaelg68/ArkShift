@@ -5,6 +5,8 @@ import javax.microedition.khronos.opengles.GL10;
 import android.util.Log;
 
 import com.badlogic.androidgames.framework.gl.Camera2D;
+import com.mmango.games.framework.gl.Camera2DCustSize;
+
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLGraphics;
@@ -19,6 +21,8 @@ public class WorldRenderer {
     GLGraphics glGraphics;
     World world;
     Camera2D cam;
+    Camera2DCustSize camGameField;
+
     SpriteBatcher batcher;    
     
     public WorldRenderer(GLGraphics glGraphics, SpriteBatcher batcher, World world) {
@@ -26,6 +30,8 @@ public class WorldRenderer {
         this.world = world;
         //this.cam = new Camera2D(glGraphics, FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 		this.cam = new Camera2D(glGraphics, World.WORLD_WIDTH, World.WORLD_HEIGHT);
+		this.camGameField = new Camera2DCustSize(glGraphics, World.WORLD_WIDTH, World.WORLD_HEIGHT);
+		
 
         this.batcher = batcher;        
     }
@@ -34,6 +40,8 @@ public class WorldRenderer {
     public void render() {
         cam.setViewportAndMatrices();
         renderBackground();
+
+        camGameField.setViewportAndMatrices();
         renderObjects();        
     }
     
