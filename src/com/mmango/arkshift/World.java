@@ -76,7 +76,7 @@ public class World {
 	public int level;
 
 	public World(WorldListener listener) {
-		level = 3;
+		level = 4;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);

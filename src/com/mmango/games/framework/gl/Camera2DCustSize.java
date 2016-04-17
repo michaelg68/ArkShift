@@ -26,17 +26,19 @@ public class Camera2DCustSize {
         GL10 gl = glGraphics.getGL();
        
         Log.d("Camera2DCustSize", "glGraphics.getWidth() = " + glGraphics.getWidth());
-        //On LG G3: Camera2DCustSize(23085): glGraphics.getWidth() = 1440
+        //////On LG G3: Camera2DCustSize(23085): glGraphics.getWidth() = 1440
         Log.d("Camera2DCustSize", "glGraphics.getHeight() = " + glGraphics.getHeight());
-        //On LG G3: Camera2DCustSize(23085): glGraphics.getHeight() = 2560
+        //////On LG G3: Camera2DCustSize(23085): glGraphics.getHeight() = 2560
         float widthCoefficient = glGraphics.getWidth() / frustumWidth * 10f;
         float heightCoefficient = glGraphics.getHeight() / frustumHeight * 10f;
 
-        Log.d("Camera2DCustSize", "widthCoefficient = " + widthCoefficient + ";"
-        		+ " heightCoefficient = " + heightCoefficient);
+        Log.d("Camera2DCustSize", "widthCoefficient = " + widthCoefficient + ";"	+ " heightCoefficient = " + heightCoefficient);
         
         //gl.glViewport(0, 0, glGraphics.getWidth(), glGraphics.getHeight());
         //gl.glViewport(100, 100, 1440 - 100 * 2, 2560 - 100 * 2); //it's good
+        		
+        //in the next line: 20 pixels - the width/height of the frame of ArkShift game field
+        // 150 pixels - the height of the notification area just above the game field in ArkShift
         gl.glViewport(Math.round(20 * widthCoefficient), Math.round((150 + 20) * heightCoefficient), 
         		glGraphics.getWidth() - Math.round(20 * widthCoefficient), 
         		glGraphics.getHeight() - Math.round((150 + 20 * 2) * heightCoefficient));
