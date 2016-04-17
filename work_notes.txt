@@ -1,0 +1,17 @@
+-----------------------
+20160411 22:21
+
+do tomorrow:
+Brick.java
+    
+public void update(float deltaTime) {
+ 
+      	velocity.set(0, BRICK_VELOCITY);
+
+position.add(0, velocity.y * deltaTime);
+
+stateTime += deltaTime;
+	
+}
+
+-------------------------------
