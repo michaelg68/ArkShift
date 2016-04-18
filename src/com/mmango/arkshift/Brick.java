@@ -13,11 +13,13 @@ import com.badlogic.androidgames.framework.math.Vector2;
 	public class Brick {
 
 	public static final int BRICK_STATE_STILL = 0;
-	public static final int BRICK_STATE_MOVING_DOWN = 1;
-	public static final int BRICK_STATE_MOVING_UP = 2;
+	public static final int BRICK_STATE_SHIFTING_DOWN = 1;
+	public static final int BRICK_STATE_SHIFTING_UP = 2;
 
 	public static final float BRICK_WIDTH = 10.4f;
 	public static final float BRICK_HEIGHT = 10.4f;
+	
+	public static final float BRICK_VELOCITY = 20f;
 	
 	public final Vector2 position;
 	public final Rectangle bounds;
@@ -44,6 +46,9 @@ import com.badlogic.androidgames.framework.math.Vector2;
     float y;
     public int row;
     public int column;
+    //float xNew;
+    float yDestination;
+	boolean jumpedToFloor;
    
     
     public Brick(int column, int row, TextureRegion brickTexture) {
@@ -64,6 +69,7 @@ import com.badlogic.androidgames.framework.math.Vector2;
         state = BRICK_STATE_STILL;
         stateTime = 0;
         //bounds.lowerLeft.set(position).sub(BRICK_WIDTH / 2, BRICK_WIDTH / 2);
+        jumpedToFloor = false;
     }
 	
    /* public Brick(float x, float y, TextureRegion brickTexture) {
@@ -74,7 +80,27 @@ import com.badlogic.androidgames.framework.math.Vector2;
     }*/
     
     public void update(float deltaTime) {
+    	//position.x = xNew;
+		velocity.set(0, BRICK_VELOCITY);
+
+    	
+    	if (state == BRICK_STATE_SHIFTING_UP) {
+    		position.add(0, velocity.y * deltaTime);
+    		if (position.y > World.WORLD_HEIGHT - BRICK_HEIGHT / 2) {
+    					position.y = 0;
+    					jumpedToFloor = true;
+    				} 
+    		}
+    	
+    		if ((position.y > yDestination) && jumpedToFloor) {
+    			position.y = yDestination;
+    			state = BRICK_STATE_STILL;
+    			jumpedToFloor = false;
+    		}
+    	bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);	
 		stateTime += deltaTime;
+		//Log.d("Brick", "position.x" + position.x);
+		Log.d("Brick", "position.y" + position.y);
 	}
     
 /* public void move() {
@@ -93,13 +119,14 @@ public void setCell(int column, int row) {
 	this.column = column;
 	this.row = row;
  	if (atCeiling) {
-    	position.y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH * (float)row;
+ 		yDestination = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH * (float)row;
 	} else {
-    	position.y = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_HEIGHT * (float)row;
+		yDestination = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_HEIGHT * (float)row;
 
 	}
-	position.x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float)column;
-	bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);	
+ 	Log.d("Brick", "yDestination = " + yDestination);
+	//xNew = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float)column;
+	//bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);	
 }
 
  /*   public void moveUp() {

@@ -25,14 +25,14 @@ public class Camera2DCustSize {
     public void setViewportAndMatrices() {
         GL10 gl = glGraphics.getGL();
        
-        Log.d("Camera2DCustSize", "glGraphics.getWidth() = " + glGraphics.getWidth());
+        //Log.d("Camera2DCustSize", "glGraphics.getWidth() = " + glGraphics.getWidth());
         //////On LG G3: Camera2DCustSize(23085): glGraphics.getWidth() = 1440
-        Log.d("Camera2DCustSize", "glGraphics.getHeight() = " + glGraphics.getHeight());
+        //Log.d("Camera2DCustSize", "glGraphics.getHeight() = " + glGraphics.getHeight());
         //////On LG G3: Camera2DCustSize(23085): glGraphics.getHeight() = 2560
         float widthCoefficient = glGraphics.getWidth() / frustumWidth * 10f;
         float heightCoefficient = glGraphics.getHeight() / frustumHeight * 10f;
 
-        Log.d("Camera2DCustSize", "widthCoefficient = " + widthCoefficient + ";"	+ " heightCoefficient = " + heightCoefficient);
+        //Log.d("Camera2DCustSize", "widthCoefficient = " + widthCoefficient + ";"	+ " heightCoefficient = " + heightCoefficient);
         
         //gl.glViewport(0, 0, glGraphics.getWidth(), glGraphics.getHeight());
         //gl.glViewport(100, 100, 1440 - 100 * 2, 2560 - 100 * 2); //it's good
