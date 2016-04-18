@@ -49,6 +49,7 @@ public class Brick {
 	// float xNew;
 	float yDestination;
 	boolean jumpedToFloor;
+	boolean jumpedToCeiling;
 
 	public Brick(int column, int row, TextureRegion brickTexture) {
 		this.column = column;
@@ -106,6 +107,27 @@ public class Brick {
 		if (state == BRICK_STATE_SHIFTING_UP) {
 			position.add(0, velocity.y * deltaTime * 2);
 			if (position.y > yDestination) {
+				position.y = yDestination;
+				state = BRICK_STATE_STILL;
+			}
+		}
+		
+		if (state == BRICK_STATE_SHIFTING_DOWN_TO_CEILING) {
+			position.add(0, -velocity.y * deltaTime * 2);
+			if (position.y < 0) {
+				position.y = World.WORLD_HEIGHT - BRICK_HEIGHT / 2;
+				jumpedToCeiling = true;
+			}
+			if ((position.y < yDestination) && jumpedToCeiling) {
+				position.y = yDestination;
+				jumpedToCeiling = false;
+				state = BRICK_STATE_STILL;
+			}
+		}
+		
+		if (state == BRICK_STATE_SHIFTING_DOWN) {
+			position.add(0, -velocity.y * deltaTime * 2);
+			if (position.y < yDestination) {
 				position.y = yDestination;
 				state = BRICK_STATE_STILL;
 			}
