@@ -74,6 +74,7 @@ public class World {
 	public int score;
 	public int state;
 	public int level;
+	public int bricksArraySize;
 
 	public World(WorldListener listener) {
 		level = 6;
@@ -166,6 +167,8 @@ public class World {
 				floorBricksId[x][y] = NO_OBJECT_ID;
 			}
 		}
+		
+		bricksArraySize = bricks.size();
 
 	}
 
@@ -200,9 +203,9 @@ public class World {
 	}
 
 	private void updateBricks(float deltaTime) {
-		int len = bricks.size();
+
 		// int collisionStatus = NO_COLLISION;
-		for (int i = 0; i < len; i++) {
+		for (int i = 0; i < bricksArraySize; i++) {
 			Brick brick = bricks.get(i);
 			if(brick.state != Brick.BRICK_STATE_STILL)
 					brick.update(deltaTime);
@@ -313,9 +316,9 @@ public class World {
 	}
 
 	private void checkBallCollisionsWithBricks() {
-		int len = bricks.size();
+
 		// int collisionStatus = NO_COLLISION;
-		for (int i = 0; i < len; i++) {
+		for (int i = 0; i < bricksArraySize; i++) {
 			Brick brick = bricks.get(i);
 			// Log.d("World:checkBallCollisionsWithBricks", "brick id = " + i);
 			// Log.d("World:checkBallCollisionsWithBricks",
