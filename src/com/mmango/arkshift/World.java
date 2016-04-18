@@ -351,7 +351,7 @@ public class World {
 					floorBricksId[column][0] = topBrick;
 					bricks.get(topBrick).atCeiling = false;
 					bricks.get(topBrick).setCell(column, 0);
-					bricks.get(topBrick).state = Brick.BRICK_STATE_SHIFTING_UP;
+					bricks.get(topBrick).state = Brick.BRICK_STATE_SHIFTING_UP_TO_FLOOR;
 
 					// other ceiling bricks in this column will shift one cell
 					// up:
