@@ -54,10 +54,16 @@ public class Brick {
 		this.column = column;
 		this.row = row;
 
+//		x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
+//		y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
+//				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
+//				* (float) row;
+		
+		
 		x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
-		y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
-				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
+		y = World.WORLD_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
 				* (float) row;
+		
 		// super(x, y, BRICK_WIDTH, BRICK_WIDTH);
 		velocity = new Vector2();
 		accel = new Vector2();
@@ -85,7 +91,7 @@ public class Brick {
 		velocity.set(0, BRICK_VELOCITY);
 
 		if (state == BRICK_STATE_SHIFTING_UP_TO_FLOOR) {
-			position.add(0, velocity.y * deltaTime);
+			position.add(0, velocity.y * deltaTime * 2);
 			if (position.y > World.WORLD_HEIGHT - BRICK_HEIGHT / 2) {
 				position.y = 0;
 				jumpedToFloor = true;
@@ -98,7 +104,7 @@ public class Brick {
 		}
 
 		if (state == BRICK_STATE_SHIFTING_UP) {
-			position.add(0, velocity.y * deltaTime);
+			position.add(0, velocity.y * deltaTime * 2);
 			if (position.y > yDestination) {
 				position.y = yDestination;
 				state = BRICK_STATE_STILL;
@@ -126,8 +132,7 @@ public class Brick {
 		this.column = column;
 		this.row = row;
 		if (atCeiling) {
-			yDestination = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
-					- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
+			yDestination = World.WORLD_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
 					* (float) row;
 		} else {
 			yDestination = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_HEIGHT
