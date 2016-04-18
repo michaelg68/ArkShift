@@ -77,7 +77,7 @@ public class World {
 	public int bricksArraySize;
 
 	public World(WorldListener listener) {
-		level = 1;
+		level = 9;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
@@ -325,7 +325,7 @@ public class World {
 			// "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
 			// Log.d("World:checkBallCollisionsWithBricks",
 			// "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
-			if (OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds)) {
+			if ((OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
 				ball.velocity.y = ball.velocity.y * (-1);
 
 				listener.hitAtBrick();
@@ -370,7 +370,8 @@ public class World {
 					}
 					// always put "empty" at the cell in last row of the ceiling
 					// when the ceiling got hit
-					ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
+					if (level > 1)
+						ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
 
 					/*
 					 * for (int r = 0; r < level; r++) { for (int c = 0; c <
@@ -419,7 +420,8 @@ public class World {
 
 					// always put "empty" at the cell in last row of the floor
 					// when the floor got hit
-					floorBricksId[column][level - 1] = NO_OBJECT_ID;
+					if (level > 1)
+						floorBricksId[column][level - 1] = NO_OBJECT_ID;
 					break;
 				}
 
