@@ -81,12 +81,19 @@ public class World {
 	public static int notificationAreaAndBorder = 0;
 	public static int widthN = 0;
 	public static int heightN = 0;
+	public static float widthCoefficient = 0f;
+	public static float heightCoefficient = 0f;
 
 	public World(WorldListener listener) {
-		level = 1;
+		level = 0;
 
-		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
-				GAME_FIELD_HEIGHT);
+		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
+		
+		Log.d("World", "gameField.lowerLeft.x = " + gameField.lowerLeft.x);
+		Log.d("World", "gameField.lowerLeft.y = " + gameField.lowerLeft.y);
+		Log.d("World", "gameField.width = " + gameField.width);
+		Log.d("World", "gameField.height = " + gameField.height);
+		
 		rand = new Random();
 
 		// this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH +
@@ -226,26 +233,32 @@ public class World {
 	}
 
 	private void checkBallCollisionsWithFrame() {
-		int breaktrhough = MyOverlapTester.circleCompletelyInsideRectangle(
-				ball.bounds, gameField);
+		int breaktrhough = MyOverlapTester.circleCompletelyInsideRectangle(ball.bounds, gameField);
 		
 		if (breaktrhough == FRAME_TOP_BORDER_ID) {
 			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
+			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
 			// X collision
 			ball.position.y = FRAME_WIDTH + GAME_FIELD_HEIGHT
 					- Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_BOTTOM_BORDER_ID) {
 			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
+			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
+			
 			ball.position.y = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_LEFT_BORDER_ID) {
 			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
+			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
+			
 			// Y collision
 			ball.position.x = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
 		} else if (breaktrhough == FRAME_RIGHT_BORDER_ID) {
 			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
+			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
+			
 			// Y collision
 			ball.position.x = FRAME_WIDTH + GAME_FIELD_WIDTH - Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);

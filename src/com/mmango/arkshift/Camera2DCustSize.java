@@ -38,8 +38,8 @@ public class Camera2DCustSize {
 		// //////On LG G3: Camera2DCustSize(23085): glGraphics.getHeight() =
 		// 2560
 		
-		float widthCoefficient = glGraphics.getWidth() / (frustumWidth * 10f);
-		float heightCoefficient = glGraphics.getHeight()/ (frustumHeight * 10f);
+		World.widthCoefficient = glGraphics.getWidth() / (frustumWidth * 10f);
+		World.heightCoefficient = glGraphics.getHeight()/ (frustumHeight * 10f);
 
 		// Log.d("Camera2DCustSize", "widthCoefficient = " + widthCoefficient +
 		// ";" + " heightCoefficient = " + heightCoefficient);
@@ -52,8 +52,8 @@ public class Camera2DCustSize {
 		// 150 pixels - the height of the notification area just above the game
 		// field in ArkShift
 
-		World.border = Math.round(20 * widthCoefficient);
-		World.notificationAreaAndBorder = Math.round((150 + 20) * heightCoefficient);
+		World.border = Math.round(20 * World.widthCoefficient);
+		World.notificationAreaAndBorder = Math.round((150 + 20) * World.heightCoefficient);
 		World.widthN = glGraphics.getWidth() - World.border * 2;
 		World.heightN = glGraphics.getHeight() - World.border - World.notificationAreaAndBorder;
 
