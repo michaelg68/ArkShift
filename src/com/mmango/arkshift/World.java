@@ -75,9 +75,15 @@ public class World {
 	public int state;
 	public int level;
 	public int bricksArraySize;
+	
+	
+	public static int border = 0;
+	public static int notificationAreaAndBorder = 0;
+	public static int widthN = 0;
+	public static int heightN = 0;
 
 	public World(WorldListener listener) {
-		level = 9;
+		level = 1;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
@@ -105,7 +111,6 @@ public class World {
 		this.score = 0;
 		this.state = WORLD_STATE_RUNNING;
 		generateLevel(COLUMNS, level);
-
 	}
 
 	private void generateLevel(int columns, int rows) {
@@ -223,19 +228,24 @@ public class World {
 	private void checkBallCollisionsWithFrame() {
 		int breaktrhough = MyOverlapTester.circleCompletelyInsideRectangle(
 				ball.bounds, gameField);
+		
 		if (breaktrhough == FRAME_TOP_BORDER_ID) {
+			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
 			// X collision
 			ball.position.y = FRAME_WIDTH + GAME_FIELD_HEIGHT
 					- Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_BOTTOM_BORDER_ID) {
+			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
 			ball.position.y = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_LEFT_BORDER_ID) {
+			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
 			// Y collision
 			ball.position.x = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
 		} else if (breaktrhough == FRAME_RIGHT_BORDER_ID) {
+			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
 			// Y collision
 			ball.position.x = FRAME_WIDTH + GAME_FIELD_WIDTH - Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
@@ -320,12 +330,17 @@ public class World {
 		// int collisionStatus = NO_COLLISION;
 		for (int i = 0; i < bricksArraySize; i++) {
 			Brick brick = bricks.get(i);
-			// Log.d("World:checkBallCollisionsWithBricks", "brick id = " + i);
-			// Log.d("World:checkBallCollisionsWithBricks",
-			// "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
-			// Log.d("World:checkBallCollisionsWithBricks",
-			// "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
-			if ((OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
+			Log.d("World:checkBallCollisionsWithBricks", "brick id = " + i);
+			 Log.d("World:checkBallCollisionsWithBricks",
+			 "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
+			 Log.d("World:checkBallCollisionsWithBricks",
+			 "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
+			Log.d("World:checkBallCollisionsWithBricks", "brick.state = " + brick.state);
+
+			if ((OverlapTester
+					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
+				Log.d("World:checkBallCollisionsWithBricks",
+						"A collision with a brick just happened!");
 				ball.velocity.y = ball.velocity.y * (-1);
 
 				listener.hitAtBrick();
@@ -343,7 +358,9 @@ public class World {
 					// the bricks on the floor will shift up
 					for (int y = level - 1; y > 0; y--) {
 						floorBricksId[column][y] = floorBricksId[column][y - 1];
+						Log.d("World:checkBallCollisionsWithBricks", "fffff");
 						if (floorBricksId[column][y] != NO_OBJECT_ID) {
+							Log.d("World:checkBallCollisionsWithBricks", "fffff2");
 							bricks.get(floorBricksId[column][y]).setCell(
 									column, y);
 							bricks.get(floorBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_UP;
@@ -357,12 +374,14 @@ public class World {
 					bricks.get(topBrick).atCeiling = false;
 					bricks.get(topBrick).setCell(column, 0);
 					bricks.get(topBrick).state = Brick.BRICK_STATE_SHIFTING_UP_TO_FLOOR;
-
+					Log.d("World:checkBallCollisionsWithBricks", "bricks.get(topBrick).state = " + bricks.get(topBrick).state);
 					// other ceiling bricks in this column will shift one cell
 					// up:
 					for (int y = 0; y < level - 1; y++) {
 						ceilingBricksId[column][y] = ceilingBricksId[column][y + 1];
+						Log.d("World:checkBallCollisionsWithBricks", "ccccc");
 						if (ceilingBricksId[column][y] != NO_OBJECT_ID) {
+							Log.d("World:checkBallCollisionsWithBricks", "ccccc2");
 							bricks.get(ceilingBricksId[column][y]).setCell(
 									column, y);
 							bricks.get(ceilingBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_UP;
@@ -373,20 +392,22 @@ public class World {
 					if (level > 1)
 						ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
 
-					/*
-					 * for (int r = 0; r < level; r++) { for (int c = 0; c <
-					 * COLUMNS; c++) {
-					 * Log.d("World:checkBallCollisionsWithCeilingBricks",
-					 * "c = " + c);
-					 * Log.d("World:checkBallCollisionsWithCeilingBricks",
-					 * "r = " + r);
-					 * Log.d("World:checkBallCollisionsWithCeilingBricks",
-					 * "ceilingBricksId[][] = " + ceilingBricksId[c][r]);
-					 * Log.d("World:checkBallCollisionsWithCeilingBricks",
-					 * "floorBricksId[][] = " + floorBricksId[c][r]); }
-					 * 
-					 * }
-					 */
+					for (int r = 0; r < level; r++) {
+						for (int c = 0; c < COLUMNS; c++) {
+							Log.d("World:checkBallCollisionsWithCeilingBricks",
+									"c = " + c);
+							Log.d("World:checkBallCollisionsWithCeilingBricks",
+									"r = " + r);
+							Log.d("World:checkBallCollisionsWithCeilingBricks",
+									"ceilingBricksId[][] = "
+											+ ceilingBricksId[c][r]);
+							Log.d("World:checkBallCollisionsWithCeilingBricks",
+									"floorBricksId[][] = "
+											+ floorBricksId[c][r]);
+						}
+
+					}
+
 					break;
 				} else { // the collisions happened with a bottom brick
 					Log.d("World:checkBallCollisionsWithBricks",
@@ -408,7 +429,8 @@ public class World {
 					bricks.get(bottomBrick).setCell(column, 0);
 					bricks.get(bottomBrick).state = Brick.BRICK_STATE_SHIFTING_DOWN_TO_CEILING;
 
-					// other floor bricks in this column will shift one cell down:
+					// other floor bricks in this column will shift one cell
+					// down:
 					for (int y = 0; y < level - 1; y++) {
 						floorBricksId[column][y] = floorBricksId[column][y + 1];
 						if (floorBricksId[column][y] != NO_OBJECT_ID) {

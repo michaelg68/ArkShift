@@ -55,16 +55,16 @@ public class Brick {
 		this.column = column;
 		this.row = row;
 
-//		x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
-//		y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
-//				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
-//				* (float) row;
-		
-		
 		x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
-		y = World.WORLD_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
+		y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
+				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
 				* (float) row;
-		
+
+		/*
+		 * x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float)
+		 * column; y = World.WORLD_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2
+		 * - BRICK_WIDTH (float) row;
+		 */
 		// super(x, y, BRICK_WIDTH, BRICK_WIDTH);
 		velocity = new Vector2();
 		accel = new Vector2();
@@ -81,11 +81,6 @@ public class Brick {
 		jumpedToFloor = false;
 	}
 
-	/*
-	 * public Brick(float x, float y, TextureRegion brickTexture) { super(x, y,
-	 * BRICK_WIDTH, BRICK_WIDTH); this.brickTexture = brickTexture; state =
-	 * BRICK_STATE_STILL; stateTime = 0; }
-	 */
 
 	public void update(float deltaTime) {
 		// position.x = xNew;
@@ -111,7 +106,7 @@ public class Brick {
 				state = BRICK_STATE_STILL;
 			}
 		}
-		
+
 		if (state == BRICK_STATE_SHIFTING_DOWN_TO_CEILING) {
 			position.add(0, -velocity.y * deltaTime * 2);
 			if (position.y < 0) {
@@ -124,7 +119,7 @@ public class Brick {
 				state = BRICK_STATE_STILL;
 			}
 		}
-		
+
 		if (state == BRICK_STATE_SHIFTING_DOWN) {
 			position.add(0, -velocity.y * deltaTime * 2);
 			if (position.y < yDestination) {
@@ -139,38 +134,18 @@ public class Brick {
 		Log.d("Brick", "position.y" + position.y);
 	}
 
-	/*
-	 * public void move() { if (atCeiling) { position.y = World.WORLD_HEIGHT -
-	 * World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2 -
-	 * BRICK_WIDTH * (float)row; } else { position.y = World.FRAME_WIDTH +
-	 * BRICK_WIDTH / 2 + BRICK_HEIGHT * (float)row;
-	 * 
-	 * } position.x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH *
-	 * (float)column; bounds.lowerLeft.set(position).sub(bounds.width / 2,
-	 * bounds.height / 2); }
-	 */
-
 	public void setCell(int column, int row) {
 		this.column = column;
 		this.row = row;
 		if (atCeiling) {
-			yDestination = World.WORLD_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
-					* (float) row;
+			yDestination = World.WORLD_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH
+					/ 2 - BRICK_WIDTH * (float) row;
 		} else {
 			yDestination = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_HEIGHT
 					* (float) row;
-
 		}
 		Log.d("Brick", "yDestination = " + yDestination);
-		// xNew = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH *
-		// (float)column;
-		// bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height /
-		// 2);
-	}
 
-	/*
-	 * public void moveUp() { //state=Brick.BRICK_STATE_MOVING_UP; atCeiling =
-	 * true; Log.d("Brick:moveUp", "moving the brick up"); }
-	 */
+	}
 
 }

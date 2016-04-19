@@ -61,8 +61,7 @@ public class MyOverlapTester {
 			border = TOP_BORDER;
 		}
 
-		// Log.d("OverlapTester:circleCompletelyInsideRectangle", "border=" +
-		// Boolean.toString(border));
+		 Log.d("OverlapTester:circleCompletelyInsideRectangle", "border = " + border);
 
 		return border;
 	}

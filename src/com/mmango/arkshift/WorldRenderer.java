@@ -5,8 +5,6 @@ import javax.microedition.khronos.opengles.GL10;
 import android.util.Log;
 
 import com.badlogic.androidgames.framework.gl.Camera2D;
-import com.mmango.games.framework.gl.Camera2DCustSize;
-
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLGraphics;
@@ -56,6 +54,14 @@ public class WorldRenderer {
         GL10 gl = glGraphics.getGL();
         gl.glEnable(GL10.GL_BLEND);
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        
+
+        //temporary batch for drawing the gamefield boundaries
+        batcher.beginBatch(Assets.gameFieldBlue);
+        batcher.drawSprite(0, 0, 1040, 1730, Assets.gameFieldBlueRegion);
+        batcher.endBatch();
+        
+        
         
         batcher.beginBatch(Assets.gameScreenElements);
         renderRacquet();
