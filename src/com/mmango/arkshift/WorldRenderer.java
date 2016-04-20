@@ -93,7 +93,7 @@ public class WorldRenderer {
         for(int i = 0; i < len; i++) {
             Brick brick = world.bricks.get(i);
             //Log.d("WorldRenderer", "inside method renderBricks, before drawSprite");
-            batcher.drawSprite(brick.position.x, brick.position.y, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brick.brickTexture);
+            batcher.drawSprite(brick.position.x, brick.position.y, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brick.brickTextureRegion);
         }
     }
     

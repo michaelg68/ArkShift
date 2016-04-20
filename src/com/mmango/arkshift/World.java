@@ -114,7 +114,6 @@ public class World {
 	}
 
 	private void generateLevel(int columns, int rows) {
-		TextureRegion brickRegion;
 		int brickId = 0;
 		ceilingBricksId = new int[columns][rows];
 		floorBricksId = new int[columns][rows];
@@ -125,43 +124,9 @@ public class World {
 				int brick_color = rand.nextInt(10);
 				// Log.d("World", "brick_color = " +
 				// Integer.toString(brick_color));
-				switch (brick_color) {
-				case 0:
-					brickRegion = Assets.brickGold;
-					break;
-				case 1:
-					brickRegion = Assets.brickGreen;
-					break;
-				case 2:
-					brickRegion = Assets.brickBlue;
-					break;
-				case 3:
-					brickRegion = Assets.brickOrange;
-					break;
-				case 4:
-					brickRegion = Assets.brickGrey;
-					break;
-				case 5:
-					brickRegion = Assets.brickRed;
-					break;
-				case 6:
-					brickRegion = Assets.brickPink;
-					break;
-				case 7:
-					brickRegion = Assets.brickWheat;
-					break;
-				case 8:
-					brickRegion = Assets.brickViolet;
-					break;
-				case 9:
-					brickRegion = Assets.brickPurple;
-					break;
-				default:
-					brickRegion = Assets.brickGrey;
-					break;
-				}
+				
 
-				Brick brick = new Brick(x, y, brickRegion);
+				Brick brick = new Brick(x, y, brick_color);
 				// 2.0f + 5.2f + 10.4f, 192 - 17 - 5.2f
 				// Log.d("World", "Adding a brick");
 				bricks.add(brick);

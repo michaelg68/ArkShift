@@ -28,17 +28,19 @@ public class Brick {
 	public final Vector2 accel;
 	public boolean atCeiling;
 
-	/*
-	 * public static final int BRICK_COLOR_GOLD = 0; public static final int
-	 * BRICK_COLOR_GREEN = 1; public static final int BRICK_COLOR_BLUE = 2;
-	 * public static final int BRICK_COLOR_ORANGE = 3; public static final int
-	 * BRICK_COLOR_GREY = 4; public static final int BRICK_COLOR_RED = 5; public
-	 * static final int BRICK_COLOR_PINK = 6; public static final int
-	 * BRICK_COLOR_WHEAT = 7; public static final int BRICK_COLOR_VIOLET = 8;
-	 * public static final int BRICK_COLOR_PURPLE = 9;
-	 */
+	public static final int BRICK_COLOR_GOLD = 0;
+	public static final int BRICK_COLOR_GREEN = 1;
+	public static final int BRICK_COLOR_BLUE = 2;
+	public static final int BRICK_COLOR_ORANGE = 3;
+	public static final int BRICK_COLOR_GREY = 4;
+	public static final int BRICK_COLOR_RED = 5;
+	public static final int BRICK_COLOR_PINK = 6;
+	public static final int BRICK_COLOR_WHEAT = 7;
+	public static final int BRICK_COLOR_VIOLET = 8;
+	public static final int BRICK_COLOR_PURPLE = 9;
+	
 
-	public TextureRegion brickTexture;
+	public TextureRegion brickTextureRegion;
 	public int color;
 	int state;
 	float stateTime;
@@ -51,9 +53,47 @@ public class Brick {
 	boolean jumpedToFloor;
 	boolean jumpedToCeiling;
 
-	public Brick(int column, int row, TextureRegion brickTexture) {
+	public Brick(int column, int row, int color) {
 		this.column = column;
 		this.row = row;
+		
+		
+		switch (color) {
+		case 0:
+			brickTextureRegion = Assets.brickGold;
+			break;
+		case 1:
+			brickTextureRegion = Assets.brickGreen;
+			break;
+		case 2:
+			brickTextureRegion = Assets.brickBlue;
+			break;
+		case 3:
+			brickTextureRegion = Assets.brickOrange;
+			break;
+		case 4:
+			brickTextureRegion = Assets.brickGrey;
+			break;
+		case 5:
+			brickTextureRegion = Assets.brickRed;
+			break;
+		case 6:
+			brickTextureRegion = Assets.brickPink;
+			break;
+		case 7:
+			brickTextureRegion = Assets.brickWheat;
+			break;
+		case 8:
+			brickTextureRegion = Assets.brickViolet;
+			break;
+		case 9:
+			brickTextureRegion = Assets.brickPurple;
+			break;
+		default:
+			brickTextureRegion = Assets.brickGrey;
+			break;
+		}
+
 
 		x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
 		y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
@@ -71,8 +111,6 @@ public class Brick {
 		this.position = new Vector2(x, y);
 		this.bounds = new Rectangle(position.x - BRICK_WIDTH / 2, position.y
 				- BRICK_HEIGHT / 2, BRICK_WIDTH, BRICK_HEIGHT);
-
-		this.brickTexture = brickTexture;
 		// all objects will be created at ceiling.
 		atCeiling = true;
 		state = BRICK_STATE_STILL;
@@ -81,14 +119,15 @@ public class Brick {
 		jumpedToFloor = false;
 	}
 
-
 	public void update(float deltaTime) {
 		// position.x = xNew;
 		velocity.set(0, BRICK_VELOCITY);
 
 		if (state == BRICK_STATE_SHIFTING_UP_TO_FLOOR) {
 			position.add(0, velocity.y * deltaTime * 2);
-			if (position.y > World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH + BRICK_HEIGHT / 2) {
+			if (position.y > World.WORLD_HEIGHT
+					- World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH
+					+ BRICK_HEIGHT / 2) {
 				position.y = World.FRAME_WIDTH - BRICK_HEIGHT / 2;
 				jumpedToFloor = true;
 			}
@@ -110,7 +149,9 @@ public class Brick {
 		if (state == BRICK_STATE_SHIFTING_DOWN_TO_CEILING) {
 			position.add(0, -velocity.y * deltaTime * 2);
 			if (position.y < World.FRAME_WIDTH - BRICK_HEIGHT / 2) {
-				position.y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH + BRICK_HEIGHT / 2;
+				position.y = World.WORLD_HEIGHT
+						- World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH
+						+ BRICK_HEIGHT / 2;
 				jumpedToCeiling = true;
 			}
 			if ((position.y < yDestination) && jumpedToCeiling) {
@@ -130,21 +171,22 @@ public class Brick {
 
 		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
 		stateTime += deltaTime;
-//		Log.d("Brick", "position.x" + position.x);
-//		Log.d("Brick", "position.y" + position.y);
+		// Log.d("Brick", "position.x" + position.x);
+		// Log.d("Brick", "position.y" + position.y);
 	}
 
 	public void setCell(int column, int row) {
 		this.column = column;
 		this.row = row;
 		if (atCeiling) {
-			yDestination = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH - 
-					BRICK_WIDTH	/ 2 - BRICK_WIDTH * (float) row;
+			yDestination = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
+					- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
+					* (float) row;
 		} else {
 			yDestination = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_HEIGHT
 					* (float) row;
 		}
-//		Log.d("Brick", "yDestination = " + yDestination);
+		// Log.d("Brick", "yDestination = " + yDestination);
 
 	}
 
