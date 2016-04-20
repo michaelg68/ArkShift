@@ -78,14 +78,14 @@ public class World {
 	
 	
 	public World(WorldListener listener) {
-		level = 2;
+		level = 5;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
 		
-		Log.d("World", "gameField.lowerLeft.x = " + gameField.lowerLeft.x);
-		Log.d("World", "gameField.lowerLeft.y = " + gameField.lowerLeft.y);
-		Log.d("World", "gameField.width = " + gameField.width);
-		Log.d("World", "gameField.height = " + gameField.height);
+//		Log.d("World", "gameField.lowerLeft.x = " + gameField.lowerLeft.x);
+//		Log.d("World", "gameField.lowerLeft.y = " + gameField.lowerLeft.y);
+//		Log.d("World", "gameField.width = " + gameField.width);
+//		Log.d("World", "gameField.height = " + gameField.height);
 		
 		rand = new Random();
 
@@ -229,28 +229,28 @@ public class World {
 		int breaktrhough = MyOverlapTester.circleCompletelyInsideRectangle(ball.bounds, gameField);
 		
 		if (breaktrhough == FRAME_TOP_BORDER_ID) {
-			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
-			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
+//			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
+//			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
 			// X collision
 			ball.position.y = FRAME_WIDTH + GAME_FIELD_HEIGHT
 					- Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_BOTTOM_BORDER_ID) {
-			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
-			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
+//			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
+//			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
 			
 			ball.position.y = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_LEFT_BORDER_ID) {
-			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
-			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
+//			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
+//			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
 			
 			// Y collision
 			ball.position.x = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
 		} else if (breaktrhough == FRAME_RIGHT_BORDER_ID) {
-			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
-			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
+//			Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " + breaktrhough);
+//			Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = " + ball.position.x + "; ball.position.y = " + ball.position.y);
 			
 			// Y collision
 			ball.position.x = FRAME_WIDTH + GAME_FIELD_WIDTH - Ball.BALL_RADIUS;
@@ -280,8 +280,7 @@ public class World {
 			// Log.d("World:checkBallCollisionsWithRacquet",
 			// "after changing ball.velocity.y = " + ball.velocity.y);
 			if (ball.velocity.y < 0) { // only if the ball moves downward!
-				Log.d("World:checkBallCollisionsWithRacquet",
-						"Contact with the racket TOP!");
+				//Log.d("World:checkBallCollisionsWithRacquet", "Contact with the racket TOP!");
 				ball.velocity.y = ball.velocity.y * (-1);
 				ball.position.y = racquet.position.y + Racquet.RACQUET_HEIGHT
 						/ 2 + Ball.BALL_RADIUS;
@@ -321,8 +320,7 @@ public class World {
 				// Log.d("World:checkBallCollisionsWithRacquet", "newAngle = "
 				// + newAngle);
 			} else {
-				Log.d("World:checkBallCollisionsWithRacquet",
-						"Contact with the racket BOTTOM!");
+				//Log.d("World:checkBallCollisionsWithRacquet", "Contact with the racket BOTTOM!");
 				ball.position.y = racquet.position.y - Racquet.RACQUET_HEIGHT
 						/ 2 - Ball.BALL_RADIUS;
 				ball.velocity.y = ball.velocity.y * (-1);
@@ -336,17 +334,16 @@ public class World {
 		// int collisionStatus = NO_COLLISION;
 		for (int i = 0; i < bricksArraySize; i++) {
 			Brick brick = bricks.get(i);
-			Log.d("World:checkBallCollisionsWithBricks", "brick id = " + i);
+/*			Log.d("World:checkBallCollisionsWithBricks", "brick id = " + i);
 			 Log.d("World:checkBallCollisionsWithBricks",
 			 "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
 			 Log.d("World:checkBallCollisionsWithBricks",
 			 "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
-			Log.d("World:checkBallCollisionsWithBricks", "brick.state = " + brick.state);
+			Log.d("World:checkBallCollisionsWithBricks", "brick.state = " + brick.state);*/
 
 			if ((OverlapTester
 					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
-				Log.d("World:checkBallCollisionsWithBricks",
-						"A collision with a brick just happened!");
+				//Log.d("World:checkBallCollisionsWithBricks", "A collision with a brick just happened!");
 				ball.velocity.y = ball.velocity.y * (-1);
 
 				listener.hitAtBrick();
@@ -358,15 +355,12 @@ public class World {
 
 				if (brick.atCeiling) {
 
-					Log.d("World:checkBallCollisionsWithBricks",
-							"A collision with a ceiling brick just happened!");
+					//Log.d("World:checkBallCollisionsWithBricks", "A collision with a ceiling brick just happened!");
 
 					// the bricks on the floor will shift up
 					for (int y = level - 1; y > 0; y--) {
 						floorBricksId[column][y] = floorBricksId[column][y - 1];
-						Log.d("World:checkBallCollisionsWithBricks", "fffff");
 						if (floorBricksId[column][y] != NO_OBJECT_ID) {
-							Log.d("World:checkBallCollisionsWithBricks", "fffff2");
 							bricks.get(floorBricksId[column][y]).setCell(
 									column, y);
 							bricks.get(floorBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_UP;
@@ -380,14 +374,12 @@ public class World {
 					bricks.get(topBrick).atCeiling = false;
 					bricks.get(topBrick).setCell(column, 0);
 					bricks.get(topBrick).state = Brick.BRICK_STATE_SHIFTING_UP_TO_FLOOR;
-					Log.d("World:checkBallCollisionsWithBricks", "bricks.get(topBrick).state = " + bricks.get(topBrick).state);
+//					Log.d("World:checkBallCollisionsWithBricks", "bricks.get(topBrick).state = " + bricks.get(topBrick).state);
 					// other ceiling bricks in this column will shift one cell
 					// up:
 					for (int y = 0; y < level - 1; y++) {
 						ceilingBricksId[column][y] = ceilingBricksId[column][y + 1];
-						Log.d("World:checkBallCollisionsWithBricks", "ccccc");
 						if (ceilingBricksId[column][y] != NO_OBJECT_ID) {
-							Log.d("World:checkBallCollisionsWithBricks", "ccccc2");
 							bricks.get(ceilingBricksId[column][y]).setCell(
 									column, y);
 							bricks.get(ceilingBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_UP;
@@ -398,7 +390,7 @@ public class World {
 					if (level > 1)
 						ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
 
-					for (int r = 0; r < level; r++) {
+/*					for (int r = 0; r < level; r++) {
 						for (int c = 0; c < COLUMNS; c++) {
 							Log.d("World:checkBallCollisionsWithCeilingBricks",
 									"c = " + c);
@@ -413,11 +405,10 @@ public class World {
 						}
 
 					}
-
+*/
 					break;
 				} else { // the collisions happened with a bottom brick
-					Log.d("World:checkBallCollisionsWithBricks",
-							"A collision with a ceiling brick just happened!");
+					//Log.d("World:checkBallCollisionsWithBricks", "A collision with a ceiling brick just happened!");
 					// the bricks on the floor will shift down
 					for (int y = level - 1; y > 0; y--) {
 						ceilingBricksId[column][y] = ceilingBricksId[column][y - 1];
@@ -458,29 +449,6 @@ public class World {
 		}
 
 	}
-
-	// private void checkBallCollisionsWithFloorBricks(){
-	// int len = floorBricks.size();
-	// for (int i = 0; i < len; i++) {
-	// Brick brick = floorBricks.get(i);
-	// if(OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds)) {
-	// ball.velocity.y = ball.velocity.y * (-1);
-	// listener.hitAtBrick();
-	// int column = brick.column;
-	// int row = brick.row;
-	// floorBricks.remove(i);
-	// floorBricksId[column][row] = NO_OBJECT_ID;
-	// brick.atCeiling = true;
-	// int nextId=ceilingBricks.size();
-	// ceilingBricksId[column][row] = nextId;
-	// ceilingBricks.add(brick);
-	// brick.move();
-	// i--;
-	// len--;
-	// break;
-	// }
-	// }
-	// }
 
 	private void checkGameOver() {
 		if (ballsLeft < 1) {

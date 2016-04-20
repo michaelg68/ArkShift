@@ -152,16 +152,16 @@ public class GameScreen extends GLScreen {
 				continue;
 
 			touchPoint.set(event.x, event.y);
-			 Log.d("GameScreen:", "event.x = " + Float.toString(event.x));
-			 Log.d("GameScreen:", "event.y = " + Float.toString(event.y));
+//			 Log.d("GameScreen:", "event.x = " + Float.toString(event.x));
+//			 Log.d("GameScreen:", "event.y = " + Float.toString(event.y));
 			guiCam.touchToWorld(touchPoint);
 
 			if (OverlapTester.pointInRectangle(pauseBounds, touchPoint)) {
-				Log.d("GameScreen:", "touched in pauseBounds");
-				Log.d("GameScreen:", "pauseBounds.lowerLeft.x = " + pauseBounds.lowerLeft.x);
-				Log.d("GameScreen:", "pauseBounds.lowerLeft.y = " + pauseBounds.lowerLeft.y);
-				Log.d("GameScreen:", "pauseBounds.width = " + pauseBounds.width);
-				Log.d("GameScreen:", "pauseBounds.height = " + pauseBounds.height);
+//				Log.d("GameScreen:", "touched in pauseBounds");
+//				Log.d("GameScreen:", "pauseBounds.lowerLeft.x = " + pauseBounds.lowerLeft.x);
+//				Log.d("GameScreen:", "pauseBounds.lowerLeft.y = " + pauseBounds.lowerLeft.y);
+//				Log.d("GameScreen:", "pauseBounds.width = " + pauseBounds.width);
+//				Log.d("GameScreen:", "pauseBounds.height = " + pauseBounds.height);
 				Assets.playSound(Assets.clickSound);
 				state = GAME_PAUSED;
 				return;

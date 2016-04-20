@@ -130,8 +130,8 @@ public class Brick {
 
 		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
 		stateTime += deltaTime;
-		// Log.d("Brick", "position.x" + position.x);
-		Log.d("Brick", "position.y" + position.y);
+//		Log.d("Brick", "position.x" + position.x);
+//		Log.d("Brick", "position.y" + position.y);
 	}
 
 	public void setCell(int column, int row) {
@@ -144,7 +144,7 @@ public class Brick {
 			yDestination = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_HEIGHT
 					* (float) row;
 		}
-		Log.d("Brick", "yDestination = " + yDestination);
+//		Log.d("Brick", "yDestination = " + yDestination);
 
 	}
 
