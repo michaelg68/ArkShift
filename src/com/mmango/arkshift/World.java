@@ -77,15 +77,8 @@ public class World {
 	public int bricksArraySize;
 	
 	
-	public static int border = 0;
-	public static int notificationAreaAndBorder = 0;
-	public static int widthN = 0;
-	public static int heightN = 0;
-	public static float widthCoefficient = 0f;
-	public static float heightCoefficient = 0f;
-
 	public World(WorldListener listener) {
-		level = 0;
+		level = 6;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
 		
