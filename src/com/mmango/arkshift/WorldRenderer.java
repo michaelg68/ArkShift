@@ -35,24 +35,24 @@ public class WorldRenderer {
     
     public void render() {
         cam.setViewportAndMatrices();
-        renderObjects();        
-        renderBackground();
+        renderObjectsAndBackground();        
+        //renderBackground();
     }
     
-    public void renderBackground() {
-    	GL10 gl = glGraphics.getGL();
-    	gl.glEnable(GL10.GL_BLEND);
-        batcher.beginBatch(Assets.gameScreenBackground);
-        batcher.drawSprite(cam.position.x, cam.position.y, World.WORLD_WIDTH, World.WORLD_HEIGHT, 
-                           Assets.gameScreenBackgroundRegion);
-        batcher.endBatch();
-        gl.glDisable(GL10.GL_BLEND);
-    }
-    
-    public void renderObjects() {
+    public void renderObjectsAndBackground() {
         GL10 gl = glGraphics.getGL();
         gl.glEnable(GL10.GL_BLEND);
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        
+        //we first render the object and only after that the background 
+        //that's so in order to get effect of shifting bricks under the frame 
+
+        
+        batcher.beginBatch(Assets.gameScreenElements);
+        renderRacquet();
+        renderBall();
+        renderBricks();
+        batcher.endBatch();
         
 
         //temporary batch for drawing the gamefield boundaries
@@ -60,13 +60,8 @@ public class WorldRenderer {
 //        batcher.drawSprite(0, 0, 1040, 1730, Assets.gameFieldBlueRegion);
 //        batcher.endBatch();
         
+        renderBackground();
         
-        
-        batcher.beginBatch(Assets.gameScreenElements);
-        renderRacquet();
-        renderBall();
-        renderBricks();
-        batcher.endBatch();
         gl.glDisable(GL10.GL_BLEND);
     }
     
@@ -100,14 +95,12 @@ public class WorldRenderer {
             //Log.d("WorldRenderer", "inside method renderBricks, before drawSprite");
             batcher.drawSprite(brick.position.x, brick.position.y, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brick.brickTexture);
         }
-        
-/*        int lenFloor = world.floorBricks.size();
-        //Log.d("WorldRenderer", "world.bricks.size(): " + Integer.toString(len));
-        
-        for(int i = 0; i < lenFloor; i++) {
-            Brick brick = world.floorBricks.get(i);
-            //Log.d("WorldRenderer", "inside method renderBricks, before drawSprite");
-            batcher.drawSprite(brick.position.x, brick.position.y, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brick.brickTexture);
-        }*/
+    }
+    
+    public void renderBackground() {
+        batcher.beginBatch(Assets.gameScreenBackground);
+        batcher.drawSprite(cam.position.x, cam.position.y, World.WORLD_WIDTH, World.WORLD_HEIGHT, 
+                           Assets.gameScreenBackgroundRegion);
+        batcher.endBatch();
     }
 }
