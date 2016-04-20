@@ -35,15 +35,18 @@ public class WorldRenderer {
     
     public void render() {
         cam.setViewportAndMatrices();
-        renderBackground();
         renderObjects();        
+        renderBackground();
     }
     
     public void renderBackground() {
+    	GL10 gl = glGraphics.getGL();
+    	gl.glEnable(GL10.GL_BLEND);
         batcher.beginBatch(Assets.gameScreenBackground);
         batcher.drawSprite(cam.position.x, cam.position.y, World.WORLD_WIDTH, World.WORLD_HEIGHT, 
                            Assets.gameScreenBackgroundRegion);
         batcher.endBatch();
+        gl.glDisable(GL10.GL_BLEND);
     }
     
     public void renderObjects() {

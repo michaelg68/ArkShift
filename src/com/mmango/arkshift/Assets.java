@@ -11,8 +11,8 @@ public class Assets {
 	public static Texture mainScreenBackground;
 	public static TextureRegion mainScreenBackgroundRegion;
 	
-	public static Texture gameFieldBlue;
-	public static TextureRegion gameFieldBlueRegion;
+	public static Texture gameFieldGreen;
+	public static TextureRegion gameFieldGreenRegion;
 	
 	public static Texture userInterfaceElements;
 	public static TextureRegion mainScreenMenuRegion;
@@ -58,10 +58,7 @@ public class Assets {
 				"background_mainscreen_1080x1920.png");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,
 				0, 1080, 1920);
-		
-		gameFieldBlue = new Texture(game, "game_field_blue_1040x1730.png");
-		gameFieldBlueRegion = new TextureRegion(gameFieldBlue, 0, 0, 1040, 1730);
-		
+	
 		userInterfaceElements = new Texture(game, "atlas_ui_elements.png");
 		mainScreenMenuRegion = new TextureRegion(userInterfaceElements, 0, 0, 700, 1000);
 		readyBannerRegion = new TextureRegion(userInterfaceElements, 0, 1500, 700, 250);
@@ -72,9 +69,13 @@ public class Assets {
 		buttonBack = new TextureRegion(userInterfaceElements, 228, 1750, 128, 128);
 		buttonForward = new TextureRegion(userInterfaceElements, 100, 1878, 128, 128);
 		
-		gameScreenBackground = new Texture(game, "atlas_background.png");
+		gameScreenBackground = new Texture(game, "background_with_transp_gamefield.png");
 		gameScreenBackgroundRegion = new TextureRegion(gameScreenBackground, 0,
 				0, 1080, 1920);
+		
+		gameFieldGreen = new Texture(game, "gamefield_green_1040x1730.png");
+		gameFieldGreenRegion = new TextureRegion(gameFieldGreen, 0, 0, 1040, 1730);
+		
 		gameScreenElements = new Texture(game, "atlas_gamescreen_elements.png");
 		racquet = new TextureRegion(gameScreenElements, 256, 128, 512, 64);
 		ballWhite = new TextureRegion(gameScreenElements, 256, 192, 64, 64);
@@ -126,7 +127,7 @@ public class Assets {
 
 	public static void reload() {
 		mainScreenBackground.reload();
-		gameFieldBlue.reload();
+		gameFieldGreen.reload();
 		userInterfaceElements.reload();
 		gameScreenBackground.reload();
 		gameScreenElements.reload();
