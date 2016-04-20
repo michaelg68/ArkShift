@@ -39,9 +39,8 @@ public class Brick {
 	public static final int BRICK_COLOR_VIOLET = 8;
 	public static final int BRICK_COLOR_PURPLE = 9;
 	
-
-	public TextureRegion brickTextureRegion;
 	public int color;
+	public TextureRegion brickTextureRegion;
 	int state;
 	float stateTime;
 	float x;
@@ -56,9 +55,10 @@ public class Brick {
 	public Brick(int column, int row, int color) {
 		this.column = column;
 		this.row = row;
+		this.color = color;
 		
 		
-		switch (color) {
+		switch (this.color) {
 		case 0:
 			brickTextureRegion = Assets.brickGold;
 			break;
