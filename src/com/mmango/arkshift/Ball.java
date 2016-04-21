@@ -12,7 +12,9 @@ public class Ball extends DynamicGameObjectCircle {
 	public static final int BALL_STATE_HIT_CEILING_BRICK = 3;
 	public static final int BALL_STATE_HIT_FLOOR_BRICK = 4;
 	public static final int BALL_STATE_HIT_FRAME = 5;
-	public static final float BALL_MOVE_VELOCITY = 0;
+	public static final float BALL_ACCELL = 13f;
+	public static final float BALL_DOUBLE_ACCELL = BALL_ACCELL * 1.5f;
+	//public static float BALL_MOVE_VELOCITY = 0;
 	public static final float BALL_DIAMETER = 5.4f;
 	public static final float BALL_RADIUS = 2.7f;
 //	public static final float BALL_HEIGHT = 5.4f;
@@ -20,6 +22,7 @@ public class Ball extends DynamicGameObjectCircle {
 //	public static final int BALL_COLOR_YELLOW = 1;
 //	public static final int BALL_COLOR_RED = 2;
 	public TextureRegion ballTexture;
+	public float ballAccel;
 
 	
 	//public int color;
@@ -31,14 +34,13 @@ public class Ball extends DynamicGameObjectCircle {
         state = BALL_STATE_STILL;
         stateTime = 0;
         this.ballTexture = ballTexture;
-        //velocity.x = 20;
-        //velocity.y = 100;
-        velocity.set(20, 100);
+        ballAccel = BALL_ACCELL;
+        velocity.set(2, 10);
     }
     
     public void update(float deltaTime) {
 		//velocity.add(0 * deltaTime, 0 * deltaTime);
-		position.add(velocity.x * deltaTime, velocity.y * deltaTime);
+		position.add(velocity.x * ballAccel * deltaTime, velocity.y * ballAccel * deltaTime);
 		bounds.center.set(position);
 		//Log.d("Ball:update", "position.x = " + position.x);
 		//Log.d("Ball:update", "position.y = " + position.y);

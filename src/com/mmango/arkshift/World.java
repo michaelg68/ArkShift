@@ -316,13 +316,13 @@ public class World {
 				// int row = brick.row;
 
 				
-//				if (brick.color == Brick.BRICK_COLOR_GREEN) {  //if a green brick was heat then double the velocity of the ball
-//					ball.velocity.mul(2);
-//				}
-//				
-//				if (brick.color == Brick.BRICK_COLOR_RED) {  //if a green brick was heat then decrease the velocity of the ball by half
-//					ball.velocity.mul(0.5f);
-//				}
+				if (brick.color == Brick.BRICK_COLOR_GREEN) {  //if a green brick was heat then double the velocity of the ball
+					ball.ballAccel = Ball.BALL_DOUBLE_ACCELL;
+				}
+				
+				if (brick.color == Brick.BRICK_COLOR_RED) {  //if a green brick was heat then decrease the velocity of the ball by half
+					ball.ballAccel = Ball.BALL_ACCELL;
+				}
 				
 				// We do not care which brick in the column was hit,
 				// we always shift the whole column either up or down
