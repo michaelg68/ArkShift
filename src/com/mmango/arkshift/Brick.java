@@ -29,13 +29,13 @@ public class Brick {
 	public boolean atCeiling;
 
 	public static final int BRICK_COLOR_GOLD = 0;
-	public static final int BRICK_COLOR_GREEN = 1;
-	public static final int BRICK_COLOR_BLUE = 2;
+	public static final int BRICK_COLOR_GREEN = 1;  //set double acceleration until a red brick is hit
+	public static final int BRICK_COLOR_BLUE = 2;   //
 	public static final int BRICK_COLOR_ORANGE = 3;
-	public static final int BRICK_COLOR_GREY = 4;
-	public static final int BRICK_COLOR_RED = 5;
+	public static final int BRICK_COLOR_GREY = 4; //set the narrow/wide racquet
+	public static final int BRICK_COLOR_RED = 5;  //reset normal acceleration 
 	public static final int BRICK_COLOR_PINK = 6;
-	public static final int BRICK_COLOR_WHEAT = 7;
+	public static final int BRICK_COLOR_WHEAT = 7; 
 	public static final int BRICK_COLOR_VIOLET = 8;
 	public static final int BRICK_COLOR_PURPLE = 9;
 	
@@ -59,34 +59,34 @@ public class Brick {
 		
 		
 		switch (this.color) {
-		case 0:
+		case BRICK_COLOR_GOLD:
 			brickTextureRegion = Assets.brickGold;
 			break;
-		case 1:
+		case BRICK_COLOR_GREEN:
 			brickTextureRegion = Assets.brickGreen;
 			break;
-		case 2:
+		case BRICK_COLOR_BLUE:
 			brickTextureRegion = Assets.brickBlue;
 			break;
-		case 3:
+		case BRICK_COLOR_ORANGE:
 			brickTextureRegion = Assets.brickOrange;
 			break;
-		case 4:
+		case BRICK_COLOR_GREY:
 			brickTextureRegion = Assets.brickGrey;
 			break;
-		case 5:
+		case BRICK_COLOR_RED:
 			brickTextureRegion = Assets.brickRed;
 			break;
-		case 6:
+		case BRICK_COLOR_PINK:
 			brickTextureRegion = Assets.brickPink;
 			break;
-		case 7:
+		case BRICK_COLOR_WHEAT:
 			brickTextureRegion = Assets.brickWheat;
 			break;
-		case 8:
+		case BRICK_COLOR_VIOLET:
 			brickTextureRegion = Assets.brickViolet;
 			break;
-		case 9:
+		case BRICK_COLOR_PURPLE:
 			brickTextureRegion = Assets.brickPurple;
 			break;
 		default:

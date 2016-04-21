@@ -70,7 +70,7 @@ public class WorldRenderer {
         //Log.d("WorldRenderer:renderRacquet", "inside method renderRacquet, before drawSprite");
         //batcher.drawSprite(54, 2f + 10.4f + 2.7f , 40f, 5f, Assets.racquet);
         //batcher.drawSprite(racquet.position.x + racquet.RACQUET_WIDTH / 2, racquet.position.y - racquet.RACQUET_HEIGHT / 2, 40f, 5.4f, Assets.racquet);
-        batcher.drawSprite(racquet.position.x, racquet.position.y, Racquet.RACQUET_WIDTH, Racquet.RACQUET_HEIGHT, Assets.racquet);
+        batcher.drawSprite(racquet.position.x, racquet.position.y, racquet.racquetWidth, Racquet.RACQUET_HEIGHT, Assets.racquet);
 
         //Log.d("WorldRenderer:renderRacquet", "inside method renderRacquet, after drawSprite");
        // batcher.drawSprite(racquet.position.x, racquet.position.y, 40f, 5f,	racquetRegion)

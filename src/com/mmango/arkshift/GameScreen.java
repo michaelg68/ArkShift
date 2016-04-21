@@ -313,9 +313,8 @@ public class GameScreen extends GLScreen {
 				BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE, Assets.buttonPause);
 		// Assets.font.drawTextZoomed(batcher, scoreString, 1080 / 2 , 1920/2,
 		// 12, 12);
-		// Assets.font.drawText(batcher, "Score", 1080 / 2 - 200 , 1920/2);
-		// Assets.font.drawTextZoomed(batcher, "score", 1080 / 2 - 200 , 1920/2,
-		// 2, 2);
+		Assets.font.drawText(batcher, "Score", 1080 / 2 - 200 , 1920/2);
+		//Assets.font.drawTextZoomed(batcher, "Score", 1080 / 2 - 200 , 1920/2, 2, 2);
 	}
 
 	private void presentPaused() {

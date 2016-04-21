@@ -68,6 +68,8 @@ public class Assets {
 		buttonHome = new TextureRegion(userInterfaceElements, 100, 1750, 128, 128);
 		buttonBack = new TextureRegion(userInterfaceElements, 228, 1750, 128, 128);
 		buttonForward = new TextureRegion(userInterfaceElements, 100, 1878, 128, 128);
+		font = new Font(userInterfaceElements, 356, 1750, 8, 32, 32);
+
 		
 		gameScreenBackground = new Texture(game, "background_with_transp_gamefield.png");
 		gameScreenBackgroundRegion = new TextureRegion(gameScreenBackground, 0,
@@ -92,8 +94,6 @@ public class Assets {
 		brickWheat = new TextureRegion(gameScreenElements, 896, 0, 128, 128);
 		brickViolet = new TextureRegion(gameScreenElements, 0, 128, 128, 128);
 		brickPurple = new TextureRegion(gameScreenElements, 128, 128, 128, 128);
-		font = new Font(gameScreenElements, 356, 1750, 8, 32, 32);
-
 
 		music = game.getAudio().newMusic("jewelbeat_-_electrify.ogg");
 		/* http://www.jewelbeat.com/free */

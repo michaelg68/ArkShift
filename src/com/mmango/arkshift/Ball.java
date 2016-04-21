@@ -12,8 +12,8 @@ public class Ball extends DynamicGameObjectCircle {
 	public static final int BALL_STATE_HIT_CEILING_BRICK = 3;
 	public static final int BALL_STATE_HIT_FLOOR_BRICK = 4;
 	public static final int BALL_STATE_HIT_FRAME = 5;
-	public static final float BALL_ACCELL = 13f;
-	public static final float BALL_DOUBLE_ACCELL = BALL_ACCELL * 1.5f;
+	public static final float BALL_NORMAL_ACCELL = 13f;
+	public static final float BALL_DOUBLE_ACCELL = BALL_NORMAL_ACCELL * 1.5f;
 	//public static float BALL_MOVE_VELOCITY = 0;
 	public static final float BALL_DIAMETER = 5.4f;
 	public static final float BALL_RADIUS = 2.7f;
@@ -34,7 +34,7 @@ public class Ball extends DynamicGameObjectCircle {
         state = BALL_STATE_STILL;
         stateTime = 0;
         this.ballTexture = ballTexture;
-        ballAccel = BALL_ACCELL;
+        ballAccel = BALL_NORMAL_ACCELL;
         velocity.set(2, 10);
     }
     
