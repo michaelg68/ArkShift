@@ -59,6 +59,12 @@ public class World {
 	// public final static int COLLISION_WITH_X = 1;
 	// public final static int COLLISION_WITH_Y = 2;
 
+	// for calculating the overlapped brick border:
+	public final static int TOP_BORDER = 1;
+	public final static int BOTTOM_BORDER = 2;
+	public final static int LEFT_BORDER = 3;
+	public final static int RIGHT_BORDER = 4;
+
 	public static Rectangle gameField;
 
 	public Racquet racquet;
@@ -77,7 +83,7 @@ public class World {
 	public int bricksArraySize;
 
 	public World(WorldListener listener) {
-		level = 5;
+		level = 1;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
@@ -92,7 +98,8 @@ public class World {
 		// this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH +
 		// Brick.BRICK_HEIGHT * (level) + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
 		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH
-				+ Racquet.RACQUET_HEIGHT / 2 + 0.5f, Racquet.RACQUET_WIDTH_NORMAL);
+				+ Racquet.RACQUET_HEIGHT / 2 + 0.5f,
+				Racquet.RACQUET_WIDTH_NORMAL);
 
 		// randomize the x coordinate of the ball on the racquet: shift it from
 		// the center of the racquet in range from -18f to +18f
@@ -309,21 +316,53 @@ public class World {
 		// int collisionStatus = NO_COLLISION;
 		for (int i = 0; i < bricksArraySize; i++) {
 			Brick brick = bricks.get(i);
-			/*
-			 * Log.d("World:checkBallCollisionsWithBricks", "brick id = " + i);
-			 * Log.d("World:checkBallCollisionsWithBricks",
-			 * "brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
-			 * Log.d("World:checkBallCollisionsWithBricks",
-			 * "brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
-			 * Log.d("World:checkBallCollisionsWithBricks", "brick.state = " +
-			 * brick.state);
-			 */
 
 			if ((OverlapTester
 					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
 				// Log.d("World:checkBallCollisionsWithBricks",
 				// "A collision with a brick just happened!");
-				ball.velocity.y = ball.velocity.y * (-1);
+				// ball.velocity.y = ball.velocity.y * (-1);
+
+				int border = MyOverlapTester.overlapCircleRectangleAdv(
+						ball.bounds, brick.bounds);
+				
+				
+				Log.d("World:checkBallCollisionsWithBricks", "brick id = " + i);
+				Log.d("World:checkBallCollisionsWithBricks", "border = " + border);
+				Log.d("World:checkBallCollisionsWithBricks",
+						"brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
+				Log.d("World:checkBallCollisionsWithBricks",
+						"brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
+				Log.d("World:checkBallCollisionsWithBricks", "brick.state = "
+						+ brick.state);
+
+				switch (border) {
+				case BOTTOM_BORDER:
+					ball.position.y = brick.bounds.lowerLeft.y
+							+ Ball.BALL_RADIUS;
+					ball.velocity.y = ball.velocity.y * (-1);
+					break;
+
+				case TOP_BORDER:
+					ball.position.y = brick.bounds.lowerLeft.y
+							+ brick.bounds.height + Ball.BALL_RADIUS;
+					ball.velocity.y = ball.velocity.y * (-1);
+					break;
+
+				case LEFT_BORDER:
+					ball.position.x = brick.bounds.lowerLeft.x
+							- Ball.BALL_RADIUS;
+					ball.velocity.x = ball.velocity.x * (-1);
+					break;
+
+				case RIGHT_BORDER:
+					ball.position.x = brick.bounds.lowerLeft.x
+							+ brick.bounds.width - Ball.BALL_RADIUS;
+					ball.velocity.x = ball.velocity.x * (-1);
+
+				default:
+					break;
+				}
 
 				listener.hitAtBrick();
 				int column = brick.column;
