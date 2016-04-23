@@ -42,7 +42,7 @@ public class Font {
 			if (c < 0 || c > glyphs.length - 1)
 				continue;
 			TextureRegion glyph = glyphs[c];
-			batcher.drawSprite(x * xZoom, y, glyphWidth * xZoom, glyphHeight * yZoom, glyph);
+			batcher.drawSprite(x, y, glyphWidth * xZoom, glyphHeight * yZoom, glyph);
 			x += glyphWidth * xZoom;
 		}
 	}

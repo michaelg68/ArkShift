@@ -58,7 +58,7 @@ public class World {
 	public final static int NO_COLLISION = 0;
 	public final static int COLLISION_WITH_X = 1;
 	public final static int COLLISION_WITH_Y = 2;
-	//public final static int COLLISION_WITH_CORNER = 3;
+	// public final static int COLLISION_WITH_CORNER = 3;
 
 	// for calculating the overlapped brick border:
 	public final static int TOP_BORDER = 1;
@@ -111,7 +111,7 @@ public class World {
 
 		this.ball = new Ball(WORLD_WIDTH / 2 + ballXOffset, racquet.position.y
 				+ Racquet.RACQUET_HEIGHT / 2 + Ball.BALL_DIAMETER / 2,
-				Assets.ballWhite);
+				Ball.BALL_COLOR_WHITE);
 		this.bricks = new ArrayList<Brick>();
 		// this.floorBricks = new ArrayList<Brick>();
 		this.listener = listener;
@@ -246,8 +246,10 @@ public class World {
 		// Log.d("World:checkBallCollisionsWithRacquet", "racquetContact = " +
 		// racquetContact );
 		if (racquetContact) {
-			//Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet", "there was a contact!");
-			//Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet", "racquet.racquetWidth = " + racquet.racquetWidth);
+			// Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet",
+			// "there was a contact!");
+			// Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet",
+			// "racquet.racquetWidth = " + racquet.racquetWidth);
 			//
 			// Log.d("World:checkBallCollisionsWithRacquet", "oldAngle = "
 			// + ball.velocity.angle());
@@ -328,6 +330,13 @@ public class World {
 				// "A collision with a brick just happened!");
 				// ball.velocity.y = ball.velocity.y * (-1);
 
+				int scoringSign = (brick.atCeiling) ? 1 : -2; // if the ceiling
+																// brick hit
+																// then we
+																// increase the
+																// score; else -
+																// decrease;
+
 				int collisionStatus = MyOverlapTester
 						.overlapCircleRectangleAdv(ball.bounds, brick.bounds);
 
@@ -340,39 +349,49 @@ public class World {
 				Log.d("World:checkBallCollisionsWithBricks",
 						"brick.bounds.lowerLeft.y = "
 								+ brick.bounds.lowerLeft.y);
-				//Log.d("World:checkBallCollisionsWithBricks", "brick.state = " + brick.state);
-				Log.d("World:checkBallCollisionsWithBricks", "Old ball.position x = "	+ ball.position.x 
-						+ "; y = " + ball.position.y);
+				// Log.d("World:checkBallCollisionsWithBricks", "brick.state = "
+				// + brick.state);
+				Log.d("World:checkBallCollisionsWithBricks",
+						"Old ball.position x = " + ball.position.x + "; y = "
+								+ ball.position.y);
 
 				switch (collisionStatus) {
 				case BOTTOM_BORDER:
-					ball.position.y = brick.bounds.lowerLeft.y - Ball.BALL_RADIUS;
-					Log.d("World:checkBallCollisionsWithBricks", "New ball.position x = "	+ ball.position.x 
-							+ "; y = " + ball.position.y);
+					ball.position.y = brick.bounds.lowerLeft.y
+							- Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks",
+							"New ball.position x = " + ball.position.x
+									+ "; y = " + ball.position.y);
 					ball.velocity.y = ball.velocity.y * (-1);
 					break;
-					
+
 				case TOP_BORDER:
-					ball.position.y = brick.bounds.lowerLeft.y + brick.bounds.height + Ball.BALL_RADIUS;
-					Log.d("World:checkBallCollisionsWithBricks", "New ball.position x = "	+ ball.position.x 
-							+ "; y = " + ball.position.y);
+					ball.position.y = brick.bounds.lowerLeft.y
+							+ brick.bounds.height + Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks",
+							"New ball.position x = " + ball.position.x
+									+ "; y = " + ball.position.y);
 					ball.velocity.y = ball.velocity.y * (-1);
 					break;
-					
+
 				case LEFT_BORDER:
-					ball.position.x = brick.bounds.lowerLeft.x - Ball.BALL_RADIUS;
-					Log.d("World:checkBallCollisionsWithBricks", "New ball.position x = "	+ ball.position.x 
-							+ "; y = " + ball.position.y);
+					ball.position.x = brick.bounds.lowerLeft.x
+							- Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks",
+							"New ball.position x = " + ball.position.x
+									+ "; y = " + ball.position.y);
 					ball.velocity.x = ball.velocity.x * (-1);
 					break;
-					
+
 				case RIGHT_BORDER:
-					ball.position.x = brick.bounds.lowerLeft.x + brick.bounds.width + Ball.BALL_RADIUS;
-					Log.d("World:checkBallCollisionsWithBricks", "New ball.position x = "	+ ball.position.x 
-							+ "; y = " + ball.position.y);
+					ball.position.x = brick.bounds.lowerLeft.x
+							+ brick.bounds.width + Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks",
+							"New ball.position x = " + ball.position.x
+									+ "; y = " + ball.position.y);
 					ball.velocity.x = ball.velocity.x * (-1);
 					break;
-					
+
 				case COLLISION_WITH_CORNER:
 					ball.velocity.mul(-1);
 					break;
@@ -385,23 +404,42 @@ public class World {
 				// int row = brick.row;
 
 				// customize gameplay
-				if (brick.color == Brick.BRICK_COLOR_GREEN) { // if a green
-																// brick hit
-																// then switch
-																// between
-																// NORMAL/DOUBLE
-																// ball
-																// acceleration
-					ball.ballAccel = (ball.ballAccel == Ball.BALL_NORMAL_ACCELL) ? Ball.BALL_DOUBLE_ACCELL : Ball.BALL_NORMAL_ACCELL;
-				}
 
-				if (brick.color == Brick.BRICK_COLOR_GREY) { // if a grey brick
-																// was hit then
-																// switch the
-																// racquet width
-																// between
-																// normal/narrow
-					racquet.racquetWidth = (racquet.racquetWidth == Racquet.RACQUET_WIDTH_NORMAL) ? Racquet.RACQUET_WIDTH_NARROW : Racquet.RACQUET_WIDTH_NORMAL;
+				switch (brick.color) {
+				case Brick.BRICK_COLOR_RED: // if a red brick hit then
+											// DOUBLE the ball acceleration.
+											// Also set the
+											// ball color to RED
+					if (ball.ballAccel == Ball.BALL_NORMAL_ACCELL) {
+						ball.ballAccel = Ball.BALL_DOUBLE_ACCELL;
+						ball.setBallColor(Ball.BALL_COLOR_RED);
+					}
+
+					score += 2 * scoringSign;
+					break;
+				case Brick.BRICK_COLOR_GREEN: // if a green brick hit then
+					// restore the NORMAL ball acceleration. Also set the
+					// ball color to GREEN
+					if (ball.ballAccel == Ball.BALL_DOUBLE_ACCELL) {
+						ball.ballAccel = Ball.BALL_NORMAL_ACCELL;
+						ball.setBallColor(Ball.BALL_COLOR_WHITE);
+					}
+
+					score += 2 * scoringSign;
+					break;
+
+				case Brick.BRICK_COLOR_GREY: // if a grey brick was hit then
+												// switch the racquet width
+												// between normal/narrow
+					racquet.racquetWidth = (racquet.racquetWidth == Racquet.RACQUET_WIDTH_NORMAL) ? Racquet.RACQUET_WIDTH_NARROW
+							: Racquet.RACQUET_WIDTH_NORMAL;
+					score += 2 * scoringSign;
+					break;
+
+				default:
+					score += 1 * scoringSign;
+					break;
+
 				}
 
 				// We do not care which brick in the column was hit,

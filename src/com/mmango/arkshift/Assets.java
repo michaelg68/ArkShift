@@ -71,7 +71,7 @@ public class Assets {
 		font = new Font(userInterfaceElements, 356, 1750, 8, 32, 32);
 
 		
-		gameScreenBackground = new Texture(game, "background_with_transp_gamefield.png");
+		gameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");
 		gameScreenBackgroundRegion = new TextureRegion(gameScreenBackground, 0,
 				0, 1080, 1920);
 		

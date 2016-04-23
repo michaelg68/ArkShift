@@ -18,24 +18,25 @@ public class Ball extends DynamicGameObjectCircle {
 	public static final float BALL_DIAMETER = 5.4f;
 	public static final float BALL_RADIUS = 2.7f;
 //	public static final float BALL_HEIGHT = 5.4f;
-//	public static final int BALL_COLOR_WHITE = 0;
-//	public static final int BALL_COLOR_YELLOW = 1;
-//	public static final int BALL_COLOR_RED = 2;
-	public TextureRegion ballTexture;
+	public static final int BALL_COLOR_WHITE = 0;
+	public static final int BALL_COLOR_YELLOW = 1;
+	public static final int BALL_COLOR_RED = 2;
+	public TextureRegion ballTextureRegion;
 	public float ballAccel;
 
 	
-	//public int color;
+	public int color;
     int state;
     float stateTime;  
 	
-    public Ball(float x, float y, TextureRegion ballTexture) {
+    public Ball(float x, float y, int color) {
         super(x, y, BALL_RADIUS);
         state = BALL_STATE_STILL;
         stateTime = 0;
-        this.ballTexture = ballTexture;
+        //this.ballTexture = ballTexture;
         ballAccel = BALL_NORMAL_ACCELL;
         velocity.set(2, 10);
+        setBallColor(color);
     }
     
     public void update(float deltaTime) {
@@ -81,8 +82,19 @@ public class Ball extends DynamicGameObjectCircle {
         stateTime = 0;
     }*/
 
-	public void setBallTexture(TextureRegion ballTexture) {
-		this.ballTexture = ballTexture;
+	public void setBallColor(int color) {
+		this.color = color;
+        switch (this.color) {
+		case BALL_COLOR_RED:
+			this.ballTextureRegion = Assets.ballRed;
+			break;
+		case BALL_COLOR_YELLOW:
+			this.ballTextureRegion = Assets.ballYellow;
+			break;
+		default:   //BALL_COLOR_WHITE
+			this.ballTextureRegion = Assets.ballWhite;
+			break;
+		}
 	}
 
 }

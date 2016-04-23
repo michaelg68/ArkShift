@@ -168,6 +168,11 @@ public class GameScreen extends GLScreen {
 			}
 		}
 		world.update(deltaTime, calculateInputAcceleration());
+		if(world.score != lastScore) {
+            lastScore = world.score;
+            scoreString = "" + lastScore;
+        }
+		Log.d("GameScreen:updateRunning", "lastScore = " + lastScore);
 
 	}
 
@@ -311,10 +316,8 @@ public class GameScreen extends GLScreen {
 		batcher.drawSprite(RESOLUTION_X - 23 - BUTTON_PAUSE_SIDE / 2, 
 				RESOLUTION_Y - 22 - BUTTON_PAUSE_SIDE / 2, 
 				BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE, Assets.buttonPause);
-		// Assets.font.drawTextZoomed(batcher, scoreString, 1080 / 2 , 1920/2,
-		// 12, 12);
-		//Assets.font.drawText(batcher, "Score", 1080 / 2 - 200 , 1920/2);
-		//Assets.font.drawTextZoomed(batcher, "Score", 1080 / 2 - 200 , 1920/2, 2, 2);
+
+		Assets.font.drawTextZoomed(batcher, scoreString, 1080 / 2 - 100, 1920 - 80, 4.2f, 4.2f);
 	}
 
 	private void presentPaused() {
