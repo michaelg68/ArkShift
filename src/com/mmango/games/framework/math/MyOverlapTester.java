@@ -16,6 +16,7 @@ public class MyOverlapTester {
 	public final static int NO_COLLISION = 0;
 	public final static int COLLISION_WITH_X = 1;
 	public final static int COLLISION_WITH_Y = 2;
+	public final static int COLLISION_WITH_CORNER = 5;
 
 	public static int overlapCircleRectangleAdv(Circle c, Rectangle r) {
 		float closestX = c.center.x;
@@ -27,33 +28,22 @@ public class MyOverlapTester {
 		
 		
 
-		if (c.center.x <= r.lowerLeft.x) {
-			closestX = r.lowerLeft.x;
-			closestVerticalSide = LEFT_BORDER;
-
-		} else if (c.center.x >= r.lowerLeft.x + r.width) {
-			closestX = r.lowerLeft.x + r.width;
-			closestVerticalSide = RIGHT_BORDER;
-		}
-
-		if (c.center.y <= r.lowerLeft.y) {
-			closestY = r.lowerLeft.y;
-			closestHorisontalSide = BOTTOM_BORDER;
-		} else if (c.center.y > r.lowerLeft.y + r.height) {
-			closestY = r.lowerLeft.y + r.height;
-			closestHorisontalSide = TOP_BORDER;
-		}
-		
-		if (c.center.distSquared(closestX, closestY) < c.radius * c.radius) {
-			//find distance from the center of the circle to the closestX and closestY
-			if (Math.abs(closestX - c.center.x) < Math.abs(closestY - c.center.y)) { 
-				collisionStatus = closestVerticalSide; 
+		if ((c.center.x >= r.lowerLeft.x) && (c.center.x <= r.lowerLeft.x + r.width)) {
+			if (c.center.y < r.lowerLeft.y) {
+				collisionStatus = BOTTOM_BORDER;
 			} else {
-				collisionStatus = closestHorisontalSide;
+				collisionStatus = TOP_BORDER;
 			}
+		} else if ((c.center.y >= r.lowerLeft.y) && (c.center.y <= r.lowerLeft.y + r.height)) {
+			if (c.center.x < r.lowerLeft.x) {
+				collisionStatus = LEFT_BORDER;
+			} else {
+				collisionStatus = RIGHT_BORDER;
+			}
+		} else {
+			collisionStatus = COLLISION_WITH_CORNER;
 		}
-		
-		Log.d("OverlapTester:overlapCircleRectangleAdv", "collisionStatus = " + collisionStatus);
+		//Log.d("OverlapTester:overlapCircleRectangleAdv", "collisionStatus = " + collisionStatus);
 		return collisionStatus;
 	}
 

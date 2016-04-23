@@ -134,8 +134,9 @@ public class Assets {
 	}
 
 	public static void playSound(Sound sound) {
-		if (Settings.soundEnabled)
+/*		if (Settings.soundEnabled)
 			sound.play(1);
+			*/
 	}
 
 }

@@ -55,15 +55,17 @@ public class World {
 	public static final int COLUMNS = 10;
 	public static final int NO_OBJECT_ID = 99999; // an empty cell
 
-	// public final static int NO_COLLISION = 0;
-	// public final static int COLLISION_WITH_X = 1;
-	// public final static int COLLISION_WITH_Y = 2;
+	public final static int NO_COLLISION = 0;
+	public final static int COLLISION_WITH_X = 1;
+	public final static int COLLISION_WITH_Y = 2;
+	//public final static int COLLISION_WITH_CORNER = 3;
 
 	// for calculating the overlapped brick border:
 	public final static int TOP_BORDER = 1;
 	public final static int BOTTOM_BORDER = 2;
 	public final static int LEFT_BORDER = 3;
 	public final static int RIGHT_BORDER = 4;
+	public final static int COLLISION_WITH_CORNER = 5;
 
 	public static Rectangle gameField;
 
@@ -83,7 +85,7 @@ public class World {
 	public int bricksArraySize;
 
 	public World(WorldListener listener) {
-		level = 1;
+		level = 7;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
@@ -313,6 +315,9 @@ public class World {
 
 	private void checkBallCollisionsWithBricks() {
 
+		Log.d("World:checkBallCollisionsWithBricks",
+				"--------------------------");
+
 		// int collisionStatus = NO_COLLISION;
 		for (int i = 0; i < bricksArraySize; i++) {
 			Brick brick = bricks.get(i);
@@ -323,43 +328,54 @@ public class World {
 				// "A collision with a brick just happened!");
 				// ball.velocity.y = ball.velocity.y * (-1);
 
-				int border = MyOverlapTester.overlapCircleRectangleAdv(
-						ball.bounds, brick.bounds);
-				
-				
+				int collisionStatus = MyOverlapTester
+						.overlapCircleRectangleAdv(ball.bounds, brick.bounds);
+
 				Log.d("World:checkBallCollisionsWithBricks", "brick id = " + i);
-				Log.d("World:checkBallCollisionsWithBricks", "border = " + border);
 				Log.d("World:checkBallCollisionsWithBricks",
-						"brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
+						"collisionStatus = " + collisionStatus);
 				Log.d("World:checkBallCollisionsWithBricks",
-						"brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
-				Log.d("World:checkBallCollisionsWithBricks", "brick.state = "
-						+ brick.state);
+						"brick.bounds.lowerLeft.x = "
+								+ brick.bounds.lowerLeft.x);
+				Log.d("World:checkBallCollisionsWithBricks",
+						"brick.bounds.lowerLeft.y = "
+								+ brick.bounds.lowerLeft.y);
+				//Log.d("World:checkBallCollisionsWithBricks", "brick.state = " + brick.state);
+				Log.d("World:checkBallCollisionsWithBricks", "Old ball.position x = "	+ ball.position.x 
+						+ "; y = " + ball.position.y);
 
-				switch (border) {
+				switch (collisionStatus) {
 				case BOTTOM_BORDER:
-					ball.position.y = brick.bounds.lowerLeft.y
-							+ Ball.BALL_RADIUS;
+					ball.position.y = brick.bounds.lowerLeft.y - Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks", "New ball.position x = "	+ ball.position.x 
+							+ "; y = " + ball.position.y);
 					ball.velocity.y = ball.velocity.y * (-1);
 					break;
-
+					
 				case TOP_BORDER:
-					ball.position.y = brick.bounds.lowerLeft.y
-							+ brick.bounds.height + Ball.BALL_RADIUS;
+					ball.position.y = brick.bounds.lowerLeft.y + brick.bounds.height + Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks", "New ball.position x = "	+ ball.position.x 
+							+ "; y = " + ball.position.y);
 					ball.velocity.y = ball.velocity.y * (-1);
 					break;
-
+					
 				case LEFT_BORDER:
-					ball.position.x = brick.bounds.lowerLeft.x
-							- Ball.BALL_RADIUS;
+					ball.position.x = brick.bounds.lowerLeft.x - Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks", "New ball.position x = "	+ ball.position.x 
+							+ "; y = " + ball.position.y);
 					ball.velocity.x = ball.velocity.x * (-1);
 					break;
-
+					
 				case RIGHT_BORDER:
-					ball.position.x = brick.bounds.lowerLeft.x
-							+ brick.bounds.width - Ball.BALL_RADIUS;
+					ball.position.x = brick.bounds.lowerLeft.x + brick.bounds.width + Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks", "New ball.position x = "	+ ball.position.x 
+							+ "; y = " + ball.position.y);
 					ball.velocity.x = ball.velocity.x * (-1);
-
+					break;
+					
+				case COLLISION_WITH_CORNER:
+					ball.velocity.mul(-1);
+					break;
 				default:
 					break;
 				}
@@ -376,8 +392,7 @@ public class World {
 																// NORMAL/DOUBLE
 																// ball
 																// acceleration
-					ball.ballAccel = (ball.ballAccel == Ball.BALL_NORMAL_ACCELL) ? Ball.BALL_DOUBLE_ACCELL
-							: Ball.BALL_NORMAL_ACCELL;
+					ball.ballAccel = (ball.ballAccel == Ball.BALL_NORMAL_ACCELL) ? Ball.BALL_DOUBLE_ACCELL : Ball.BALL_NORMAL_ACCELL;
 				}
 
 				if (brick.color == Brick.BRICK_COLOR_GREY) { // if a grey brick
@@ -386,8 +401,7 @@ public class World {
 																// racquet width
 																// between
 																// normal/narrow
-					racquet.racquetWidth = (racquet.racquetWidth == Racquet.RACQUET_WIDTH_NORMAL) ? Racquet.RACQUET_WIDTH_NARROW
-							: Racquet.RACQUET_WIDTH_NORMAL;
+					racquet.racquetWidth = (racquet.racquetWidth == Racquet.RACQUET_WIDTH_NORMAL) ? Racquet.RACQUET_WIDTH_NARROW : Racquet.RACQUET_WIDTH_NORMAL;
 				}
 
 				// We do not care which brick in the column was hit,
