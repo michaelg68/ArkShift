@@ -246,8 +246,8 @@ public class World {
 		// Log.d("World:checkBallCollisionsWithRacquet", "racquetContact = " +
 		// racquetContact );
 		if (racquetContact) {
-			// Log.d("World:checkBallCollisionsWithRacquet",
-			// "there was a contact!");
+			//Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet", "there was a contact!");
+			//Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet", "racquet.racquetWidth = " + racquet.racquetWidth);
 			//
 			// Log.d("World:checkBallCollisionsWithRacquet", "oldAngle = "
 			// + ball.velocity.angle());

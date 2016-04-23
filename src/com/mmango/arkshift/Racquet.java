@@ -11,7 +11,7 @@ public class Racquet extends DynamicGameObject {
 	public static final int RACQUET_STATE_MOVING_RIGHT = 2;
 	//public static final float RACQUET_MOVE_VELOCITY = 0;
 	public static final float RACQUET_WIDTH_NORMAL = 40f;
-	public static final float RACQUET_WIDTH_NARROW = 30f;
+	public static final float RACQUET_WIDTH_NARROW = 28f;
 	public static final float RACQUET_HEIGHT = 5f;
 	//static float RACQUET_ACCELERATION = 100f;
 	static float RACQUET_VELOCITY = 10f;
@@ -41,6 +41,7 @@ public class Racquet extends DynamicGameObject {
 			position.x = World.GAME_FIELD_WIDTH + 2f - racquetWidth / 2;
 		//bounds.lowerLeftposition.x - RACQUET_WIDTH, position.y - RACQUET_HEIGHT, RACQUET_WIDTH, RACQUET_HEIGHT);
 		bounds.lowerLeft.set(position).sub(racquetWidth / 2, RACQUET_HEIGHT / 2);
+		bounds.width = racquetWidth;
 		/*
 		 * if (velocity.x > 0) { state = RACQUET_STATE_MOVING_RIGHT; stateTime =
 		 * 0; }
