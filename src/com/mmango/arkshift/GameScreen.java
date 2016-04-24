@@ -105,7 +105,7 @@ public class GameScreen extends GLScreen {
 		moveRacquetLeftTouchZone = new Rectangle(0, 0, RESOLUTION_X / 2, RESOLUTION_Y - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH);
 		moveRacquetRightTouchZone = new Rectangle(RESOLUTION_X / 2, 0, RESOLUTION_X, RESOLUTION_Y - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH);
 		lastScore = 0;
-		scoreString = "score: 0";
+		scoreString = "0";
 		fpsCounter = new FPSCounter();
 	}
 
@@ -316,8 +316,10 @@ public class GameScreen extends GLScreen {
 		batcher.drawSprite(RESOLUTION_X - 23 - BUTTON_PAUSE_SIDE / 2, 
 				RESOLUTION_Y - 22 - BUTTON_PAUSE_SIDE / 2, 
 				BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE, Assets.buttonPause);
-
-		Assets.font.drawTextZoomed(batcher, scoreString, 1080 / 2 - 100, 1920 - 80, 4.2f, 4.2f);
+		//Log.d("GameScreen:presentRunning", "scoreString.length() = " + scoreString.length());
+		float scoreStringHalfLength = scoreString.length() * 64 / 2f;
+		//Log.d("GameScreen:presentRunning", "scoreStringHalfLength = " + scoreStringHalfLength);
+		Assets.font.drawTextScore(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 2f, 2f);
 	}
 
 	private void presentPaused() {

@@ -35,7 +35,7 @@ public class Font {
 		}
 	}
 	
-	public void drawTextZoomed(SpriteBatcher batcher, String text, float x, float y, float xZoom, float yZoom ) {
+	public void drawTextScore(SpriteBatcher batcher, String text, float x, float y, float xZoom, float yZoom ) {
 		int len = text.length();
 		for (int i = 0; i < len; i++) {
 			int c = text.charAt(i) - ' ';
@@ -43,7 +43,7 @@ public class Font {
 				continue;
 			TextureRegion glyph = glyphs[c];
 			batcher.drawSprite(x, y, glyphWidth * xZoom, glyphHeight * yZoom, glyph);
-			x += glyphWidth * xZoom;
+			x += glyphWidth;
 		}
 	}
 
