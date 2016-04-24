@@ -18,6 +18,7 @@ public class Assets {
 	public static TextureRegion mainScreenMenuRegion;
 	public static TextureRegion readyBannerRegion;
 	public static TextureRegion resumeQuitMenuRegion;
+	public static TextureRegion levelUpRegion;
 	public static TextureRegion gameOverBannerRegion;	
 	public static TextureRegion buttonPause;
 	public static TextureRegion buttonHome;
@@ -63,6 +64,7 @@ public class Assets {
 		mainScreenMenuRegion = new TextureRegion(userInterfaceElements, 0, 0, 700, 1000);
 		readyBannerRegion = new TextureRegion(userInterfaceElements, 0, 1500, 700, 250);
 		resumeQuitMenuRegion = new TextureRegion(userInterfaceElements, 0, 1000, 700, 500);
+		levelUpRegion = new TextureRegion(userInterfaceElements, 1400,0, 700, 500);
 		gameOverBannerRegion = new TextureRegion(userInterfaceElements, 700, 0, 700, 500);
 		buttonPause = new TextureRegion(userInterfaceElements, 228, 1878, 128, 128);
 		buttonHome = new TextureRegion(userInterfaceElements, 100, 1750, 128, 128);

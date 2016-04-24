@@ -355,11 +355,8 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentLevelEnd() {
-		String levelEndText = "Moving to the next level!";
-		float levelEndTextWidth = Assets.font.glyphWidth
-				* levelEndText.length();
-		Assets.font.drawText(batcher, levelEndText, RESOLUTION_X / 2
-				- levelEndTextWidth / 2, RESOLUTION_Y - 500);
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 500,
+				Assets.levelUpRegion);
 	}
 
 	private void presentGameOver() {

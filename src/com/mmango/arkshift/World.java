@@ -86,7 +86,7 @@ public class World {
 	public int bricksArraySize;
 
 	public World(WorldListener listener) {
-		level = 2;
+		level = 6;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
