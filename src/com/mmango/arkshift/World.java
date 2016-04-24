@@ -52,7 +52,7 @@ public class World {
 	public static final int WORLD_STATE_GAME_OVER = 2;
 	public static final int RACQUET_MOVING_LEFT = 0;
 	public static final int RACQUET_MOVING_RIGHT = 1;
-	public static final int COLUMNS = 10;
+	public static final int COLUMNS = 2;
 	public static final int NO_OBJECT_ID = 99999; // an empty cell
 
 	public final static int NO_COLLISION = 0;
@@ -72,6 +72,8 @@ public class World {
 	public Racquet racquet;
 	public Ball ball;
 	public final List<Brick> bricks;
+	public final List<Brick> bricksCeiling;
+	public final List<Brick> bricksFloor;
 	public int[][] ceilingBricksId;
 	// public final List<Brick> floorBricks;
 	public int[][] floorBricksId;
@@ -85,7 +87,7 @@ public class World {
 	public int bricksArraySize;
 
 	public World(WorldListener listener) {
-		level = 7;
+		level = 1;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
@@ -113,6 +115,8 @@ public class World {
 				+ Racquet.RACQUET_HEIGHT / 2 + Ball.BALL_DIAMETER / 2,
 				Ball.BALL_COLOR_WHITE);
 		this.bricks = new ArrayList<Brick>();
+		this.bricksCeiling = new ArrayList<Brick>();
+		this.bricksFloor = new ArrayList<Brick>();
 		// this.floorBricks = new ArrayList<Brick>();
 		this.listener = listener;
 
@@ -143,10 +147,14 @@ public class World {
 				// populate the floorBricksId array with 99999 which stands for
 				// "there is no brick"
 				floorBricksId[x][y] = NO_OBJECT_ID;
+				
+				//save the list of all bricks in the bricksCeiling array list
+				bricksCeiling.add(brick);
 			}
 		}
 
 		bricksArraySize = bricks.size();
+		
 
 	}
 
@@ -155,6 +163,7 @@ public class World {
 		updateBall(deltaTime);
 		checkBallCollisions();
 		updateBricks(deltaTime);
+		
 
 		// checkGameOver();
 	}
@@ -463,6 +472,8 @@ public class World {
 					// the uppermost ceiling brick [row=0] goes to the floor
 					// [row=0]:
 					int topBrick = ceilingBricksId[column][0];
+					//exclude this brick from bricksCeiling array list
+					bricksCeiling.remove(bricks.get(topBrick));
 					floorBricksId[column][0] = topBrick;
 					bricks.get(topBrick).atCeiling = false;
 					bricks.get(topBrick).setCell(column, 0);
@@ -516,6 +527,8 @@ public class World {
 					// the bottommost brick [row=0] goes to the ceiling [row=0]:
 					int bottomBrick = floorBricksId[column][0];
 					ceilingBricksId[column][0] = bottomBrick;
+					//Include this brick back into bricksCeiling array list
+					bricksCeiling.add(bricks.get(bottomBrick));
 					bricks.get(bottomBrick).atCeiling = true;
 					bricks.get(bottomBrick).setCell(column, 0);
 					bricks.get(bottomBrick).state = Brick.BRICK_STATE_SHIFTING_DOWN_TO_CEILING;
