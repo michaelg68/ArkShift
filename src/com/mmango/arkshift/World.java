@@ -218,6 +218,7 @@ public class World {
 				ball.bounds, gameField);
 
 		if (breaktrhough == FRAME_TOP_BORDER_ID) {
+			listener.hitAtFrame();
 			// Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " +
 			// breaktrhough);
 			// Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = "
@@ -227,6 +228,7 @@ public class World {
 					- Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_BOTTOM_BORDER_ID) {
+			listener.hitAtFrame();
 			// Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " +
 			// breaktrhough);
 			// Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = "
@@ -235,6 +237,7 @@ public class World {
 			ball.position.y = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_LEFT_BORDER_ID) {
+			listener.hitAtFrame();
 			// Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " +
 			// breaktrhough);
 			// Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = "
@@ -244,6 +247,7 @@ public class World {
 			ball.position.x = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
 		} else if (breaktrhough == FRAME_RIGHT_BORDER_ID) {
+			listener.hitAtFrame();
 			// Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " +
 			// breaktrhough);
 			// Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = "
@@ -263,6 +267,8 @@ public class World {
 		if (racquetContact) {
 			// Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet",
 			// "there was a contact!");
+			
+			listener.hitAtRacquet();
 			// Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet",
 			// "racquet.racquetWidth = " + racquet.racquetWidth);
 			//

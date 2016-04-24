@@ -115,9 +115,9 @@ public class Assets {
 		 * JewelBeat</a>
 		 */
 		music.setLooping(true);
-		music.setVolume(0.5f);
-		if (Settings.soundEnabled)
-			music.play();
+//		music.setVolume(0.5f);
+//		if (Settings.soundEnabled)
+//			music.play();
 		clickSound = game.getAudio().newSound("click.ogg");
 		knockSound = game.getAudio().newSound("knock_8b_22050Hz.ogg");
 		shiftSound = game.getAudio().newSound("shift_8b_22050.ogg");
@@ -136,9 +136,9 @@ public class Assets {
 	}
 
 	public static void playSound(Sound sound) {
-/*		if (Settings.soundEnabled)
+		if (Settings.soundEnabled)
 			sound.play(1);
-			*/
+			
 	}
 
 }

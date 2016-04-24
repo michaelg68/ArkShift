@@ -78,7 +78,7 @@ public class GameScreen extends GLScreen {
 			}
 
 			public void shiftBrick() {
-				Assets.playSound(Assets.shiftSound);
+				//Assets.playSound(Assets.shiftSound);
 			}
 
 			public void levelPassed() {
