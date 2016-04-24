@@ -180,11 +180,10 @@ public class GameScreen extends GLScreen {
 			scoreString = "" + lastScore;
 		}
 		//Log.d("GameScreen:updateRunning", "lastScore = " + lastScore);
-		Log.d("GameScreen:updateRunning", "world.bricksCeiling.size() = " + world.bricksCeiling.size());
-		Log.d("GameScreen:updateRunning", "state = " + state);
-		if (world.bricksCeiling.isEmpty()) {
+		if (world.state == World.WORLD_STATE_NEXT_LEVEL) {
 			state = GAME_LEVEL_END;
 		}
+
 		
 	}
 
@@ -198,7 +197,7 @@ public class GameScreen extends GLScreen {
 			for (int i = 0; i < 2; i++) {
 				// Log.d("GameScreen:calculateInputAcceleration",
 				// "i = " + Integer.toString(i));
-
+  
 				if (game.getInput().isTouchDown(i)) {
 					guiCam.touchToWorld(touchPoint.set(game.getInput()
 							.getTouchX(i), game.getInput().getTouchY(i)));
@@ -296,13 +295,6 @@ public class GameScreen extends GLScreen {
 
 		renderer.render();
 		
-		
-		Log.d("GameScreen:updateRunning", "world.bricksCeiling.size() = " + world.bricksCeiling.size());
-		Log.d("GameScreen:updateRunning", "state = " + state);
-		if (world.bricksCeiling.size() == 0) {
-			state = GAME_LEVEL_END;
-		}
-
 		guiCam.setViewportAndMatrices();
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);

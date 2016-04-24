@@ -52,7 +52,7 @@ public class World {
 	public static final int WORLD_STATE_GAME_OVER = 2;
 	public static final int RACQUET_MOVING_LEFT = 0;
 	public static final int RACQUET_MOVING_RIGHT = 1;
-	public static final int COLUMNS = 2;
+	public static final int COLUMNS = 10;
 	public static final int NO_OBJECT_ID = 99999; // an empty cell
 
 	public final static int NO_COLLISION = 0;
@@ -73,9 +73,8 @@ public class World {
 	public Ball ball;
 	public final List<Brick> bricks;
 	public final List<Brick> bricksCeiling;
-	public final List<Brick> bricksFloor;
 	public int[][] ceilingBricksId;
-	// public final List<Brick> floorBricks;
+	public int lastCeilingBrickId;
 	public int[][] floorBricksId;
 
 	public final WorldListener listener;
@@ -87,7 +86,7 @@ public class World {
 	public int bricksArraySize;
 
 	public World(WorldListener listener) {
-		level = 1;
+		level = 2;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
@@ -116,7 +115,7 @@ public class World {
 				Ball.BALL_COLOR_WHITE);
 		this.bricks = new ArrayList<Brick>();
 		this.bricksCeiling = new ArrayList<Brick>();
-		this.bricksFloor = new ArrayList<Brick>();
+		this.lastCeilingBrickId = 9999;
 		// this.floorBricks = new ArrayList<Brick>();
 		this.listener = listener;
 
@@ -197,6 +196,13 @@ public class World {
 			if (brick.state != Brick.BRICK_STATE_STILL)
 				brick.update(deltaTime);
 		}
+		if(bricksCeiling.isEmpty()) {
+			if (bricks.get(lastCeilingBrickId).state == Brick.BRICK_STATE_STILL) {
+				state = WORLD_STATE_NEXT_LEVEL;
+			}
+		}
+		
+		
 	}
 
 	private void checkBallCollisions() {
@@ -473,7 +479,9 @@ public class World {
 					// [row=0]:
 					int topBrick = ceilingBricksId[column][0];
 					//exclude this brick from bricksCeiling array list
+					lastCeilingBrickId = topBrick;
 					bricksCeiling.remove(bricks.get(topBrick));
+				
 					floorBricksId[column][0] = topBrick;
 					bricks.get(topBrick).atCeiling = false;
 					bricks.get(topBrick).setCell(column, 0);
