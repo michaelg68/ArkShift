@@ -21,7 +21,7 @@ public class World {
 
 		public void hitAtBrick();
 
-		public void hitAtBrickFloor();
+//		public void hitAtBrickFloor();
 
 		public void hitAtFrame();
 
@@ -30,6 +30,8 @@ public class World {
 		public void gameOver();
 
 		public void levelPassed();
+		
+		public void levelBegins();
 	}
 
 	public static final float WORLD_HEIGHT = 192f;
@@ -350,6 +352,8 @@ public class World {
 				// Log.d("World:checkBallCollisionsWithBricks",
 				// "A collision with a brick just happened!");
 				// ball.velocity.y = ball.velocity.y * (-1);
+				
+				listener.hitAtBrick();
 
 				int scoringSign = (brick.atCeiling) ? 1 : -2; // if the ceiling
 																// brick hit
@@ -420,7 +424,6 @@ public class World {
 					break;
 				}
 
-				listener.hitAtBrick();
 				int column = brick.column;
 				// int row = brick.row;
 

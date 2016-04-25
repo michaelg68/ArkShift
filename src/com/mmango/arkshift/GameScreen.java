@@ -62,25 +62,29 @@ public class GameScreen extends GLScreen {
 		worldListener = new WorldListener() {
 
 			public void hitAtRacquet() {
-				Assets.playSound(Assets.knockSound);
+				Assets.playSound(Assets.racquetHitSound);
 			}
 
 			public void hitAtBrick() {
-				Assets.playSound(Assets.knockSound);
+				Assets.playSound(Assets.brickHitSound);
 			}
 
-			public void hitAtBrickFloor() {
-				Assets.playSound(Assets.knockSound);
-			}
+//			public void hitAtBrickFloor() {
+//				//Assets.playSound(Assets.knockSound);
+//			}
 
 			public void hitAtFrame() {
-				Assets.playSound(Assets.knockSound);
+				Assets.playSound(Assets.frameHitSound);
 			}
 
 			public void shiftBrick() {
 				//Assets.playSound(Assets.shiftSound);
 			}
 
+			public void levelBegins() {
+				Assets.playSound(Assets.levelStartsSound);
+			}
+			
 			public void levelPassed() {
 				Assets.playSound(Assets.levelPassedSound);
 			}

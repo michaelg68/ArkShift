@@ -47,7 +47,11 @@ public class Assets {
 
 	public static Music music;
 	public static Sound clickSound;
-	public static Sound knockSound;
+	public static Sound racquetHitSound;
+	public static Sound frameHitSound;
+	public static Sound brickHitSound;
+	public static Sound levelStartsSound;
+	public static Sound ballRollingAndKnockSound;
 	public static Sound shiftSound;
 	public static Sound gameOverSound;
 	public static Sound gameOverLongSound;
@@ -119,7 +123,12 @@ public class Assets {
 //		if (Settings.soundEnabled)
 //			music.play();
 		clickSound = game.getAudio().newSound("click.ogg");
-		knockSound = game.getAudio().newSound("knock_8b_22050Hz.ogg");
+		racquetHitSound = game.getAudio().newSound("racquet_hit_sound.ogg");
+		frameHitSound = game.getAudio().newSound("frame_hit_sound.ogg");
+		brickHitSound = game.getAudio().newSound("brick_hit_sound.ogg");
+		levelStartsSound = game.getAudio().newSound("level_starts_sound.ogg");
+		ballRollingAndKnockSound = game.getAudio().newSound("ball_rolling_and_knock_sound.ogg");
+	
 		shiftSound = game.getAudio().newSound("shift_8b_22050.ogg");
 		gameOverSound = game.getAudio().newSound("game_over.ogg");
 		gameOverLongSound = game.getAudio().newSound(
