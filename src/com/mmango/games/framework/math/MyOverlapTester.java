@@ -21,7 +21,7 @@ public class MyOverlapTester {
 	public final static int COLLISION_WITH_Y = 2;
 	public final static int COLLISION_WITH_CORNER = 5;
 
-	public static int overlapCircleRectangleAdv(Circle c, Rectangle r) {
+/*	public static int overlapCircleRectangleAdv(Circle c, Rectangle r) {
 		float closestX = c.center.x;
 		float closestY = c.center.y;
 		int collisionStatus = NO_COLLISION;
@@ -48,7 +48,7 @@ public class MyOverlapTester {
 		// Log.d("OverlapTester:overlapCircleRectangleAdv", "collisionStatus = "
 		// + collisionStatus);
 		return collisionStatus;
-	}
+	}*/
 
 	/*
 	 * public static int overlapCircleRectangleHorisontal(Circle c, Rectangle
@@ -83,7 +83,7 @@ public class MyOverlapTester {
 	 * Rectangle r1) { // TODO Auto-generated method stub return 0; }
 	 */
 
-	public static Circle overlapCircleInCorner(Circle c, Rectangle r0, Rectangle r1, boolean isCeiling) {
+/*	public static Circle overlapCircleInCorner(Circle c, Rectangle r0, Rectangle r1, boolean isCeiling) {
 		// find the object in the higher row
 		
 		if (isCeiling) {
@@ -101,7 +101,7 @@ public class MyOverlapTester {
 //
 //		}
 		return c;
-	}
+	}*/
 
 	// public static int overlapCircleRectangleSide(Circle c, Rectangle r) {
 	// // return the brick's side (bottom, top, left, side) which overlaps the
