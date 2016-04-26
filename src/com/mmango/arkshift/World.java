@@ -10,7 +10,6 @@ import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.math.OverlapTester;
 import com.badlogic.androidgames.framework.math.Rectangle;
 import com.badlogic.androidgames.framework.math.Vector2;
-
 import com.mmango.games.framework.math.MyOverlapTester;
 import com.mmango.arkshift.Assets;
 import com.mmango.arkshift.Racquet;
@@ -21,7 +20,7 @@ public class World {
 
 		public void hitAtBrick();
 
-//		public void hitAtBrickFloor();
+		// public void hitAtBrickFloor();
 
 		public void hitAtFrame();
 
@@ -30,7 +29,7 @@ public class World {
 		public void gameOver();
 
 		public void levelPassed();
-		
+
 		public void levelBegins();
 	}
 
@@ -148,14 +147,13 @@ public class World {
 				// populate the floorBricksId array with 99999 which stands for
 				// "there is no brick"
 				floorBricksId[x][y] = NO_OBJECT_ID;
-				
-				//save the list of all bricks in the bricksCeiling array list
+
+				// save the list of all bricks in the bricksCeiling array list
 				bricksCeiling.add(brick);
 			}
 		}
 
 		bricksArraySize = bricks.size();
-		
 
 	}
 
@@ -164,7 +162,6 @@ public class World {
 		updateBall(deltaTime);
 		checkBallCollisions();
 		updateBricks(deltaTime);
-		
 
 		// checkGameOver();
 	}
@@ -198,13 +195,12 @@ public class World {
 			if (brick.state != Brick.BRICK_STATE_STILL)
 				brick.update(deltaTime);
 		}
-		if(bricksCeiling.isEmpty()) {
+		if (bricksCeiling.isEmpty()) {
 			if (bricks.get(lastCeilingBrickId).state == Brick.BRICK_STATE_STILL) {
 				state = WORLD_STATE_NEXT_LEVEL;
 			}
 		}
-		
-		
+
 	}
 
 	private void checkBallCollisions() {
@@ -269,7 +265,7 @@ public class World {
 		if (racquetContact) {
 			// Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet",
 			// "there was a contact!");
-			
+
 			listener.hitAtRacquet();
 			// Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet",
 			// "racquet.racquetWidth = " + racquet.racquetWidth);
@@ -341,282 +337,381 @@ public class World {
 	private void checkBallCollisionsWithBricks() {
 
 		List<Integer> bricksTouched = new ArrayList<Integer>();
-		//int b = 0;
+		List<Integer> bricksAffected = new ArrayList<Integer>();
+		// List<Float> touchResults = new ArrayList<Float>();
+
+		// int b = 0;
 		int length = 0;
-		Log.d("World:checkBallCollisionsWithBricks", "--------------------------");
-		
-		
-		
-		//first I must check if the collision happened with more than one brick! 
-		//Hopefully this will help to solve the problem of ball swallowing by the bricks
-		
-		for (int i = 0; i < bricksArraySize; i++) {
+		Log.d("World:checkBallCollisionsWithBricks",
+				"--------------------------");
+
+		// first I must check if the collision happened with more than one
+		// brick!
+		// Hopefully this will help to solve the problem of ball swallowing by
+		// the bricks
+
+		for (int i = 0; i < bricksArraySize; i++) { //find all bricks which would overlap with the ball in the next move
 			Brick brick = bricks.get(i);
-			if ((OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
+			if ((OverlapTester
+					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
 				bricksTouched.add(i);
 			}
 		}
-		
-		
+
 		length = bricksTouched.size();
-		if (length > 1) {
-			Log.d("World:checkBallCollisionsWithBricks", "More that one Bricks are touched! length = " + length);
-			for (int k = 0 ; k < length ; k++) {
-				Log.d("World:checkBallCollisionsWithBricks", "brickID in bricks = " + bricksTouched.get(k));
-				Log.d("World:checkBallCollisionsWithBricks", "brick color = " + bricks.get(bricksTouched.get(k)).color);
-				Log.d("World:checkBallCollisionsWithBricks", "brick column = " + bricks.get(bricksTouched.get(k)).column + " ;brick row = " + bricks.get(bricksTouched.get(k)).row);
-				Log.d("World:checkBallCollisionsWithBricks", "brick x = " + bricks.get(bricksTouched.get(k)).x + " ;brick y = " + bricks.get(bricksTouched.get(k)).y);
+		if (length > 1) { // I expect it be not more than 2
+			Log.d("World:checkBallCollisionsWithBricks",
+					"More that one Bricks are touched! length = " + length);
+			for (int k = 0; k < length; k++) {
+				Log.d("World:checkBallCollisionsWithBricks",
+						"brickID in bricks = " + bricksTouched.get(k));
+				Log.d("World:checkBallCollisionsWithBricks", "brick color = "
+						+ bricks.get(bricksTouched.get(k)).color);
+				Log.d("World:checkBallCollisionsWithBricks", "brick column = "
+						+ bricks.get(bricksTouched.get(k)).column
+						+ " ;brick row = "
+						+ bricks.get(bricksTouched.get(k)).row);
+				Log.d("World:checkBallCollisionsWithBricks", "brick x = "
+						+ bricks.get(bricksTouched.get(k)).x + " ;brick y = "
+						+ bricks.get(bricksTouched.get(k)).y);
 			}
-			
-			
-			if (bricks.get(bricksTouched.get(0)).column == bricks.get(bricksTouched.get(1)).column) {
-				Log.d("World:checkBallCollisionsWithBricks","Two bricks are in the same column. column = " + bricks.get(bricksTouched.get(1)).column);
- 			}
-			
-			if (bricks.get(bricksTouched.get(0)).row == bricks.get(bricksTouched.get(1)).row) {
-				Log.d("World:checkBallCollisionsWithBricks","Two bricks are in the same row. row = " + bricks.get(bricksTouched.get(1)).row);
- 			}
-		}
-		
-		
-		
-		
-		
-		// int collisionStatus = NO_COLLISION;
-		for (int i = 0; i < bricksArraySize; i++) {
-			Brick brick = bricks.get(i);
-			
-			
 
-			
+			// two bricks in the same row:
+			if (bricks.get(bricksTouched.get(0)).row == bricks
+					.get(bricksTouched.get(1)).row) {
+				Log.d("World:checkBallCollisionsWithBricks",
+						"Two bricks are in the same row. row = "
+								+ bricks.get(bricksTouched.get(1)).row);
 
+				// find the brick whose center.x is closer to the ball's
+				// center.x
+				// int brickID =
+				// MyOverlapTester.overlapCircleRectangleHorisontal(ball.bounds,
+				// bricks.get(bricksTouched.get(0)).bounds,
+				// bricks.get(bricksTouched.get(1)).bounds);
+				if ((ball.bounds.center.x <= bricks.get(bricksTouched.get(0)).x
+						+ Brick.BRICK_WIDTH / 2)) {
+					bricksAffected.add(bricksTouched.get(0)); // in this array
+																// list I store
+																// the ID of the
+																// actually hit
+																// brick
+				} else {
+					bricksAffected.add(bricksTouched.get(1)); // in this array
+																// list I store
+																// the ID of the
+																// actually hit
+																// brick
+				}
 
-			if ((OverlapTester
-					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
-				Log.d("World:checkBallCollisionsWithBricks", "A collision with a brick just happened!");
+				if (bricks.get(bricksAffected.get(0)).atCeiling) {
+					ball.position.y = bricks.get(bricksAffected.get(0)).bounds.lowerLeft.y - Ball.BALL_RADIUS;
+				} else {
+					ball.position.y = bricks.get(bricksAffected.get(0)).bounds.lowerLeft.y
+							+ Brick.BRICK_HEIGHT + Ball.BALL_RADIUS;
+				}
+				ball.velocity.y = ball.velocity.y * (-1);
+			}
+
+			// two bricks in the same column:
+			if (bricks.get(bricksTouched.get(0)).column == bricks
+					.get(bricksTouched.get(1)).column) {
+				Log.d("World:checkBallCollisionsWithBricks",
+						"Two bricks are in the same column. column = "
+								+ bricks.get(bricksTouched.get(1)).column);
+
+				// find the brick whose center.y is closer to the ball's
+				// center.y
+				// int brickID =
+				// MyOverlapTester.overlapCircleRectangleVertical(ball.bounds,
+				// bricks.get(bricksTouched.get(0)).bounds,
+				// bricks.get(bricksTouched.get(1)).bounds);
+				// the brick with lesser ID will be always on top of the brick
+				// with bigger ID. either on ceiling or floor
+				if ((ball.bounds.center.y >= bricks.get(bricksTouched.get(0)).y
+						- Brick.BRICK_HEIGHT / 2)) {
+					bricksAffected.add(bricksTouched.get(0)); // in this array
+																// list I store
+																// the ID of the
+																// actually hit
+																// brick
+				} else {
+					bricksAffected.add(bricksTouched.get(1)); // in this array
+																// list I store
+																// the ID of the
+																// actually hit
+																// brick
+				}
+				// now check which side of the brick is hit - left or right
+				if (ball.bounds.center.x < bricks.get(bricksAffected.get(0)).x) {
+					ball.position.x = bricks.get(bricksAffected.get(0)).bounds.lowerLeft.x - Ball.BALL_RADIUS; // the
+																							// brick
+																							// was
+																							// hit
+																							// from
+																							// the
+																							// left
+				} else {
+					ball.position.x = bricks.get(bricksAffected.get(0)).bounds.lowerLeft.x
+							+ Brick.BRICK_WIDTH + Ball.BALL_RADIUS; // the brick was hit from the
+													// left
+				}
+				ball.velocity.x = ball.velocity.x * (-1);
+			}
+
+			if ((bricks.get(bricksTouched.get(0)).row != bricks
+					.get(bricksTouched.get(1)).row)
+					&& (bricks.get(bricksTouched.get(0)).column != bricks
+							.get(bricksTouched.get(1)).column)) {
+				Log.d("World:checkBallCollisionsWithBricks",
+						"Two bricks are in the different rows and columns! This is a IN-CORNER collision");
+				boolean isCeiling = false;
+				if (bricks.get(bricksTouched.get(0)).atCeiling)
+					isCeiling = true;
+				//MyOverlapTester.overlapCircleInCorner(ball.bounds, bricks.get(bricksTouched.get(0)).bounds, bricks.get(bricksTouched.get(1)).bounds, isCeling);
+				Rectangle r0 = bricks.get(bricksTouched.get(0)).bounds;
+				Rectangle r1 = bricks.get(bricksTouched.get(1)).bounds;
 				
-				listener.hitAtBrick();
+				if (isCeiling) { // hitting the ceiling bricks
+					ball.bounds.center.y = Math.max(r0.lowerLeft.y, r1.lowerLeft.y) - ball.bounds.radius;
+					if (ball.velocity.x < 0) { //the ball is moving left. Case A.
+						ball.bounds.center.x = Math.max(r0.lowerLeft.x, r1.lowerLeft.x) + ball.bounds.radius;
+					} else { // the ball is moving right. Case B.
+						ball.bounds.center.x = Math.max(r0.lowerLeft.x, r1.lowerLeft.x) - ball.bounds.radius;
+					}
+				} else {  // hitting the floor bricks
+					ball.bounds.center.y = Math.min(r0.lowerLeft.y, r1.lowerLeft.y) + r0.height + ball.bounds.radius;
+					if (ball.velocity.x < 0) { //the ball is moving left. Case C.
+						ball.bounds.center.x = Math.max(r0.lowerLeft.x, r1.lowerLeft.x) + ball.bounds.radius;
+					} else {  //the ball is moving right. Case D.
+						ball.bounds.center.x = Math.max(r0.lowerLeft.x, r1.lowerLeft.x) - ball.bounds.radius;
+					}
+
+				}
 				
+				ball.velocity.mul(-1);
 				
+			}  
 
-				int scoringSign = (brick.atCeiling) ? 1 : -2; // if the ceiling
-																// brick hit
-																// then we
-																// increase the
-																// score; else -
-																// decrease;
-
-				int collisionStatus = MyOverlapTester
-						.overlapCircleRectangleAdv(ball.bounds, brick.bounds);
-
-				Log.d("World:checkBallCollisionsWithBricks", "brick id = " + i);
+		} else if (bricksTouched.size() == 1) { // only one brick would be overlap
+			bricksAffected.add(bricksTouched.get(0));
+			Brick brick = bricks.get(bricksAffected.get(0));
+			int collisionStatus = MyOverlapTester.overlapCircleRectangleAdv(
+					ball.bounds, brick.bounds);
+			Log.d("World:checkBallCollisionsWithBricks", "brick id = "
+					+ bricksAffected.get(0));
+			Log.d("World:checkBallCollisionsWithBricks", "collisionStatus = "
+					+ collisionStatus);
+			Log.d("World:checkBallCollisionsWithBricks",
+					"brick.bounds.lowerLeft.x = " + brick.bounds.lowerLeft.x);
+			Log.d("World:checkBallCollisionsWithBricks",
+					"brick.bounds.lowerLeft.y = " + brick.bounds.lowerLeft.y);
+			// Log.d("World:checkBallCollisionsWithBricks", "brick.state = "
+			// + brick.state);
+			Log.d("World:checkBallCollisionsWithBricks",
+					"Old ball.position x = " + ball.position.x + "; y = "
+							+ ball.position.y);
+			switch (collisionStatus) {
+			case BOTTOM_BORDER:
+				ball.position.y = brick.bounds.lowerLeft.y - Ball.BALL_RADIUS;
 				Log.d("World:checkBallCollisionsWithBricks",
-						"collisionStatus = " + collisionStatus);
+						"Collision with BOTTOM_BORDER");
 				Log.d("World:checkBallCollisionsWithBricks",
-						"brick.bounds.lowerLeft.x = "
-								+ brick.bounds.lowerLeft.x);
-				Log.d("World:checkBallCollisionsWithBricks",
-						"brick.bounds.lowerLeft.y = "
-								+ brick.bounds.lowerLeft.y);
-				// Log.d("World:checkBallCollisionsWithBricks", "brick.state = "
-				// + brick.state);
-				Log.d("World:checkBallCollisionsWithBricks",
-						"Old ball.position x = " + ball.position.x + "; y = "
+						"New ball.position x = " + ball.position.x + "; y = "
 								+ ball.position.y);
+				ball.velocity.y = ball.velocity.y * (-1);
+				break;
 
-				switch (collisionStatus) {
-				case BOTTOM_BORDER:
-					ball.position.y = brick.bounds.lowerLeft.y
-							- Ball.BALL_RADIUS;
-					Log.d("World:checkBallCollisionsWithBricks", "Collision with BOTTOM_BORDER");
-					Log.d("World:checkBallCollisionsWithBricks",
-							"New ball.position x = " + ball.position.x
-									+ "; y = " + ball.position.y);
-					ball.velocity.y = ball.velocity.y * (-1);
-					break;
+			case TOP_BORDER:
+				ball.position.y = brick.bounds.lowerLeft.y
+						+ brick.bounds.height + Ball.BALL_RADIUS;
+				Log.d("World:checkBallCollisionsWithBricks",
+						"Collision with TOP_BORDER");
+				Log.d("World:checkBallCollisionsWithBricks",
+						"New ball.position x = " + ball.position.x + "; y = "
+								+ ball.position.y);
+				ball.velocity.y = ball.velocity.y * (-1);
+				break;
 
-				case TOP_BORDER:
-					ball.position.y = brick.bounds.lowerLeft.y
-							+ brick.bounds.height + Ball.BALL_RADIUS;
-					Log.d("World:checkBallCollisionsWithBricks", "Collision with TOP_BORDER");
-					Log.d("World:checkBallCollisionsWithBricks",
-							"New ball.position x = " + ball.position.x
-									+ "; y = " + ball.position.y);
-					ball.velocity.y = ball.velocity.y * (-1);
-					break;
+			case LEFT_BORDER:
+				ball.position.x = brick.bounds.lowerLeft.x - Ball.BALL_RADIUS;
+				Log.d("World:checkBallCollisionsWithBricks",
+						"Collision with LEFT_BORDER");
+				Log.d("World:checkBallCollisionsWithBricks",
+						"New ball.position x = " + ball.position.x + "; y = "
+								+ ball.position.y);
+				ball.velocity.x = ball.velocity.x * (-1);
+				break;
 
-				case LEFT_BORDER:
-					ball.position.x = brick.bounds.lowerLeft.x
-							- Ball.BALL_RADIUS;
-					Log.d("World:checkBallCollisionsWithBricks", "Collision with LEFT_BORDER");
-					Log.d("World:checkBallCollisionsWithBricks",
-							"New ball.position x = " + ball.position.x
-									+ "; y = " + ball.position.y);
-					ball.velocity.x = ball.velocity.x * (-1);
-					break;
+			case RIGHT_BORDER:
+				ball.position.x = brick.bounds.lowerLeft.x + brick.bounds.width
+						+ Ball.BALL_RADIUS;
+				Log.d("World:checkBallCollisionsWithBricks",
+						"Collision with RIGHT_BORDER");
+				Log.d("World:checkBallCollisionsWithBricks",
+						"New ball.position x = " + ball.position.x + "; y = "
+								+ ball.position.y);
+				ball.velocity.x = ball.velocity.x * (-1);
+				break;
 
-				case RIGHT_BORDER:
-					ball.position.x = brick.bounds.lowerLeft.x
-							+ brick.bounds.width + Ball.BALL_RADIUS;
-					Log.d("World:checkBallCollisionsWithBricks", "Collision with RIGHT_BORDER");
-					Log.d("World:checkBallCollisionsWithBricks",
-							"New ball.position x = " + ball.position.x
-									+ "; y = " + ball.position.y);
-					ball.velocity.x = ball.velocity.x * (-1);
-					break;
+			case COLLISION_WITH_CORNER:
+				ball.velocity.mul(-1);
+				Log.d("World:checkBallCollisionsWithBricks",
+						"Collision with COLLISION_WITH_CORNER");
+				break;
+			default:
+				break;
+			}
 
-				case COLLISION_WITH_CORNER:
-					ball.velocity.mul(-1);
-					Log.d("World:checkBallCollisionsWithBricks", "Collision with COLLISION_WITH_CORNER");
-					break;
-				default:
-					break;
+		}
+
+		// ############################################################
+		// here we analyze what to happen to the bricks:
+		for (int i = 0; i < bricksAffected.size(); i++) {
+			Brick brick = bricks.get(bricksAffected.get(i));
+			listener.hitAtBrick();
+			int scoringSign = (brick.atCeiling) ? 1 : -2; // if the ceiling
+															// brick hit
+															// then we
+															// increase the
+															// score; else -
+															// decrease;
+
+			int column = brick.column;
+			// int row = brick.row;
+
+			// customize gameplay
+
+			switch (brick.color) {
+			case Brick.BRICK_COLOR_RED: // if a red brick hit then
+										// DOUBLE the ball acceleration.
+										// Also set the
+										// ball color to RED
+				if (ball.ballAccel == Ball.BALL_NORMAL_ACCELL) {
+					ball.ballAccel = Ball.BALL_DOUBLE_ACCELL;
+					ball.setBallColor(Ball.BALL_COLOR_RED);
 				}
 
-				int column = brick.column;
-				// int row = brick.row;
-
-				// customize gameplay
-
-				switch (brick.color) {
-				case Brick.BRICK_COLOR_RED: // if a red brick hit then
-											// DOUBLE the ball acceleration.
-											// Also set the
-											// ball color to RED
-					if (ball.ballAccel == Ball.BALL_NORMAL_ACCELL) {
-						ball.ballAccel = Ball.BALL_DOUBLE_ACCELL;
-						ball.setBallColor(Ball.BALL_COLOR_RED);
-					}
-
-					score += 2 * scoringSign;
-					break;
-				case Brick.BRICK_COLOR_GREEN: // if a green brick hit then
-					// restore the NORMAL ball acceleration. Also set the
-					// ball color to GREEN
-					if (ball.ballAccel == Ball.BALL_DOUBLE_ACCELL) {
-						ball.ballAccel = Ball.BALL_NORMAL_ACCELL;
-						ball.setBallColor(Ball.BALL_COLOR_WHITE);
-					}
-
-					score += 2 * scoringSign;
-					break;
-
-				case Brick.BRICK_COLOR_GREY: // if a grey brick was hit then
-												// switch the racquet width
-												// between normal/narrow
-					racquet.racquetWidth = (racquet.racquetWidth == Racquet.RACQUET_WIDTH_NORMAL) ? Racquet.RACQUET_WIDTH_NARROW
-							: Racquet.RACQUET_WIDTH_NORMAL;
-					score += 2 * scoringSign;
-					break;
-
-				default:
-					score += 1 * scoringSign;
-					break;
-
+				score += 2 * scoringSign;
+				break;
+			case Brick.BRICK_COLOR_GREEN: // if a green brick hit then
+				// restore the NORMAL ball acceleration. Also set the
+				// ball color to GREEN
+				if (ball.ballAccel == Ball.BALL_DOUBLE_ACCELL) {
+					ball.ballAccel = Ball.BALL_NORMAL_ACCELL;
+					ball.setBallColor(Ball.BALL_COLOR_WHITE);
 				}
 
-				// We do not care which brick in the column was hit,
-				// we always shift the whole column either up or down
+				score += 2 * scoringSign;
+				break;
 
-				if (brick.atCeiling) {
+			case Brick.BRICK_COLOR_GREY: // if a grey brick was hit then
+											// switch the racquet width
+											// between normal/narrow
+				racquet.racquetWidth = (racquet.racquetWidth == Racquet.RACQUET_WIDTH_NORMAL) ? Racquet.RACQUET_WIDTH_NARROW
+						: Racquet.RACQUET_WIDTH_NORMAL;
+				score += 2 * scoringSign;
+				break;
 
-					// Log.d("World:checkBallCollisionsWithBricks",
-					// "A collision with a ceiling brick just happened!");
+			default:
+				score += 1 * scoringSign;
+				break;
 
-					// the bricks on the floor will shift up
-					for (int y = level - 1; y > 0; y--) {
-						floorBricksId[column][y] = floorBricksId[column][y - 1];
-						if (floorBricksId[column][y] != NO_OBJECT_ID) {
-							bricks.get(floorBricksId[column][y]).setCell(
-									column, y);
-							bricks.get(floorBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_UP;
-						}
+			}
+
+			// We do not care which brick in the column was hit,
+			// we always shift the whole column either up or down
+
+			if (brick.atCeiling) {
+
+				Log.d("World:checkBallCollisionsWithBricks", "A collision with a ceiling brick just happened!");
+
+				// the bricks on the floor will shift up
+				for (int y = level - 1; y > 0; y--) {
+					floorBricksId[column][y] = floorBricksId[column][y - 1];
+					if (floorBricksId[column][y] != NO_OBJECT_ID) {
+						bricks.get(floorBricksId[column][y]).setCell(column, y);
+						bricks.get(floorBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_UP;
 					}
-
-					// the uppermost ceiling brick [row=0] goes to the floor
-					// [row=0]:
-					int topBrick = ceilingBricksId[column][0];
-					//exclude this brick from bricksCeiling array list
-					lastCeilingBrickId = topBrick;
-					bricksCeiling.remove(bricks.get(topBrick));
-				
-					floorBricksId[column][0] = topBrick;
-					bricks.get(topBrick).atCeiling = false;
-					bricks.get(topBrick).setCell(column, 0);
-					bricks.get(topBrick).state = Brick.BRICK_STATE_SHIFTING_UP_TO_FLOOR;
-					// Log.d("World:checkBallCollisionsWithBricks",
-					// "bricks.get(topBrick).state = " +
-					// bricks.get(topBrick).state);
-					// other ceiling bricks in this column will shift one cell
-					// up:
-					for (int y = 0; y < level - 1; y++) {
-						ceilingBricksId[column][y] = ceilingBricksId[column][y + 1];
-						if (ceilingBricksId[column][y] != NO_OBJECT_ID) {
-							bricks.get(ceilingBricksId[column][y]).setCell(
-									column, y);
-							bricks.get(ceilingBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_UP;
-						}
-					}
-					// always put "empty" at the cell in last row of the ceiling
-					// when the ceiling got hit
-					if (level > 1)
-						ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
-
-					/*
-					 * for (int r = 0; r < level; r++) { for (int c = 0; c <
-					 * COLUMNS; c++) {
-					 * Log.d("World:checkBallCollisionsWithCeilingBricks",
-					 * "c = " + c);
-					 * Log.d("World:checkBallCollisionsWithCeilingBricks",
-					 * "r = " + r);
-					 * Log.d("World:checkBallCollisionsWithCeilingBricks",
-					 * "ceilingBricksId[][] = " + ceilingBricksId[c][r]);
-					 * Log.d("World:checkBallCollisionsWithCeilingBricks",
-					 * "floorBricksId[][] = " + floorBricksId[c][r]); }
-					 * 
-					 * }
-					 */
-					break;
-				} else { // the collisions happened with a bottom brick
-					// Log.d("World:checkBallCollisionsWithBricks",
-					// "A collision with a ceiling brick just happened!");
-					// the bricks on the floor will shift down
-					for (int y = level - 1; y > 0; y--) {
-						ceilingBricksId[column][y] = ceilingBricksId[column][y - 1];
-						if (ceilingBricksId[column][y] != NO_OBJECT_ID) {
-							bricks.get(ceilingBricksId[column][y]).setCell(
-									column, y);
-							bricks.get(ceilingBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_DOWN;
-						}
-					}
-
-					// the bottommost brick [row=0] goes to the ceiling [row=0]:
-					int bottomBrick = floorBricksId[column][0];
-					ceilingBricksId[column][0] = bottomBrick;
-					//Include this brick back into bricksCeiling array list
-					bricksCeiling.add(bricks.get(bottomBrick));
-					bricks.get(bottomBrick).atCeiling = true;
-					bricks.get(bottomBrick).setCell(column, 0);
-					bricks.get(bottomBrick).state = Brick.BRICK_STATE_SHIFTING_DOWN_TO_CEILING;
-
-					// other floor bricks in this column will shift one cell
-					// down:
-					for (int y = 0; y < level - 1; y++) {
-						floorBricksId[column][y] = floorBricksId[column][y + 1];
-						if (floorBricksId[column][y] != NO_OBJECT_ID) {
-							bricks.get(floorBricksId[column][y]).setCell(
-									column, y);
-							bricks.get(floorBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_DOWN;
-						}
-					}
-
-					// always put "empty" at the cell in last row of the floor
-					// when the floor got hit
-					if (level > 1)
-						floorBricksId[column][level - 1] = NO_OBJECT_ID;
-					break;
 				}
 
+				// the uppermost ceiling brick [row=0] goes to the floor
+				// [row=0]:
+				int topBrick = ceilingBricksId[column][0];
+				// exclude this brick from bricksCeiling array list
+				lastCeilingBrickId = topBrick;
+				bricksCeiling.remove(bricks.get(topBrick));
+
+				floorBricksId[column][0] = topBrick;
+				bricks.get(topBrick).atCeiling = false;
+				bricks.get(topBrick).setCell(column, 0);
+				bricks.get(topBrick).state = Brick.BRICK_STATE_SHIFTING_UP_TO_FLOOR;
+				Log.d("World:checkBallCollisionsWithBricks", "bricks.get(topBrick).state = " + bricks.get(topBrick).state);
+				// other ceiling bricks in this column will shift one cell up:
+				for (int y = 0; y < level - 1; y++) {
+					ceilingBricksId[column][y] = ceilingBricksId[column][y + 1];
+					if (ceilingBricksId[column][y] != NO_OBJECT_ID) {
+						bricks.get(ceilingBricksId[column][y]).setCell(column,
+								y);
+						bricks.get(ceilingBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_UP;
+					}
+				}
+				// always put "empty" at the cell in last row of the ceiling
+				// when the ceiling got hit
+				if (level > 1)
+					ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
+
+				/*
+				 * for (int r = 0; r < level; r++) { for (int c = 0; c <
+				 * COLUMNS; c++) {
+				 * Log.d("World:checkBallCollisionsWithCeilingBricks", "c = " +
+				 * c); Log.d("World:checkBallCollisionsWithCeilingBricks",
+				 * "r = " + r);
+				 * Log.d("World:checkBallCollisionsWithCeilingBricks",
+				 * "ceilingBricksId[][] = " + ceilingBricksId[c][r]);
+				 * Log.d("World:checkBallCollisionsWithCeilingBricks",
+				 * "floorBricksId[][] = " + floorBricksId[c][r]); }
+				 * 
+				 * }
+				 */
+				break;
+			} else { // the collisions happened with a bottom brick
+				// Log.d("World:checkBallCollisionsWithBricks",
+				// "A collision with a ceiling brick just happened!");
+				// the bricks on the floor will shift down
+				for (int y = level - 1; y > 0; y--) {
+					ceilingBricksId[column][y] = ceilingBricksId[column][y - 1];
+					if (ceilingBricksId[column][y] != NO_OBJECT_ID) {
+						bricks.get(ceilingBricksId[column][y]).setCell(column,
+								y);
+						bricks.get(ceilingBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_DOWN;
+					}
+				}
+
+				// the bottommost brick [row=0] goes to the ceiling [row=0]:
+				int bottomBrick = floorBricksId[column][0];
+				ceilingBricksId[column][0] = bottomBrick;
+				// Include this brick back into bricksCeiling array list
+				bricksCeiling.add(bricks.get(bottomBrick));
+				bricks.get(bottomBrick).atCeiling = true;
+				bricks.get(bottomBrick).setCell(column, 0);
+				bricks.get(bottomBrick).state = Brick.BRICK_STATE_SHIFTING_DOWN_TO_CEILING;
+
+				// other floor bricks in this column will shift one cell
+				// down:
+				for (int y = 0; y < level - 1; y++) {
+					floorBricksId[column][y] = floorBricksId[column][y + 1];
+					if (floorBricksId[column][y] != NO_OBJECT_ID) {
+						bricks.get(floorBricksId[column][y]).setCell(column, y);
+						bricks.get(floorBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_DOWN;
+					}
+				}
+
+				// always put "empty" at the cell in last row of the floor
+				// when the floor got hit
+				if (level > 1)
+					floorBricksId[column][level - 1] = NO_OBJECT_ID;
+				break;
 			}
 
 		}
