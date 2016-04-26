@@ -164,7 +164,6 @@ public class World {
 		checkBallCollisions();
 		updateBricks(deltaTime);
 
-
 		// checkGameOver();
 	}
 
@@ -362,7 +361,7 @@ public class World {
 		}
 
 		length = bricksTouched.size();
-		if (length > 1) { // I expect it be not more than 2
+		if (length == 2) { // I expect it be not more than 2
 			Log.d("World:checkBallCollisionsWithBricks",
 					"More that one Bricks are touched! length = " + length);
 			for (int k = 0; k < length; k++) {
@@ -516,9 +515,46 @@ public class World {
 
 			}
 
-		} else if (bricksTouched.size() == 1) { // only one brick would be overlap
-			bricksAffected.add(bricksTouched.get(0));  // in this array list I store the ID of the actually hit brick
-			
+		} else if (bricksTouched.size() == 3) {
+			Log.d("World:checkBallCollisionsWithBricks",
+					"Three bricks would be overlaped. This is a kind of IN-CORNER collision");
+			// find the two bricks which are in different columns and rows. the
+			// third one will be ignored
+/*			for (int b = 0; b < 3; b++) {
+				if (bricks.get(bricksTouched.get(0)).column != bricks
+						.get(bricksTouched.get(1)).column) {
+					if (bricks.get(bricksTouched.get(0)).row != bricks
+							.get(bricksTouched.get(1)).row) {
+						bricksAffected.add(bricksTouched.get(0));
+						bricksAffected.add(bricksTouched.get(1));
+					}
+				} else if (bricks.get(bricksTouched.get(0)).column != bricks
+						.get(bricksTouched.get(2)).column) {
+					if (bricks.get(bricksTouched.get(0)).row != bricks
+							.get(bricksTouched.get(2)).row) {
+						bricksAffected.add(bricksTouched.get(0));
+						bricksAffected.add(bricksTouched.get(2));
+					}
+				} else if (bricks.get(bricksTouched.get(1)).column != bricks
+						.get(bricksTouched.get(2)).column) {
+					if (bricks.get(bricksTouched.get(1)).row != bricks
+							.get(bricksTouched.get(2)).row) {
+						bricksAffected.add(bricksTouched.get(1));
+						bricksAffected.add(bricksTouched.get(2));
+					}
+				}
+			}*/
+			bricksAffected.add(bricksTouched.get(0));
+			bricksAffected.add(bricksTouched.get(1));
+			bricksAffected.add(bricksTouched.get(2));
+			ball.velocity.mul(-1);
+
+		} else if (bricksTouched.size() == 1) { // only one brick would be
+												// overlap
+			bricksAffected.add(bricksTouched.get(0)); // in this array list I
+														// store the ID of the
+														// actually hit brick
+
 			Brick brick = bricks.get(bricksAffected.get(0));
 			Circle c = ball.bounds;
 			Rectangle r = brick.bounds;
@@ -568,7 +604,8 @@ public class World {
 						ball.velocity.x *= -1;
 					}
 				} else { // the ball is flying vertically up
-					ball.position.y = r.lowerLeft.y - r.width - Ball.BALL_RADIUS;
+					ball.position.y = r.lowerLeft.y - r.width
+							- Ball.BALL_RADIUS;
 					ball.velocity.y *= -1;
 				}
 
@@ -622,9 +659,10 @@ public class World {
 						ball.velocity.x *= -1;
 					}
 				} else { // the ball is falling vertically down
-					ball.position.y = r.lowerLeft.y + r.height + Ball.BALL_RADIUS;
+					ball.position.y = r.lowerLeft.y + r.height
+							+ Ball.BALL_RADIUS;
 					ball.velocity.y *= -1;
-					
+
 				}
 			}
 
