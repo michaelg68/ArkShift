@@ -340,20 +340,64 @@ public class World {
 
 	private void checkBallCollisionsWithBricks() {
 
-		Log.d("World:checkBallCollisionsWithBricks",
-				"--------------------------");
-
+		List<Integer> bricksTouched = new ArrayList<Integer>();
+		//int b = 0;
+		int length = 0;
+		Log.d("World:checkBallCollisionsWithBricks", "--------------------------");
+		
+		
+		
+		//first I must check if the collision happened with more than one brick! 
+		//Hopefully this will help to solve the problem of ball swallowing by the bricks
+		
+		for (int i = 0; i < bricksArraySize; i++) {
+			Brick brick = bricks.get(i);
+			if ((OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
+				bricksTouched.add(i);
+			}
+		}
+		
+		
+		length = bricksTouched.size();
+		if (length > 1) {
+			Log.d("World:checkBallCollisionsWithBricks", "More that one Bricks are touched! length = " + length);
+			for (int k = 0 ; k < length ; k++) {
+				Log.d("World:checkBallCollisionsWithBricks", "brickID in bricks = " + bricksTouched.get(k));
+				Log.d("World:checkBallCollisionsWithBricks", "brick color = " + bricks.get(bricksTouched.get(k)).color);
+				Log.d("World:checkBallCollisionsWithBricks", "brick column = " + bricks.get(bricksTouched.get(k)).column + " ;brick row = " + bricks.get(bricksTouched.get(k)).row);
+				Log.d("World:checkBallCollisionsWithBricks", "brick x = " + bricks.get(bricksTouched.get(k)).x + " ;brick y = " + bricks.get(bricksTouched.get(k)).y);
+			}
+			
+			
+			if (bricks.get(bricksTouched.get(0)).column == bricks.get(bricksTouched.get(1)).column) {
+				Log.d("World:checkBallCollisionsWithBricks","Two bricks are in the same column. column = " + bricks.get(bricksTouched.get(1)).column);
+ 			}
+			
+			if (bricks.get(bricksTouched.get(0)).row == bricks.get(bricksTouched.get(1)).row) {
+				Log.d("World:checkBallCollisionsWithBricks","Two bricks are in the same row. row = " + bricks.get(bricksTouched.get(1)).row);
+ 			}
+		}
+		
+		
+		
+		
+		
 		// int collisionStatus = NO_COLLISION;
 		for (int i = 0; i < bricksArraySize; i++) {
 			Brick brick = bricks.get(i);
+			
+			
+
+			
+
 
 			if ((OverlapTester
 					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
-				// Log.d("World:checkBallCollisionsWithBricks",
-				// "A collision with a brick just happened!");
-				// ball.velocity.y = ball.velocity.y * (-1);
+				Log.d("World:checkBallCollisionsWithBricks", "A collision with a brick just happened!");
 				
 				listener.hitAtBrick();
+				
+				
 
 				int scoringSign = (brick.atCeiling) ? 1 : -2; // if the ceiling
 																// brick hit
@@ -384,6 +428,7 @@ public class World {
 				case BOTTOM_BORDER:
 					ball.position.y = brick.bounds.lowerLeft.y
 							- Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks", "Collision with BOTTOM_BORDER");
 					Log.d("World:checkBallCollisionsWithBricks",
 							"New ball.position x = " + ball.position.x
 									+ "; y = " + ball.position.y);
@@ -393,6 +438,7 @@ public class World {
 				case TOP_BORDER:
 					ball.position.y = brick.bounds.lowerLeft.y
 							+ brick.bounds.height + Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks", "Collision with TOP_BORDER");
 					Log.d("World:checkBallCollisionsWithBricks",
 							"New ball.position x = " + ball.position.x
 									+ "; y = " + ball.position.y);
@@ -402,6 +448,7 @@ public class World {
 				case LEFT_BORDER:
 					ball.position.x = brick.bounds.lowerLeft.x
 							- Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks", "Collision with LEFT_BORDER");
 					Log.d("World:checkBallCollisionsWithBricks",
 							"New ball.position x = " + ball.position.x
 									+ "; y = " + ball.position.y);
@@ -411,6 +458,7 @@ public class World {
 				case RIGHT_BORDER:
 					ball.position.x = brick.bounds.lowerLeft.x
 							+ brick.bounds.width + Ball.BALL_RADIUS;
+					Log.d("World:checkBallCollisionsWithBricks", "Collision with RIGHT_BORDER");
 					Log.d("World:checkBallCollisionsWithBricks",
 							"New ball.position x = " + ball.position.x
 									+ "; y = " + ball.position.y);
@@ -419,6 +467,7 @@ public class World {
 
 				case COLLISION_WITH_CORNER:
 					ball.velocity.mul(-1);
+					Log.d("World:checkBallCollisionsWithBricks", "Collision with COLLISION_WITH_CORNER");
 					break;
 				default:
 					break;
