@@ -21,7 +21,7 @@ public class ArkShift extends GLGame {
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		super.onSurfaceCreated(gl, config);
 		if(firstTimeCreate) {
-			//Settings.load(getFileIO());
+			Settings.load(getFileIO());
 			Assets.load(this);
 			firstTimeCreate = false;
 		} else {
@@ -33,8 +33,9 @@ public class ArkShift extends GLGame {
 	@Override
 	public void onPause() {
 		super.onPause();
-//		if (Settings.soundEnabled)
-//			Assets.music.pause();
+		Settings.save(getFileIO());
+		if (Settings.soundEnabled)
+			Assets.music.pause();
 	}
 
 }

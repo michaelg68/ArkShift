@@ -112,7 +112,7 @@ public class GameScreen extends GLScreen {
 				RESOLUTION_X, RESOLUTION_Y - NOTIFICATION_AREA_HEIGHT
 						- FRAME_WIDTH);
 		lastScore = 0;
-		scoreString = "0";
+		scoreString = Integer.toString(lastScore);
 		fpsCounter = new FPSCounter();
 	}
 
@@ -131,15 +131,18 @@ public class GameScreen extends GLScreen {
 			updateRunning(deltaTime);
 			break;
 		case GAME_PAUSED:
-			// Log.d("GameScreen", "case GAME_PAUSED");
+			Log.d("GameScreen", "case GAME_PAUSED");
+			Settings.addScore(lastScore);
 			updatePaused();
 			break;
 		case GAME_LEVEL_END:
 			// Log.d("GameScreen", "case GAME_LEVEL_END");
+			Settings.addScore(lastScore);
 			updateLevelEnd();
 			break;
 		case GAME_OVER:
 			// Log.d("GameScreen", "case GAME_OVER");
+			Settings.addScore(lastScore);
 			updateGameOver();
 			break;
 		}
@@ -164,7 +167,7 @@ public class GameScreen extends GLScreen {
 			guiCam.touchToWorld(touchPoint);
 
 			if (OverlapTester.pointInRectangle(pauseBounds, touchPoint)) {
-				// Log.d("GameScreen:", "touched in pauseBounds");
+				Log.d("GameScreen:", "touched in pauseBounds");
 				// Log.d("GameScreen:", "pauseBounds.lowerLeft.x = " +
 				// pauseBounds.lowerLeft.x);
 				// Log.d("GameScreen:", "pauseBounds.lowerLeft.y = " +
@@ -259,6 +262,7 @@ public class GameScreen extends GLScreen {
 
 			if (OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
 				Assets.playSound(Assets.clickSound);
+				Settings.save(game.getFileIO());
 				game.setScreen(new MainMenuScreen(game));
 				return;
 			}

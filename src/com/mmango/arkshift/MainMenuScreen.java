@@ -108,7 +108,7 @@ public class MainMenuScreen extends GLScreen {
 
     @Override
     public void pause() {        
-        Settings.save(game.getFileIO());
+        //Settings.save(game.getFileIO());
     }
 
     @Override
