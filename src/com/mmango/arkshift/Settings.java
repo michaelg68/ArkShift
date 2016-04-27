@@ -1,27 +1,34 @@
 package com.mmango.arkshift;
 
-import java.io.BufferedReader;
+/*import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.OutputStreamWriter;*/
 
+import com.badlogic.androidgames.framework.impl.GLGame;
+
+import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.badlogic.androidgames.framework.FileIO;
+//import com.badlogic.androidgames.framework.FileIO;
 
 public class Settings {
+	public static final String GAME_PREFERENCES = "ArkShiftPrefs";
+	
+	public static String appName = "ArkShift by mmango";
 	public static boolean soundEnabled = true;
 	public static boolean touchEnabled = true;
-	//public static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
 	public static int[] highscores = new int[] { 9, 8, 5, 3, 1 };
-	public final static String file = ".arkshift2";
+	//public final static String file = ".arkshift2";
 
-	public static void load(FileIO files) {
+/*	public static void load(FileIO files) {
 		BufferedReader in = null;
 		Log.e("Settings:load", "before reading from file. soundEnabled = " + soundEnabled);
 
 		try {
+			
+    
 			in = new BufferedReader(new InputStreamReader(files.readFile(file)));
 			soundEnabled = Boolean.parseBoolean(in.readLine());
 			touchEnabled = Boolean.parseBoolean(in.readLine());
@@ -54,7 +61,9 @@ public class Settings {
 		soundEnabled = false;
 	}
 
+
 	public static void save(FileIO files) {
+     
 		BufferedWriter out = null;
 		try {
 			out = new BufferedWriter(new OutputStreamWriter(
@@ -77,11 +86,12 @@ public class Settings {
 				if (out != null)
 					out.close();
 			} catch (IOException e) {
+				Log.e("Settings:save", "IOException. can't close file");
 			}
 		}
 
 	}
-
+*/
 	public static void addScore(int score) {
 		for (int i = 0; i < 5; i++) {
 			if (highscores[i] < score) {
@@ -91,6 +101,40 @@ public class Settings {
 				break;
 			}
 		}
+	}
+	
+	public static void readPrefs(GLGame game) {
+		SharedPreferences settings = game.getSharedPreferences(GAME_PREFERENCES, 0);
+		appName = settings.getString("AppName", "none :(");
+		soundEnabled = settings.getBoolean("SoundEnabled", true);
+		touchEnabled = settings.getBoolean("TouchEnabled", true);
+		Log.e("Settings:readPrefs", "from Prefs: AppName = " + settings.getString("AppName", "none :("));
+        Log.e("Settings:readPrefs", "from Prefs: soundEnabled = " + settings.getBoolean("SoundEnabled", true));
+        Log.e("Settings:readPrefs", "from Prefs: touchEnabled = " + settings.getBoolean("TouchEnabled", true));
+        for (int i = 0; i < 5; i++) {
+        	highscores[i] = highscores[i];
+			Log.e("Settings:readPrefs", "Preferences i = " + i);
+			Log.e("Settings:readPrefs", "from Prefs: highscores[i] = " + settings.getInt(Integer.toString(i), highscores[i]));
+		}
+		
+	}
+	
+	public static void savePrefs(GLGame game) {
+		SharedPreferences settings = game.getSharedPreferences(GAME_PREFERENCES, 0);
+        SharedPreferences.Editor prefEditor = settings.edit();
+        Log.e("Settings:savePrefs", "appName = " + appName);
+        Log.e("Settings:savePrefs", "soundEnabled = " + soundEnabled);
+        Log.e("Settings:savePrefs", "touchEnabled = " + touchEnabled);
+		
+        prefEditor.putString("AppName", "ArkShift by mmango");
+        prefEditor.putBoolean("SoundEnabled", soundEnabled);
+        prefEditor.putBoolean("TouchEnabled", touchEnabled);
+        for (int i = 0; i < 5; i++) {
+			Log.e("Settings:save", "Preferences i = " + i);
+			Log.e("Settings:save", "Preferences highscores[i] = " + highscores[i]);
+	        prefEditor.putInt(Integer.toString(i), highscores[i]);
+		}
+        prefEditor.commit();
 	}
 
 }

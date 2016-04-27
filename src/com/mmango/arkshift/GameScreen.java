@@ -262,7 +262,11 @@ public class GameScreen extends GLScreen {
 
 			if (OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
 				Assets.playSound(Assets.clickSound);
-				Settings.save(game.getFileIO());
+				//Settings.save(game.getFileIO());
+				Log.d("GameScreen:updatePaused", "Running Settings.savePrefs(glGame)");
+				Settings.savePrefs(glGame);
+				Log.d("GameScreen:updatePaused", "Running Settings.readPrefs(glGame)");
+				Settings.readPrefs(glGame);
 				game.setScreen(new MainMenuScreen(game));
 				return;
 			}

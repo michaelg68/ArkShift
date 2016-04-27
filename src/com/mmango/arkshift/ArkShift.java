@@ -3,10 +3,14 @@ package com.mmango.arkshift;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+//import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.Screen;
 import com.badlogic.androidgames.framework.impl.GLGame;
 
 public class ArkShift extends GLGame {
+//	public static final String GAME_PREFERENCES = "ArkShiftPrefs";
 
 	boolean firstTimeCreate = true;
 	
@@ -21,7 +25,9 @@ public class ArkShift extends GLGame {
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		super.onSurfaceCreated(gl, config);
 		if(firstTimeCreate) {
-			Settings.load(getFileIO());
+			Log.d("ArkShift:onSurfaceCreated", "Running Settings.readPrefs(glGame)");
+			Settings.readPrefs(this);
+			//Settings.load(getFileIO());
 			Assets.load(this);
 			firstTimeCreate = false;
 		} else {
@@ -33,7 +39,9 @@ public class ArkShift extends GLGame {
 	@Override
 	public void onPause() {
 		super.onPause();
-		Settings.save(getFileIO());
+		Log.d("ArkShift:onPause", "Running Settings.savePrefs(glGame)");
+		Settings.savePrefs(this);
+		//Settings.save(getFileIO());
 		if (Settings.soundEnabled)
 			Assets.music.pause();
 	}
