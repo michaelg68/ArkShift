@@ -11,6 +11,9 @@ public class Assets {
 	public static Texture mainScreenBackground;
 	public static TextureRegion mainScreenBackgroundRegion;
 	
+	public static Texture highscoresScreenBackground;
+	public static TextureRegion highscoresScreenBackgroundRegion;
+	
 	public static Texture gameFieldGreen;
 	public static TextureRegion gameFieldGreenRegion;
 	
@@ -62,6 +65,11 @@ public class Assets {
 		mainScreenBackground = new Texture(game,
 				"background_mainscreen_1080x1920.png");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,
+				0, 1080, 1920);
+		
+		highscoresScreenBackground = new Texture(game,
+				"background_highscores2.png");
+		highscoresScreenBackgroundRegion = new TextureRegion(highscoresScreenBackground, 0,
 				0, 1080, 1920);
 	
 		userInterfaceElements = new Texture(game, "atlas_ui_elements.png");
@@ -138,6 +146,7 @@ public class Assets {
 
 	public static void reload() {
 		mainScreenBackground.reload();
+		highscoresScreenBackground.reload();
 		gameFieldGreen.reload();
 		userInterfaceElements.reload();
 		gameScreenBackground.reload();

@@ -13,7 +13,7 @@ public class Settings {
 	public static String appName = "ArkShift by mmango";
 	public static boolean soundEnabled = true;
 	public static boolean touchEnabled = true;
-	public static int[] highscores = new int[] { 9, 8, 5, 3, 1 };
+	public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
 
 
 	

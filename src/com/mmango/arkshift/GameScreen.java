@@ -25,13 +25,13 @@ import com.badlogic.androidgames.framework.gl.FPSCounter;
 
 public class GameScreen extends GLScreen {
 
+	static final int RESOLUTION_X = 1080;
+	static final int RESOLUTION_Y = 1920;
 	static final int GAME_READY = 0;
 	static final int GAME_RUNNING = 1;
 	static final int GAME_PAUSED = 2;
 	static final int GAME_LEVEL_END = 3;
 	static final int GAME_OVER = 4;
-	static final int RESOLUTION_X = 1080;
-	static final int RESOLUTION_Y = 1920;
 	static final int SPRITES_NUMBER = 200;
 	static final int BUTTON_PAUSE_SIDE = 100;
 	static final int NOTIFICATION_AREA_HEIGHT = 150;
@@ -336,7 +336,7 @@ public class GameScreen extends GLScreen {
 
 	private void presentReady() {
 		float scoreStringHalfLength = scoreString.length() * 64 / 2f;
-		Assets.font.drawTextScore(batcher, scoreString, RESOLUTION_X / 2f
+		Assets.font.drawTextZoomed(batcher, scoreString, RESOLUTION_X / 2f
 				- scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 2f, 2f);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 250,
 				Assets.readyBannerRegion);
@@ -352,14 +352,14 @@ public class GameScreen extends GLScreen {
 		float scoreStringHalfLength = scoreString.length() * 64 / 2f;
 		// Log.d("GameScreen:presentRunning", "scoreStringHalfLength = " +
 		// scoreStringHalfLength);
-		Assets.font.drawTextScore(batcher, scoreString, RESOLUTION_X / 2f
+		Assets.font.drawTextZoomed(batcher, scoreString, RESOLUTION_X / 2f
 				- scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 2f, 2f);
 
 	}
 
 	private void presentPaused() {
 		float scoreStringHalfLength = scoreString.length() * 64 / 2f;
-		Assets.font.drawTextScore(batcher, scoreString, RESOLUTION_X / 2f
+		Assets.font.drawTextZoomed(batcher, scoreString, RESOLUTION_X / 2f
 				- scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 2f, 2f);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 500,
 				Assets.resumeQuitMenuRegion);

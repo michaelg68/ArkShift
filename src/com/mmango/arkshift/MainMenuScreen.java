@@ -16,6 +16,8 @@ import com.badlogic.androidgames.framework.math.Rectangle;
 import com.badlogic.androidgames.framework.math.Vector2;
 
 public class MainMenuScreen extends GLScreen {
+	static final int RESOLUTION_X = 1080;
+	static final int RESOLUTION_Y = 1920;
     Camera2D guiCam;
     SpriteBatcher batcher;
     
@@ -27,13 +29,13 @@ public class MainMenuScreen extends GLScreen {
 
     public MainMenuScreen(Game game) {
         super(game);
-        guiCam = new Camera2D(glGraphics, 1080, 1920);
-        batcher = new SpriteBatcher(glGraphics, 100);
+        guiCam = new Camera2D(glGraphics, RESOLUTION_X, RESOLUTION_Y);
+        batcher = new SpriteBatcher(glGraphics, 30);
         //note that parameters in Rectangle are: lower_left_x, lower_left_y, wide, height  
-        playBounds = new Rectangle(540 - 350, 1920 / 2, 700, 250);
-        settingsBounds = new Rectangle(540 - 350, 1920 / 2 - 250 , 700, 250);
-        highscoresBounds = new Rectangle(540 - 350, 1920 / 2 - 500, 700, 250);
-        helpBounds = new Rectangle(540 - 350, 1920 / 2  - 1000, 700, 250);
+        playBounds = new Rectangle(RESOLUTION_X / 2 - 350, RESOLUTION_Y / 2, 700, 250);
+        settingsBounds = new Rectangle(RESOLUTION_X / 2 - 350, RESOLUTION_Y / 2 - 250 , 700, 250);
+        highscoresBounds = new Rectangle(RESOLUTION_X / 2 - 350, RESOLUTION_Y / 2 - 500, 700, 250);
+        helpBounds = new Rectangle(RESOLUTION_X / 2 - 350, RESOLUTION_Y / 2  - 1000, 700, 250);
         touchPoint = new Vector2();               
     }       
 
@@ -63,7 +65,8 @@ public class MainMenuScreen extends GLScreen {
                 }
                 if(OverlapTester.pointInRectangle(highscoresBounds, touchPoint)) {
                     Assets.playSound(Assets.clickSound);
-                   // game.setScreen(new HighscoreScreen(game));
+                    Log.d("MainMenuScreen:update", "highscoresBounds is touched. Opening HighscoreScreen");
+                    game.setScreen(new HighscoreScreen(game));
                     return;
                 }
                 if(OverlapTester.pointInRectangle(helpBounds, touchPoint)) {
@@ -92,14 +95,14 @@ public class MainMenuScreen extends GLScreen {
         gl.glEnable(GL10.GL_TEXTURE_2D);
         
         batcher.beginBatch(Assets.mainScreenBackground);
-        batcher.drawSprite(1080/2 , 1920/2, 1080, 1920, Assets.mainScreenBackgroundRegion);
+        batcher.drawSprite(RESOLUTION_X / 2 , RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.mainScreenBackgroundRegion);
         batcher.endBatch();
         
         gl.glEnable(GL10.GL_BLEND);
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);               
         
         batcher.beginBatch(Assets.userInterfaceElements);                 
-        batcher.drawSprite(1080 / 2, 1920 / 2 - 250, 700, 1000, Assets.mainScreenMenuRegion);
+        batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 - 250, 700, 1000, Assets.mainScreenMenuRegion);
         
         batcher.endBatch();
         
