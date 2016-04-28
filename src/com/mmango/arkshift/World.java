@@ -84,11 +84,11 @@ public class World {
 	public int ballsLeft;
 	public int score;
 	public int state;
-	public int level;
+	public int level = 1;
 	public int bricksArraySize;
 
-	public World(WorldListener listener) {
-		level = 6;
+	public World(WorldListener listener, int level) {
+		this.level = level;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);

@@ -130,10 +130,10 @@ public class Assets {
 		level4Button = new TextureRegion(selectLevelScreenElements, 1680, 0, 200, 200);
 		level5Button = new TextureRegion(selectLevelScreenElements, 1880, 0, 200, 200);
 		level6Button = new TextureRegion(selectLevelScreenElements, 1080, 200, 200, 200);
-		level7Button = new TextureRegion(selectLevelScreenElements, 1280, 0, 200, 200);
-		level8Button = new TextureRegion(selectLevelScreenElements, 1480, 0, 200, 200);
-		buttonUnavailable = new TextureRegion(selectLevelScreenElements, 1680, 0, 200, 200);
-		buttonHomeGreen = new TextureRegion(selectLevelScreenElements, 1880, 0, 200, 200);
+		level7Button = new TextureRegion(selectLevelScreenElements, 1280, 200, 200, 200);
+		level8Button = new TextureRegion(selectLevelScreenElements, 1480, 200, 200, 200);
+		buttonUnavailable = new TextureRegion(selectLevelScreenElements, 1680, 200, 200, 200);
+		buttonHomeGreen = new TextureRegion(selectLevelScreenElements, 1880, 200, 200, 200);
 
 		
 		

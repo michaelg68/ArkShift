@@ -24,7 +24,7 @@ import com.mmango.arkshift.World.WorldListener;
 import com.badlogic.androidgames.framework.gl.FPSCounter;
 
 public class GameScreen extends GLScreen {
-
+	int level;
 	static final int RESOLUTION_X = 1080;
 	static final int RESOLUTION_Y = 1920;
 	static final int GAME_READY = 0;
@@ -54,8 +54,9 @@ public class GameScreen extends GLScreen {
 	String scoreString;
 	FPSCounter fpsCounter;
 
-	public GameScreen(Game game) {
+	public GameScreen(Game game, int level) {
 		super(game);
+		this.level = level;
 		guiCam = new Camera2D(glGraphics, RESOLUTION_X, RESOLUTION_Y);
 		touchPoint = new Vector2();
 		batcher = new SpriteBatcher(glGraphics, SPRITES_NUMBER);
@@ -94,7 +95,7 @@ public class GameScreen extends GLScreen {
 			}
 		};
 
-		world = new World(worldListener);
+		world = new World(worldListener, level);
 		renderer = new WorldRenderer(glGraphics, batcher, world);
 		// remember - in Rectange x and y coordinates point to the lowerLeft
 		// corner of the rectangle! Counting from the lower left corner of the
@@ -281,10 +282,11 @@ public class GameScreen extends GLScreen {
 			TouchEvent event = touchEvents.get(i);
 			if (event.type != TouchEvent.TOUCH_UP)
 				continue;
-			world = new World(worldListener);
-			renderer = new WorldRenderer(glGraphics, batcher, world);
+//			world = new World(worldListener);
+//			renderer = new WorldRenderer(glGraphics, batcher, world);
 			world.score = lastScore;
-			state = GAME_READY;
+//			state = GAME_READY;
+			game.setScreen(new MainMenuScreen(game));
 		}
 	}
 
