@@ -47,6 +47,19 @@ public class Assets {
 	public static TextureRegion brickViolet;
 	public static TextureRegion brickPurple;
 	public static Font font;
+	
+	public static Texture selectLevelScreenElements;
+	public static TextureRegion selectLevelScreenBackgroundRegion;
+	public static TextureRegion level1Button;
+	public static TextureRegion level2Button;
+	public static TextureRegion level3Button;
+	public static TextureRegion level4Button;
+	public static TextureRegion level5Button;
+	public static TextureRegion level6Button;
+	public static TextureRegion level7Button;
+	public static TextureRegion level8Button;
+	public static TextureRegion buttonUnavailable;
+	public static TextureRegion buttonHomeGreen;
 
 	public static Music music;
 	public static Sound clickSound;
@@ -108,6 +121,22 @@ public class Assets {
 		brickWheat = new TextureRegion(gameScreenElements, 896, 0, 128, 128);
 		brickViolet = new TextureRegion(gameScreenElements, 0, 128, 128, 128);
 		brickPurple = new TextureRegion(gameScreenElements, 128, 128, 128, 128);
+		
+		selectLevelScreenElements = new Texture(game, "atlas_select_level_elements.png");
+		selectLevelScreenBackgroundRegion = new TextureRegion(selectLevelScreenElements, 0, 0, 1080, 1920);
+		level1Button = new TextureRegion(selectLevelScreenElements, 1080, 0, 200, 200);
+		level2Button = new TextureRegion(selectLevelScreenElements, 1280, 0, 200, 200);
+		level3Button = new TextureRegion(selectLevelScreenElements, 1480, 0, 200, 200);
+		level4Button = new TextureRegion(selectLevelScreenElements, 1680, 0, 200, 200);
+		level5Button = new TextureRegion(selectLevelScreenElements, 1880, 0, 200, 200);
+		level6Button = new TextureRegion(selectLevelScreenElements, 1080, 200, 200, 200);
+		level7Button = new TextureRegion(selectLevelScreenElements, 1280, 0, 200, 200);
+		level8Button = new TextureRegion(selectLevelScreenElements, 1480, 0, 200, 200);
+		buttonUnavailable = new TextureRegion(selectLevelScreenElements, 1680, 0, 200, 200);
+		buttonHomeGreen = new TextureRegion(selectLevelScreenElements, 1880, 0, 200, 200);
+
+		
+		
 
 		music = game.getAudio().newMusic("jewelbeat_-_electrify.ogg");
 		/* http://www.jewelbeat.com/free */
