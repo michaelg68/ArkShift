@@ -285,6 +285,8 @@ public class GameScreen extends GLScreen {
 //			world = new World(worldListener);
 //			renderer = new WorldRenderer(glGraphics, batcher, world);
 			world.score = lastScore;
+			Settings.addScore(lastScore);
+			Settings.savePrefs(glGame);
 //			state = GAME_READY;
 			game.setScreen(new MainMenuScreen(game));
 		}
