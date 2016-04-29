@@ -21,3 +21,6 @@ When the application freezes then the following message appears in LogCat:
 04-23 14:26:26.655: I/Timeline(17481): Timeline: Activity_idle id: android.os.BinderProxy@4077bb9 time:581227299
 04-23 14:26:27.549: D/FPSCounter(17481): fps: 36
 04-23 14:26:28.559: D/FPSCounter(17481): fps: 62
+
+Possible reason: wrong context?
+http://stackoverflow.com/questions/30206800/why-i-am-getting-this-line-in-green-colour-in-timeline-activity-idle-id-androi
