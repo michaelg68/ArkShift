@@ -12,7 +12,7 @@ public class Settings {
 
 	public static String appName = "ArkShift by mmango";
 	public static boolean soundEnabled = true;
-	public static boolean touchEnabled = true;
+	public static boolean touchEnabled = false;
 	public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
 
 
@@ -35,7 +35,7 @@ public class Settings {
 				GAME_PREFERENCES, 0);
 		appName = settings.getString("AppName", "none :(");
 		soundEnabled = settings.getBoolean("SoundEnabled", true);
-		touchEnabled = settings.getBoolean("TouchEnabled", true);
+		//touchEnabled = settings.getBoolean("TouchEnabled", true);
 		Log.e("Settings:readPrefs",
 				"from Prefs: AppName = "
 						+ settings.getString("AppName", "none :("));

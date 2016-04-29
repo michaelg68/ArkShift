@@ -132,7 +132,7 @@ public class GameScreen extends GLScreen {
 			updateRunning(deltaTime);
 			break;
 		case GAME_PAUSED:
-			Log.d("GameScreen", "case GAME_PAUSED");
+			//Log.d("GameScreen", "case GAME_PAUSED");
 			Settings.addScore(lastScore);
 			updatePaused();
 			break;
@@ -235,7 +235,7 @@ public class GameScreen extends GLScreen {
 			}
 		} else {
 			// Log.d("GameScreen:", "Reading the Accelerometer data");
-			accelX = -game.getInput().getAccelX() * 1.5f;
+			accelX = -game.getInput().getAccelX() * 5f;
 			// Log.d("GameScreen: Accelerometer",
 			// "accelX = " + Float.toString(accelX));
 		}
