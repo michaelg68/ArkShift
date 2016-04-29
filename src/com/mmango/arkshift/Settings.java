@@ -9,10 +9,13 @@ import android.util.Log;
 
 public class Settings {
 	public static final String GAME_PREFERENCES = "ArkShiftPrefs";
-
+	public static final int CONTROL_BY_TILT = 0;
+	public static final int CONTROL_BY_TOUCH = 1;
+	public static final int CONTROL_BY_SWIPE = 2;
 	public static String appName = "ArkShift by mmango";
 	public static boolean soundEnabled = true;
 	public static boolean touchEnabled = false;
+	public static int controlType = CONTROL_BY_SWIPE;
 	public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
 
 
@@ -36,6 +39,7 @@ public class Settings {
 		appName = settings.getString("AppName", "none :(");
 		soundEnabled = settings.getBoolean("SoundEnabled", true);
 		//touchEnabled = settings.getBoolean("TouchEnabled", true);
+		controlType = settings.getInt("ControlType", CONTROL_BY_TOUCH);
 		Log.e("Settings:readPrefs",
 				"from Prefs: AppName = "
 						+ settings.getString("AppName", "none :("));
@@ -43,8 +47,8 @@ public class Settings {
 				"from Prefs: soundEnabled = "
 						+ settings.getBoolean("SoundEnabled", true));
 		Log.e("Settings:readPrefs",
-				"from Prefs: touchEnabled = "
-						+ settings.getBoolean("TouchEnabled", true));
+				"from Prefs: controlType = "
+						+ settings.getBoolean("ControlType", true));
 		for (int i = 0; i < 5; i++) {
 			highscores[i] = highscores[i];
 			Log.e("Settings:readPrefs", "Preferences i = " + i);
@@ -60,11 +64,12 @@ public class Settings {
 		SharedPreferences.Editor prefEditor = settings.edit();
 		Log.e("Settings:savePrefs", "appName = " + appName);
 		Log.e("Settings:savePrefs", "soundEnabled = " + soundEnabled);
-		Log.e("Settings:savePrefs", "touchEnabled = " + touchEnabled);
+		Log.e("Settings:savePrefs", "controlType = " + controlType);
 
 		prefEditor.putString("AppName", "ArkShift by mmango");
 		prefEditor.putBoolean("SoundEnabled", soundEnabled);
-		prefEditor.putBoolean("TouchEnabled", touchEnabled);
+		//prefEditor.putBoolean("TouchEnabled", touchEnabled);
+		controlType = settings.getInt("ControlType", controlType);
 		for (int i = 0; i < 5; i++) {
 			Log.e("Settings:save", "Preferences i = " + i);
 			Log.e("Settings:save", "Preferences highscores[i] = "
