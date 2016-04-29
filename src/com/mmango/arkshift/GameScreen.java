@@ -35,7 +35,7 @@ public class GameScreen extends GLScreen {
 	static final int SPRITES_NUMBER = 200;
 	static final int BUTTON_PAUSE_SIDE = 100;
 	static final int NOTIFICATION_AREA_HEIGHT = 150;
-	static final int NOTIFICATION_AREA_WIDTH = 1080;
+	static final int NOTIFICATION_AREA_WIDTH = RESOLUTION_X;
 	static final int FRAME_WIDTH = 20;
 
 	int state;
@@ -135,17 +135,14 @@ public class GameScreen extends GLScreen {
 			break;
 		case GAME_PAUSED:
 			// Log.d("GameScreen", "case GAME_PAUSED");
-			Settings.addScore(lastScore);
 			updatePaused();
 			break;
 		case GAME_LEVEL_END:
 			// Log.d("GameScreen", "case GAME_LEVEL_END");
-			Settings.addScore(lastScore);
 			updateLevelEnd();
 			break;
 		case GAME_OVER:
 			// Log.d("GameScreen", "case GAME_OVER");
-			Settings.addScore(lastScore);
 			updateGameOver();
 			break;
 		}
@@ -363,9 +360,9 @@ public class GameScreen extends GLScreen {
 				Log.d("GameScreen:updatePaused",
 						"Running Settings.savePrefs(glGame)");
 				Settings.savePrefs(glGame);
-				Log.d("GameScreen:updatePaused",
-						"Running Settings.readPrefs(glGame)");
-				Settings.readPrefs(glGame);
+				//Log.d("GameScreen:updatePaused",
+						//"Running Settings.readPrefs(glGame)");
+				//Settings.readPrefs(glGame);
 				game.setScreen(new MainMenuScreen(game));
 				return;
 			}
@@ -397,6 +394,9 @@ public class GameScreen extends GLScreen {
 			TouchEvent event = touchEvents.get(i);
 			if (event.type != TouchEvent.TOUCH_UP)
 				continue;
+			world.score = lastScore;
+			Settings.addScore(lastScore);
+			Settings.savePrefs(glGame);
 			game.setScreen(new MainMenuScreen(game));
 		}
 	}
@@ -488,6 +488,9 @@ public class GameScreen extends GLScreen {
 
 	@Override
 	public void pause() {
+		world.score = lastScore;
+		Settings.addScore(lastScore);
+		Settings.savePrefs(glGame);		
 	}
 
 	@Override

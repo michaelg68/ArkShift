@@ -39,8 +39,8 @@ public class ArkShift extends GLGame {
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.d("ArkShift:onPause", "Running Settings.savePrefs(glGame)");
-		Settings.savePrefs(this);
+		//Log.d("ArkShift:onPause", "Running Settings.savePrefs(glGame)");
+		//Settings.savePrefs(this);
 		//Settings.save(getFileIO());
 		if (Settings.soundEnabled)
 			Assets.music.pause();

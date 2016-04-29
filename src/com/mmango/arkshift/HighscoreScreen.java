@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
@@ -32,6 +34,7 @@ public class HighscoreScreen extends GLScreen {
         batcher = new SpriteBatcher(glGraphics, 200);
         highScores = new String[5];        
         for(int i = 0; i < 5; i++) {
+        	Log.d("HighScoreScreen:cunstructor", "Settings.highscores[" + i + "] = " + Settings.highscores[i]);
             highScores[i] = (i + 1) + ". " + Settings.highscores[i];
             xOffset = Math.max(highScores[i].length() * Assets.font.glyphWidth, xOffset);
         }        
@@ -80,8 +83,7 @@ public class HighscoreScreen extends GLScreen {
             Assets.font.drawTextZoomed(batcher, highScores[i], xOffset, y,  3f, 3f);
             y += Assets.font.glyphHeight * 3f;
         }
-        
-        //batcher.drawSprite(32, 32, 64, 64, Assets.arrow);
+
         batcher.endBatch();
         
         gl.glDisable(GL10.GL_BLEND);

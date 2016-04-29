@@ -33,8 +33,8 @@ public class Settings {
 		}
 	}
 
-	public static void readPrefs(GLGame game) {
-		SharedPreferences settings = game.getSharedPreferences(
+	public static void readPrefs(GLGame glGame) {
+		SharedPreferences settings = glGame.getSharedPreferences(
 				GAME_PREFERENCES, 0);
 		appName = settings.getString("AppName", "none :(");
 		soundEnabled = settings.getBoolean("SoundEnabled", true);
@@ -50,16 +50,14 @@ public class Settings {
 				"from Prefs: controlType = "
 						+ settings.getBoolean("ControlType", true));
 		for (int i = 0; i < 5; i++) {
-			highscores[i] = highscores[i];
-			Log.e("Settings:readPrefs", "Preferences i = " + i);
-			Log.e("Settings:readPrefs", "from Prefs: highscores[i] = "
-					+ settings.getInt(Integer.toString(i), highscores[i]));
+			highscores[i] = settings.getInt(Integer.toString(i), highscores[i]);
+			Log.e("Settings:readPrefs", "Now highscores[" + i + "] = "	+  highscores[i]);
 		}
 
 	}
 
-	public static void savePrefs(GLGame game) {
-		SharedPreferences settings = game.getSharedPreferences(
+	public static void savePrefs(GLGame glGame) {
+		SharedPreferences settings = glGame.getSharedPreferences(
 				GAME_PREFERENCES, 0);
 		SharedPreferences.Editor prefEditor = settings.edit();
 		Log.e("Settings:savePrefs", "appName = " + appName);
@@ -71,8 +69,7 @@ public class Settings {
 		//prefEditor.putBoolean("TouchEnabled", touchEnabled);
 		controlType = settings.getInt("ControlType", controlType);
 		for (int i = 0; i < 5; i++) {
-			Log.e("Settings:save", "Preferences i = " + i);
-			Log.e("Settings:save", "Preferences highscores[i] = "
+			Log.e("Settings:save", "Preferences highscores[" + i + "] = "
 					+ highscores[i]);
 			prefEditor.putInt(Integer.toString(i), highscores[i]);
 		}
