@@ -32,5 +32,12 @@ I suspect that
 a) overwrite them with default value
 b) write and read them in two different contexts: "game", "glGame"
 
+The problem seems to be solved.
+'the problem of SharedPreferences seems to be solved. there was a mistake in readPrefs method in Settings.java'
+ 
+See commit "518f532"
+
+-----------
+
 
 
