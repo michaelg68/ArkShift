@@ -68,8 +68,8 @@ public class HighscoreScreen extends GLScreen {
         
         gl.glEnable(GL10.GL_TEXTURE_2D);
         
-        batcher.beginBatch(Assets.highscoresScreenBackground);
-        batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.highscoresScreenBackgroundRegion);
+        batcher.beginBatch(Assets.mainScreenBackground);
+        batcher.drawSprite(RESOLUTION_X / 2 , RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.mainScreenBackgroundRegion);
         batcher.endBatch();
         
         gl.glEnable(GL10.GL_BLEND);

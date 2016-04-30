@@ -11,8 +11,24 @@ public class Assets {
 	public static Texture mainScreenBackground;
 	public static TextureRegion mainScreenBackgroundRegion;
 	
-	public static Texture highscoresScreenBackground;
-	public static TextureRegion highscoresScreenBackgroundRegion;
+	public static Texture mainScreenUIElements;
+	public static TextureRegion mainMenuLogo;
+	public static TextureRegion mainMenuButtonPlay;
+	public static TextureRegion mainMenuButtonControlSwipe;
+	public static TextureRegion mainMenuButtonControlTouch;
+	public static TextureRegion mainMenuButtonControlTilt;
+	public static TextureRegion mainMenuButtonSoundEnabled;
+	public static TextureRegion mainMenuButtonSoundDisabled;
+	public static TextureRegion mainMenuButtonScore;
+	public static TextureRegion mainMenuButtonHelp;
+	public static TextureRegion mainMenuTextPlay;
+	public static TextureRegion mainMenuTextControl;
+	public static TextureRegion mainMenuTextSound;
+	public static TextureRegion mainMenuTextHelp;
+	public static TextureRegion mainMenuTextHighScores;
+
+//	public static Texture highscoresScreenBackground;
+//	public static TextureRegion highscoresScreenBackgroundRegion;
 	
 	public static Texture gameFieldGreen;
 	public static TextureRegion gameFieldGreenRegion;
@@ -75,25 +91,40 @@ public class Assets {
 
 
 	public static void load(GLGame game) {
-		mainScreenBackground = new Texture(game,
-				"background_mainscreen_1080x1920.png");
-		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,
-				0, 1080, 1920);
+		mainScreenBackground = new Texture(game, "background_mainscreen.png");
+		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,	0, 1080, 1920);
 		
-		highscoresScreenBackground = new Texture(game,
+		mainScreenUIElements = new Texture(game, "atlas_mainscreen_ui_elements.png");
+		mainMenuLogo = new TextureRegion(mainScreenUIElements, 0, 1280, 1080, 300);
+		mainMenuButtonPlay = new TextureRegion(mainScreenUIElements, 0, 0, 256, 256);
+		mainMenuButtonControlSwipe = new TextureRegion(mainScreenUIElements, 256, 0, 256, 256);
+		mainMenuButtonControlTouch = new TextureRegion(mainScreenUIElements, 512, 0, 256, 256);
+		mainMenuButtonControlTilt = new TextureRegion(mainScreenUIElements, 768, 0, 256, 256);
+		mainMenuButtonSoundEnabled = new TextureRegion(mainScreenUIElements, 0, 256, 256, 256);
+		mainMenuButtonSoundDisabled = new TextureRegion(mainScreenUIElements, 256, 256, 256, 256);
+		mainMenuButtonScore = new TextureRegion(mainScreenUIElements, 512, 256, 256, 256);
+		mainMenuButtonHelp = new TextureRegion(mainScreenUIElements, 768, 256, 256, 256);
+		mainMenuTextPlay = new TextureRegion(mainScreenUIElements, 0, 512, 512, 256);
+		mainMenuTextControl = new TextureRegion(mainScreenUIElements, 512, 512, 512, 256);
+		mainMenuTextSound = new TextureRegion(mainScreenUIElements, 0, 768, 512, 256);
+		mainMenuTextHelp = new TextureRegion(mainScreenUIElements, 512, 768, 512, 256);
+		mainMenuTextHighScores = new TextureRegion(mainScreenUIElements, 0, 1024, 512, 256);
+
+		
+		/*highscoresScreenBackground = new Texture(game,
 				"background_highscores2.png");
 		highscoresScreenBackgroundRegion = new TextureRegion(highscoresScreenBackground, 0,
-				0, 1080, 1920);
+				0, 1080, 1920);*/
 	
 		userInterfaceElements = new Texture(game, "atlas_ui_elements.png");
-		mainScreenMenuRegion = new TextureRegion(userInterfaceElements, 0, 0, 700, 1000);
+		//mainScreenMenuRegion = new TextureRegion(userInterfaceElements, 0, 0, 700, 1000);
 		readyBannerRegion = new TextureRegion(userInterfaceElements, 0, 1500, 700, 250);
 		resumeQuitMenuRegion = new TextureRegion(userInterfaceElements, 0, 1000, 700, 500);
 		levelUpRegion = new TextureRegion(userInterfaceElements, 1400,0, 700, 500);
 		gameOverBannerRegion = new TextureRegion(userInterfaceElements, 700, 0, 700, 500);
 		buttonPause = new TextureRegion(userInterfaceElements, 228, 1878, 128, 128);
-		buttonHome = new TextureRegion(userInterfaceElements, 100, 1750, 128, 128);
-		buttonBack = new TextureRegion(userInterfaceElements, 228, 1750, 128, 128);
+		//buttonHome = new TextureRegion(userInterfaceElements, 100, 1750, 128, 128);
+		//buttonBack = new TextureRegion(userInterfaceElements, 228, 1750, 128, 128);
 		buttonForward = new TextureRegion(userInterfaceElements, 100, 1878, 128, 128);
 		font = new Font(userInterfaceElements, 700, 500, 8, 64, 64);
 
@@ -102,8 +133,8 @@ public class Assets {
 		gameScreenBackgroundRegion = new TextureRegion(gameScreenBackground, 0,
 				0, 1080, 1920);
 		
-		gameFieldGreen = new Texture(game, "gamefield_green_1040x1730.png");
-		gameFieldGreenRegion = new TextureRegion(gameFieldGreen, 0, 0, 1040, 1730);
+		//gameFieldGreen = new Texture(game, "gamefield_green_1040x1730.png");
+		//gameFieldGreenRegion = new TextureRegion(gameFieldGreen, 0, 0, 1040, 1730);
 		
 		gameScreenElements = new Texture(game, "atlas_gamescreen_elements.png");
 		racquet = new TextureRegion(gameScreenElements, 256, 128, 512, 64);
@@ -175,8 +206,8 @@ public class Assets {
 
 	public static void reload() {
 		mainScreenBackground.reload();
-		highscoresScreenBackground.reload();
-		gameFieldGreen.reload();
+		//highscoresScreenBackground.reload();
+		//gameFieldGreen.reload();
 		userInterfaceElements.reload();
 		gameScreenBackground.reload();
 		gameScreenElements.reload();

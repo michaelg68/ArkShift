@@ -22,7 +22,8 @@ public class MainMenuScreen extends GLScreen {
     SpriteBatcher batcher;
     
     Rectangle playBounds;
-    Rectangle settingsBounds;
+    Rectangle controlBounds;
+    Rectangle soundBounds;
     Rectangle highscoresBounds;
     Rectangle helpBounds;
     Vector2 touchPoint;
@@ -30,12 +31,13 @@ public class MainMenuScreen extends GLScreen {
     public MainMenuScreen(Game game) {
         super(game);
         guiCam = new Camera2D(glGraphics, RESOLUTION_X, RESOLUTION_Y);
-        batcher = new SpriteBatcher(glGraphics, 30);
+        batcher = new SpriteBatcher(glGraphics, 100);
         //note that parameters in Rectangle are: lower_left_x, lower_left_y, wide, height  
-        playBounds = new Rectangle(RESOLUTION_X / 2 - 350, RESOLUTION_Y / 2, 700, 250);
-        settingsBounds = new Rectangle(RESOLUTION_X / 2 - 350, RESOLUTION_Y / 2 - 250 , 700, 250);
-        highscoresBounds = new Rectangle(RESOLUTION_X / 2 - 350, RESOLUTION_Y / 2 - 500, 700, 250);
-        helpBounds = new Rectangle(RESOLUTION_X / 2 - 350, RESOLUTION_Y / 2  - 1000, 700, 250);
+        playBounds = new Rectangle(RESOLUTION_X / 2 - 356, 1400 - 128, 712, 256);
+        controlBounds = new Rectangle(RESOLUTION_X / 2 - 356, 1400 - 128 - 256, 712, 256);
+        soundBounds = new Rectangle(RESOLUTION_X / 2 - 356, 1400 - 128 - 256 * 2, 712, 256);
+        highscoresBounds = new Rectangle(RESOLUTION_X / 2 - 356, 1400 - 128 - 256 * 3, 712, 256);
+        helpBounds = new Rectangle(RESOLUTION_X / 2 - 356, 1400 - 128 - 256 * 4, 712, 256);
         touchPoint = new Vector2();               
     }       
 
@@ -55,12 +57,18 @@ public class MainMenuScreen extends GLScreen {
                 
                 if(OverlapTester.pointInRectangle(playBounds, touchPoint)) {
                     Assets.playSound(Assets.clickSound);
+                    Log.d("MainMenuScreen:update", "playBounds is touched. Opening SelectLevelScreen");
                     game.setScreen(new SelectLevelScreen(game));
                     return;
                 }
-                if(OverlapTester.pointInRectangle(settingsBounds, touchPoint)) {
+                if(OverlapTester.pointInRectangle(controlBounds, touchPoint)) {
                     Assets.playSound(Assets.clickSound);
-                    //game.setScreen(new SettingsScreen(game));
+                    Log.d("MainMenuScreen:update", "controlBounds is touched. Changing the controlType");
+                    return;
+                }
+                if(OverlapTester.pointInRectangle(soundBounds, touchPoint)) {
+                    Assets.playSound(Assets.clickSound);
+                    Log.d("MainMenuScreen:update", "soundBounds is touched. Enabling/Disabling sound");
                     return;
                 }
                 if(OverlapTester.pointInRectangle(highscoresBounds, touchPoint)) {
@@ -71,6 +79,7 @@ public class MainMenuScreen extends GLScreen {
                 }
                 if(OverlapTester.pointInRectangle(helpBounds, touchPoint)) {
                     Assets.playSound(Assets.clickSound);
+                    Log.d("MainMenuScreen:update", "helpBounds is touched. Opening HelpScreen");
                     //game.setScreen(new HelpScreen(game));
                     return;
                 }
@@ -101,8 +110,19 @@ public class MainMenuScreen extends GLScreen {
         gl.glEnable(GL10.GL_BLEND);
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);               
         
-        batcher.beginBatch(Assets.userInterfaceElements);                 
-        batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 - 250, 700, 1000, Assets.mainScreenMenuRegion);
+        batcher.beginBatch(Assets.mainScreenUIElements); 
+        batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y - 190, 1080, 300, Assets.mainMenuLogo);
+
+        batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400, 512, 256, Assets.mainMenuTextPlay);
+        batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400, 256, 256, Assets.mainMenuButtonPlay);
+        batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 256, 512, 256, Assets.mainMenuTextControl);
+        batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 256, 256, 256, Assets.mainMenuButtonControlTouch);
+        batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 512, 512, 256, Assets.mainMenuTextSound);
+        batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 512, 256, 256, Assets.mainMenuButtonSoundEnabled);
+        batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256, Assets.mainMenuTextHighScores);
+        batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 768, 256, 256, Assets.mainMenuButtonScore);
+        batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 1024, 512, 256, Assets.mainMenuTextHelp);
+        batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 1024, 256, 256, Assets.mainMenuButtonHelp);
         
         batcher.endBatch();
         
