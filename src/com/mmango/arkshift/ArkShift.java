@@ -27,7 +27,6 @@ public class ArkShift extends GLGame {
 		if(firstTimeCreate) {
 			Log.d("ArkShift:onSurfaceCreated", "Running Settings.readPrefs(glGame)");
 			Settings.readPrefs(this);
-			//Settings.load(getFileIO());
 			Assets.load(this);
 			firstTimeCreate = false;
 		} else {

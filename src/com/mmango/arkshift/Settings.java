@@ -9,9 +9,9 @@ import android.util.Log;
 
 public class Settings {
 	public static final String GAME_PREFERENCES = "ArkShiftPrefs";
-	public static final int CONTROL_BY_TILT = 0;
-	public static final int CONTROL_BY_TOUCH = 1;
-	public static final int CONTROL_BY_SWIPE = 2;
+	public static final int CONTROL_BY_TOUCH = 0;
+	public static final int CONTROL_BY_SWIPE = 1;
+	public static final int CONTROL_BY_TILT = 2;
 	public static String appName = "ArkShift by mmango";
 	public static boolean soundEnabled = true;
 	public static boolean touchEnabled = false;

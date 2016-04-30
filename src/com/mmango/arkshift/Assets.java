@@ -206,6 +206,7 @@ public class Assets {
 
 	public static void reload() {
 		mainScreenBackground.reload();
+		mainScreenUIElements.reload();
 		//highscoresScreenBackground.reload();
 		//gameFieldGreen.reload();
 		userInterfaceElements.reload();
