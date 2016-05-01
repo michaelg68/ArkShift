@@ -84,11 +84,16 @@ public class HighscoreScreen extends GLScreen {
         //batcher.drawSprite(160, 360, 300, 33, Assets.highScoresRegion);
         
         float y = RESOLUTION_Y / 4;
-        for(int i = 4; i >= 0; i--) {
+/*        for(int i = 4; i >= 0; i--) {
             Assets.font.drawTextZoomed(batcher, highScores[i], xOffset, y,  3f, 3f);
             y += Assets.font.glyphHeight * 3f;
-        }
+        }*/
 
+        for(int i = 4; i >= 0; i--) {
+            Assets.font.drawText(batcher, highScores[i], xOffset, y);
+            y += Assets.font.glyphHeight;
+        }
+        
         batcher.endBatch();
         
         gl.glDisable(GL10.GL_BLEND);

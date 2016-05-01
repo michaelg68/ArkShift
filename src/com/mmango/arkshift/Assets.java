@@ -43,6 +43,8 @@ public class Assets {
 	public static TextureRegion buttonHome;
 	public static TextureRegion buttonBack;
 	public static TextureRegion buttonForward;
+	public static Font font;
+
 	
 	public static Texture gameScreenBackground;
 	public static TextureRegion gameScreenBackgroundRegion;
@@ -62,7 +64,6 @@ public class Assets {
 	public static TextureRegion brickWheat;
 	public static TextureRegion brickViolet;
 	public static TextureRegion brickPurple;
-	public static Font font;
 	
 	public static Texture selectLevelScreenElements;
 	public static TextureRegion selectLevelScreenBackgroundRegion;
