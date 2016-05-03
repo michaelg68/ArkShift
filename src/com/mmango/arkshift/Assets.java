@@ -10,7 +10,7 @@ import com.badlogic.androidgames.framework.impl.GLGame;
 public class Assets {
 	public static Texture mainScreenBackground;
 	public static TextureRegion mainScreenBackgroundRegion;
-	
+/*	
 	public static Texture mainScreenUIElements;
 	public static TextureRegion mainMenuLogo;
 	public static TextureRegion mainMenuButtonPlay;
@@ -27,6 +27,84 @@ public class Assets {
 	public static TextureRegion mainMenuTextHelp;
 	public static TextureRegion mainMenuTextHighScores;
 
+*/	
+	public static Texture mainScreenUIElements;
+	public static TextureRegion arkshiftLogoGrey;
+	public static TextureRegion ballsLeft0;
+	public static TextureRegion ballsLeft1;
+	public static TextureRegion ballsLeft2;
+	public static TextureRegion ballsLeft3;
+	public static TextureRegion ballsLeft4;
+	public static TextureRegion ballsLeft5;
+	public static TextureRegion ballsLeft6;
+	public static TextureRegion ballsLeft7;
+	public static TextureRegion ballsLeft8;
+	public static TextureRegion ballsLeft9;
+	public static TextureRegion ballsSymbol;
+	public static TextureRegion fontBebasneue64x64White;
+	public static TextureRegion buttonLevel1;
+	public static TextureRegion buttonLevel2;
+	public static TextureRegion buttonLevel3;
+	public static TextureRegion buttonLevel4;
+	public static TextureRegion buttonLevel5;
+	public static TextureRegion buttonLevel6;
+	public static TextureRegion buttonLevel7;
+	public static TextureRegion buttonLevel8;
+	public static TextureRegion buttonUnavailableX;
+	public static TextureRegion gameOverMessage;
+	public static TextureRegion levelPassedMessage;
+	public static TextureRegion mainMenuButtonControlSwipe;
+	public static TextureRegion mainMenuButtonControlTilt;
+	public static TextureRegion mainMenuButtonControlTouch;
+	public static TextureRegion mainMenuButtonHelp;
+	public static TextureRegion mainMenuButtonHome;
+	public static TextureRegion mainMenuButtonNo;
+	public static TextureRegion mainMenuButtonPlay;
+	public static TextureRegion mainMenuButtonReset;
+	public static TextureRegion mainMenuButtonScore;
+	public static TextureRegion mainMenuButtonSoundDisabled;
+	public static TextureRegion mainMenuButtonSoundEnabled;
+	public static TextureRegion mainMenuButtonYes;
+	public static TextureRegion mainMenuTextControl;
+	public static TextureRegion mainMenuTextGoon;
+	public static TextureRegion mainMenuTextHelp;
+	public static TextureRegion mainMenuTextHighscores;
+	public static TextureRegion mainMenuTextNo;
+	public static TextureRegion mainMenuTextPlay;
+	public static TextureRegion mainMenuTextQuit;
+	public static TextureRegion mainMenuTextReset;
+	public static TextureRegion mainMenuTextResume;
+	public static TextureRegion mainMenuTextRetry;
+	public static TextureRegion mainMenuTextSound;
+	public static TextureRegion mainMenuTextYes;
+	public static TextureRegion pausePutton;
+	public static TextureRegion pauseMessage;
+	public static TextureRegion readyMessage;
+	public static TextureRegion score0;
+	public static TextureRegion score1;
+	public static TextureRegion score2;
+	public static TextureRegion score3;
+	public static TextureRegion score4;
+	public static TextureRegion score5;
+	public static TextureRegion score6;
+	public static TextureRegion score7;
+	public static TextureRegion score8;
+	public static TextureRegion score9;
+	public static TextureRegion scoreDot;
+	public static TextureRegion scoreMinus;
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	public static Texture highscoresScreenBackground;
 //	public static TextureRegion highscoresScreenBackgroundRegion;
 	
@@ -95,7 +173,8 @@ public class Assets {
 		mainScreenBackground = new Texture(game, "background_mainscreen.png");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,	0, 1080, 1920);
 		
-		mainScreenUIElements = new Texture(game, "atlas_mainscreen_ui_elements.png");
+		mainScreenUIElements = new Texture(game, "atlas_ui_elements3.png");
+/*
 		mainMenuLogo = new TextureRegion(mainScreenUIElements, 0, 1280, 1080, 300);
 		mainMenuButtonPlay = new TextureRegion(mainScreenUIElements, 0, 0, 256, 256);
 		mainMenuButtonControlSwipe = new TextureRegion(mainScreenUIElements, 256, 0, 256, 256);
@@ -110,7 +189,75 @@ public class Assets {
 		mainMenuTextSound = new TextureRegion(mainScreenUIElements, 0, 768, 512, 256);
 		mainMenuTextHelp = new TextureRegion(mainScreenUIElements, 512, 768, 512, 256);
 		mainMenuTextHighScores = new TextureRegion(mainScreenUIElements, 0, 1024, 512, 256);
+*/
+		
+		arkshiftLogoGrey = new TextureRegion(mainScreenUIElements, 0, 0, 1080, 300);
+		ballsLeft0 = new TextureRegion(mainScreenUIElements, 455, 1731, 128, 128);
+		ballsLeft1 = new TextureRegion(mainScreenUIElements, 584, 1731, 128, 128);
+		ballsLeft2 = new TextureRegion(mainScreenUIElements, 713, 1731, 128, 128);
+		ballsLeft3 = new TextureRegion(mainScreenUIElements, 842, 1731, 128, 128);
+		ballsLeft4 = new TextureRegion(mainScreenUIElements, 2622, 257, 128, 128);
+		ballsLeft5 = new TextureRegion(mainScreenUIElements, 2879, 0, 128, 128);
+		ballsLeft6 = new TextureRegion(mainScreenUIElements, 2054, 771, 128, 128);
+		ballsLeft7 = new TextureRegion(mainScreenUIElements, 1797, 1154, 128, 128);
+		ballsLeft8 = new TextureRegion(mainScreenUIElements, 2054, 900, 128, 128);
+		ballsLeft9 = new TextureRegion(mainScreenUIElements, 2183, 771, 128, 128);
+		ballsSymbol = new TextureRegion(mainScreenUIElements, 2479, 514, 128, 128);
+		fontBebasneue64x64White = new TextureRegion(mainScreenUIElements, 0, 446, 512, 512);
+		buttonLevel1 = new TextureRegion(mainScreenUIElements, 1594, 0, 256, 256);
+		buttonLevel2 = new TextureRegion(mainScreenUIElements, 1594, 257, 256, 256);
+		buttonLevel3 = new TextureRegion(mainScreenUIElements, 1026, 1028, 256, 256);
+		buttonLevel4 = new TextureRegion(mainScreenUIElements, 1026, 1285, 256, 256);
+		buttonLevel5 = new TextureRegion(mainScreenUIElements, 1283, 1028, 256, 256);
+		buttonLevel6 = new TextureRegion(mainScreenUIElements, 1283, 1285, 256, 256);
+		buttonLevel7 = new TextureRegion(mainScreenUIElements, 1540, 897, 256, 256);
+		buttonLevel8 = new TextureRegion(mainScreenUIElements, 1026, 1542, 256, 256);
+		buttonUnavailableX = new TextureRegion(mainScreenUIElements, 2278, 514, 200, 200);
+		gameOverMessage = new TextureRegion(mainScreenUIElements, 0, 301, 676, 144);
+		levelPassedMessage = new TextureRegion(mainScreenUIElements, 1539, 514, 481, 382);
+		mainMenuButtonControlSwipe = new TextureRegion(mainScreenUIElements, 1540, 1154, 256, 256);
+		mainMenuButtonControlTilt = new TextureRegion(mainScreenUIElements, 1283, 1542, 256, 256);
+		mainMenuButtonControlTouch = new TextureRegion(mainScreenUIElements, 1540, 1411, 256, 256);
+		mainMenuButtonHelp = new TextureRegion(mainScreenUIElements, 1851, 0, 256, 256);
+		mainMenuButtonHome = new TextureRegion(mainScreenUIElements, 1851, 257, 256, 256);
+		mainMenuButtonNo = new TextureRegion(mainScreenUIElements, 2108, 0, 256, 256);
+		mainMenuButtonPlay = new TextureRegion(mainScreenUIElements, 2108, 257, 256, 256);
+		mainMenuButtonReset = new TextureRegion(mainScreenUIElements, 2365, 0, 256, 256);
+		mainMenuButtonScore = new TextureRegion(mainScreenUIElements, 2021, 514, 256, 256);
+		mainMenuButtonSoundDisabled = new TextureRegion(mainScreenUIElements, 2365, 257, 256, 256);
+		mainMenuButtonSoundEnabled = new TextureRegion(mainScreenUIElements, 2622, 0, 256, 256);
+		mainMenuButtonYes = new TextureRegion(mainScreenUIElements, 1797, 897, 256, 256);
+		mainMenuTextControl = new TextureRegion(mainScreenUIElements, 513, 446, 512, 256);
+		mainMenuTextGoon = new TextureRegion(mainScreenUIElements, 1081, 0, 512, 256);
+		mainMenuTextHelp = new TextureRegion(mainScreenUIElements, 513, 703, 512, 256);
+		mainMenuTextHighscores = new TextureRegion(mainScreenUIElements, 1081, 257, 512, 256);
+		mainMenuTextNo = new TextureRegion(mainScreenUIElements, 1026, 514, 512, 256);
+		mainMenuTextPlay = new TextureRegion(mainScreenUIElements, 0, 959, 512, 256);
+		mainMenuTextQuit = new TextureRegion(mainScreenUIElements, 0, 1216, 512, 256);
+		mainMenuTextReset = new TextureRegion(mainScreenUIElements, 0, 1473, 512, 256);
+		mainMenuTextResume = new TextureRegion(mainScreenUIElements, 513, 960, 512, 256);
+		mainMenuTextRetry = new TextureRegion(mainScreenUIElements, 513, 1217, 512, 256);
+		mainMenuTextSound = new TextureRegion(mainScreenUIElements, 1026, 771, 512, 256);
+		mainMenuTextYes = new TextureRegion(mainScreenUIElements, 513, 1474, 512, 256);
+		pausePutton = new TextureRegion(mainScreenUIElements, 3008, 0, 128, 128);
+		pauseMessage = new TextureRegion(mainScreenUIElements, 677, 301, 368, 144);
+		readyMessage = new TextureRegion(mainScreenUIElements, 0, 1730, 454, 142);
+		score0 = new TextureRegion(mainScreenUIElements, 2879, 129, 128, 128);
+		score1 = new TextureRegion(mainScreenUIElements, 2622, 386, 128, 128);
+		score2 = new TextureRegion(mainScreenUIElements, 1797, 1283, 128, 128);
+		score3 = new TextureRegion(mainScreenUIElements, 1926, 1154, 128, 128);
+		score4 = new TextureRegion(mainScreenUIElements, 2312, 715, 128, 128);
+		score5 = new TextureRegion(mainScreenUIElements, 2183, 900, 128, 128);
+		score6 = new TextureRegion(mainScreenUIElements, 2479, 643, 128, 128);
+		score7 = new TextureRegion(mainScreenUIElements, 2608, 515, 128, 128);
+		score8 = new TextureRegion(mainScreenUIElements, 3008, 129, 128, 128);
+		score9 = new TextureRegion(mainScreenUIElements, 2751, 258, 128, 128);
+		scoreDot = new TextureRegion(mainScreenUIElements, 3137, 0, 128, 128);
+		scoreMinus = new TextureRegion(mainScreenUIElements, 2751, 387, 128, 128);
 
+		
+		
+		
 		
 		/*highscoresScreenBackground = new Texture(game,
 				"background_highscores2.png");
