@@ -1,6 +1,6 @@
 package com.mmango.arkshift;
 
-import com.badlogic.androidgames.framework.Music;
+//import com.badlogic.androidgames.framework.Music;
 import com.badlogic.androidgames.framework.Sound;
 import com.badlogic.androidgames.framework.gl.Font;
 import com.badlogic.androidgames.framework.gl.Texture;
@@ -145,7 +145,7 @@ public class Assets {
 	public static TextureRegion buttonUnavailable;
 	public static TextureRegion buttonHomeGreen;
 
-	public static Music music;
+	//public static Music music;
 	public static Sound clickSound;
 	public static Sound racquetHitSound;
 	public static Sound frameHitSound;
@@ -159,7 +159,7 @@ public class Assets {
 
 
 	public static void load(GLGame game) {
-		mainScreenBackground = new Texture(game, "background_mainscreen.png");
+		mainScreenBackground = new Texture(game, "background_marble_light_flattened.jpg");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,	0, 1080, 1920);
 		
 		mainScreenUIElements = new Texture(game, "atlas_ui_elements3.png");
@@ -309,7 +309,7 @@ public class Assets {
 		
 		
 
-		music = game.getAudio().newMusic("jewelbeat_-_electrify.ogg");
+//		music = game.getAudio().newMusic("jewelbeat_-_electrify.ogg");
 		/* http://www.jewelbeat.com/free */
 		/*
 		 * Use these free royalty free music tracks & free sound effects for any
@@ -326,7 +326,7 @@ public class Assets {
 		 * href="http://www.jewelbeat.com/">Royalty free production music by
 		 * JewelBeat</a>
 		 */
-		music.setLooping(true);
+//		music.setLooping(true);
 //		music.setVolume(0.5f);
 //		if (Settings.soundEnabled)
 //			music.play();
