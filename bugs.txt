@@ -18,7 +18,9 @@ Date: 2016/04/29
 Title: A white screen shown instead of SelectLevelScreen
 Description: sometimes it happens
 
-Status: 
+Status: solved (hopefully)
+Reasons - agin the same - in Settings.reload() method was missing 
+selectLevelScreenElements.reload();
 
 
 -------------

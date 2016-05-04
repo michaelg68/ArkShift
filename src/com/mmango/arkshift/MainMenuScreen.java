@@ -161,7 +161,7 @@ public class MainMenuScreen extends GLScreen {
 					Assets.mainMenuButtonSoundDisabled);
 		}
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
-				Assets.mainMenuTextHighScores);
+				Assets.mainMenuTextHighscores);
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 768, 256, 256,
 				Assets.mainMenuButtonScore);
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 1024, 512, 256,
