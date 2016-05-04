@@ -14,7 +14,6 @@ public class Settings {
 	public static final int CONTROL_BY_TILT = 2;
 	public static String appName = "ArkShift by mmango";
 	public static boolean soundEnabled = true;
-	public static boolean touchEnabled = false;
 	public static int controlType = CONTROL_BY_SWIPE;
 	public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
 
@@ -38,19 +37,12 @@ public class Settings {
 				GAME_PREFERENCES, 0);
 		appName = settings.getString("AppName", "none :(");
 		soundEnabled = settings.getBoolean("SoundEnabled", true);
-		//touchEnabled = settings.getBoolean("TouchEnabled", true);
 		controlType = settings.getInt("ControlType", CONTROL_BY_TOUCH);
-		Log.e("Settings:readPrefs",
-				"from Prefs: AppName = "
-						+ settings.getString("AppName", "none :("));
-		Log.e("Settings:readPrefs",
-				"from Prefs: soundEnabled = "
-						+ settings.getBoolean("SoundEnabled", true));
-		Log.e("Settings:readPrefs",
-				"from Prefs: controlType = "
-						+ settings.getBoolean("ControlType", true));
+		Log.e("Settings:readPrefs", "AppName = " + appName);
+		Log.e("Settings:readPrefs", "soundEnabled = " + soundEnabled);
+		Log.e("Settings:readPrefs", "controlType = " + controlType);
 		for (int i = 0; i < 5; i++) {
-			highscores[i] = settings.getInt(Integer.toString(i), highscores[i]);
+			highscores[i] = settings.getInt(Integer.toString(i), 0);
 			Log.e("Settings:readPrefs", "Now highscores[" + i + "] = "	+  highscores[i]);
 		}
 
@@ -66,8 +58,7 @@ public class Settings {
 
 		prefEditor.putString("AppName", "ArkShift by mmango");
 		prefEditor.putBoolean("SoundEnabled", soundEnabled);
-		//prefEditor.putBoolean("TouchEnabled", touchEnabled);
-		controlType = settings.getInt("ControlType", controlType);
+		prefEditor.putInt("ControlType", controlType);
 		for (int i = 0; i < 5; i++) {
 			Log.e("Settings:save", "Preferences highscores[" + i + "] = "
 					+ highscores[i]);

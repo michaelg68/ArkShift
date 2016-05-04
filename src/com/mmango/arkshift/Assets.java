@@ -163,22 +163,6 @@ public class Assets {
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,	0, 1080, 1920);
 		
 		mainScreenUIElements = new Texture(game, "atlas_ui_elements3.png");
-/*
-		mainMenuLogo = new TextureRegion(mainScreenUIElements, 0, 1280, 1080, 300);
-		mainMenuButtonPlay = new TextureRegion(mainScreenUIElements, 0, 0, 256, 256);
-		mainMenuButtonControlSwipe = new TextureRegion(mainScreenUIElements, 256, 0, 256, 256);
-		mainMenuButtonControlTouch = new TextureRegion(mainScreenUIElements, 512, 0, 256, 256);
-		mainMenuButtonControlTilt = new TextureRegion(mainScreenUIElements, 768, 0, 256, 256);
-		mainMenuButtonSoundEnabled = new TextureRegion(mainScreenUIElements, 0, 256, 256, 256);
-		mainMenuButtonSoundDisabled = new TextureRegion(mainScreenUIElements, 256, 256, 256, 256);
-		mainMenuButtonScore = new TextureRegion(mainScreenUIElements, 512, 256, 256, 256);
-		mainMenuButtonHelp = new TextureRegion(mainScreenUIElements, 768, 256, 256, 256);
-		mainMenuTextPlay = new TextureRegion(mainScreenUIElements, 0, 512, 512, 256);
-		mainMenuTextControl = new TextureRegion(mainScreenUIElements, 512, 512, 512, 256);
-		mainMenuTextSound = new TextureRegion(mainScreenUIElements, 0, 768, 512, 256);
-		mainMenuTextHelp = new TextureRegion(mainScreenUIElements, 512, 768, 512, 256);
-		mainMenuTextHighScores = new TextureRegion(mainScreenUIElements, 0, 1024, 512, 256);
-*/
 		
 		mainMenuLogo = new TextureRegion(mainScreenUIElements, 0, 0, 1080, 300);
 		ballsLeft0 = new TextureRegion(mainScreenUIElements, 676, 444, 128, 128);
@@ -309,27 +293,7 @@ public class Assets {
 		
 		
 
-//		music = game.getAudio().newMusic("jewelbeat_-_electrify.ogg");
-		/* http://www.jewelbeat.com/free */
-		/*
-		 * Use these free royalty free music tracks & free sound effects for any
-		 * production - advertising, education, video, photos, YouTube...etc.
-		 * 
-		 * These royalty free instrumental music tracks can be looped seamlessly
-		 * & repeated to create a longer background music track for your
-		 * projects.
-		 * 
-		 * You only need to provide an active credit link to our website from
-		 * yours stating: Royalty free production music by JewelBeat
-		 * 
-		 * or use the following html code: <a
-		 * href="http://www.jewelbeat.com/">Royalty free production music by
-		 * JewelBeat</a>
-		 */
-//		music.setLooping(true);
-//		music.setVolume(0.5f);
-//		if (Settings.soundEnabled)
-//			music.play();
+
 		clickSound = game.getAudio().newSound("click.ogg");
 		racquetHitSound = game.getAudio().newSound("racquet_hit_sound.ogg");
 		frameHitSound = game.getAudio().newSound("frame_hit_sound.ogg");
@@ -345,13 +309,13 @@ public class Assets {
 	}
 
 	public static void reload() {
+		//!!!!!    Note: very important - if you add a new texture, don't forget to add it in this method. otherwise you will face 
+		// bugs when GL ES loses context!
 		mainScreenBackground.reload();
 		mainScreenUIElements.reload();
 		//highscoresScreenBackground.reload();
 		//gameFieldGreen.reload();
 		//selectLevelScreenElements.reload();
-		
-		
 		userInterfaceElements.reload();
 		gameScreenBackground.reload();
 		gameScreenElements.reload();

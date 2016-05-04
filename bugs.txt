@@ -19,7 +19,7 @@ Title: A white screen shown instead of SelectLevelScreen
 Description: sometimes it happens
 
 Status: solved (hopefully)
-Reasons - agin the same - in Settings.reload() method was missing 
+Reasons - in Assets.reload() method was missing 
 selectLevelScreenElements.reload();
 
 
@@ -45,7 +45,8 @@ See commit "518f532"
 Bug ID: 4
 Date 2016/04/30  21:25
 Title: The MainMenuScreen is getting corrupted after the new graphics have been implemented. Frequently!
-Status: 
+Status: solved.
+Reason: The sometexture.reload() was missing in Assets.reload() method
 
 -----
 

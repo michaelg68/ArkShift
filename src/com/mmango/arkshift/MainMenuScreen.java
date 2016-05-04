@@ -74,6 +74,7 @@ public class MainMenuScreen extends GLScreen {
 					Settings.controlType++;
 					if (Settings.controlType > 2)
 						Settings.controlType = 0;
+					Settings.savePrefs(glGame);
 					return;
 				}
 				if (OverlapTester.pointInRectangle(soundBounds, touchPoint)) {
@@ -82,6 +83,7 @@ public class MainMenuScreen extends GLScreen {
 							"soundBounds is touched. Enabling/Disabling sound");
 					Settings.soundEnabled = (Settings.soundEnabled) ? false
 							: true;
+					Settings.savePrefs(glGame);
 					Log.d("MainMenuScreen:update", "Assets.soundEnabled = "
 							+ Boolean.toString(Settings.soundEnabled));
 					return;
