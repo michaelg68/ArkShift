@@ -49,3 +49,22 @@ score_0 = new TextureRegion(mainScreenUIElements, 2879, 29, 28, 28);
 $ cat atlas_ui_elements3.txt  | awk -F= '{print $1}' | perl -pe 's/\s//' | perl -pe 's/(.+)/public static TextureRegion $1;/' 
 public static TextureRegion ready_message;
 public static TextureRegion score_0;
+
+
+
+
+====================
+To add (change) to atlas_ui_elements.png:
+level_symbol.png - done.
+Make the alphaOverGameField1040x1730 grey, not blue. also make it less transparent. also make it smaller - 
+done. new file: alpha_grey_267x445_60opacity.png (25% size.) I can stretch this image while rendering.
+Make the corners of buttonUnavailableX rounded. - done. new file button_unavailable_y.png
+Remake message "Reset the highscore records" - done. new file reset_highscores_message.png
+
+Not sure if I need this:
+	Tips for the "Ready?" screen:
+	a) "touch in this area to move the racquet left " 
+	and 
+	"touch in this area to move the racquet left"
+	b) "swipe left or right to move the racquet"
+	c) tilt the device to left or right to move the racquet.

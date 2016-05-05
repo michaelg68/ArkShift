@@ -47,6 +47,8 @@ public class GameScreen extends GLScreen {
 	WorldRenderer renderer;
 	Rectangle pauseBounds;
 	Rectangle resumeBounds;
+	Rectangle controlBounds;
+	Rectangle soundBounds;
 	Rectangle quitBounds;
 	Rectangle moveRacquetLeftTouchZone;
 	Rectangle moveRacquetRightTouchZone;
@@ -102,13 +104,19 @@ public class GameScreen extends GLScreen {
 		// remember - in Rectange x and y coordinates point to the lowerLeft
 		// corner of the rectangle! Counting from the lower left corner of the
 		// screen!
-		pauseBounds = new Rectangle(RESOLUTION_X - 23 - 128, RESOLUTION_Y - 75 - 64,
-				BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE);
+		pauseBounds = new Rectangle(RESOLUTION_X - 23 - 128,
+				RESOLUTION_Y - 75 - 64, BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE);
+		resumeBounds = new Rectangle(RESOLUTION_X / 2 - 128, 1400 - 128, 512,
+				256);
+		controlBounds = new Rectangle(RESOLUTION_X / 2 - 128, 1400 - 128 - 256,
+				512, 256);
+		soundBounds = new Rectangle(RESOLUTION_X / 2 - 128,
+				1400 - 128 - 256 * 2, 512, 256);
+		quitBounds = new Rectangle(RESOLUTION_X / 2 - 128,
+				1400 - 128 - 256 * 3, 512, 256);
 
-		resumeBounds = new Rectangle(RESOLUTION_X / 2 - 350, RESOLUTION_Y / 2,
-				700, 250);
-		quitBounds = new Rectangle(RESOLUTION_X / 2 - 350,
-				RESOLUTION_Y / 2 - 250, 700, 250);
+		touchPoint = new Vector2();
+
 		moveRacquetLeftTouchZone = new Rectangle(0, 0, RESOLUTION_X / 2,
 				RESOLUTION_Y - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH);
 		moveRacquetRightTouchZone = new Rectangle(RESOLUTION_X / 2, 0,
@@ -197,80 +205,11 @@ public class GameScreen extends GLScreen {
 		// Log.d("GameScreen:", "inside method calculateInputAcceleration");
 
 		float accelX = 0;
-		
+
 		switch (Settings.controlType) {
 		case Settings.CONTROL_BY_TOUCH:
 			// Log.d("GameScreen:", "Reading the touch data");
-			
-						for (int i = 0; i < 2; i++) {
-							// Log.d("GameScreen:calculateInputAcceleration",
-							// "i = " + Integer.toString(i));
 
-							if (game.getInput().isTouchDown(i)) {
-								guiCam.touchToWorld(touchPoint.set(game.getInput()
-										.getTouchX(i), game.getInput().getTouchY(i)));
-								// Log.d("GameScreen:calculateInputAcceleration",
-								// "touchPoint.x = " + Float.toString(touchPoint.x));
-								// Log.d("GameScreen:calculateInputAcceleration",
-								// "touchPoint.y = " + Float.toString(touchPoint.y));
-								if (OverlapTester.pointInRectangle(
-										moveRacquetLeftTouchZone, touchPoint)) {
-									// Log.d("GameScreen:",
-									// "touched in moveRacquetLeftTouchZone");
-									accelX = -world.racquet.RACQUET_VELOCITY;
-									// Log.d("GameScreen: TouchLeft", "accelX = " +
-									// Float.toString(accelX));
-
-								}
-								if (OverlapTester.pointInRectangle(
-										moveRacquetRightTouchZone, touchPoint)) {
-									// Log.d("GameScreen:",
-									// "touched in moveRacquetLeftTouchZone");
-									accelX = world.racquet.RACQUET_VELOCITY;
-									// Log.d("GameScreen: TouchRight",
-									// "accelX = " + Float.toString(accelX));
-
-								}
-							}
-						}
-			break;
-		case Settings.CONTROL_BY_SWIPE:
-			// Log.d("GameScreen:", "Reading the swipe data");
-						game.getInput().getTouchEvents();
-						float x = game.getInput().getTouchX(0);
-						float y = game.getInput().getTouchY(0);
-						guiCam.touchToWorld(touchPoint.set(x, y));
-						if (game.getInput().isTouchDown(0)) {
-			/*				Log.d("GameScreen:calculateInputAcceleration",
-									"touchPoint.x = " + Float.toString(touchPoint.x));
-							Log.d("GameScreen:calculateInputAcceleration",
-									"touchPoint.y = " + Float.toString(touchPoint.y));*/
-							if (lastX == -1) {
-								lastX = x;
-								//lastY = y;
-							} else {
-								accelX = world.racquet.RACQUET_VELOCITY * 2 * Math.signum(x - lastX);
-								//accelX = world.racquet.RACQUET_VELOCITY / 8 * (x - lastX);
-								lastX = x;
-								//lastY = y;
-							}
-						} else {
-							lastX = -1;
-							lastY = -1;
-						}
-			break;
-		case Settings.CONTROL_BY_TILT:
-			// Settings.CONTROL_BY_TILT
-						// Log.d("GameScreen:", "Reading the Accelerometer data");
-						accelX = -game.getInput().getAccelX() * 5f;
-						// Log.d("GameScreen: Accelerometer",
-						// "accelX = " + Float.toString(accelX));
-			break;
-		}
-		
-/*		if (Settings.controlType == Settings.CONTROL_BY_TOUCH) {
-			// Log.d("GameScreen:", "Reading the touch data");
-			
 			for (int i = 0; i < 2; i++) {
 				// Log.d("GameScreen:calculateInputAcceleration",
 				// "i = " + Integer.toString(i));
@@ -302,37 +241,45 @@ public class GameScreen extends GLScreen {
 					}
 				}
 			}
-		} else if (Settings.controlType == Settings.CONTROL_BY_SWIPE) {
+			break;
+		case Settings.CONTROL_BY_SWIPE:
 			// Log.d("GameScreen:", "Reading the swipe data");
 			game.getInput().getTouchEvents();
 			float x = game.getInput().getTouchX(0);
 			float y = game.getInput().getTouchY(0);
 			guiCam.touchToWorld(touchPoint.set(x, y));
 			if (game.getInput().isTouchDown(0)) {
-				Log.d("GameScreen:calculateInputAcceleration",
-						"touchPoint.x = " + Float.toString(touchPoint.x));
-				Log.d("GameScreen:calculateInputAcceleration",
-						"touchPoint.y = " + Float.toString(touchPoint.y));
+				/*
+				 * Log.d("GameScreen:calculateInputAcceleration",
+				 * "touchPoint.x = " + Float.toString(touchPoint.x));
+				 * Log.d("GameScreen:calculateInputAcceleration",
+				 * "touchPoint.y = " + Float.toString(touchPoint.y));
+				 */
 				if (lastX == -1) {
 					lastX = x;
-					//lastY = y;
+					// lastY = y;
 				} else {
-					accelX = world.racquet.RACQUET_VELOCITY * 2 * Math.signum(x - lastX);
-					//accelX = world.racquet.RACQUET_VELOCITY / 8 * (x - lastX);
+					accelX = world.racquet.RACQUET_VELOCITY * 2
+							* Math.signum(x - lastX);
+					// accelX = world.racquet.RACQUET_VELOCITY / 8 * (x -
+					// lastX);
 					lastX = x;
-					//lastY = y;
+					// lastY = y;
 				}
 			} else {
 				lastX = -1;
 				lastY = -1;
 			}
-
-		} else { // Settings.CONTROL_BY_TILT
+			break;
+		case Settings.CONTROL_BY_TILT:
+			// Settings.CONTROL_BY_TILT
 			// Log.d("GameScreen:", "Reading the Accelerometer data");
 			accelX = -game.getInput().getAccelX() * 5f;
 			// Log.d("GameScreen: Accelerometer",
 			// "accelX = " + Float.toString(accelX));
-		}*/
+			break;
+		}
+
 		return accelX;
 
 	}
@@ -354,15 +301,43 @@ public class GameScreen extends GLScreen {
 				return;
 			}
 
+			if (OverlapTester.pointInRectangle(resumeBounds, touchPoint)) {
+				Assets.playSound(Assets.clickSound);
+				state = GAME_RUNNING;
+				return;
+			}
+
+			if (OverlapTester.pointInRectangle(controlBounds, touchPoint)) {
+				Assets.playSound(Assets.clickSound);
+				Log.d("GameScreen:updatePaused",
+						"controlBounds is touched. Changing the controlType");
+				Settings.controlType++;
+				if (Settings.controlType > 2)
+					Settings.controlType = 0;
+				Settings.savePrefs(glGame);
+				return;
+			}
+
+			if (OverlapTester.pointInRectangle(soundBounds, touchPoint)) {
+				Assets.playSound(Assets.clickSound);
+				Log.d("GameScreen:updatePaused",
+						"soundBounds is touched. Enabling/Disabling sound");
+				Settings.soundEnabled = (Settings.soundEnabled) ? false : true;
+				Settings.savePrefs(glGame);
+				Log.d("MainMenuScreen:update", "Assets.soundEnabled = "
+						+ Boolean.toString(Settings.soundEnabled));
+				return;
+			}
+
 			if (OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
 				Assets.playSound(Assets.clickSound);
 				// Settings.save(game.getFileIO());
 				Log.d("GameScreen:updatePaused",
 						"Running Settings.savePrefs(glGame)");
 				Settings.savePrefs(glGame);
-				//Log.d("GameScreen:updatePaused",
-						//"Running Settings.readPrefs(glGame)");
-				//Settings.readPrefs(glGame);
+				// Log.d("GameScreen:updatePaused",
+				// "Running Settings.readPrefs(glGame)");
+				// Settings.readPrefs(glGame);
 				game.setScreen(new MainMenuScreen(game));
 				return;
 			}
@@ -437,31 +412,41 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentReady() {
-		
+		batcher.drawSprite(10 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(10 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsLeft3);
+		//Assets.font.drawTextZoomed(batcher, Integer.toString(world.level), 100, RESOLUTION_Y - 75f, 0.5f, 0.5f);
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
-		//Assets.font.drawTextZoomed(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 2f, 2f);
-		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 454, 142, Assets.readyMessage);
+		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
+				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
+				Assets.alphaOverGameField1040x1730);
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 454, 142,
+				Assets.readyMessage);
 	}
 
 	private void presentRunning() {
 		// 1080 - 123, 1920 - 22, 100, 100
-		//batcher.drawSprite(RESOLUTION_X - 23 - BUTTON_PAUSE_SIDE / 2,RESOLUTION_Y - 22 - BUTTON_PAUSE_SIDE / 2, BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE, Assets.buttonPause);
-		batcher.drawSprite(RESOLUTION_X - 23 - 128 / 2, RESOLUTION_Y - 75, 128, 128, Assets.pauseButton);
+		// batcher.drawSprite(RESOLUTION_X - 23 - BUTTON_PAUSE_SIDE /
+		// 2,RESOLUTION_Y - 22 - BUTTON_PAUSE_SIDE / 2, BUTTON_PAUSE_SIDE,
+		// BUTTON_PAUSE_SIDE, Assets.buttonPause);
+		batcher.drawSprite(RESOLUTION_X - 23 - 128 / 2, RESOLUTION_Y - 75, 128,
+				128, Assets.pauseButton);
 		// Log.d("GameScreen:presentRunning", "scoreString.length() = " +
 		// scoreString.length());
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
 		// Log.d("GameScreen:presentRunning", "scoreStringHalfLength = " +
 		// scoreStringHalfLength);
-		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
-
+		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
+				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
 
 	}
 
 	private void presentPaused() {
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
-		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
-		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,	Assets.alphaOverGameField1040x1730);
+		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
+				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
+				Assets.alphaOverGameField1040x1730);
 
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400, 512, 256,
 				Assets.mainMenuTextResume);
@@ -492,13 +477,14 @@ public class GameScreen extends GLScreen {
 			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 512, 256, 256,
 					Assets.mainMenuButtonSoundDisabled);
 		}
-		
+
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
 				Assets.mainMenuTextQuit);
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 768, 256, 256,
 				Assets.mainMenuButtonHome);
-		
-		//batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 500,	Assets.resumeQuitMenuRegion);
+
+		// batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 500,
+		// Assets.resumeQuitMenuRegion);
 	}
 
 	private void presentLevelEnd() {
@@ -509,8 +495,9 @@ public class GameScreen extends GLScreen {
 	private void presentGameOver() {
 		batcher.drawSprite(160, 240, 160, 96, Assets.gameOverBannerRegion);
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
-		
-		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+
+		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
+				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
 
 	}
 
@@ -524,7 +511,7 @@ public class GameScreen extends GLScreen {
 	public void pause() {
 		world.score = lastScore;
 		Settings.addScore(lastScore);
-		Settings.savePrefs(glGame);		
+		Settings.savePrefs(glGame);
 	}
 
 	@Override

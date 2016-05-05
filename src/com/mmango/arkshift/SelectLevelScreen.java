@@ -131,7 +131,7 @@ public class SelectLevelScreen extends GLScreen {
 		batcher.drawSprite(810, 800, 256, 256, Assets.buttonLevel6);
 		batcher.drawSprite(270, 500, 256, 256, Assets.buttonLevel7);
 		batcher.drawSprite(810, 500, 256, 256, Assets.buttonLevel8);
-		batcher.drawSprite(810, 500, 256, 256, Assets.buttonUnavailableX);
+		batcher.drawSprite(810, 500, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(RESOLUTION_X / 2, 150, 256, 256, Assets.mainMenuButtonHome);
 		//batcher.drawSprite(156 + 256 + 256, 150, 512, 256, Assets.mainMenuTextQuit);
 		batcher.endBatch();
