@@ -29,6 +29,7 @@ public class Assets {
 
 */	
 	public static Texture mainScreenUIElements;
+	public static TextureRegion alphaOverGameField1040x1730;
 	public static TextureRegion mainMenuLogo;
 	public static TextureRegion ballsLeft0;
 	public static TextureRegion ballsLeft1;
@@ -65,6 +66,7 @@ public class Assets {
 	public static TextureRegion mainMenuButtonSoundDisabled;
 	public static TextureRegion mainMenuButtonSoundEnabled;
 	public static TextureRegion mainMenuButtonYes;
+	public static TextureRegion overwriteScoreMessage;
 	public static TextureRegion mainMenuTextControl;
 	public static TextureRegion mainMenuTextGoon;
 	public static TextureRegion mainMenuTextHelp;
@@ -77,7 +79,7 @@ public class Assets {
 	public static TextureRegion mainMenuTextRetry;
 	public static TextureRegion mainMenuTextSound;
 	public static TextureRegion mainMenuTextYes;
-	public static TextureRegion pausePutton;
+	public static TextureRegion pauseButton;
 	public static TextureRegion pauseMessage;
 	public static TextureRegion readyMessage;
 /*	
@@ -91,9 +93,10 @@ public class Assets {
 	public static TextureRegion score7;
 	public static TextureRegion score8;
 	public static TextureRegion score9;
-	*/
 	public static TextureRegion scoreDot;
 	public static TextureRegion scoreMinus;
+	public static TextureRegion scoreNone;
+	*/	
 	public static TextureRegion selectLevelMessage;
 	public static ScoreFont scoreFont;
 	
@@ -165,74 +168,77 @@ public class Assets {
 		mainScreenBackground = new Texture(game, "background_marble_light_flattened.jpg");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,	0, 1080, 1920);
 		
-		mainScreenUIElements = new Texture(game, "atlas_ui_elements3.png");
+		mainScreenUIElements = new Texture(game, "atlas_ui_elements.png");
 		
+		alphaOverGameField1040x1730 = new TextureRegion(mainScreenUIElements, 1080, 0, 1040, 1730);
 		mainMenuLogo = new TextureRegion(mainScreenUIElements, 0, 0, 1080, 300);
-		ballsLeft0 = new TextureRegion(mainScreenUIElements, 676, 444, 128, 128);
-		ballsLeft1 = new TextureRegion(mainScreenUIElements, 1592, 286, 128, 128);
-		ballsLeft2 = new TextureRegion(mainScreenUIElements, 1720, 286, 128, 128);
-		ballsLeft3 = new TextureRegion(mainScreenUIElements, 512, 1738, 128, 128);
-		ballsLeft4 = new TextureRegion(mainScreenUIElements, 640, 1738, 128, 128);
-		ballsLeft5 = new TextureRegion(mainScreenUIElements, 768, 1738, 128, 128);
-		ballsLeft6 = new TextureRegion(mainScreenUIElements, 896, 1792, 128, 128);
-		ballsLeft7 = new TextureRegion(mainScreenUIElements, 1024, 1792, 128, 128);
-		ballsLeft8 = new TextureRegion(mainScreenUIElements, 2304, 512, 128, 128);
-		ballsLeft9 = new TextureRegion(mainScreenUIElements, 2048, 768, 128, 128);
-		ballsSymbol = new TextureRegion(mainScreenUIElements, 2304, 640, 128, 128);
-		fontBebasneue64x64White = new TextureRegion(mainScreenUIElements, 1080, 0, 512, 512);
-		buttonLevel1 = new TextureRegion(mainScreenUIElements, 1024, 1024, 256, 256);
-		buttonLevel2 = new TextureRegion(mainScreenUIElements, 1024, 1280, 256, 256);
-		buttonLevel3 = new TextureRegion(mainScreenUIElements, 1280, 1024, 256, 256);
-		buttonLevel4 = new TextureRegion(mainScreenUIElements, 1280, 1280, 256, 256);
-		buttonLevel5 = new TextureRegion(mainScreenUIElements, 993, 1536, 256, 256);
-		buttonLevel6 = new TextureRegion(mainScreenUIElements, 1536, 1024, 256, 256);
-		buttonLevel7 = new TextureRegion(mainScreenUIElements, 1249, 1536, 256, 256);
-		buttonLevel8 = new TextureRegion(mainScreenUIElements, 1536, 1280, 256, 256);
-		buttonUnavailableX = new TextureRegion(mainScreenUIElements, 828, 300, 200, 200);
-		gameOverMessage = new TextureRegion(mainScreenUIElements, 0, 444, 676, 144);
-		levelPassedMessage = new TextureRegion(mainScreenUIElements, 512, 1356, 481, 382);
-		mainMenuButtonControlSwipe = new TextureRegion(mainScreenUIElements, 1792, 1024, 256, 256);
-		mainMenuButtonControlTilt = new TextureRegion(mainScreenUIElements, 1505, 1536, 256, 256);
-		mainMenuButtonControlTouch = new TextureRegion(mainScreenUIElements, 1792, 1280, 256, 256);
-		mainMenuButtonHelp = new TextureRegion(mainScreenUIElements, 1761, 1536, 256, 256);
-		mainMenuButtonHome = new TextureRegion(mainScreenUIElements, 2046, 0, 256, 256);
-		mainMenuButtonNo = new TextureRegion(mainScreenUIElements, 1960, 256, 256, 256);
-		mainMenuButtonPlay = new TextureRegion(mainScreenUIElements, 2302, 0, 256, 256);
-		mainMenuButtonReset = new TextureRegion(mainScreenUIElements, 2216, 256, 256, 256);
-		mainMenuButtonScore = new TextureRegion(mainScreenUIElements, 2558, 0, 256, 256);
-		mainMenuButtonSoundDisabled = new TextureRegion(mainScreenUIElements, 2048, 512, 256, 256);
-		mainMenuButtonSoundEnabled = new TextureRegion(mainScreenUIElements, 2472, 256, 256, 256);
-		mainMenuButtonYes = new TextureRegion(mainScreenUIElements, 2814, 0, 256, 256);
-		mainMenuTextControl = new TextureRegion(mainScreenUIElements, 0, 588, 512, 256);
-		mainMenuTextGoon = new TextureRegion(mainScreenUIElements, 512, 588, 512, 256);
-		mainMenuTextHelp = new TextureRegion(mainScreenUIElements, 1024, 512, 512, 256);
-		mainMenuTextHighscores = new TextureRegion(mainScreenUIElements, 1024, 768, 512, 256);
-		mainMenuTextNo = new TextureRegion(mainScreenUIElements, 1536, 512, 512, 256);
-		mainMenuTextPlay = new TextureRegion(mainScreenUIElements, 1536, 768, 512, 256);
-		mainMenuTextQuit = new TextureRegion(mainScreenUIElements, 0, 844, 512, 256);
-		mainMenuTextReset = new TextureRegion(mainScreenUIElements, 0, 1100, 512, 256);
-		mainMenuTextResume = new TextureRegion(mainScreenUIElements, 0, 1356, 512, 256);
-		mainMenuTextRetry = new TextureRegion(mainScreenUIElements, 512, 844, 512, 256);
-		mainMenuTextSound = new TextureRegion(mainScreenUIElements, 512, 1100, 512, 256);
-		mainMenuTextYes = new TextureRegion(mainScreenUIElements, 0, 1612, 512, 256);
-		pausePutton = new TextureRegion(mainScreenUIElements, 2048, 896, 128, 128);
-		pauseMessage = new TextureRegion(mainScreenUIElements, 1592, 142, 368, 144);
-		readyMessage = new TextureRegion(mainScreenUIElements, 1592, 0, 454, 142);
+		ballsLeft0 = new TextureRegion(mainScreenUIElements, 828, 684, 128, 128);
+		ballsLeft1 = new TextureRegion(mainScreenUIElements, 454, 1740, 128, 128);
+		ballsLeft2 = new TextureRegion(mainScreenUIElements, 582, 1740, 128, 128);
+		ballsLeft3 = new TextureRegion(mainScreenUIElements, 710, 1740, 128, 128);
+		ballsLeft4 = new TextureRegion(mainScreenUIElements, 838, 1740, 128, 128);
+		ballsLeft5 = new TextureRegion(mainScreenUIElements, 966, 1740, 128, 128);
+		ballsLeft6 = new TextureRegion(mainScreenUIElements, 1094, 1730, 128, 128);
+		ballsLeft7 = new TextureRegion(mainScreenUIElements, 1222, 1730, 128, 128);
+		ballsLeft8 = new TextureRegion(mainScreenUIElements, 1350, 1730, 128, 128);
+		ballsLeft9 = new TextureRegion(mainScreenUIElements, 1478, 1730, 128, 128);
+		ballsSymbol = new TextureRegion(mainScreenUIElements, 1606, 1730, 128, 128);
+		fontBebasneue64x64White = new TextureRegion(mainScreenUIElements, 0, 972, 512, 512);
+		buttonLevel1 = new TextureRegion(mainScreenUIElements, 3144, 256, 256, 256);
+		buttonLevel2 = new TextureRegion(mainScreenUIElements, 2120, 1280, 256, 256);
+		buttonLevel3 = new TextureRegion(mainScreenUIElements, 2632, 894, 256, 256);
+		buttonLevel4 = new TextureRegion(mainScreenUIElements, 3113, 512, 256, 256);
+		buttonLevel5 = new TextureRegion(mainScreenUIElements, 2376, 1280, 256, 256);
+		buttonLevel6 = new TextureRegion(mainScreenUIElements, 2120, 1536, 256, 256);
+		buttonLevel7 = new TextureRegion(mainScreenUIElements, 3400, 256, 256, 256);
+		buttonLevel8 = new TextureRegion(mainScreenUIElements, 3656, 0, 256, 256);
+		buttonUnavailableX = new TextureRegion(mainScreenUIElements, 2888, 1406, 200, 200);
+		gameOverMessage = new TextureRegion(mainScreenUIElements, 0, 828, 676, 144);
+		levelPassedMessage = new TextureRegion(mainScreenUIElements, 2632, 512, 481, 382);
+		mainMenuButtonControlSwipe = new TextureRegion(mainScreenUIElements, 2632, 1150, 256, 256);
+		mainMenuButtonControlTilt = new TextureRegion(mainScreenUIElements, 2888, 894, 256, 256);
+		mainMenuButtonControlTouch = new TextureRegion(mainScreenUIElements, 3369, 512, 256, 256);
+		mainMenuButtonHelp = new TextureRegion(mainScreenUIElements, 3656, 256, 256, 256);
+		mainMenuButtonHome = new TextureRegion(mainScreenUIElements, 2376, 1536, 256, 256);
+		mainMenuButtonNo = new TextureRegion(mainScreenUIElements, 3144, 768, 256, 256);
+		mainMenuButtonPlay = new TextureRegion(mainScreenUIElements, 2888, 1150, 256, 256);
+		mainMenuButtonReset = new TextureRegion(mainScreenUIElements, 2632, 1406, 256, 256);
+		mainMenuButtonScore = new TextureRegion(mainScreenUIElements, 3625, 512, 256, 256);
+		mainMenuButtonSoundDisabled = new TextureRegion(mainScreenUIElements, 3144, 1024, 256, 256);
+		mainMenuButtonSoundEnabled = new TextureRegion(mainScreenUIElements, 3400, 768, 256, 256);
+		mainMenuButtonYes = new TextureRegion(mainScreenUIElements, 2632, 1662, 256, 256);
+		mainMenuTextControl = new TextureRegion(mainScreenUIElements, 0, 1484, 512, 256);
+		mainMenuTextGoon = new TextureRegion(mainScreenUIElements, 512, 972, 512, 256);
+		mainMenuTextHelp = new TextureRegion(mainScreenUIElements, 512, 1228, 512, 256);
+		mainMenuTextHighscores = new TextureRegion(mainScreenUIElements, 512, 1484, 512, 256);
+		mainMenuTextNo = new TextureRegion(mainScreenUIElements, 2120, 0, 512, 256);
+		mainMenuTextPlay = new TextureRegion(mainScreenUIElements, 2120, 256, 512, 256);
+		mainMenuTextQuit = new TextureRegion(mainScreenUIElements, 2120, 512, 512, 256);
+		mainMenuTextReset = new TextureRegion(mainScreenUIElements, 2632, 0, 512, 256);
+		mainMenuTextResume = new TextureRegion(mainScreenUIElements, 2632, 256, 512, 256);
+		mainMenuTextRetry = new TextureRegion(mainScreenUIElements, 2120, 768, 512, 256);
+		mainMenuTextSound = new TextureRegion(mainScreenUIElements, 2120, 1024, 512, 256);
+		mainMenuTextYes = new TextureRegion(mainScreenUIElements, 3144, 0, 512, 256);
+		overwriteScoreMessage = new TextureRegion(mainScreenUIElements, 0, 300, 997, 384);
+		pauseButton = new TextureRegion(mainScreenUIElements, 1734, 1730, 128, 128);
+		pauseMessage = new TextureRegion(mainScreenUIElements, 676, 828, 368, 144);
+		readyMessage = new TextureRegion(mainScreenUIElements, 0, 1740, 454, 142);
 		/*
-		score0 = new TextureRegion(mainScreenUIElements, 2176, 768, 128, 128);
-		score1 = new TextureRegion(mainScreenUIElements, 2432, 512, 128, 128);
-		score2 = new TextureRegion(mainScreenUIElements, 1152, 1792, 128, 128);
-		score3 = new TextureRegion(mainScreenUIElements, 2728, 256, 128, 128);
-		score4 = new TextureRegion(mainScreenUIElements, 3070, 0, 128, 128);
-		score5 = new TextureRegion(mainScreenUIElements, 2560, 512, 128, 128);
-		score6 = new TextureRegion(mainScreenUIElements, 2432, 640, 128, 128);
-		score7 = new TextureRegion(mainScreenUIElements, 1280, 1792, 128, 128);
-		score8 = new TextureRegion(mainScreenUIElements, 2048, 1024, 128, 128);
-		score9 = new TextureRegion(mainScreenUIElements, 2304, 768, 128, 128);
+		score0 = new TextureRegion(mainScreenUIElements, 1862, 1730, 128, 128);
+		score1 = new TextureRegion(mainScreenUIElements, 1990, 1730, 128, 128);
+		score2 = new TextureRegion(mainScreenUIElements, 3912, 0, 128, 128);
+		score3 = new TextureRegion(mainScreenUIElements, 2118, 1792, 128, 128);
+		score4 = new TextureRegion(mainScreenUIElements, 2246, 1792, 128, 128);
+		score5 = new TextureRegion(mainScreenUIElements, 3912, 128, 128, 128);
+		score6 = new TextureRegion(mainScreenUIElements, 2374, 1792, 128, 128);
+		score7 = new TextureRegion(mainScreenUIElements, 3912, 256, 128, 128);
+		score8 = new TextureRegion(mainScreenUIElements, 2502, 1792, 128, 128);
+		score9 = new TextureRegion(mainScreenUIElements, 3912, 384, 128, 128);
+		scoreDot = new TextureRegion(mainScreenUIElements, 3881, 512, 128, 128);
+		scoreMinus = new TextureRegion(mainScreenUIElements, 3400, 1024, 128, 128);
+		scoreNone = new TextureRegion(mainScreenUIElements, 3656, 768, 128, 128);
 		*/
-		scoreDot = new TextureRegion(mainScreenUIElements, 2176, 896, 128, 128);
-		scoreMinus = new TextureRegion(mainScreenUIElements, 2728, 384, 128, 128);
-		selectLevelMessage = new TextureRegion(mainScreenUIElements, 0, 300, 828, 144);
+		selectLevelMessage = new TextureRegion(mainScreenUIElements, 0, 684, 828, 144);
 		scoreFont = new ScoreFont(mainScreenUIElements, 128, 128);
 
 		

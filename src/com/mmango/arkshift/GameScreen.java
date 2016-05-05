@@ -33,7 +33,7 @@ public class GameScreen extends GLScreen {
 	static final int GAME_LEVEL_END = 3;
 	static final int GAME_OVER = 4;
 	static final int SPRITES_NUMBER = 200;
-	static final int BUTTON_PAUSE_SIDE = 100;
+	static final int BUTTON_PAUSE_SIDE = 128;
 	static final int NOTIFICATION_AREA_HEIGHT = 150;
 	static final int NOTIFICATION_AREA_WIDTH = RESOLUTION_X;
 	static final int FRAME_WIDTH = 20;
@@ -102,7 +102,7 @@ public class GameScreen extends GLScreen {
 		// remember - in Rectange x and y coordinates point to the lowerLeft
 		// corner of the rectangle! Counting from the lower left corner of the
 		// screen!
-		pauseBounds = new Rectangle(RESOLUTION_X - 123, RESOLUTION_Y - 122,
+		pauseBounds = new Rectangle(RESOLUTION_X - 23 - 128, RESOLUTION_Y - 75 - 64,
 				BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE);
 
 		resumeBounds = new Rectangle(RESOLUTION_X / 2 - 350, RESOLUTION_Y / 2,
@@ -412,7 +412,7 @@ public class GameScreen extends GLScreen {
 		guiCam.setViewportAndMatrices();
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		batcher.beginBatch(Assets.userInterfaceElements);
+		batcher.beginBatch(Assets.mainScreenUIElements);
 		switch (state) {
 		case GAME_READY:
 			presentReady();
@@ -437,35 +437,68 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentReady() {
-		float scoreStringHalfLength = scoreString.length() * 64 / 2f;
-		Assets.font.drawTextZoomed(batcher, scoreString, RESOLUTION_X / 2f
-				- scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 2f, 2f);
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 250,
-				Assets.readyBannerRegion);
+		
+		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
+		//Assets.font.drawTextZoomed(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 2f, 2f);
+		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 454, 142, Assets.readyMessage);
 	}
 
 	private void presentRunning() {
 		// 1080 - 123, 1920 - 22, 100, 100
-		batcher.drawSprite(RESOLUTION_X - 23 - BUTTON_PAUSE_SIDE / 2,
-				RESOLUTION_Y - 22 - BUTTON_PAUSE_SIDE / 2, BUTTON_PAUSE_SIDE,
-				BUTTON_PAUSE_SIDE, Assets.buttonPause);
+		//batcher.drawSprite(RESOLUTION_X - 23 - BUTTON_PAUSE_SIDE / 2,RESOLUTION_Y - 22 - BUTTON_PAUSE_SIDE / 2, BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE, Assets.buttonPause);
+		batcher.drawSprite(RESOLUTION_X - 23 - 128 / 2, RESOLUTION_Y - 75, 128, 128, Assets.pauseButton);
 		// Log.d("GameScreen:presentRunning", "scoreString.length() = " +
 		// scoreString.length());
-		float scoreStringHalfLength = scoreString.length() * 64 / 2f;
+		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
 		// Log.d("GameScreen:presentRunning", "scoreStringHalfLength = " +
 		// scoreStringHalfLength);
-		Assets.font.drawTextZoomed(batcher, scoreString, RESOLUTION_X / 2f
-				- scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 2f, 2f);
+		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+
 
 	}
 
 	private void presentPaused() {
-		float scoreStringHalfLength = scoreString.length() * 64 / 2f;
-		Assets.font.drawTextZoomed(batcher, scoreString, RESOLUTION_X / 2f
-				- scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 2f, 2f);
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 500,
-				Assets.resumeQuitMenuRegion);
-		// Assets.font.drawText(batcher, scoreString, 16, 480 - 20);
+		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
+		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,	Assets.alphaOverGameField1040x1730);
+
+		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400, 512, 256,
+				Assets.mainMenuTextResume);
+		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400, 256, 256,
+				Assets.mainMenuButtonPlay);
+		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 256, 512, 256,
+				Assets.mainMenuTextControl);
+		switch (Settings.controlType) {
+		case Settings.CONTROL_BY_TOUCH:
+			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 256, 256, 256,
+					Assets.mainMenuButtonControlTouch);
+			break;
+		case Settings.CONTROL_BY_SWIPE:
+			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 256, 256, 256,
+					Assets.mainMenuButtonControlSwipe);
+			break;
+		case Settings.CONTROL_BY_TILT:
+			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 256, 256, 256,
+					Assets.mainMenuButtonControlTilt);
+			break;
+		}
+		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 512, 512, 256,
+				Assets.mainMenuTextSound);
+		if (Settings.soundEnabled) {
+			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 512, 256, 256,
+					Assets.mainMenuButtonSoundEnabled);
+		} else {
+			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 512, 256, 256,
+					Assets.mainMenuButtonSoundDisabled);
+		}
+		
+		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
+				Assets.mainMenuTextQuit);
+		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 768, 256, 256,
+				Assets.mainMenuButtonHome);
+		
+		//batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 500,	Assets.resumeQuitMenuRegion);
 	}
 
 	private void presentLevelEnd() {
@@ -475,9 +508,10 @@ public class GameScreen extends GLScreen {
 
 	private void presentGameOver() {
 		batcher.drawSprite(160, 240, 160, 96, Assets.gameOverBannerRegion);
-		float scoreWidth = Assets.font.glyphWidth * scoreString.length();
-		Assets.font.drawText(batcher, scoreString, RESOLUTION_X / 2
-				- scoreWidth / 2, RESOLUTION_Y - 200);
+		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
+		
+		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X / 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+
 	}
 
 	@Override
