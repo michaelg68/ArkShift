@@ -39,11 +39,11 @@ public class HighscoreScreen extends GLScreen {
 			Log.d("HighScoreScreen:cunstructor", "Settings.highscores[" + i	+ "] = " + Settings.highscores[i]);
 			//highScores[i] = (i + 1) + ".." + "" + Settings.highscores[i];
 			int numbOfDots = 6 - (Integer.toString(Settings.highscores[i])).length();
-			Log.d("HighScoreScreen:cunstructor", "numbOfDots = " + numbOfDots);
+			//Log.d("HighScoreScreen:cunstructor", "numbOfDots = " + numbOfDots);
 
 			highScores[i] = Integer.toString(i + 1);
 			for (int j = 0; j < numbOfDots; j++) {
-				Log.d("HighScoreScreen:cunstructor", "adding dot symbol");
+				//Log.d("HighScoreScreen:cunstructor", "adding dot symbol");
 				highScores[i] = highScores[i].concat(".");
 			}
 			highScores[i] = highScores[i].concat(Integer.toString(Settings.highscores[i]));
@@ -115,6 +115,7 @@ public class HighscoreScreen extends GLScreen {
 		for (int i = 4; i >= 0; i--) {
 			
 			//Assets.font.drawText(batcher, highScores[i], xOffset, y);
+			Log.d("HighscoreScreen:present","highScores[" + i + "] = " + i);
 			Assets.scoreFont.drawScoreZoomed(batcher, highScores[i], xOffset, y, 1f, 1f);
 			y += Assets.scoreFont.glyphHeight + 50;
 		}

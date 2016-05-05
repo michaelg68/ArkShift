@@ -29,7 +29,7 @@ public class ScoreFont {
 		glyphs[2] = new TextureRegion(texture, 1152, 1792, 128, 128);
 		glyphs[3] = new TextureRegion(texture, 2728, 256, 128, 128);
 		glyphs[4] = new TextureRegion(texture, 3070, 0, 128, 128);
-		glyphs[5] = new TextureRegion(texture, 3070, 0, 128, 128);
+		glyphs[5] = new TextureRegion(texture, 2560, 512, 128, 128);
 		glyphs[6] = new TextureRegion(texture, 2432, 640, 128, 128);
 		glyphs[7] = new TextureRegion(texture, 1280, 1792, 128, 128);
 		glyphs[8] = new TextureRegion(texture, 2048, 1024, 128, 128);
@@ -45,7 +45,7 @@ public class ScoreFont {
 		int len = text.length();
 		for (int i = 0; i < len; i++) {
 			char c = text.charAt(i);
-			Log.d("ScoreFont:drawText", "Read character = \"" + c + "\"");
+			//Log.d("ScoreFont:drawText", "Read character = \"" + c + "\"");
 
 			switch (c) {
 			case '0':
@@ -91,7 +91,7 @@ public class ScoreFont {
 			}
 
 			if (printable) {
-				Log.d("ScoreFont:drawText", "Printing character = \"" + c + "\"");
+				//Log.d("ScoreFont:drawText", "Printing character = \"" + c + "\"");
 				batcher.drawSprite(x, y, glyphWidth * xZoom, glyphHeight * yZoom, glyph);
 			}
 			x = x + glyphWidth * xZoom ; // if the character is space " " , then do not print it
