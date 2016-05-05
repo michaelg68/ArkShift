@@ -15,7 +15,7 @@ public class Settings {
 	public static String appName = "ArkShift by mmango";
 	public static boolean soundEnabled = true;
 	public static int controlType = CONTROL_BY_SWIPE;
-	public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
+	public static int[] highscores = new int[] { 118, 99, 7, 0, 0 };
 
 
 	

@@ -43,7 +43,6 @@ score_0 = 2879 129 128 128
 
 To generate Java code for multiple lines
 $ cat  atlas_ui_elements3.txt | perl -pe 's/=/= new TextureRegion(mainScreenUIElements,/'  | perl -pe 's/(\d+) /$1, /g' | perl -pe 's/\r//'  | perl -pe 's/$/\)\;/' | perl -pe 's/, =/ =/'
-
 ready_message = new TextureRegion(mainScreenUIElements, 0, 730, 54, 42);
 score_0 = new TextureRegion(mainScreenUIElements, 2879, 29, 28, 28);
 

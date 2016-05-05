@@ -80,6 +80,7 @@ public class Assets {
 	public static TextureRegion pausePutton;
 	public static TextureRegion pauseMessage;
 	public static TextureRegion readyMessage;
+/*	
 	public static TextureRegion score0;
 	public static TextureRegion score1;
 	public static TextureRegion score2;
@@ -90,9 +91,11 @@ public class Assets {
 	public static TextureRegion score7;
 	public static TextureRegion score8;
 	public static TextureRegion score9;
+	*/
 	public static TextureRegion scoreDot;
 	public static TextureRegion scoreMinus;
 	public static TextureRegion selectLevelMessage;
+	public static ScoreFont scoreFont;
 	
 //	public static Texture highscoresScreenBackground;
 //	public static TextureRegion highscoresScreenBackgroundRegion;
@@ -215,6 +218,7 @@ public class Assets {
 		pausePutton = new TextureRegion(mainScreenUIElements, 2048, 896, 128, 128);
 		pauseMessage = new TextureRegion(mainScreenUIElements, 1592, 142, 368, 144);
 		readyMessage = new TextureRegion(mainScreenUIElements, 1592, 0, 454, 142);
+		/*
 		score0 = new TextureRegion(mainScreenUIElements, 2176, 768, 128, 128);
 		score1 = new TextureRegion(mainScreenUIElements, 2432, 512, 128, 128);
 		score2 = new TextureRegion(mainScreenUIElements, 1152, 1792, 128, 128);
@@ -225,9 +229,11 @@ public class Assets {
 		score7 = new TextureRegion(mainScreenUIElements, 1280, 1792, 128, 128);
 		score8 = new TextureRegion(mainScreenUIElements, 2048, 1024, 128, 128);
 		score9 = new TextureRegion(mainScreenUIElements, 2304, 768, 128, 128);
+		*/
 		scoreDot = new TextureRegion(mainScreenUIElements, 2176, 896, 128, 128);
 		scoreMinus = new TextureRegion(mainScreenUIElements, 2728, 384, 128, 128);
 		selectLevelMessage = new TextureRegion(mainScreenUIElements, 0, 300, 828, 144);
+		scoreFont = new ScoreFont(mainScreenUIElements, 128, 128);
 
 		
 
