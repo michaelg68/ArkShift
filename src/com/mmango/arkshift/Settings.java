@@ -66,5 +66,19 @@ public class Settings {
 		}
 		prefEditor.commit();
 	}
+	
+	public static void resetHighscores(GLGame glGame) {
+		Log.e("Settings:resetHighscores", "Resetting highscores");
+		SharedPreferences settings = glGame.getSharedPreferences(
+				GAME_PREFERENCES, 0);
+		SharedPreferences.Editor prefEditor = settings.edit();
+		for (int i = 0; i < 5; i++) {
+			prefEditor.putInt(Integer.toString(i), 0);
+			highscores[i] = 0;
+			Log.e("Settings:resetHighscores", "Preferences highscores[" + i + "] = " + highscores[i]);
+
+		}
+		prefEditor.commit();
+	}
 
 }

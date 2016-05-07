@@ -54,6 +54,7 @@ public static TextureRegion score_0;
 
 
 ====================
+2016/05/05
 To add (change) to atlas_ui_elements.png:
 level_symbol.png - done.
 Make the alphaOverGameField1040x1730 grey, not blue. also make it less transparent. also make it smaller - 
@@ -68,3 +69,9 @@ Not sure if I need this:
 	"touch in this area to move the racquet left"
 	b) "swipe left or right to move the racquet"
 	c) tilt the device to left or right to move the racquet.
+	
+====================
+2016/05/07
+To add (change) to atlas_ui_elements.png:
+1) Reset button (!) and reset text should be black, not red.
+2) The Yes and No buttons should be redrawn, they are too ugly now.
