@@ -18,7 +18,7 @@ public class SelectLevelScreen extends GLScreen {
 	static final int RESOLUTION_Y = 1920;
 	Camera2D guiCam;
 	SpriteBatcher batcher;
-	Rectangle backBounds;
+	Rectangle homeBounds;
 	Vector2 touchPoint;
 	String[] highScores;
 	Rectangle level1ButtonBounds;
@@ -29,8 +29,7 @@ public class SelectLevelScreen extends GLScreen {
 	Rectangle level6ButtonBounds;
 	Rectangle level7ButtonBounds;
 	Rectangle level8ButtonBounds;
-	// Rectangle buttonUnavailable;
-	Rectangle buttonHomeBounds;
+
 
 	public SelectLevelScreen(Game game) {
 		super(game);
@@ -44,7 +43,7 @@ public class SelectLevelScreen extends GLScreen {
 		level6ButtonBounds = new Rectangle(810 - 128, 800 - 128, 256, 256);
 		level7ButtonBounds = new Rectangle(270 - 128, 500 - 128, 256, 256);
 		level8ButtonBounds = new Rectangle(810 - 128, 500 - 128, 256, 256);
-		buttonHomeBounds = new Rectangle(RESOLUTION_X / 2 - 128, 150 - 128, 200, 200);
+		homeBounds = new Rectangle(RESOLUTION_X / 2 - 256 - 128, 150 - 128, 768, 256);
 
 		touchPoint = new Vector2();
 		batcher = new SpriteBatcher(glGraphics, 40);
@@ -88,7 +87,7 @@ public class SelectLevelScreen extends GLScreen {
 						touchPoint)) {
 					level = 8;
 				} else if (OverlapTester.pointInRectangle(
-						buttonHomeBounds, touchPoint)) {
+						homeBounds, touchPoint)) {
 					level = 0;
 				}
 
@@ -132,8 +131,8 @@ public class SelectLevelScreen extends GLScreen {
 		batcher.drawSprite(270, 500, 256, 256, Assets.buttonLevel7);
 		batcher.drawSprite(810, 500, 256, 256, Assets.buttonLevel8);
 		batcher.drawSprite(810, 500, 256, 256, Assets.buttonUnavailable);
-		batcher.drawSprite(RESOLUTION_X / 2, 150, 256, 256, Assets.mainMenuButtonHome);
-		//batcher.drawSprite(156 + 256 + 256, 150, 512, 256, Assets.mainMenuTextQuit);
+		batcher.drawSprite(RESOLUTION_X / 2 - 256, 150, 256, 256, Assets.mainMenuButtonHome);
+		batcher.drawSprite(RESOLUTION_X / 2 + 128, 150, 512, 256, Assets.mainMenuTextQuit);
 		batcher.endBatch();
 		gl.glDisable(GL10.GL_BLEND);
 	}

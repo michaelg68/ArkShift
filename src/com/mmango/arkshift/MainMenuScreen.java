@@ -34,15 +34,15 @@ public class MainMenuScreen extends GLScreen {
 		batcher = new SpriteBatcher(glGraphics, 100);
 		// note that parameters in Rectangle are: lower_left_x, lower_left_y,
 		// wide, height
-		playBounds = new Rectangle(RESOLUTION_X / 2 - 128, 1400 - 128, 512, 256);
-		controlBounds = new Rectangle(RESOLUTION_X / 2 - 128, 1400 - 128 - 256,
-				512, 256);
-		soundBounds = new Rectangle(RESOLUTION_X / 2 - 128,
-				1400 - 128 - 256 * 2, 512, 256);
-		highscoresBounds = new Rectangle(RESOLUTION_X / 2 - 128,
-				1400 - 128 - 256 * 3, 512, 256);
-		helpBounds = new Rectangle(RESOLUTION_X / 2 - 128,
-				1400 - 128 - 256 * 4, 512, 256);
+		playBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256, 1400 - 128, 768, 256);
+		controlBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256 , 1400 - 128 - 256,
+				768, 256);
+		soundBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256,
+				1400 - 128 - 256 * 2, 768, 256);
+		highscoresBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256,
+				1400 - 128 - 256 * 3, 768, 256);
+		helpBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256,
+				1400 - 128 - 256 * 4, 768, 256);
 		touchPoint = new Vector2();
 	}
 
@@ -176,6 +176,7 @@ public class MainMenuScreen extends GLScreen {
 		gl.glDisable(GL10.GL_BLEND);
 	}
 
+	
 	@Override
 	public void pause() {
 		// Settings.save(game.getFileIO());

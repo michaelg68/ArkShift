@@ -21,17 +21,28 @@ public class HighscoreScreen extends GLScreen {
 	static final int RESOLUTION_Y = 1920;
 	Camera2D guiCam;
 	SpriteBatcher batcher;
-	Rectangle buttonHomeBounds;
+	Rectangle homeBounds;
+	Rectangle resetBounds;
+	Rectangle yesBounds;
+	Rectangle noBounds;
 	Vector2 touchPoint;
 	String[] highScores;
 	float xOffset = 0;
+	static final int SHOWING_HIGSHSCORE = 0;
+	static final int ASKING_TO_RESET = 1;
+	static int state = SHOWING_HIGSHSCORE;
 
 	public HighscoreScreen(Game game) {
 		super(game);
 
 		guiCam = new Camera2D(glGraphics, RESOLUTION_X, RESOLUTION_Y);
 		//backBounds = new Rectangle(0, 0, RESOLUTION_X, RESOLUTION_Y);
-		buttonHomeBounds = new Rectangle(RESOLUTION_X / 2 - 128, 150 - 128, 200, 200);
+		//homeBounds = new Rectangle(RESOLUTION_X / 2 - 128, 150 - 128, 200, 200);
+		homeBounds = new Rectangle(RESOLUTION_X / 2 - 256 - 128, 150 - 128, 768, 256);
+		resetBounds = new Rectangle(RESOLUTION_X / 2 - 256 - 128, 150 + 128, 768, 256);
+		yesBounds = new Rectangle(RESOLUTION_X / 2  - 256 - 128, RESOLUTION_Y - 128, 768, 256);
+		noBounds = new Rectangle(RESOLUTION_X / 2  - 256 - 128, RESOLUTION_Y - 128 - 256, 768, 256);
+		
 		touchPoint = new Vector2();
 		batcher = new SpriteBatcher(glGraphics, 200);
 		highScores = new String[5];
@@ -59,6 +70,17 @@ public class HighscoreScreen extends GLScreen {
 
 	@Override
 	public void update(float deltaTime) {
+		switch (state) {
+		case SHOWING_HIGSHSCORE:
+			updateShowing(deltaTime);
+			break;
+		case ASKING_TO_RESET:
+			updateAsking(deltaTime);
+			break;
+			}
+	}
+
+	public void updateShowing(float deltaTime) {
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 		game.getInput().getKeyEvents();
 		int len = touchEvents.size();
@@ -68,8 +90,37 @@ public class HighscoreScreen extends GLScreen {
 			guiCam.touchToWorld(touchPoint);
 
 			if (event.type == TouchEvent.TOUCH_UP) {
-				if (OverlapTester.pointInRectangle(buttonHomeBounds, touchPoint)) {
+				if (OverlapTester.pointInRectangle(homeBounds, touchPoint)) {
 					game.setScreen(new MainMenuScreen(game));
+					return;
+				} else if (OverlapTester.pointInRectangle(resetBounds, touchPoint)) {
+					state = ASKING_TO_RESET;
+					return;
+				} else {
+					continue;
+				}
+				
+			}
+		}
+	}
+	
+	public void updateAsking(float deltaTime) {
+		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
+		game.getInput().getKeyEvents();
+		int len = touchEvents.size();
+		for (int i = 0; i < len; i++) {
+			TouchEvent event = touchEvents.get(i);
+			touchPoint.set(event.x, event.y);
+			guiCam.touchToWorld(touchPoint);
+
+			if (event.type == TouchEvent.TOUCH_UP) {
+				if (OverlapTester.pointInRectangle(yesBounds, touchPoint)) {
+					Log.d("HighscoreScreen:updateAsking","YES pressed");
+					state = SHOWING_HIGSHSCORE;
+					return;
+				} else if (OverlapTester.pointInRectangle(noBounds, touchPoint)) {
+					Log.d("HighscoreScreen:updateAsking","NO pressed");
+					state = SHOWING_HIGSHSCORE;
 					return;
 				} else {
 					continue;
@@ -79,10 +130,10 @@ public class HighscoreScreen extends GLScreen {
 		}
 	}
 
+
 	@Override
 	public void present(float deltaTime) {
 
-		boolean printable = true;
 		GL10 gl = glGraphics.getGL();
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		guiCam.setViewportAndMatrices();
@@ -105,22 +156,20 @@ public class HighscoreScreen extends GLScreen {
 //		batcher.beginBatch(Assets.mainScreenUIElements);
 		// batcher.drawSprite(160, 360, 300, 33, Assets.highScoresRegion);
 
-		float y = RESOLUTION_Y / 4;
-		/*
-		 * for(int i = 4; i >= 0; i--) { Assets.font.drawTextZoomed(batcher,
-		 * highScores[i], xOffset, y, 3f, 3f); y += Assets.font.glyphHeight *
-		 * 3f; }
-		 */
+		float y = RESOLUTION_Y / 2 - 200;
+
 
 		for (int i = 4; i >= 0; i--) {
-			
-			//Assets.font.drawText(batcher, highScores[i], xOffset, y);
-			Log.d("HighscoreScreen:present","highScores[" + i + "] = " + i);
+			//Log.d("HighscoreScreen:present","highScores[" + i + "] = " + i);
 			Assets.scoreFont.drawScoreZoomed(batcher, highScores[i], xOffset, y, 1f, 1f);
-			y += Assets.scoreFont.glyphHeight + 50;
+			y += Assets.scoreFont.glyphHeight + 20;
 		}
 		
-		batcher.drawSprite(RESOLUTION_X / 2, 150, 256, 256, Assets.mainMenuButtonHome);
+		batcher.drawSprite(RESOLUTION_X / 2 - 256, 150 + 256, 256, 256, Assets.mainMenuButtonReset);
+		batcher.drawSprite(RESOLUTION_X / 2 + 128, 150 + 256, 512, 256, Assets.mainMenuTextReset);
+		batcher.drawSprite(RESOLUTION_X / 2 - 256, 150, 256, 256, Assets.mainMenuButtonHome);
+		batcher.drawSprite(RESOLUTION_X / 2 + 128, 150, 512, 256, Assets.mainMenuTextQuit);
+
 
 		batcher.endBatch();
 
