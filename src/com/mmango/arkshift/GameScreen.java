@@ -11,6 +11,7 @@ import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.FPSCounter;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
+import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLScreen;
 import com.badlogic.androidgames.framework.math.OverlapTester;
 import com.badlogic.androidgames.framework.math.Rectangle;
@@ -57,6 +58,7 @@ public class GameScreen extends GLScreen {
 	FPSCounter fpsCounter;
 	float lastX = -1;
 	float lastY = -1;
+	TextureRegion ballsLeftRegion;
 
 	public GameScreen(Game game, int level) {
 		super(game);
@@ -64,6 +66,7 @@ public class GameScreen extends GLScreen {
 		guiCam = new Camera2D(glGraphics, RESOLUTION_X, RESOLUTION_Y);
 		touchPoint = new Vector2();
 		batcher = new SpriteBatcher(glGraphics, SPRITES_NUMBER);
+		ballsLeftRegion = Assets.ballsLeft1;
 		worldListener = new WorldListener() {
 
 			public void hitAtRacquet() {
@@ -131,6 +134,42 @@ public class GameScreen extends GLScreen {
 	public void update(float deltaTime) {
 		// if (deltaTime > 0.1f)
 		// deltaTime = 0.1f;
+		
+		switch (world.ballsLeft - 1) {
+		case 0:
+			ballsLeftRegion = Assets.ballsLeft0;
+			break;
+		case 1:
+			ballsLeftRegion = Assets.ballsLeft1;
+			break;
+		case 2:
+			ballsLeftRegion = Assets.ballsLeft2;
+			break;
+		case 3:
+			ballsLeftRegion = Assets.ballsLeft3;
+			break;
+		case 4:
+			ballsLeftRegion = Assets.ballsLeft4;
+			break;
+		case 5:
+			ballsLeftRegion = Assets.ballsLeft5;
+			break;
+		case 6:
+			ballsLeftRegion = Assets.ballsLeft6;
+			break;
+		case 7:
+			ballsLeftRegion = Assets.ballsLeft7;
+			break;
+		case 8:
+			ballsLeftRegion = Assets.ballsLeft8;
+			break;
+		case 9:
+			ballsLeftRegion = Assets.ballsLeft9;
+			break;
+		default:
+			ballsLeftRegion = Assets.ballsLeft0;
+			break;
+		}
 
 		switch (state) {
 		case GAME_READY:
@@ -197,6 +236,10 @@ public class GameScreen extends GLScreen {
 		// Log.d("GameScreen:updateRunning", "lastScore = " + lastScore);
 		if (world.state == World.WORLD_STATE_NEXT_LEVEL) {
 			state = GAME_LEVEL_END;
+		}
+
+		if (world.state == World.WORLD_STATE_GAME_OVER) {
+			state = GAME_OVER;
 		}
 
 	}
@@ -352,13 +395,18 @@ public class GameScreen extends GLScreen {
 			TouchEvent event = touchEvents.get(i);
 			if (event.type != TouchEvent.TOUCH_UP)
 				continue;
-			// world = new World(worldListener);
-			// renderer = new WorldRenderer(glGraphics, batcher, world);
-			world.score = lastScore;
-			Settings.addScore(lastScore);
-			Settings.savePrefs(glGame);
-			// state = GAME_READY;
-			game.setScreen(new MainMenuScreen(game));
+			touchPoint.set(event.x, event.y);
+			guiCam.touchToWorld(touchPoint);
+			if (OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
+				Assets.playSound(Assets.clickSound);
+				world.score = lastScore;
+				Settings.addScore(lastScore);
+				Settings.savePrefs(glGame);
+				game.setScreen(new SelectLevelScreen(game));
+				return;
+			}
+			
+
 		}
 	}
 
@@ -369,10 +417,19 @@ public class GameScreen extends GLScreen {
 			TouchEvent event = touchEvents.get(i);
 			if (event.type != TouchEvent.TOUCH_UP)
 				continue;
-			world.score = lastScore;
-			Settings.addScore(lastScore);
-			Settings.savePrefs(glGame);
-			game.setScreen(new MainMenuScreen(game));
+			touchPoint.set(event.x, event.y);
+			guiCam.touchToWorld(touchPoint);
+			if (OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
+				// Settings.save(game.getFileIO());
+				Log.d("GameScreen:updateGameOver",
+						"Exiting from GameScreen after GameOver");
+				//Assets.playSound(Assets.clickSound);
+				world.score = lastScore;
+				Settings.addScore(lastScore);
+				Settings.savePrefs(glGame);
+				game.setScreen(new MainMenuScreen(game));
+				return;
+			}
 		}
 	}
 
@@ -412,8 +469,11 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentReady() {
-		batcher.drawSprite(10 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
-		batcher.drawSprite(10 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsLeft3);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, ballsLeftRegion);
+		//batcher.drawSprite(5 + 64 + 64  + 128, RESOLUTION_Y - 75f, 220, 128, Assets.levelSymbol);
+		//batcher.drawSprite(5 + 64 + 64 + 5 + 128 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsLeft3);
+		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
 		//Assets.font.drawTextZoomed(batcher, Integer.toString(world.level), 100, RESOLUTION_Y - 75f, 0.5f, 0.5f);
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
@@ -425,11 +485,10 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentRunning() {
-		// 1080 - 123, 1920 - 22, 100, 100
-		// batcher.drawSprite(RESOLUTION_X - 23 - BUTTON_PAUSE_SIDE /
-		// 2,RESOLUTION_Y - 22 - BUTTON_PAUSE_SIDE / 2, BUTTON_PAUSE_SIDE,
-		// BUTTON_PAUSE_SIDE, Assets.buttonPause);
-		batcher.drawSprite(RESOLUTION_X - 23 - 128 / 2, RESOLUTION_Y - 75, 128,
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, ballsLeftRegion);
+		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
+		batcher.drawSprite(RESOLUTION_X - 5 - 128 / 2, RESOLUTION_Y - 75, 128,
 				128, Assets.pauseButton);
 		// Log.d("GameScreen:presentRunning", "scoreString.length() = " +
 		// scoreString.length());
@@ -438,10 +497,12 @@ public class GameScreen extends GLScreen {
 		// scoreStringHalfLength);
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
 				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
-
 	}
 
 	private void presentPaused() {
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, ballsLeftRegion);
+		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
 				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
@@ -488,16 +549,37 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentLevelEnd() {
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 500,
-				Assets.levelUpRegion);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, ballsLeftRegion);
+		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
+		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
+		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
+				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
+				Assets.alphaOverGameField1040x1730);
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 481, 382,
+				Assets.levelPassedMessage);
+		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
+				Assets.mainMenuTextQuit);
+		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 768, 256, 256,
+				Assets.mainMenuButtonHome);
 	}
 
 	private void presentGameOver() {
-		batcher.drawSprite(160, 240, 160, 96, Assets.gameOverBannerRegion);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, ballsLeftRegion);
+		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
-
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
 				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
+				Assets.alphaOverGameField1040x1730);
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 676, 144,
+				Assets.gameOverMessage);
+		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
+				Assets.mainMenuTextQuit);
+		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 768, 256, 256,
+				Assets.mainMenuButtonHome);
 
 	}
 

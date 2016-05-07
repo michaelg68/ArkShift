@@ -42,7 +42,6 @@ public class Assets {
 	public static TextureRegion ballsLeft8;
 	public static TextureRegion ballsLeft9;
 	public static TextureRegion ballsSymbol;
-	public static TextureRegion fontBebasneue64x64White;
 	public static TextureRegion buttonLevel1;
 	public static TextureRegion buttonLevel2;
 	public static TextureRegion buttonLevel3;
@@ -100,6 +99,7 @@ public class Assets {
 	public static TextureRegion scoreNone;
 	*/	
 	public static TextureRegion selectLevelMessage;
+	public static Font fontBebasneue64x64White;
 	public static ScoreFont scoreFont;
 	
 //	public static Texture highscoresScreenBackground;
@@ -118,7 +118,7 @@ public class Assets {
 	public static TextureRegion buttonHome;
 	public static TextureRegion buttonBack;
 	public static TextureRegion buttonForward;
-	public static Font font;
+	//public static Font font;
 
 	
 	public static Texture gameScreenBackground;
@@ -185,7 +185,6 @@ public class Assets {
 		ballsLeft8 = new TextureRegion(mainScreenUIElements, 896, 1792, 128, 128);
 		ballsLeft9 = new TextureRegion(mainScreenUIElements, 1024, 1792, 128, 128);
 		ballsSymbol = new TextureRegion(mainScreenUIElements, 1152, 1792, 128, 128);
-		fontBebasneue64x64White = new TextureRegion(mainScreenUIElements, 1080, 0, 512, 512);
 		buttonLevel1 = new TextureRegion(mainScreenUIElements, 1024, 1536, 256, 256);
 		buttonLevel2 = new TextureRegion(mainScreenUIElements, 1280, 1536, 256, 256);
 		buttonLevel3 = new TextureRegion(mainScreenUIElements, 2046, 0, 256, 256);
@@ -243,6 +242,7 @@ public class Assets {
 		scoreNone = new TextureRegion(mainScreenUIElements, 2187, 1280, 128, 128);
 		*/
 		selectLevelMessage = new TextureRegion(mainScreenUIElements, 0, 300, 828, 144);
+		fontBebasneue64x64White = new Font(mainScreenUIElements, 1080, 0, 8, 64, 64);
 		scoreFont = new ScoreFont(mainScreenUIElements, 128, 128);
 
 		
@@ -266,7 +266,7 @@ public class Assets {
 		//buttonHome = new TextureRegion(userInterfaceElements, 100, 1750, 128, 128);
 		//buttonBack = new TextureRegion(userInterfaceElements, 228, 1750, 128, 128);
 		buttonForward = new TextureRegion(userInterfaceElements, 100, 1878, 128, 128);
-		font = new Font(userInterfaceElements, 700, 500, 8, 64, 64);
+		//font = new Font(userInterfaceElements, 700, 500, 8, 64, 64);
 
 		
 		gameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");

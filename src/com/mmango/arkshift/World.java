@@ -82,6 +82,7 @@ public class World {
 	public final WorldListener listener;
 	public final Random rand;
 	public int ballsLeft;
+	public boolean ballReady;
 	public int score;
 	public int state;
 	public int level = 1;
@@ -121,7 +122,7 @@ public class World {
 		// this.floorBricks = new ArrayList<Brick>();
 		this.listener = listener;
 
-		ballsLeft = 9;
+		ballsLeft = 5;
 		this.score = 0;
 		this.state = WORLD_STATE_RUNNING;
 		generateLevel(COLUMNS, level);
@@ -186,6 +187,8 @@ public class World {
 
 	private void updateBall(float deltaTime) {
 		ball.update(deltaTime);
+		if (ballsLeft < 1)  // if no more balls then game is over
+			state = WORLD_STATE_GAME_OVER;
 	}
 
 	private void updateBricks(float deltaTime) {
@@ -225,6 +228,8 @@ public class World {
 			ball.position.y = FRAME_WIDTH + GAME_FIELD_HEIGHT
 					- Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
+			ballReady =  true; //if the frame top border is hit then consider the ball ready
+
 		} else if (breaktrhough == FRAME_BOTTOM_BORDER_ID) {
 			listener.hitAtFrame();
 			// Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " +
@@ -726,7 +731,7 @@ public class World {
 			// we always shift the whole column either up or down
 
 			if (brick.atCeiling) {
-
+				ballReady = true;
 				Log.d("World:checkBallCollisionsWithBricks",
 						"A collision with a ceiling brick just happened!");
 
@@ -782,6 +787,11 @@ public class World {
 				 */
 				break;
 			} else { // the collisions happened with a bottom brick
+				if (ballReady) {
+					ballsLeft -= 1;
+					ballReady = false;
+				}
+				
 				// Log.d("World:checkBallCollisionsWithBricks",
 				// "A collision with a ceiling brick just happened!");
 				// the bricks on the floor will shift down
