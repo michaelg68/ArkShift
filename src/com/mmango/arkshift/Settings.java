@@ -106,6 +106,19 @@ public class Settings {
 	}
 
 	
+	public static void unlockAllLevels(GLGame glGame) {
+		int l;
+		SharedPreferences settings = glGame.getSharedPreferences(
+				GAME_PREFERENCES, 0);
+		SharedPreferences.Editor prefEditor = settings.edit();
+		for (int i = 0; i < 8; i++) {
+			l = i + 1;
+			levelEnabled[i] = true; //unlock all levels
+			prefEditor.putBoolean("Level_" + Integer.toString(l), levelEnabled[i]);
+		}	
+		prefEditor.commit();
+	}
+	
 	public static void clearAllPreferences(GLGame glGame) {
 		Log.d("Settings:clearAllPreferences", "Clear all preferences!");
 		SharedPreferences settings = glGame.getSharedPreferences(GAME_PREFERENCES, 0);

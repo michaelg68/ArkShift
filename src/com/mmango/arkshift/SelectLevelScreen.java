@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
@@ -29,7 +31,7 @@ public class SelectLevelScreen extends GLScreen {
 	Rectangle level6ButtonBounds;
 	Rectangle level7ButtonBounds;
 	Rectangle level8ButtonBounds;
-
+	int secretTapCounter = 0;
 
 	public SelectLevelScreen(Game game) {
 		super(game);
@@ -43,7 +45,8 @@ public class SelectLevelScreen extends GLScreen {
 		level6ButtonBounds = new Rectangle(810 - 128, 800 - 128, 256, 256);
 		level7ButtonBounds = new Rectangle(270 - 128, 500 - 128, 256, 256);
 		level8ButtonBounds = new Rectangle(810 - 128, 500 - 128, 256, 256);
-		homeBounds = new Rectangle(RESOLUTION_X / 2 - 256 - 128, 150 - 128, 768, 256);
+		homeBounds = new Rectangle(RESOLUTION_X / 2 - 256 - 128, 150 - 128,
+				768, 256);
 
 		touchPoint = new Vector2();
 		batcher = new SpriteBatcher(glGraphics, 40);
@@ -86,17 +89,31 @@ public class SelectLevelScreen extends GLScreen {
 				} else if (OverlapTester.pointInRectangle(level8ButtonBounds,
 						touchPoint)) {
 					level = 8;
-				} else if (OverlapTester.pointInRectangle(
-						homeBounds, touchPoint)) {
+					secretTapCounter = secretTapCounter + 1;
+					// Log.d("SelectLevelScreen:update", "UsecretTapCounter = "
+					// + secretTapCounter);
+					// If "8" level button tapped 8 times then unlock all levels
+					if (secretTapCounter == 8) {
+						Log.d("SelectLevelScreen:update",
+								"Unlocking all levels");
+						Settings.unlockAllLevels(glGame);
+						return;
+					}
+
+				} else if (OverlapTester.pointInRectangle(homeBounds,
+						touchPoint)) {
 					level = 0;
 				}
 
 				if (level == 0) {
 					game.setScreen(new MainMenuScreen(game));
+					secretTapCounter = 0;
 					return;
-				} else if ((level >= 1 ) && (level <= 8 )) {
-					if (Settings.levelEnabled[level - 1])
+				} else if ((level >= 1) && (level <= 8)) {
+					if (Settings.levelEnabled[level - 1]) {
 						game.setScreen(new GameScreen(game, level));
+						secretTapCounter = 0;
+					}
 					return;
 				}
 			}
@@ -119,38 +136,39 @@ public class SelectLevelScreen extends GLScreen {
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
-		
 		batcher.beginBatch(Assets.mainScreenUIElements);
-		batcher.drawSprite(RESOLUTION_X / 2, 1700, 796, 185, Assets.selectLevelMessage);
-		
+		batcher.drawSprite(RESOLUTION_X / 2, 1700, 796, 185,
+				Assets.selectLevelMessage);
+
 		batcher.drawSprite(270, 1400, 256, 256, Assets.buttonLevel1);
-		if (!Settings.levelEnabled[0]) 
+		if (!Settings.levelEnabled[0])
 			batcher.drawSprite(270, 1400, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(810, 1400, 256, 256, Assets.buttonLevel2);
-		if (!Settings.levelEnabled[1]) 
+		if (!Settings.levelEnabled[1])
 			batcher.drawSprite(810, 1400, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(270, 1100, 256, 256, Assets.buttonLevel3);
-		if (!Settings.levelEnabled[2]) 
+		if (!Settings.levelEnabled[2])
 			batcher.drawSprite(270, 1100, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(810, 1100, 256, 256, Assets.buttonLevel4);
-		if (!Settings.levelEnabled[3]) 
+		if (!Settings.levelEnabled[3])
 			batcher.drawSprite(810, 1100, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(270, 800, 256, 256, Assets.buttonLevel5);
-		if (!Settings.levelEnabled[4]) 
+		if (!Settings.levelEnabled[4])
 			batcher.drawSprite(270, 800, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(810, 800, 256, 256, Assets.buttonLevel6);
-		if (!Settings.levelEnabled[5]) 
+		if (!Settings.levelEnabled[5])
 			batcher.drawSprite(810, 800, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(270, 500, 256, 256, Assets.buttonLevel7);
-		if (!Settings.levelEnabled[6]) 
+		if (!Settings.levelEnabled[6])
 			batcher.drawSprite(270, 500, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(810, 500, 256, 256, Assets.buttonLevel8);
-		if (!Settings.levelEnabled[7]) 
+		if (!Settings.levelEnabled[7])
 			batcher.drawSprite(810, 500, 256, 256, Assets.buttonUnavailable);
-		
-		
-		batcher.drawSprite(RESOLUTION_X / 2 - 256, 150, 256, 256, Assets.mainMenuButtonHome);
-		batcher.drawSprite(RESOLUTION_X / 2 + 128, 150, 512, 256, Assets.mainMenuTextQuit);
+
+		batcher.drawSprite(RESOLUTION_X / 2 - 256, 150, 256, 256,
+				Assets.mainMenuButtonHome);
+		batcher.drawSprite(RESOLUTION_X / 2 + 128, 150, 512, 256,
+				Assets.mainMenuTextQuit);
 		batcher.endBatch();
 		gl.glDisable(GL10.GL_BLEND);
 	}
