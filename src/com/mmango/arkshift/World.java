@@ -348,7 +348,7 @@ public class World {
 		// int b = 0;
 		int length = 0;
 		Log.d("World:checkBallCollisionsWithBricks",
-				"--------------------------");
+				"----");
 
 		// first I must check if the collision happened with more than one
 		// brick!
@@ -362,6 +362,9 @@ public class World {
 			if ((OverlapTester
 					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
 				bricksTouched.add(i);
+				
+				//temporary, to test the level passed situation:
+				//state = WORLD_STATE_NEXT_LEVEL;
 			}
 		}
 

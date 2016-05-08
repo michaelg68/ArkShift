@@ -95,7 +95,8 @@ public class SelectLevelScreen extends GLScreen {
 					game.setScreen(new MainMenuScreen(game));
 					return;
 				} else if ((level >= 1 ) && (level <= 8 )) {
-					game.setScreen(new GameScreen(game, level));
+					if (Settings.levelEnabled[level - 1])
+						game.setScreen(new GameScreen(game, level));
 					return;
 				}
 			}
@@ -123,14 +124,31 @@ public class SelectLevelScreen extends GLScreen {
 		batcher.drawSprite(RESOLUTION_X / 2, 1700, 796, 185, Assets.selectLevelMessage);
 		
 		batcher.drawSprite(270, 1400, 256, 256, Assets.buttonLevel1);
+		if (!Settings.levelEnabled[0]) 
+			batcher.drawSprite(270, 1400, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(810, 1400, 256, 256, Assets.buttonLevel2);
+		if (!Settings.levelEnabled[1]) 
+			batcher.drawSprite(810, 1400, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(270, 1100, 256, 256, Assets.buttonLevel3);
+		if (!Settings.levelEnabled[2]) 
+			batcher.drawSprite(270, 1100, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(810, 1100, 256, 256, Assets.buttonLevel4);
+		if (!Settings.levelEnabled[3]) 
+			batcher.drawSprite(810, 1100, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(270, 800, 256, 256, Assets.buttonLevel5);
+		if (!Settings.levelEnabled[4]) 
+			batcher.drawSprite(270, 800, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(810, 800, 256, 256, Assets.buttonLevel6);
+		if (!Settings.levelEnabled[5]) 
+			batcher.drawSprite(810, 800, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(270, 500, 256, 256, Assets.buttonLevel7);
+		if (!Settings.levelEnabled[6]) 
+			batcher.drawSprite(270, 500, 256, 256, Assets.buttonUnavailable);
 		batcher.drawSprite(810, 500, 256, 256, Assets.buttonLevel8);
-		batcher.drawSprite(810, 500, 256, 256, Assets.buttonUnavailable);
+		if (!Settings.levelEnabled[7]) 
+			batcher.drawSprite(810, 500, 256, 256, Assets.buttonUnavailable);
+		
+		
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 150, 256, 256, Assets.mainMenuButtonHome);
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 150, 512, 256, Assets.mainMenuTextQuit);
 		batcher.endBatch();

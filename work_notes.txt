@@ -73,5 +73,7 @@ Not sure if I need this:
 ====================
 2016/05/07
 To add (change) to atlas_ui_elements.png:
-1) Reset button (!) and reset text should be black, not red.
+1) Reset button (!) and reset text should be black, not red? not sure....
 2) The Yes and No buttons should be redrawn, they are too ugly now.
+3) The reset message should said that the passed levels will be closed.
+

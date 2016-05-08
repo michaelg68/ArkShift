@@ -236,6 +236,12 @@ public class GameScreen extends GLScreen {
 		// Log.d("GameScreen:updateRunning", "lastScore = " + lastScore);
 		if (world.state == World.WORLD_STATE_NEXT_LEVEL) {
 			state = GAME_LEVEL_END;
+			world.score = lastScore;
+			Settings.addScore(lastScore);
+			if (world.level < 8) { //there is no 9th level! The app will crash if I try to set Settings.levelEnabled[8]!
+				Settings.levelEnabled[world.level] = true; //the current level is passed. Enable the next one.
+			}
+			Settings.savePrefs(glGame);			
 		}
 
 		if (world.state == World.WORLD_STATE_GAME_OVER) {
@@ -399,9 +405,6 @@ public class GameScreen extends GLScreen {
 			guiCam.touchToWorld(touchPoint);
 			if (OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
 				Assets.playSound(Assets.clickSound);
-				world.score = lastScore;
-				Settings.addScore(lastScore);
-				Settings.savePrefs(glGame);
 				game.setScreen(new SelectLevelScreen(game));
 				return;
 			}
@@ -557,7 +560,7 @@ public class GameScreen extends GLScreen {
 				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
 				Assets.alphaOverGameField1040x1730);
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 481, 382,
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 + 200, 481, 382,
 				Assets.levelPassedMessage);
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
 				Assets.mainMenuTextQuit);
@@ -574,7 +577,7 @@ public class GameScreen extends GLScreen {
 				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
 				Assets.alphaOverGameField1040x1730);
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 676, 144,
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 + 200, 676, 144,
 				Assets.gameOverMessage);
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
 				Assets.mainMenuTextQuit);

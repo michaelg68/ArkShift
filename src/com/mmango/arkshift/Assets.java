@@ -167,7 +167,8 @@ public class Assets {
 
 
 	public static void load(GLGame game) {
-		mainScreenBackground = new Texture(game, "background_marble_light_flattened.jpg");
+		//mainScreenBackground = new Texture(game, "background_marble_light_flattened.jpg");
+		mainScreenBackground = new Texture(game, "background_mainscreen.png");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,	0, 1080, 1920);
 		
 		mainScreenUIElements = new Texture(game, "atlas_ui_elements.png");
@@ -193,8 +194,8 @@ public class Assets {
 		buttonLevel6 = new TextureRegion(mainScreenUIElements, 1831, 512, 256, 256);
 		buttonLevel7 = new TextureRegion(mainScreenUIElements, 2216, 256, 256, 256);
 		buttonLevel8 = new TextureRegion(mainScreenUIElements, 2558, 0, 256, 256);
-		//buttonUnavailable = new TextureRegion(mainScreenUIElements, 828, 300, 200, 200);
-		buttonUnavailable = new TextureRegion(mainScreenUIElements, 1831, 768, 256, 256); // buttonUnavailableY
+		buttonUnavailable = new TextureRegion(mainScreenUIElements, 828, 300, 200, 200);    // buttonUnavailableX
+		//buttonUnavailable = new TextureRegion(mainScreenUIElements, 1831, 768, 256, 256); // buttonUnavailableY
 		gameOverMessage = new TextureRegion(mainScreenUIElements, 0, 828, 676, 144);
 		levelPassedMessage = new TextureRegion(mainScreenUIElements, 1536, 1024, 481, 382);
 		levelSymbol = new TextureRegion(mainScreenUIElements, 0, 1740, 256, 128);
