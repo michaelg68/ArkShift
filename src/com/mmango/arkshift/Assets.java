@@ -158,12 +158,12 @@ public class Assets {
 	public static Sound racquetHitSound;
 	public static Sound frameHitSound;
 	public static Sound brickHitSound;
-	public static Sound levelStartsSound;
-	public static Sound ballRollingAndKnockSound;
-	public static Sound shiftSound;
-	public static Sound gameOverSound;
-	public static Sound gameOverLongSound;
-	public static Sound levelPassedSound;
+//	public static Sound levelStartsSound;
+//	public static Sound ballRollingAndKnockSound;
+//	public static Sound shiftSound;
+//	public static Sound gameOverSound;
+//	public static Sound gameOverLongSound;
+//	public static Sound levelPassedSound;
 
 
 	public static void load(GLGame game) {
@@ -312,17 +312,16 @@ public class Assets {
 
 
 		clickSound = game.getAudio().newSound("click.ogg");
-		racquetHitSound = game.getAudio().newSound("racquet_hit_sound.ogg");
-		frameHitSound = game.getAudio().newSound("frame_hit_sound.ogg");
-		brickHitSound = game.getAudio().newSound("brick_hit_sound.ogg");
-		levelStartsSound = game.getAudio().newSound("level_starts_sound.ogg");
-		ballRollingAndKnockSound = game.getAudio().newSound("ball_rolling_and_knock_sound.ogg");
+		racquetHitSound = game.getAudio().newSound("Hit_Hurt26.wav");
+		frameHitSound = game.getAudio().newSound("Hit_Hurt26.wav");
+		brickHitSound = game.getAudio().newSound("Hit_Hurt26.wav");
+		//levelStartsSound = game.getAudio().newSound("level_starts_sound.ogg");
+		//ballRollingAndKnockSound = game.getAudio().newSound("ball_rolling_and_knock_sound.ogg");
 	
-		shiftSound = game.getAudio().newSound("shift_8b_22050.ogg");
-		gameOverSound = game.getAudio().newSound("game_over.ogg");
-		gameOverLongSound = game.getAudio().newSound(
-				"game_over_long_8b_22050Hz.ogg");
-		levelPassedSound = game.getAudio().newSound("level_passed.ogg");
+		//shiftSound = game.getAudio().newSound("shift_8b_22050.ogg");
+		//gameOverSound = game.getAudio().newSound("game_over.ogg");
+		//gameOverLongSound = game.getAudio().newSound("game_over_long_8b_22050Hz.ogg");
+		//levelPassedSound = game.getAudio().newSound("level_passed.ogg");
 	}
 
 	public static void reload() {
