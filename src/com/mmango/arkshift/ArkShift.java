@@ -3,6 +3,7 @@ package com.mmango.arkshift;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+
 //import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -46,6 +47,11 @@ public class ArkShift extends GLGame {
 		//Settings.save(getFileIO());
 //		if (Settings.soundEnabled)
 //			Assets.music.pause();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		setScreen(new MainMenuScreen(this));
 	}
 
 }
