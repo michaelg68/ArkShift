@@ -168,7 +168,8 @@ public class Assets {
 
 	public static void load(GLGame game) {
 		//mainScreenBackground = new Texture(game, "background_marble_light_flattened.jpg");
-		mainScreenBackground = new Texture(game, "background_mainscreen.png");
+		//mainScreenBackground = new Texture(game, "background_mainscreen.png");
+		mainScreenBackground = new Texture(game, "background_ui.png");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,	0, 1080, 1920);
 		
 		mainScreenUIElements = new Texture(game, "atlas_ui_elements.png");
