@@ -36,18 +36,17 @@ public class World {
 
 	public static final float WORLD_HEIGHT = 192f;
 	public static final float WORLD_WIDTH = 108f;
-	public static final float NOTIFICATION_AREA_HEIGHT = 15f;
+	public static final float NOTIFICATION_AREA_HEIGHT = 13.4f;
 	public static final float NOTIFICATION_AREA_WIDTH = 108f;
 	public static final int FRAME_TOP_BORDER_ID = 1;
 	public static final int FRAME_BOTTOM_BORDER_ID = 2;
 	public static final int FRAME_LEFT_BORDER_ID = 3;
 	public static final int FRAME_RIGHT_BORDER_ID = 4;
 
-	public static final float FRAME_WIDTH = 2f;
-	public static final float GAME_FIELD_HEIGHT = WORLD_HEIGHT - FRAME_WIDTH
-			- FRAME_WIDTH - NOTIFICATION_AREA_HEIGHT;
-	public static final float GAME_FIELD_WIDTH = WORLD_WIDTH - FRAME_WIDTH
-			- FRAME_WIDTH;
+	public static final float FRAME_WIDTH_X = 2f;  //on the side the frame will be 20 pixels on each sides
+	public static final float FRAME_WIDTH_Y = 2f;  //on the top and bottom the frame will be 9 pixels on each
+	public static final float GAME_FIELD_HEIGHT = WORLD_HEIGHT - FRAME_WIDTH_Y * 2 - NOTIFICATION_AREA_HEIGHT;
+	public static final float GAME_FIELD_WIDTH = WORLD_WIDTH - FRAME_WIDTH_X * 2;
 
 	public static final int WORLD_STATE_RUNNING = 0;
 	public static final int WORLD_STATE_NEXT_LEVEL = 1;
@@ -91,7 +90,7 @@ public class World {
 	public World(WorldListener listener, int level) {
 		this.level = level;
 
-		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
+		gameField = new Rectangle(FRAME_WIDTH_X, FRAME_WIDTH_Y, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
 
 		// Log.d("World", "gameField.lowerLeft.x = " + gameField.lowerLeft.x);
@@ -103,7 +102,7 @@ public class World {
 
 		// this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH +
 		// Brick.BRICK_HEIGHT * (level) + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
-		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH
+		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH_Y
 				+ Racquet.RACQUET_HEIGHT / 2 + 0.5f,
 				Racquet.RACQUET_WIDTH_NORMAL);
 
@@ -179,7 +178,7 @@ public class World {
 				}
 			}
 		}
-		racquet.position.y = FRAME_WIDTH + Brick.BRICK_HEIGHT
+		racquet.position.y = FRAME_WIDTH_X + Brick.BRICK_HEIGHT
 				* bricksInTheHighestFloorColumn + Racquet.RACQUET_HEIGHT / 2
 				+ 0.5f;
 		racquet.update(deltaTime, accelX);

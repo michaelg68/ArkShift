@@ -37,7 +37,7 @@ public class GameScreen extends GLScreen {
 	static final int BUTTON_PAUSE_SIDE = 128;
 	static final int NOTIFICATION_AREA_HEIGHT = 150;
 	static final int NOTIFICATION_AREA_WIDTH = RESOLUTION_X;
-	static final int FRAME_WIDTH = 20;
+	static final int FRAME_WIDTH = 9;
 
 	int state;
 	Camera2D guiCam;
@@ -108,7 +108,7 @@ public class GameScreen extends GLScreen {
 		// corner of the rectangle! Counting from the lower left corner of the
 		// screen!
 		pauseBounds = new Rectangle(RESOLUTION_X - 23 - 128,
-				RESOLUTION_Y - 75 - 64, BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE);
+				RESOLUTION_Y - 134 / 2 - 64, BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE);
 		resumeBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256, 1400 - 128, 768,
 				256);
 		controlBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256, 1400 - 128 - 256,
@@ -472,15 +472,15 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentReady() {
-		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
-		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, ballsLeftRegion);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 67f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 67f, 128, 128, ballsLeftRegion);
 		//batcher.drawSprite(5 + 64 + 64  + 128, RESOLUTION_Y - 75f, 220, 128, Assets.levelSymbol);
 		//batcher.drawSprite(5 + 64 + 64 + 5 + 128 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsLeft3);
-		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
+		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 67f + 3, 1.8f, 2.45f);
 		//Assets.font.drawTextZoomed(batcher, Integer.toString(world.level), 100, RESOLUTION_Y - 75f, 0.5f, 0.5f);
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
-				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 67f, 1f, 1f);
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
 				Assets.alphaOverGameField1040x1730);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 454, 142,
@@ -488,10 +488,10 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentRunning() {
-		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
-		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, ballsLeftRegion);
-		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
-		batcher.drawSprite(RESOLUTION_X - 5 - 128 / 2, RESOLUTION_Y - 75, 128,
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 67f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 67f, 128, 128, ballsLeftRegion);
+		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 67f + 3, 1.8f, 2.45f);
+		batcher.drawSprite(RESOLUTION_X - 5 - 128 / 2, RESOLUTION_Y - 67, 128,
 				128, Assets.pauseButton);
 		// Log.d("GameScreen:presentRunning", "scoreString.length() = " +
 		// scoreString.length());
@@ -503,12 +503,12 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentPaused() {
-		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
-		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, ballsLeftRegion);
-		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 67f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 67f, 128, 128, ballsLeftRegion);
+		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 67f + 3, 1.8f, 2.45f);
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
-				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 67f, 1f, 1f);
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
 				Assets.alphaOverGameField1040x1730);
 
@@ -552,12 +552,12 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentLevelEnd() {
-		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
-		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, ballsLeftRegion);
-		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 67f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 67f, 128, 128, ballsLeftRegion);
+		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 67f + 3, 1.8f, 2.45f);
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
-				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 67f, 1f, 1f);
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
 				Assets.alphaOverGameField1040x1730);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 + 200, 481, 382,
@@ -569,12 +569,12 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentGameOver() {
-		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, Assets.ballsSymbol);
-		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128, ballsLeftRegion);
-		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 67f, 128, 128, Assets.ballsSymbol);
+		batcher.drawSprite(5 + 64, RESOLUTION_Y - 67f, 128, 128, ballsLeftRegion);
+		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, "L" + Integer.toString(world.level), 5 + 64 + 64 + 64, RESOLUTION_Y - 67f + 3, 1.8f, 2.45f);
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
-				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 67f, 1f, 1f);
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
 				Assets.alphaOverGameField1040x1730);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 + 200, 676, 144,
