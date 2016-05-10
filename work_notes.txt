@@ -77,3 +77,11 @@ To add (change) to atlas_ui_elements.png:
 2) The Yes and No buttons should be redrawn, they are too ugly now.
 3) The reset message should said that the passed levels will be closed.
 
+===================
+2016/05/10
+Need to check if it worth to reuse these objects in (World:checkBallCollisionsWithBricks()
+		List<Integer> bricksTouched = new ArrayList<Integer>();
+		List<Integer> bricksAffected = new ArrayList<Integer>();
+		
+		
+		

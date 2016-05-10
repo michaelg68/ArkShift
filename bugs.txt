@@ -50,4 +50,7 @@ Reason: The sometexture.reload() was missing in Assets.reload() method
 
 -----
 
+2016/05/10
+All the bugs moved to the Issue Tracker on bitbucket.org:
+https://bitbucket.org/michaelg68/arkshift/issues
 

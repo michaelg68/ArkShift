@@ -79,6 +79,10 @@ public class World {
 	public int[][] ceilingBricksId;
 	public int lastCeilingBrickId;
 	public int[][] floorBricksId;
+	
+	public static int GRID_COLUMNS = Math.round(GAME_FIELD_WIDTH / Brick.BRICK_WIDTH); // 1040/104 = 10 columns
+	public static int GRID_ROWS = Math.round(GAME_FIELD_HEIGHT / Brick.BRICK_WIDTH); // 1768/104 = 17 columns
+	public static int[][] grid = new int[GRID_COLUMNS][GRID_ROWS]; //10x17
 
 	public final WorldListener listener;
 	public final Random rand;
@@ -95,6 +99,15 @@ public class World {
 		gameField = new Rectangle(FRAME_WIDTH_X, FRAME_WIDTH_Y, GAME_FIELD_WIDTH,
 				GAME_FIELD_HEIGHT);
 
+		
+		//populate the grid 10x17 with NO_OBJECT_ID (99999)
+		for (int x = 0; x < GRID_COLUMNS; x++) {
+			for (int y = 0; y < GRID_ROWS; y++) {
+				grid[x][y] = NO_OBJECT_ID;
+			}
+		}
+		
+		
 		// Log.d("World", "gameField.lowerLeft.x = " + gameField.lowerLeft.x);
 		// Log.d("World", "gameField.lowerLeft.y = " + gameField.lowerLeft.y);
 		// Log.d("World", "gameField.width = " + gameField.width);
@@ -146,6 +159,10 @@ public class World {
 				// Log.d("World", "Adding a brick");
 				bricks.add(brick);
 				ceilingBricksId[x][y] = brickId;
+				
+				//populate the grid 10x17 with the real bricks IDs
+				grid[x][y] = brickId;
+				
 				brickId++;
 				// populate the floorBricksId array with 99999 which stands for
 				// "there is no brick"
@@ -742,6 +759,7 @@ public class World {
 				// the bricks on the floor will shift up
 				for (int y = level - 1; y > 0; y--) {
 					floorBricksId[column][y] = floorBricksId[column][y - 1];
+					grid[column][GRID_ROWS - 1 - y] = floorBricksId[column][y];
 					if (floorBricksId[column][y] != NO_OBJECT_ID) {
 						bricks.get(floorBricksId[column][y]).setCell(column, y);
 						bricks.get(floorBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_UP;
@@ -756,6 +774,7 @@ public class World {
 				bricksCeiling.remove(bricks.get(topBrick));
 
 				floorBricksId[column][0] = topBrick;
+				grid[column][GRID_ROWS - 1] = floorBricksId[column][0];
 				bricks.get(topBrick).atCeiling = false;
 				bricks.get(topBrick).setCell(column, 0);
 				bricks.get(topBrick).state = Brick.BRICK_STATE_SHIFTING_UP_TO_FLOOR;
@@ -765,6 +784,7 @@ public class World {
 				// other ceiling bricks in this column will shift one cell up:
 				for (int y = 0; y < level - 1; y++) {
 					ceilingBricksId[column][y] = ceilingBricksId[column][y + 1];
+					grid[column][y] = ceilingBricksId[column][y];
 					if (ceilingBricksId[column][y] != NO_OBJECT_ID) {
 						bricks.get(ceilingBricksId[column][y]).setCell(column,
 								y);
@@ -773,8 +793,10 @@ public class World {
 				}
 				// always put "empty" at the cell in last row of the ceiling
 				// when the ceiling got hit
-				if (level > 1)
+				if (level > 1) {
 					ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
+					grid[column][level - 1] = NO_OBJECT_ID;
+				}
 
 				/*
 				 * for (int r = 0; r < level; r++) { for (int c = 0; c <
@@ -801,6 +823,7 @@ public class World {
 				// the bricks on the floor will shift down
 				for (int y = level - 1; y > 0; y--) {
 					ceilingBricksId[column][y] = ceilingBricksId[column][y - 1];
+					grid[column][y] = ceilingBricksId[column][y];
 					if (ceilingBricksId[column][y] != NO_OBJECT_ID) {
 						bricks.get(ceilingBricksId[column][y]).setCell(column,
 								y);
@@ -811,6 +834,7 @@ public class World {
 				// the bottommost brick [row=0] goes to the ceiling [row=0]:
 				int bottomBrick = floorBricksId[column][0];
 				ceilingBricksId[column][0] = bottomBrick;
+				grid[column][0] = ceilingBricksId[column][0];
 				// Include this brick back into bricksCeiling array list
 				bricksCeiling.add(bricks.get(bottomBrick));
 				bricks.get(bottomBrick).atCeiling = true;
@@ -821,6 +845,7 @@ public class World {
 				// down:
 				for (int y = 0; y < level - 1; y++) {
 					floorBricksId[column][y] = floorBricksId[column][y + 1];
+					grid[column][GRID_ROWS - 1 - y] = floorBricksId[column][y];
 					if (floorBricksId[column][y] != NO_OBJECT_ID) {
 						bricks.get(floorBricksId[column][y]).setCell(column, y);
 						bricks.get(floorBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_DOWN;
@@ -829,8 +854,10 @@ public class World {
 
 				// always put "empty" at the cell in last row of the floor
 				// when the floor got hit
-				if (level > 1)
+				if (level > 1) {
 					floorBricksId[column][level - 1] = NO_OBJECT_ID;
+					grid[column][GRID_ROWS - 1 - level - 1] = NO_OBJECT_ID;
+				}
 				break;
 			}
 
