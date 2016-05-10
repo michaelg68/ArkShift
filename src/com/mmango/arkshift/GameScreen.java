@@ -35,7 +35,7 @@ public class GameScreen extends GLScreen {
 	static final int GAME_OVER = 4;
 	static final int SPRITES_NUMBER = 200;
 	static final int BUTTON_PAUSE_SIDE = 128;
-	static final int NOTIFICATION_AREA_HEIGHT = 150;
+	static final int NOTIFICATION_AREA_HEIGHT = 134;
 	static final int NOTIFICATION_AREA_WIDTH = RESOLUTION_X;
 	static final int FRAME_WIDTH = 9;
 

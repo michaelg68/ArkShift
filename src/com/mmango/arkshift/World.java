@@ -44,9 +44,11 @@ public class World {
 	public static final int FRAME_RIGHT_BORDER_ID = 4;
 
 	public static final float FRAME_WIDTH_X = 2f;  //on the side the frame will be 20 pixels on each sides
-	public static final float FRAME_WIDTH_Y = 2f;  //on the top and bottom the frame will be 9 pixels on each
+	public static final float FRAME_WIDTH_Y = 0.9f;  //on the top and bottom the frame will be 9 pixels on each
 	public static final float GAME_FIELD_HEIGHT = WORLD_HEIGHT - FRAME_WIDTH_Y * 2 - NOTIFICATION_AREA_HEIGHT;
+	//GAME_FIELD_HEIGHT = 1768
 	public static final float GAME_FIELD_WIDTH = WORLD_WIDTH - FRAME_WIDTH_X * 2;
+	//GAME_FIELD_WIDTH = 1040
 
 	public static final int WORLD_STATE_RUNNING = 0;
 	public static final int WORLD_STATE_NEXT_LEVEL = 1;
@@ -178,7 +180,7 @@ public class World {
 				}
 			}
 		}
-		racquet.position.y = FRAME_WIDTH_X + Brick.BRICK_HEIGHT
+		racquet.position.y = FRAME_WIDTH_Y + Brick.BRICK_HEIGHT
 				* bricksInTheHighestFloorColumn + Racquet.RACQUET_HEIGHT / 2
 				+ 0.5f;
 		racquet.update(deltaTime, accelX);
@@ -224,7 +226,7 @@ public class World {
 			// Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = "
 			// + ball.position.x + "; ball.position.y = " + ball.position.y);
 			// X collision
-			ball.position.y = FRAME_WIDTH + GAME_FIELD_HEIGHT
+			ball.position.y = FRAME_WIDTH_Y + GAME_FIELD_HEIGHT
 					- Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 			ballReady =  true; //if the frame top border is hit then consider the ball ready
@@ -236,7 +238,7 @@ public class World {
 			// Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = "
 			// + ball.position.x + "; ball.position.y = " + ball.position.y);
 
-			ball.position.y = FRAME_WIDTH + Ball.BALL_RADIUS;
+			ball.position.y = FRAME_WIDTH_Y + Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_LEFT_BORDER_ID) {
 			listener.hitAtFrame();
@@ -246,7 +248,7 @@ public class World {
 			// + ball.position.x + "; ball.position.y = " + ball.position.y);
 
 			// Y collision
-			ball.position.x = FRAME_WIDTH + Ball.BALL_RADIUS;
+			ball.position.x = FRAME_WIDTH_X + Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
 		} else if (breaktrhough == FRAME_RIGHT_BORDER_ID) {
 			listener.hitAtFrame();
@@ -256,7 +258,7 @@ public class World {
 			// + ball.position.x + "; ball.position.y = " + ball.position.y);
 
 			// Y collision
-			ball.position.x = FRAME_WIDTH + GAME_FIELD_WIDTH - Ball.BALL_RADIUS;
+			ball.position.x = FRAME_WIDTH_X + GAME_FIELD_WIDTH - Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
 		}
 	}
