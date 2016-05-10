@@ -225,6 +225,7 @@ public class GameScreen extends GLScreen {
 				// pauseBounds.height);
 				Assets.playSound(Assets.clickSound);
 				state = GAME_PAUSED;
+				world.showGridContent();
 				return;
 			}
 		}
@@ -549,6 +550,7 @@ public class GameScreen extends GLScreen {
 
 		// batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 500,
 		// Assets.resumeQuitMenuRegion);
+		
 	}
 
 	private void presentLevelEnd() {

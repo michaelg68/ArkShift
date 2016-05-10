@@ -43,12 +43,18 @@ public class World {
 	public static final int FRAME_LEFT_BORDER_ID = 3;
 	public static final int FRAME_RIGHT_BORDER_ID = 4;
 
-	public static final float FRAME_WIDTH_X = 2f;  //on the side the frame will be 20 pixels on each sides
-	public static final float FRAME_WIDTH_Y = 0.9f;  //on the top and bottom the frame will be 9 pixels on each
-	public static final float GAME_FIELD_HEIGHT = WORLD_HEIGHT - FRAME_WIDTH_Y * 2 - NOTIFICATION_AREA_HEIGHT;
-	//GAME_FIELD_HEIGHT = 1768
-	public static final float GAME_FIELD_WIDTH = WORLD_WIDTH - FRAME_WIDTH_X * 2;
-	//GAME_FIELD_WIDTH = 1040
+	public static final float FRAME_WIDTH_X = 2f; // on the side the frame will
+													// be 20 pixels on each
+													// sides
+	public static final float FRAME_WIDTH_Y = 0.9f; // on the top and bottom the
+													// frame will be 9 pixels on
+													// each
+	public static final float GAME_FIELD_HEIGHT = WORLD_HEIGHT - FRAME_WIDTH_Y
+			* 2 - NOTIFICATION_AREA_HEIGHT;
+	// GAME_FIELD_HEIGHT = 1768
+	public static final float GAME_FIELD_WIDTH = WORLD_WIDTH - FRAME_WIDTH_X
+			* 2;
+	// GAME_FIELD_WIDTH = 1040
 
 	public static final int WORLD_STATE_RUNNING = 0;
 	public static final int WORLD_STATE_NEXT_LEVEL = 1;
@@ -79,10 +85,17 @@ public class World {
 	public int[][] ceilingBricksId;
 	public int lastCeilingBrickId;
 	public int[][] floorBricksId;
-	
-	public static int GRID_COLUMNS = Math.round(GAME_FIELD_WIDTH / Brick.BRICK_WIDTH); // 1040/104 = 10 columns
-	public static int GRID_ROWS = Math.round(GAME_FIELD_HEIGHT / Brick.BRICK_WIDTH); // 1768/104 = 17 columns
-	public static int[][] grid = new int[GRID_COLUMNS][GRID_ROWS]; //10x17
+
+	public static float CELL_SIZE = Brick.BRICK_WIDTH;
+	public static int GRID_COLUMNS = Math.round(GAME_FIELD_WIDTH / CELL_SIZE); // 1040/104
+																				// =
+																				// 10
+																				// columns
+	public static int GRID_ROWS = Math.round(GAME_FIELD_HEIGHT / CELL_SIZE); // 1768/104
+																				// =
+																				// 17
+																				// columns
+	public static int[][] grid = new int[GRID_COLUMNS][GRID_ROWS]; // 10x17
 
 	public final WorldListener listener;
 	public final Random rand;
@@ -96,18 +109,16 @@ public class World {
 	public World(WorldListener listener, int level) {
 		this.level = level;
 
-		gameField = new Rectangle(FRAME_WIDTH_X, FRAME_WIDTH_Y, GAME_FIELD_WIDTH,
-				GAME_FIELD_HEIGHT);
+		gameField = new Rectangle(FRAME_WIDTH_X, FRAME_WIDTH_Y,
+				GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
 
-		
-		//populate the grid 10x17 with NO_OBJECT_ID (99999)
+		// populate the grid 10x17 with NO_OBJECT_ID (99999)
 		for (int x = 0; x < GRID_COLUMNS; x++) {
 			for (int y = 0; y < GRID_ROWS; y++) {
 				grid[x][y] = NO_OBJECT_ID;
 			}
 		}
-		
-		
+
 		// Log.d("World", "gameField.lowerLeft.x = " + gameField.lowerLeft.x);
 		// Log.d("World", "gameField.lowerLeft.y = " + gameField.lowerLeft.y);
 		// Log.d("World", "gameField.width = " + gameField.width);
@@ -159,10 +170,10 @@ public class World {
 				// Log.d("World", "Adding a brick");
 				bricks.add(brick);
 				ceilingBricksId[x][y] = brickId;
-				
-				//populate the grid 10x17 with the real bricks IDs
+
+				// populate the grid 10x17 with the real bricks IDs
 				grid[x][y] = brickId;
-				
+
 				brickId++;
 				// populate the floorBricksId array with 99999 which stands for
 				// "there is no brick"
@@ -205,7 +216,7 @@ public class World {
 
 	private void updateBall(float deltaTime) {
 		ball.update(deltaTime);
-		if (ballsLeft < 1)  // if no more balls then game is over
+		if (ballsLeft < 1) // if no more balls then game is over
 			state = WORLD_STATE_GAME_OVER;
 	}
 
@@ -246,7 +257,8 @@ public class World {
 			ball.position.y = FRAME_WIDTH_Y + GAME_FIELD_HEIGHT
 					- Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
-			ballReady =  true; //if the frame top border is hit then consider the ball ready
+			ballReady = true; // if the frame top border is hit then consider
+								// the ball ready
 
 		} else if (breaktrhough == FRAME_BOTTOM_BORDER_ID) {
 			listener.hitAtFrame();
@@ -275,7 +287,8 @@ public class World {
 			// + ball.position.x + "; ball.position.y = " + ball.position.y);
 
 			// Y collision
-			ball.position.x = FRAME_WIDTH_X + GAME_FIELD_WIDTH - Ball.BALL_RADIUS;
+			ball.position.x = FRAME_WIDTH_X + GAME_FIELD_WIDTH
+					- Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
 		}
 	}
@@ -365,10 +378,37 @@ public class World {
 
 		// int b = 0;
 		int length = 0;
-		Log.d("World:checkBallCollisionsWithBricks",
-				"----");
+		Log.d("World:checkBallCollisionsWithBricks", "----");
 
-		// first I must check if the collision happened with more than one
+		// prepare the list of the cells in the grid which may be affected by
+		// the ball
+		// find the cell where the center of the ball is
+/*		int ballCellX = (int) Math.floor(ball.bounds.center.x - FRAME_WIDTH_X
+				/ CELL_SIZE);
+		int ballCellY = GRID_ROWS
+				- 1
+				- (int) Math.floor(ball.bounds.center.y - FRAME_WIDTH_Y
+						/ CELL_SIZE);
+
+		
+		List<Integer> cellsAffected = new ArrayList<Integer>();
+		cellsAffected.add(grid[ballCellX][ballCellY]);
+		if (ballCellX > 0) {
+			cellsAffected.add(grid[ballCellX - 1][ballCellY]);
+			
+			
+		}
+		if (ballCellY > 0)
+			cellsAffected.add(grid[ballCellX][ballCellY - 1]);
+		if ((ballCellX > 0) && (ballCellY > 0))
+			cellsAffected.add(grid[ballCellX - 1][ballCellY - 1]);
+		if ((ballCellX < GRID_COLUMNS - 1) )
+			cellsAffected.add(grid[ballCellX + 1][ballCellY]);
+		if ((ballCellY < GRID_ROWS - 1) )
+			cellsAffected.add(grid[ballCellX][ballCellY + 1]);*/
+
+
+		// I must check if the collision happened with more than one
 		// brick!
 		// Hopefully this will help to solve the problem of ball swallowing by
 		// the bricks
@@ -380,9 +420,9 @@ public class World {
 			if ((OverlapTester
 					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
 				bricksTouched.add(i);
-				
-				//temporary, to test the level passed situation:
-				//state = WORLD_STATE_NEXT_LEVEL;
+
+				// temporary, to test the level passed situation:
+				// state = WORLD_STATE_NEXT_LEVEL;
 			}
 		}
 
@@ -546,30 +586,27 @@ public class World {
 					"Three bricks would be overlaped. This is a kind of IN-CORNER collision");
 			// find the two bricks which are in different columns and rows. the
 			// third one will be ignored
-/*			for (int b = 0; b < 3; b++) {
-				if (bricks.get(bricksTouched.get(0)).column != bricks
-						.get(bricksTouched.get(1)).column) {
-					if (bricks.get(bricksTouched.get(0)).row != bricks
-							.get(bricksTouched.get(1)).row) {
-						bricksAffected.add(bricksTouched.get(0));
-						bricksAffected.add(bricksTouched.get(1));
-					}
-				} else if (bricks.get(bricksTouched.get(0)).column != bricks
-						.get(bricksTouched.get(2)).column) {
-					if (bricks.get(bricksTouched.get(0)).row != bricks
-							.get(bricksTouched.get(2)).row) {
-						bricksAffected.add(bricksTouched.get(0));
-						bricksAffected.add(bricksTouched.get(2));
-					}
-				} else if (bricks.get(bricksTouched.get(1)).column != bricks
-						.get(bricksTouched.get(2)).column) {
-					if (bricks.get(bricksTouched.get(1)).row != bricks
-							.get(bricksTouched.get(2)).row) {
-						bricksAffected.add(bricksTouched.get(1));
-						bricksAffected.add(bricksTouched.get(2));
-					}
-				}
-			}*/
+			/*
+			 * for (int b = 0; b < 3; b++) { if
+			 * (bricks.get(bricksTouched.get(0)).column != bricks
+			 * .get(bricksTouched.get(1)).column) { if
+			 * (bricks.get(bricksTouched.get(0)).row != bricks
+			 * .get(bricksTouched.get(1)).row) {
+			 * bricksAffected.add(bricksTouched.get(0));
+			 * bricksAffected.add(bricksTouched.get(1)); } } else if
+			 * (bricks.get(bricksTouched.get(0)).column != bricks
+			 * .get(bricksTouched.get(2)).column) { if
+			 * (bricks.get(bricksTouched.get(0)).row != bricks
+			 * .get(bricksTouched.get(2)).row) {
+			 * bricksAffected.add(bricksTouched.get(0));
+			 * bricksAffected.add(bricksTouched.get(2)); } } else if
+			 * (bricks.get(bricksTouched.get(1)).column != bricks
+			 * .get(bricksTouched.get(2)).column) { if
+			 * (bricks.get(bricksTouched.get(1)).row != bricks
+			 * .get(bricksTouched.get(2)).row) {
+			 * bricksAffected.add(bricksTouched.get(1));
+			 * bricksAffected.add(bricksTouched.get(2)); } } }
+			 */
 			bricksAffected.add(bricksTouched.get(0));
 			bricksAffected.add(bricksTouched.get(1));
 			bricksAffected.add(bricksTouched.get(2));
@@ -817,7 +854,7 @@ public class World {
 					ballsLeft -= 1;
 					ballReady = false;
 				}
-				
+
 				// Log.d("World:checkBallCollisionsWithBricks",
 				// "A collision with a ceiling brick just happened!");
 				// the bricks on the floor will shift down
@@ -868,6 +905,15 @@ public class World {
 	private void checkGameOver() {
 		if (ballsLeft < 1) {
 			state = WORLD_STATE_GAME_OVER;
+		}
+	}
+
+	public void showGridContent() {
+		for (int y = 0; y < GRID_ROWS; y++) {
+			Log.d("World:showGridConent", grid[0][y] + " " + grid[1][y] + " "
+					+ grid[2][y] + " " + grid[3][y] + " " + grid[4][y] + " "
+					+ grid[5][y] + " " + grid[6][y] + " " + grid[7][y] + " "
+					+ grid[8][y] + " " + grid[9][y]);
 		}
 	}
 }
