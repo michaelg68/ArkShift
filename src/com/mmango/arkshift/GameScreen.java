@@ -109,14 +109,14 @@ public class GameScreen extends GLScreen {
 		// screen!
 		pauseBounds = new Rectangle(RESOLUTION_X - 23 - 128,
 				RESOLUTION_Y - 75 - 64, BUTTON_PAUSE_SIDE, BUTTON_PAUSE_SIDE);
-		resumeBounds = new Rectangle(RESOLUTION_X / 2 - 128, 1400 - 128, 512,
+		resumeBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256, 1400 - 128, 768,
 				256);
-		controlBounds = new Rectangle(RESOLUTION_X / 2 - 128, 1400 - 128 - 256,
-				512, 256);
-		soundBounds = new Rectangle(RESOLUTION_X / 2 - 128,
-				1400 - 128 - 256 * 2, 512, 256);
-		quitBounds = new Rectangle(RESOLUTION_X / 2 - 128,
-				1400 - 128 - 256 * 3, 512, 256);
+		controlBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256, 1400 - 128 - 256,
+				768, 256);
+		soundBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256,
+				1400 - 128 - 256 * 2, 768, 256);
+		quitBounds = new Rectangle(RESOLUTION_X / 2 - 128 - 256,
+				1400 - 128 - 256 * 3, 768, 256);
 
 		touchPoint = new Vector2();
 
