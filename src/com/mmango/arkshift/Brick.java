@@ -95,9 +95,9 @@ public class Brick {
 		}
 
 
-		x = World.FRAME_WIDTH_X + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
+		x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
 		y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
-				- World.FRAME_WIDTH_Y - BRICK_WIDTH / 2 - BRICK_WIDTH
+				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
 				* (float) row;
 
 		/*
@@ -126,9 +126,9 @@ public class Brick {
 		if (state == BRICK_STATE_SHIFTING_UP_TO_FLOOR) {
 			position.add(0, velocity.y * deltaTime * 2);
 			if (position.y > World.WORLD_HEIGHT
-					- World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH_Y
+					- World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH
 					+ BRICK_HEIGHT / 2) {
-				position.y = World.FRAME_WIDTH_Y - BRICK_HEIGHT / 2;
+				position.y = World.FRAME_WIDTH - BRICK_HEIGHT / 2;
 				jumpedToFloor = true;
 			}
 			if ((position.y > yDestination) && jumpedToFloor) {
@@ -148,9 +148,9 @@ public class Brick {
 
 		if (state == BRICK_STATE_SHIFTING_DOWN_TO_CEILING) {
 			position.add(0, -velocity.y * deltaTime * 2);
-			if (position.y < World.FRAME_WIDTH_Y - BRICK_HEIGHT / 2) {
+			if (position.y < World.FRAME_WIDTH - BRICK_HEIGHT / 2) {
 				position.y = World.WORLD_HEIGHT
-						- World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH_Y
+						- World.NOTIFICATION_AREA_HEIGHT - World.FRAME_WIDTH
 						+ BRICK_HEIGHT / 2;
 				jumpedToCeiling = true;
 			}
@@ -180,10 +180,10 @@ public class Brick {
 		this.row = row;
 		if (atCeiling) {
 			yDestination = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
-					- World.FRAME_WIDTH_Y - BRICK_WIDTH / 2 - BRICK_WIDTH
+					- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
 					* (float) row;
 		} else {
-			yDestination = World.FRAME_WIDTH_Y + BRICK_WIDTH / 2 + BRICK_HEIGHT
+			yDestination = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_HEIGHT
 					* (float) row;
 		}
 		// Log.d("Brick", "yDestination = " + yDestination);
