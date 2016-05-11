@@ -62,7 +62,7 @@ public class World {
 	public static final int RACQUET_MOVING_LEFT = 0;
 	public static final int RACQUET_MOVING_RIGHT = 1;
 	public static final int COLUMNS = 10;
-	public static final int NO_OBJECT_ID = 99999; // an empty cell
+	public static final int NO_OBJECT_ID = 999; // an empty cell
 
 	public final static int NO_COLLISION = 0;
 	public final static int COLLISION_WITH_X = 1;
@@ -86,7 +86,7 @@ public class World {
 	public int lastCeilingBrickId;
 	public int[][] floorBricksId;
 
-	public static float CELL_SIZE = Brick.BRICK_WIDTH;
+	public static float CELL_SIZE = Brick.BRICK_WIDTH; // 10.4f
 	public static int GRID_COLUMNS = Math.round(GAME_FIELD_WIDTH / CELL_SIZE); // 1040/104
 																				// =
 																				// 10
@@ -112,7 +112,7 @@ public class World {
 		gameField = new Rectangle(FRAME_WIDTH_X, FRAME_WIDTH_Y,
 				GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
 
-		// populate the grid 10x17 with NO_OBJECT_ID (99999)
+		// populate the grid 10x17 with NO_OBJECT_ID (999)
 		for (int x = 0; x < GRID_COLUMNS; x++) {
 			for (int y = 0; y < GRID_ROWS; y++) {
 				grid[x][y] = NO_OBJECT_ID;
@@ -143,7 +143,7 @@ public class World {
 				Ball.BALL_COLOR_WHITE);
 		this.bricks = new ArrayList<Brick>();
 		this.bricksCeiling = new ArrayList<Brick>();
-		this.lastCeilingBrickId = 9999;
+		this.lastCeilingBrickId = NO_OBJECT_ID;
 		// this.floorBricks = new ArrayList<Brick>();
 		this.listener = listener;
 
@@ -175,7 +175,7 @@ public class World {
 				grid[x][y] = brickId;
 
 				brickId++;
-				// populate the floorBricksId array with 99999 which stands for
+				// populate the floorBricksId array with 999 which stands for
 				// "there is no brick"
 				floorBricksId[x][y] = NO_OBJECT_ID;
 
@@ -383,40 +383,68 @@ public class World {
 		// prepare the list of the cells in the grid which may be affected by
 		// the ball
 		// find the cell where the center of the ball is
-/*		int ballCellX = (int) Math.floor(ball.bounds.center.x - FRAME_WIDTH_X
+		int ballCellX = (int) Math.floor((ball.bounds.center.x - FRAME_WIDTH_X)
 				/ CELL_SIZE);
+		if (ballCellX < 0) {
+			ballCellX = 0; 
+		} else if (ballCellX > GRID_COLUMNS - 1) {
+			ballCellX = GRID_COLUMNS - 1;
+		}
 		int ballCellY = GRID_ROWS
 				- 1
-				- (int) Math.floor(ball.bounds.center.y - FRAME_WIDTH_Y
+				- (int) Math.floor((ball.bounds.center.y - FRAME_WIDTH_Y)
 						/ CELL_SIZE);
-
+		if (ballCellY < 0) {
+			ballCellY = 0; 
+		} else if (ballCellY > GRID_ROWS - 1) {
+			ballCellY = GRID_ROWS - 1;
+		}
 		
+		
+		Log.d("World:checkBallCollisionsWithBricks", "ball.bounds.center.x = "
+				+ ball.bounds.center.x + " ball.bounds.center.y = "
+				+ ball.bounds.center.y);
+		Log.d("World:checkBallCollisionsWithBricks", "ballCellX = " + ballCellX
+				+ " ballCellY = " + ballCellY);
+		
+		//prepare the Int list which includes the If of the cell where the ball center is and all the bordering cells.
 		List<Integer> cellsAffected = new ArrayList<Integer>();
 		cellsAffected.add(grid[ballCellX][ballCellY]);
 		if (ballCellX > 0) {
 			cellsAffected.add(grid[ballCellX - 1][ballCellY]);
-			
-			
 		}
 		if (ballCellY > 0)
 			cellsAffected.add(grid[ballCellX][ballCellY - 1]);
 		if ((ballCellX > 0) && (ballCellY > 0))
 			cellsAffected.add(grid[ballCellX - 1][ballCellY - 1]);
-		if ((ballCellX < GRID_COLUMNS - 1) )
+		if ((ballCellX < GRID_COLUMNS - 1))
 			cellsAffected.add(grid[ballCellX + 1][ballCellY]);
-		if ((ballCellY < GRID_ROWS - 1) )
-			cellsAffected.add(grid[ballCellX][ballCellY + 1]);*/
+		if ((ballCellX < GRID_COLUMNS - 1) && (ballCellY > 0))
+			cellsAffected.add(grid[ballCellX + 1][ballCellY - 1]);
+		if ((ballCellY < GRID_ROWS - 1))
+			cellsAffected.add(grid[ballCellX][ballCellY + 1]);
+		if ((ballCellX > 0) && (ballCellY < GRID_ROWS - 1))
+			cellsAffected.add(grid[ballCellX - 1][ballCellY + 1]);
+		if ((ballCellX < GRID_COLUMNS - 1) && (ballCellY < GRID_ROWS - 1))
+			cellsAffected.add(grid[ballCellX + 1][ballCellY + 1]);
 
+		for (int i = 0; i < cellsAffected.size(); i++) {
+			Log.d("World:checkBallCollisionsWithBricks", "cellsAffected.get("
+					+ i + ") = " + cellsAffected.get(i));
+		}
 
 		// I must check if the collision happened with more than one
 		// brick!
 		// Hopefully this will help to solve the problem of ball swallowing by
 		// the bricks
 
-		for (int i = 0; i < bricksArraySize; i++) { // find all bricks which
-													// would overlap with the
+		for (int i = 0; i < cellsAffected.size(); i++) { // find all bricks from list cellsAffected
+													// would overlap the
 													// ball in the next move
-			Brick brick = bricks.get(i);
+			int id = cellsAffected.get(i);
+			if (id == NO_OBJECT_ID)
+				continue;
+			Brick brick = bricks.get(id);
 			if ((OverlapTester
 					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
 				bricksTouched.add(i);
@@ -433,8 +461,8 @@ public class World {
 			for (int k = 0; k < length; k++) {
 				Log.d("World:checkBallCollisionsWithBricks",
 						"brickID in bricks = " + bricksTouched.get(k));
-				Log.d("World:checkBallCollisionsWithBricks", "brick color = "
-						+ bricks.get(bricksTouched.get(k)).color);
+				//Log.d("World:checkBallCollisionsWithBricks", "brick color = "
+					//	+ bricks.get(bricksTouched.get(k)).color);
 				Log.d("World:checkBallCollisionsWithBricks", "brick column = "
 						+ bricks.get(bricksTouched.get(k)).column
 						+ " ;brick row = "
@@ -447,8 +475,7 @@ public class World {
 			// two bricks in the same row:
 			if (bricks.get(bricksTouched.get(0)).row == bricks
 					.get(bricksTouched.get(1)).row) {
-				Log.d("World:checkBallCollisionsWithBricks",
-						"Two bricks are in the same row. row = "
+				Log.d("World:checkBallCollisionsWithBricks","Two bricks are in the same row. row = "
 								+ bricks.get(bricksTouched.get(1)).row);
 
 				// find the brick whose center.x is closer to the ball's
