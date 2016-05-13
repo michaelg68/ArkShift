@@ -48,7 +48,7 @@ public class WorldRenderer {
         //that's so in order to get effect of shifting bricks under the frame 
 
         
-        batcher.beginBatch(Assets.gameScreenElements);
+        batcher.beginBatch(Assets.UIGameElements);
         renderRacquet();
         renderBall();
         renderBricks();

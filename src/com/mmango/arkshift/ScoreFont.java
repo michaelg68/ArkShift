@@ -18,19 +18,19 @@ public class ScoreFont {
 		this.glyphWidth = glyphWidth;  //128
 		this.glyphHeight = glyphHeight; //128
 
-		glyphs[0] =  new TextureRegion(texture, 1408, 1792, 128, 128  ); // 0
-		glyphs[1] =  new TextureRegion(texture, 2273, 1024, 128, 128 );
-		glyphs[2] =  new TextureRegion(texture, 3326, 0, 128, 128     );
-		glyphs[3] =  new TextureRegion(texture, 2855, 512, 128, 128  );
-		glyphs[4] =  new TextureRegion(texture, 2599, 768, 128, 128  );
-		glyphs[5] =  new TextureRegion(texture, 2273, 1152, 128, 128 );
-		glyphs[6] =  new TextureRegion(texture, 2401, 1024, 128, 128 );
-		glyphs[7] =  new TextureRegion(texture, 3326, 128, 128, 128  );
-		glyphs[8] =  new TextureRegion(texture, 3454, 0, 128, 128     );
-		glyphs[9] =  new TextureRegion(texture, 1803, 1662, 128, 128  ); // 9
-		glyphs[10] = new TextureRegion(texture, 2059, 1280, 128, 128   ); // scoreDot
-		glyphs[11] = new TextureRegion(texture, 2059, 1408, 128, 128   ); // scoreMinus
-		glyphs[12] = new TextureRegion(texture, 2187, 1280, 128, 128  ); // scoreNone
+		glyphs[0] =  new TextureRegion(texture, 1216, 765, 64, 64); // 0
+		glyphs[1] =  new TextureRegion(texture, 1098, 893, 64, 64);
+		glyphs[2] =  new TextureRegion(texture, 1675, 320, 64, 64);
+		glyphs[3] =  new TextureRegion(texture, 1931, 64, 64, 64);
+		glyphs[4] =  new TextureRegion(texture, 1739, 256, 64, 64);
+		glyphs[5] =  new TextureRegion(texture, 1867, 128, 64, 64);
+		glyphs[6] =  new TextureRegion(texture, 1803, 192, 64, 64);
+		glyphs[7] =  new TextureRegion(texture, 1548, 448, 64, 64);
+		glyphs[8] =  new TextureRegion(texture, 1612, 384, 64, 64);
+		glyphs[9] =  new TextureRegion(texture, 1484, 512, 64, 64); // 9
+		glyphs[10] = new TextureRegion(texture, 1280, 729, 64, 64); // scoreDot
+		glyphs[11] = new TextureRegion(texture, 1344, 665, 64, 64); // scoreMinus
+		glyphs[12] = new TextureRegion(texture, 1408, 601, 64, 64); // scoreNone
 
 	}
 

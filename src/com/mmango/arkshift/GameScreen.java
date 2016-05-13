@@ -447,7 +447,7 @@ public class GameScreen extends GLScreen {
 		guiCam.setViewportAndMatrices();
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		batcher.beginBatch(Assets.mainScreenUIElements);
+		batcher.beginBatch(Assets.UIGameElements);
 		switch (state) {
 		case GAME_READY:
 			presentReady();
@@ -482,7 +482,7 @@ public class GameScreen extends GLScreen {
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
 				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
-				Assets.alphaOverGameField1040x1730);
+				Assets.alphaOverGameField_60Opacity);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 454, 142,
 				Assets.readyMessage);
 	}
@@ -510,7 +510,7 @@ public class GameScreen extends GLScreen {
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
 				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
-				Assets.alphaOverGameField1040x1730);
+				Assets.alphaOverGameField_60Opacity);
 
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400, 512, 256,
 				Assets.mainMenuTextResume);
@@ -559,7 +559,7 @@ public class GameScreen extends GLScreen {
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
 				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
-				Assets.alphaOverGameField1040x1730);
+				Assets.alphaOverGameField_60Opacity);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 + 200, 481, 382,
 				Assets.levelPassedMessage);
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
@@ -576,7 +576,7 @@ public class GameScreen extends GLScreen {
 		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
 				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
-				Assets.alphaOverGameField1040x1730);
+				Assets.alphaOverGameField_60Opacity);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 + 200, 676, 144,
 				Assets.gameOverMessage);
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,

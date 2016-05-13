@@ -136,7 +136,7 @@ public class SelectLevelScreen extends GLScreen {
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
-		batcher.beginBatch(Assets.mainScreenUIElements);
+		batcher.beginBatch(Assets.UIGameElements);
 		batcher.drawSprite(RESOLUTION_X / 2, 1700, 796, 185,
 				Assets.selectLevelMessage);
 
