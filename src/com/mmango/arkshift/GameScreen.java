@@ -547,8 +547,7 @@ public class GameScreen extends GLScreen {
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 768, 256, 256,
 				Assets.mainMenuButtonHome);
 
-		// batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 700, 500,
-		// Assets.resumeQuitMenuRegion);
+
 	}
 
 	private void presentLevelEnd() {

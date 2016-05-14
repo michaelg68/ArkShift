@@ -35,7 +35,7 @@ public class Brick {
 	public static final int BRICK_COLOR_GREY = 4; //set the narrow/wide racquet
 	public static final int BRICK_COLOR_RED = 5;  //reset normal acceleration 
 	public static final int BRICK_COLOR_PINK = 6;
-	public static final int BRICK_COLOR_WHEAT = 7; 
+	public static final int BRICK_COLOR_BLUESKY = 7; 
 	public static final int BRICK_COLOR_VIOLET = 8;
 	public static final int BRICK_COLOR_PURPLE = 9;
 	
@@ -80,8 +80,8 @@ public class Brick {
 		case BRICK_COLOR_PINK:
 			brickTextureRegion = Assets.brickPink;
 			break;
-		case BRICK_COLOR_WHEAT:
-			brickTextureRegion = Assets.brickWheat;
+		case BRICK_COLOR_BLUESKY:
+			brickTextureRegion = Assets.brickBluesky;
 			break;
 		case BRICK_COLOR_VIOLET:
 			brickTextureRegion = Assets.brickViolet;

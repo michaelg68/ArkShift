@@ -39,7 +39,7 @@ public class Assets {
 	public static TextureRegion brickPurple;
 	public static TextureRegion brickRed;
 	public static TextureRegion brickViolet;
-	public static TextureRegion brickWheat;
+	//public static TextureRegion brickWheat;
 	public static TextureRegion buttonLevelEmpty;
 	public static TextureRegion buttonLevel1;
 	public static TextureRegion buttonLevel2;
@@ -105,7 +105,11 @@ public class Assets {
 	public static Texture gameScreenBackground;
 	public static TextureRegion gameScreenBackgroundRegion;
 
-
+	
+	public static Texture helpScreen1;
+	public static TextureRegion helpScreen1Region;
+	public static Texture helpScreen2;
+	public static TextureRegion helpScreen2Region;
 	//public static Music music;
 	public static Sound clickSound;
 	public static Sound racquetHitSound;
@@ -154,7 +158,7 @@ public class Assets {
 		brickPurple = new TextureRegion(UIGameElements, 1941, 32, 32, 32);
 		brickRed = new TextureRegion(UIGameElements, 1877, 96, 32, 32);
 		brickViolet = new TextureRegion(UIGameElements, 1909, 64, 32, 32);
-		brickWheat = new TextureRegion(UIGameElements, 1344, 634, 32, 32);
+		//brickWheat = new TextureRegion(UIGameElements, 1344, 634, 32, 32);
 		buttonLevelEmpty = new TextureRegion(UIGameElements, 1024, 210, 128, 128);
 		buttonLevel1 = new TextureRegion(UIGameElements, 1217, 58, 128, 128);
 		buttonLevel2 = new TextureRegion(UIGameElements, 1024, 338, 128, 128);
@@ -203,6 +207,11 @@ public class Assets {
 		scoreFont = new ScoreFont(UIGameElements, 128, 128);
 
 		
+		helpScreen1 = new Texture(game, "helpScreen1.png");
+		helpScreen1Region = new TextureRegion(helpScreen1, 0, 0, 1080, 1920);
+		helpScreen2 = new Texture(game, "helpScreen2.png");
+		helpScreen2Region = new TextureRegion(helpScreen2, 0, 0, 1080, 1920);
+		
 		gameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");
 		gameScreenBackgroundRegion = new TextureRegion(gameScreenBackground, 0,
 				0, 1080, 1920);
@@ -227,6 +236,8 @@ public class Assets {
 		mainScreenBackground.reload();
 		gameScreenBackground.reload();
 		UIGameElements.reload();
+		helpScreen1.reload();
+		helpScreen2.reload();
 		//highscoresScreenBackground.reload();
 		//gameFieldGreen.reload();
 		//selectLevelScreenElements.reload();

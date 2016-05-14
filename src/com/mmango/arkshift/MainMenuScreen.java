@@ -100,7 +100,7 @@ public class MainMenuScreen extends GLScreen {
 					Assets.playSound(Assets.clickSound);
 					Log.d("MainMenuScreen:update",
 							"helpBounds is touched. Opening HelpScreen");
-					// game.setScreen(new HelpScreen(game));
+					game.setScreen(new HelpScreen(game));
 					return;
 				}
 				/*
