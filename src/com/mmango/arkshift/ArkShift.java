@@ -3,6 +3,8 @@ package com.mmango.arkshift;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+
+import android.content.Intent;
 //import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -59,6 +61,14 @@ public class ArkShift extends GLGame {
 		if (!className.equals("GameScreen")) {
 			setScreen(new MainMenuScreen(this));
 		}
+	}
+	
+	private void shareIt() {
+		Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+		sharingIntent.setType("text/plain");
+		String shareBody = "Here is the share content body";
+		sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 	}
 
 }
