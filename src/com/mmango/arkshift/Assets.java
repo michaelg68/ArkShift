@@ -110,6 +110,8 @@ public class Assets {
 	public static TextureRegion helpScreen1Region;
 	public static Texture helpScreen2;
 	public static TextureRegion helpScreen2Region;
+	public static Texture helpScreen3;
+	public static TextureRegion helpScreen3Region;	
 	//public static Music music;
 	public static Sound clickSound;
 	public static Sound racquetHitSound;
@@ -211,6 +213,8 @@ public class Assets {
 		helpScreen1Region = new TextureRegion(helpScreen1, 0, 0, 1080, 1920);
 		helpScreen2 = new Texture(game, "helpScreen2.png");
 		helpScreen2Region = new TextureRegion(helpScreen2, 0, 0, 1080, 1920);
+		helpScreen3 = new Texture(game, "helpScreen3.png");
+		helpScreen3Region = new TextureRegion(helpScreen3, 0, 0, 1080, 1920);
 		
 		gameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");
 		gameScreenBackgroundRegion = new TextureRegion(gameScreenBackground, 0,
@@ -238,6 +242,7 @@ public class Assets {
 		UIGameElements.reload();
 		helpScreen1.reload();
 		helpScreen2.reload();
+		helpScreen3.reload();
 		//highscoresScreenBackground.reload();
 		//gameFieldGreen.reload();
 		//selectLevelScreenElements.reload();

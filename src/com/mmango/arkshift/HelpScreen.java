@@ -27,7 +27,7 @@ public class HelpScreen extends GLScreen {
 	
 	static final int SHOWING_SCREEN1 = 0;
 	static final int SHOWING_SCREEN2 = 1;
-	//int SHOWING_SCREEN3 = 3;
+	static final int SHOWING_SCREEN3 = 2;
 	int state;
 
 	public HelpScreen(Game game) {
@@ -63,7 +63,7 @@ public class HelpScreen extends GLScreen {
 					return;
 				} else  {
 					state++;
-					if (state > SHOWING_SCREEN2)
+					if (state > SHOWING_SCREEN3)
 						state = SHOWING_SCREEN1;
 					return;
 				}
@@ -95,6 +95,9 @@ public class HelpScreen extends GLScreen {
 		case SHOWING_SCREEN2:
 			presentHelpScreen2(deltaTime);
 			break;
+		case SHOWING_SCREEN3:
+			presentHelpScreen3(deltaTime);
+			break;
 		}
 
 		batcher.beginBatch(Assets.UIGameElements);
@@ -116,6 +119,12 @@ public class HelpScreen extends GLScreen {
 	public void presentHelpScreen2(float deltaTime) {
 		batcher.beginBatch(Assets.helpScreen2);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.helpScreen2Region);
+		batcher.endBatch();
+	}
+	
+	public void presentHelpScreen3(float deltaTime) {
+		batcher.beginBatch(Assets.helpScreen3);
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.helpScreen3Region);
 		batcher.endBatch();
 	}
 	
