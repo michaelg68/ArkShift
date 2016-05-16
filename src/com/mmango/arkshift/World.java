@@ -140,7 +140,7 @@ public class World {
 													// 8. not including 9 which
 													// is GOLD (an additional
 													// ball)
-				if (rand.nextFloat() > 0.99f) { // Approximately 1 brick of 100
+				if (rand.nextFloat() > 0.98f) { // Approximately 1 brick of 100
 												// will be gold
 					// hitting a gold brick will bring an extra ball
 					brick_color = Brick.BRICK_COLOR_GOLD;
@@ -672,6 +672,7 @@ public class World {
 			// int row = brick.row;
 
 			// customize gameplay
+			boolean hitGold = false;
 
 			switch (brick.color) {
 			case Brick.BRICK_COLOR_PURPLE:
@@ -721,11 +722,15 @@ public class World {
 				score += 1 * scoringSign;
 				break;
 			case Brick.BRICK_COLOR_GOLD:
+				hitGold = true;
 				score += 7 * scoringSign;
-				if (brick.atCeiling) {
-					ballsLeft += 1; // add an extra ball and color it in yellow
-					ball.setBallColor(Ball.BALL_COLOR_YELLOW);
-				}
+				// if (brick.atCeiling) {
+				// when hitting the gold brick even if on the ceiling add a ball and change the color from gold to random
+				ballsLeft += 1; // add an extra ball and color it in yellow
+				ball.setBallColor(Ball.BALL_COLOR_YELLOW);
+				ball.ballAccel = Ball.BALL_NORMAL_ACCELL; // restore the normal ball's acceleration
+				brick.setColor(rand.nextInt(9)); //select a random color instead of Gold 
+				// }
 				break;
 			default:
 				score += 0 * scoringSign;
@@ -782,11 +787,10 @@ public class World {
 				if (ballReady) {
 					ballsLeft -= 1;
 					// when a ball is lost:
-					ball.ballAccel = Ball.BALL_NORMAL_ACCELL; // restore the
-																// normal ball's
-																// acceleration
-					ball.setBallColor(Ball.BALL_COLOR_WHITE); // restore the
-																// color of ball
+					ball.ballAccel = Ball.BALL_NORMAL_ACCELL; // restore the normal ball's acceleration
+					if (!hitGold) {
+					   ball.setBallColor(Ball.BALL_COLOR_WHITE); // restore the color of ball
+					}
 					ballReady = false;
 				}
 

@@ -66,25 +66,25 @@ public class GameScreen extends GLScreen {
 		this.level = level;
 		switch (level) {
 		case 1:
-			balls = 1;
+			balls = 2;
 			break;
 		case 2:
-			balls = 1;
+			balls = 2;
 			break;
 		case 3:
-			balls = 2;
+			balls = 3;
 			break;
 		case 4:
-			balls = 2;
+			balls = 3;
 			break;
 		case 5:
-			balls = 3;
+			balls = 4;
 			break;
 		case 6:
-			balls = 3;
+			balls = 4;
 			break;
 		case 7:
-			balls = 4;
+			balls = 5;
 			break;
 		case 8:
 			balls = 5;

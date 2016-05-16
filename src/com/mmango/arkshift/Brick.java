@@ -59,7 +59,35 @@ public class Brick {
 		this.color = color;
 		
 		
-		switch (this.color) {
+		setTextureRegion(this.color);
+
+		x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
+		y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
+				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
+				* (float) row;
+
+		/*
+		 * x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float)
+		 * column; y = World.WORLD_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2
+		 * - BRICK_WIDTH (float) row;
+		 */
+		// super(x, y, BRICK_WIDTH, BRICK_WIDTH);
+		velocity = new Vector2();
+		accel = new Vector2();
+		this.position = new Vector2(x, y);
+		this.bounds = new Rectangle(position.x - BRICK_WIDTH / 2, position.y
+				- BRICK_HEIGHT / 2, BRICK_WIDTH, BRICK_HEIGHT);
+		// all objects will be created at ceiling.
+		atCeiling = true;
+		state = BRICK_STATE_STILL;
+		stateTime = 0;
+		// bounds.lowerLeft.set(position).sub(BRICK_WIDTH / 2, BRICK_WIDTH / 2);
+		jumpedToFloor = false;
+	}
+
+	
+	public void setTextureRegion(int color){
+		switch (color) {
 		case BRICK_COLOR_GOLD:
 			brickTextureRegion = Assets.brickGold;
 			break;
@@ -94,32 +122,8 @@ public class Brick {
 			brickTextureRegion = Assets.brickGrey;
 			break;
 		}
-
-
-		x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
-		y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
-				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
-				* (float) row;
-
-		/*
-		 * x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float)
-		 * column; y = World.WORLD_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2
-		 * - BRICK_WIDTH (float) row;
-		 */
-		// super(x, y, BRICK_WIDTH, BRICK_WIDTH);
-		velocity = new Vector2();
-		accel = new Vector2();
-		this.position = new Vector2(x, y);
-		this.bounds = new Rectangle(position.x - BRICK_WIDTH / 2, position.y
-				- BRICK_HEIGHT / 2, BRICK_WIDTH, BRICK_HEIGHT);
-		// all objects will be created at ceiling.
-		atCeiling = true;
-		state = BRICK_STATE_STILL;
-		stateTime = 0;
-		// bounds.lowerLeft.set(position).sub(BRICK_WIDTH / 2, BRICK_WIDTH / 2);
-		jumpedToFloor = false;
 	}
-
+	
 	public void update(float deltaTime) {
 		// position.x = xNew;
 		velocity.set(0, BRICK_VELOCITY);
@@ -189,6 +193,11 @@ public class Brick {
 		}
 		// Log.d("Brick", "yDestination = " + yDestination);
 
+	}
+	
+	public void setColor(int color) {
+		this.color = color;
+		setTextureRegion(this.color);
 	}
 
 }

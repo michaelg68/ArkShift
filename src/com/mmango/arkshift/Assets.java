@@ -131,7 +131,7 @@ public class Assets {
 		mainScreenBackground = new Texture(game, "background_ui.jpg");
 		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,	0, 1080, 1920);
 		
-		UIGameElements = new Texture(game, "atlas.png");
+		UIGameElements = new Texture(game, "atlas_1.png");
 		alphaOverGameField_60Opacity = new TextureRegion(UIGameElements, 953, 0, 67, 111);
 		mainMenuLogo = new TextureRegion(UIGameElements, 0, 0, 625, 194);
 		ballRed = new TextureRegion(UIGameElements, 894, 58, 32, 32);
@@ -151,8 +151,10 @@ public class Assets {
 		//fontBebasneue64x64White = new TextureRegion(UIGameElements, 0, 194, 512, 512);
 		brickBlue = new TextureRegion(UIGameElements, 1216, 722, 32, 32);
 		brickBluesky = new TextureRegion(UIGameElements, 1877, 64, 32, 32);
-		brickGold = new TextureRegion(UIGameElements, 1941, 0, 32, 32);
-		brickGreen = new TextureRegion(UIGameElements, 1248, 722, 32, 32);
+		//brickGold = new TextureRegion(UIGameElements, 1941, 0, 32, 32);  //plain gold
+		//brickGold = new TextureRegion(UIGameElements, 1089, 915, 32, 32); //gold with blue crown
+		brickGold = new TextureRegion(UIGameElements, 1089, 948, 32, 32); //gold with pink crown
+		brickGreen = new TextureRegion(UIGameElements, 1248, 722, 32, 32);   
 		brickGrey = new TextureRegion(UIGameElements, 1216, 754, 32, 32);
 		brickLightviolet = new TextureRegion(UIGameElements, 1152, 818, 32, 32);
 		brickOrange = new TextureRegion(UIGameElements, 1184, 786, 32, 32);
