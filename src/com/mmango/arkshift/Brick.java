@@ -28,16 +28,16 @@ public class Brick {
 	public final Vector2 accel;
 	public boolean atCeiling;
 
-	public static final int BRICK_COLOR_GOLD = 0;
-	public static final int BRICK_COLOR_GREEN = 1;  //set double acceleration until a red brick is hit
-	public static final int BRICK_COLOR_BLUE = 2;   //
-	public static final int BRICK_COLOR_ORANGE = 3;
-	public static final int BRICK_COLOR_GREY = 4; //set the narrow/wide racquet
-	public static final int BRICK_COLOR_RED = 5;  //reset normal acceleration 
-	public static final int BRICK_COLOR_PINK = 6;
-	public static final int BRICK_COLOR_BLUESKY = 7; 
-	public static final int BRICK_COLOR_VIOLET = 8;
-	public static final int BRICK_COLOR_PURPLE = 9;
+	public static final int BRICK_COLOR_GOLD = 0; // 7  points
+	public static final int BRICK_COLOR_GREEN = 1;  //5 points, reset the normal acceleration and changes the ball color to white
+	public static final int BRICK_COLOR_BLUE = 2;   // 3 points
+	public static final int BRICK_COLOR_ORANGE = 3; // 6 points
+	public static final int BRICK_COLOR_GREY = 4; //5 points set the narrow/wide racquet
+	public static final int BRICK_COLOR_RED = 5;  //5 points. set the double acceleration and changes the ball color to red until a green brick is hit  
+	public static final int BRICK_COLOR_PINK = 6; // 6 points
+	public static final int BRICK_COLOR_BLUESKY = 7;  // 4 points
+	public static final int BRICK_COLOR_VIOLET = 8; // 1 point
+	public static final int BRICK_COLOR_PURPLE = 9; // 2 point
 	
 	public int color;
 	public TextureRegion brickTextureRegion;

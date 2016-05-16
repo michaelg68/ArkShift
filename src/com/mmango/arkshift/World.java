@@ -187,7 +187,7 @@ public class World {
 
 	private void updateBall(float deltaTime) {
 		ball.update(deltaTime);
-		if (ballsLeft < 1)  // if no more balls then game is over
+		if (ballsLeft < 1) // if no more balls then game is over
 			state = WORLD_STATE_GAME_OVER;
 	}
 
@@ -228,7 +228,8 @@ public class World {
 			ball.position.y = FRAME_WIDTH + GAME_FIELD_HEIGHT
 					- Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
-			ballReady =  true; //if the frame top border is hit then consider the ball ready
+			ballReady = true; // if the frame top border is hit then consider
+								// the ball ready
 
 		} else if (breaktrhough == FRAME_BOTTOM_BORDER_ID) {
 			listener.hitAtFrame();
@@ -347,8 +348,7 @@ public class World {
 
 		// int b = 0;
 		int length = 0;
-		Log.d("World:checkBallCollisionsWithBricks",
-				"----");
+		Log.d("World:checkBallCollisionsWithBricks", "----");
 
 		// first I must check if the collision happened with more than one
 		// brick!
@@ -362,9 +362,9 @@ public class World {
 			if ((OverlapTester
 					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
 				bricksTouched.add(i);
-				
-				//temporary, to test the level passed situation:
-				//state = WORLD_STATE_NEXT_LEVEL;
+
+				// temporary, to test the level passed situation:
+				// state = WORLD_STATE_NEXT_LEVEL;
 			}
 		}
 
@@ -528,30 +528,27 @@ public class World {
 					"Three bricks would be overlaped. This is a kind of IN-CORNER collision");
 			// find the two bricks which are in different columns and rows. the
 			// third one will be ignored
-/*			for (int b = 0; b < 3; b++) {
-				if (bricks.get(bricksTouched.get(0)).column != bricks
-						.get(bricksTouched.get(1)).column) {
-					if (bricks.get(bricksTouched.get(0)).row != bricks
-							.get(bricksTouched.get(1)).row) {
-						bricksAffected.add(bricksTouched.get(0));
-						bricksAffected.add(bricksTouched.get(1));
-					}
-				} else if (bricks.get(bricksTouched.get(0)).column != bricks
-						.get(bricksTouched.get(2)).column) {
-					if (bricks.get(bricksTouched.get(0)).row != bricks
-							.get(bricksTouched.get(2)).row) {
-						bricksAffected.add(bricksTouched.get(0));
-						bricksAffected.add(bricksTouched.get(2));
-					}
-				} else if (bricks.get(bricksTouched.get(1)).column != bricks
-						.get(bricksTouched.get(2)).column) {
-					if (bricks.get(bricksTouched.get(1)).row != bricks
-							.get(bricksTouched.get(2)).row) {
-						bricksAffected.add(bricksTouched.get(1));
-						bricksAffected.add(bricksTouched.get(2));
-					}
-				}
-			}*/
+			/*
+			 * for (int b = 0; b < 3; b++) { if
+			 * (bricks.get(bricksTouched.get(0)).column != bricks
+			 * .get(bricksTouched.get(1)).column) { if
+			 * (bricks.get(bricksTouched.get(0)).row != bricks
+			 * .get(bricksTouched.get(1)).row) {
+			 * bricksAffected.add(bricksTouched.get(0));
+			 * bricksAffected.add(bricksTouched.get(1)); } } else if
+			 * (bricks.get(bricksTouched.get(0)).column != bricks
+			 * .get(bricksTouched.get(2)).column) { if
+			 * (bricks.get(bricksTouched.get(0)).row != bricks
+			 * .get(bricksTouched.get(2)).row) {
+			 * bricksAffected.add(bricksTouched.get(0));
+			 * bricksAffected.add(bricksTouched.get(2)); } } else if
+			 * (bricks.get(bricksTouched.get(1)).column != bricks
+			 * .get(bricksTouched.get(2)).column) { if
+			 * (bricks.get(bricksTouched.get(1)).row != bricks
+			 * .get(bricksTouched.get(2)).row) {
+			 * bricksAffected.add(bricksTouched.get(1));
+			 * bricksAffected.add(bricksTouched.get(2)); } } }
+			 */
 			bricksAffected.add(bricksTouched.get(0));
 			bricksAffected.add(bricksTouched.get(1));
 			bricksAffected.add(bricksTouched.get(2));
@@ -681,12 +678,9 @@ public class World {
 		for (int i = 0; i < bricksAffected.size(); i++) {
 			Brick brick = bricks.get(bricksAffected.get(i));
 			listener.hitAtBrick();
-			int scoringSign = (brick.atCeiling) ? 1 : -2; // if the ceiling
-															// brick hit
-															// then we
-															// increase the
-															// score; else -
-															// decrease;
+			// if the ceiling brick is hit then we increase the score; else -
+			// decrease;
+			int scoringSign = (brick.atCeiling) ? 1 : -1;
 
 			int column = brick.column;
 			// int row = brick.row;
@@ -694,16 +688,8 @@ public class World {
 			// customize gameplay
 
 			switch (brick.color) {
-			case Brick.BRICK_COLOR_RED: // if a red brick hit then
-										// DOUBLE the ball acceleration.
-										// Also set the
-										// ball color to RED
-				if (ball.ballAccel == Ball.BALL_NORMAL_ACCELL) {
-					ball.ballAccel = Ball.BALL_DOUBLE_ACCELL;
-					ball.setBallColor(Ball.BALL_COLOR_RED);
-				}
-
-				score += 2 * scoringSign;
+			case Brick.BRICK_COLOR_GOLD:
+				score += 7 * scoringSign;
 				break;
 			case Brick.BRICK_COLOR_GREEN: // if a green brick hit then
 				// restore the NORMAL ball acceleration. Also set the
@@ -712,22 +698,40 @@ public class World {
 					ball.ballAccel = Ball.BALL_NORMAL_ACCELL;
 					ball.setBallColor(Ball.BALL_COLOR_WHITE);
 				}
-
-				score += 2 * scoringSign;
+				score += 5 * scoringSign;
+				break;
+			case Brick.BRICK_COLOR_BLUE:
+				score += 3 * scoringSign;
+				break;
+			case Brick.BRICK_COLOR_ORANGE:
+				score += 6 * scoringSign;
 				break;
 
-			case Brick.BRICK_COLOR_GREY: // if a grey brick was hit then
-											// switch the racquet width
-											// between normal/narrow
-				racquet.racquetWidth = (racquet.racquetWidth == Racquet.RACQUET_WIDTH_NORMAL) ? Racquet.RACQUET_WIDTH_NARROW
-						: Racquet.RACQUET_WIDTH_NORMAL;
-				score += 2 * scoringSign;
-				break;
-
-			default:
+			case Brick.BRICK_COLOR_RED: // if a red brick hit then
+										// DOUBLE the ball acceleration.
+										// Also set the
+										// ball color to RED
+				if (ball.ballAccel == Ball.BALL_NORMAL_ACCELL) {
+					ball.ballAccel = Ball.BALL_DOUBLE_ACCELL;
+					ball.setBallColor(Ball.BALL_COLOR_RED);
+				}
 				score += 1 * scoringSign;
 				break;
-
+			case Brick.BRICK_COLOR_PINK:
+				score += 6 * scoringSign;
+				break;
+			case Brick.BRICK_COLOR_BLUESKY:
+				score += 4 * scoringSign;
+				break;
+			case Brick.BRICK_COLOR_VIOLET:
+				score += 1 * scoringSign;
+				break;
+			case Brick.BRICK_COLOR_PURPLE:
+				score += 2 * scoringSign;
+				break;
+			default:
+				score += 0 * scoringSign;
+				break;
 			}
 
 			// We do not care which brick in the column was hit,
@@ -794,7 +798,7 @@ public class World {
 					ballsLeft -= 1;
 					ballReady = false;
 				}
-				
+
 				// Log.d("World:checkBallCollisionsWithBricks",
 				// "A collision with a ceiling brick just happened!");
 				// the bricks on the floor will shift down
