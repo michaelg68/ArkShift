@@ -88,7 +88,7 @@ public class World {
 	public int level = 1;
 	public int bricksArraySize;
 
-	public World(WorldListener listener, int level) {
+	public World(WorldListener listener, int level, int balls) {
 		this.level = level;
 
 		gameField = new Rectangle(FRAME_WIDTH, FRAME_WIDTH, GAME_FIELD_WIDTH,
@@ -122,7 +122,7 @@ public class World {
 		// this.floorBricks = new ArrayList<Brick>();
 		this.listener = listener;
 
-		ballsLeft = 5;
+		ballsLeft = balls;
 		this.score = 0;
 		this.state = WORLD_STATE_RUNNING;
 		generateLevel(COLUMNS, level);
@@ -136,7 +136,16 @@ public class World {
 			// Log.d("World", "y = " + Integer.toString(y));
 			for (int x = 0; x < columns; x++) {
 				// Log.d("World", "x = " + Integer.toString(x));
-				int brick_color = rand.nextInt(10);
+				int brick_color = rand.nextInt(9); // generate colors from 0 to
+													// 8. not including 9 which
+													// is GOLD (an additional
+													// ball)
+				if (rand.nextFloat() > 0.99f) { // Approximately 1 brick of 100
+												// will be gold
+					// hitting a gold brick will bring an extra ball
+					brick_color = Brick.BRICK_COLOR_GOLD;
+				}
+
 				// Log.d("World", "brick_color = " +
 				// Integer.toString(brick_color));
 
@@ -348,7 +357,7 @@ public class World {
 
 		// int b = 0;
 		int length = 0;
-		Log.d("World:checkBallCollisionsWithBricks", "----");
+		// Log.d("World:checkBallCollisionsWithBricks", "----");
 
 		// first I must check if the collision happened with more than one
 		// brick!
@@ -370,28 +379,28 @@ public class World {
 
 		length = bricksTouched.size();
 		if (length == 2) { // I expect it be not more than 2
-			Log.d("World:checkBallCollisionsWithBricks",
-					"More that one Bricks are touched! length = " + length);
-			for (int k = 0; k < length; k++) {
-				Log.d("World:checkBallCollisionsWithBricks",
-						"brickID in bricks = " + bricksTouched.get(k));
-				Log.d("World:checkBallCollisionsWithBricks", "brick color = "
-						+ bricks.get(bricksTouched.get(k)).color);
-				Log.d("World:checkBallCollisionsWithBricks", "brick column = "
-						+ bricks.get(bricksTouched.get(k)).column
-						+ " ;brick row = "
-						+ bricks.get(bricksTouched.get(k)).row);
-				Log.d("World:checkBallCollisionsWithBricks", "brick x = "
-						+ bricks.get(bricksTouched.get(k)).x + " ;brick y = "
-						+ bricks.get(bricksTouched.get(k)).y);
-			}
+			// Log.d("World:checkBallCollisionsWithBricks",
+			// "More that one Bricks are touched! length = " + length);
+			// for (int k = 0; k < length; k++) {
+			// Log.d("World:checkBallCollisionsWithBricks",
+			// "brickID in bricks = " + bricksTouched.get(k));
+			// Log.d("World:checkBallCollisionsWithBricks", "brick color = "
+			// + bricks.get(bricksTouched.get(k)).color);
+			// Log.d("World:checkBallCollisionsWithBricks", "brick column = "
+			// + bricks.get(bricksTouched.get(k)).column
+			// + " ;brick row = "
+			// + bricks.get(bricksTouched.get(k)).row);
+			// Log.d("World:checkBallCollisionsWithBricks", "brick x = "
+			// + bricks.get(bricksTouched.get(k)).x + " ;brick y = "
+			// + bricks.get(bricksTouched.get(k)).y);
+			// }
 
 			// two bricks in the same row:
 			if (bricks.get(bricksTouched.get(0)).row == bricks
 					.get(bricksTouched.get(1)).row) {
-				Log.d("World:checkBallCollisionsWithBricks",
-						"Two bricks are in the same row. row = "
-								+ bricks.get(bricksTouched.get(1)).row);
+				// Log.d("World:checkBallCollisionsWithBricks",
+				// "Two bricks are in the same row. row = "
+				// + bricks.get(bricksTouched.get(1)).row);
 
 				// find the brick whose center.x is closer to the ball's
 				// center.x
@@ -427,9 +436,9 @@ public class World {
 			// two bricks in the same column:
 			if (bricks.get(bricksTouched.get(0)).column == bricks
 					.get(bricksTouched.get(1)).column) {
-				Log.d("World:checkBallCollisionsWithBricks",
-						"Two bricks are in the same column. column = "
-								+ bricks.get(bricksTouched.get(1)).column);
+				// Log.d("World:checkBallCollisionsWithBricks",
+				// "Two bricks are in the same column. column = "
+				// + bricks.get(bricksTouched.get(1)).column);
 
 				// find the brick whose center.y is closer to the ball's
 				// center.y
@@ -524,31 +533,8 @@ public class World {
 			}
 
 		} else if (bricksTouched.size() == 3) {
-			Log.d("World:checkBallCollisionsWithBricks",
-					"Three bricks would be overlaped. This is a kind of IN-CORNER collision");
-			// find the two bricks which are in different columns and rows. the
-			// third one will be ignored
-			/*
-			 * for (int b = 0; b < 3; b++) { if
-			 * (bricks.get(bricksTouched.get(0)).column != bricks
-			 * .get(bricksTouched.get(1)).column) { if
-			 * (bricks.get(bricksTouched.get(0)).row != bricks
-			 * .get(bricksTouched.get(1)).row) {
-			 * bricksAffected.add(bricksTouched.get(0));
-			 * bricksAffected.add(bricksTouched.get(1)); } } else if
-			 * (bricks.get(bricksTouched.get(0)).column != bricks
-			 * .get(bricksTouched.get(2)).column) { if
-			 * (bricks.get(bricksTouched.get(0)).row != bricks
-			 * .get(bricksTouched.get(2)).row) {
-			 * bricksAffected.add(bricksTouched.get(0));
-			 * bricksAffected.add(bricksTouched.get(2)); } } else if
-			 * (bricks.get(bricksTouched.get(1)).column != bricks
-			 * .get(bricksTouched.get(2)).column) { if
-			 * (bricks.get(bricksTouched.get(1)).row != bricks
-			 * .get(bricksTouched.get(2)).row) {
-			 * bricksAffected.add(bricksTouched.get(1));
-			 * bricksAffected.add(bricksTouched.get(2)); } } }
-			 */
+			// Log.d("World:checkBallCollisionsWithBricks",
+			// "Three bricks would be overlaped. This is a kind of IN-CORNER collision");
 			bricksAffected.add(bricksTouched.get(0));
 			bricksAffected.add(bricksTouched.get(1));
 			bricksAffected.add(bricksTouched.get(2));
@@ -688,8 +674,8 @@ public class World {
 			// customize gameplay
 
 			switch (brick.color) {
-			case Brick.BRICK_COLOR_GOLD:
-				score += 7 * scoringSign;
+			case Brick.BRICK_COLOR_PURPLE:
+				score += 2 * scoringSign;
 				break;
 			case Brick.BRICK_COLOR_GREEN: // if a green brick hit then
 				// restore the NORMAL ball acceleration. Also set the
@@ -706,14 +692,22 @@ public class World {
 			case Brick.BRICK_COLOR_ORANGE:
 				score += 6 * scoringSign;
 				break;
-
+			case Brick.BRICK_COLOR_GREY: // if a grey brick was hit then
+				// switch the racquet width
+				// between normal/narrow
+				racquet.racquetWidth = (racquet.racquetWidth == Racquet.RACQUET_WIDTH_NORMAL) ? Racquet.RACQUET_WIDTH_NARROW
+						: Racquet.RACQUET_WIDTH_NORMAL;
+				score += 2 * scoringSign;
+				break;
 			case Brick.BRICK_COLOR_RED: // if a red brick hit then
 										// DOUBLE the ball acceleration.
 										// Also set the
 										// ball color to RED
-				if (ball.ballAccel == Ball.BALL_NORMAL_ACCELL) {
-					ball.ballAccel = Ball.BALL_DOUBLE_ACCELL;
-					ball.setBallColor(Ball.BALL_COLOR_RED);
+				if (brick.atCeiling) {
+					if (ball.ballAccel == Ball.BALL_NORMAL_ACCELL) {
+						ball.ballAccel = Ball.BALL_DOUBLE_ACCELL;
+						ball.setBallColor(Ball.BALL_COLOR_RED);
+					}
 				}
 				score += 1 * scoringSign;
 				break;
@@ -726,8 +720,12 @@ public class World {
 			case Brick.BRICK_COLOR_VIOLET:
 				score += 1 * scoringSign;
 				break;
-			case Brick.BRICK_COLOR_PURPLE:
-				score += 2 * scoringSign;
+			case Brick.BRICK_COLOR_GOLD:
+				score += 7 * scoringSign;
+				if (brick.atCeiling) {
+					ballsLeft += 1; // add an extra ball and color it in yellow
+					ball.setBallColor(Ball.BALL_COLOR_YELLOW);
+				}
 				break;
 			default:
 				score += 0 * scoringSign;
@@ -739,8 +737,8 @@ public class World {
 
 			if (brick.atCeiling) {
 				ballReady = true;
-				Log.d("World:checkBallCollisionsWithBricks",
-						"A collision with a ceiling brick just happened!");
+				// Log.d("World:checkBallCollisionsWithBricks",
+				// "A collision with a ceiling brick just happened!");
 
 				// the bricks on the floor will shift up
 				for (int y = level - 1; y > 0; y--) {
@@ -762,9 +760,9 @@ public class World {
 				bricks.get(topBrick).atCeiling = false;
 				bricks.get(topBrick).setCell(column, 0);
 				bricks.get(topBrick).state = Brick.BRICK_STATE_SHIFTING_UP_TO_FLOOR;
-				Log.d("World:checkBallCollisionsWithBricks",
-						"bricks.get(topBrick).state = "
-								+ bricks.get(topBrick).state);
+				// Log.d("World:checkBallCollisionsWithBricks",
+				// "bricks.get(topBrick).state = "
+				// + bricks.get(topBrick).state);
 				// other ceiling bricks in this column will shift one cell up:
 				for (int y = 0; y < level - 1; y++) {
 					ceilingBricksId[column][y] = ceilingBricksId[column][y + 1];
@@ -779,23 +777,16 @@ public class World {
 				if (level > 1)
 					ceilingBricksId[column][level - 1] = NO_OBJECT_ID;
 
-				/*
-				 * for (int r = 0; r < level; r++) { for (int c = 0; c <
-				 * COLUMNS; c++) {
-				 * Log.d("World:checkBallCollisionsWithCeilingBricks", "c = " +
-				 * c); Log.d("World:checkBallCollisionsWithCeilingBricks",
-				 * "r = " + r);
-				 * Log.d("World:checkBallCollisionsWithCeilingBricks",
-				 * "ceilingBricksId[][] = " + ceilingBricksId[c][r]);
-				 * Log.d("World:checkBallCollisionsWithCeilingBricks",
-				 * "floorBricksId[][] = " + floorBricksId[c][r]); }
-				 * 
-				 * }
-				 */
 				break;
 			} else { // the collisions happened with a bottom brick
 				if (ballReady) {
 					ballsLeft -= 1;
+					// when a ball is lost:
+					ball.ballAccel = Ball.BALL_NORMAL_ACCELL; // restore the
+																// normal ball's
+																// acceleration
+					ball.setBallColor(Ball.BALL_COLOR_WHITE); // restore the
+																// color of ball
 					ballReady = false;
 				}
 

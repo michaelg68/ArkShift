@@ -26,6 +26,7 @@ import com.badlogic.androidgames.framework.gl.FPSCounter;
 
 public class GameScreen extends GLScreen {
 	int level;
+	int balls;
 	static final int RESOLUTION_X = 1080;
 	static final int RESOLUTION_Y = 1920;
 	static final int GAME_READY = 0;
@@ -63,6 +64,32 @@ public class GameScreen extends GLScreen {
 	public GameScreen(Game game, int level) {
 		super(game);
 		this.level = level;
+		switch (level) {
+		case 1:
+			balls = 1;
+			break;
+		case 2:
+			balls = 1;
+			break;
+		case 3:
+			balls = 2;
+			break;
+		case 4:
+			balls = 2;
+			break;
+		case 5:
+			balls = 3;
+			break;
+		case 6:
+			balls = 3;
+			break;
+		case 7:
+			balls = 4;
+			break;
+		case 8:
+			balls = 5;
+			break;
+		}
 		guiCam = new Camera2D(glGraphics, RESOLUTION_X, RESOLUTION_Y);
 		touchPoint = new Vector2();
 		batcher = new SpriteBatcher(glGraphics, SPRITES_NUMBER);
@@ -102,7 +129,7 @@ public class GameScreen extends GLScreen {
 			}
 		};
 
-		world = new World(worldListener, level);
+		world = new World(worldListener, level, balls);
 		renderer = new WorldRenderer(glGraphics, batcher, world);
 		// remember - in Rectange x and y coordinates point to the lowerLeft
 		// corner of the rectangle! Counting from the lower left corner of the

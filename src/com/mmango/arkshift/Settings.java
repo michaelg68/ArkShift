@@ -40,9 +40,9 @@ public class Settings {
 		appName = settings.getString("AppName", "none :(");
 		soundEnabled = settings.getBoolean("SoundEnabled", true);
 		controlType = settings.getInt("ControlType", CONTROL_BY_TOUCH);
-		Log.d("Settings:readPrefs", "AppName = " + appName);
-		Log.d("Settings:readPrefs", "soundEnabled = " + soundEnabled);
-		Log.d("Settings:readPrefs", "controlType = " + controlType);
+//		Log.d("Settings:readPrefs", "AppName = " + appName);
+//		Log.d("Settings:readPrefs", "soundEnabled = " + soundEnabled);
+//		Log.d("Settings:readPrefs", "controlType = " + controlType);
 		for (int i = 0; i < 5; i++) {
 			highscores[i] = settings.getInt(Integer.toString(i), 0);
 			Log.d("Settings:readPrefs", "Now highscores[" + i + "] = "	+  highscores[i]);
@@ -65,9 +65,9 @@ public class Settings {
 		SharedPreferences settings = glGame.getSharedPreferences(
 				GAME_PREFERENCES, 0);
 		SharedPreferences.Editor prefEditor = settings.edit();
-		Log.d("Settings:savePrefs", "appName = " + appName);
-		Log.d("Settings:savePrefs", "soundEnabled = " + soundEnabled);
-		Log.d("Settings:savePrefs", "controlType = " + controlType);
+//		Log.d("Settings:savePrefs", "appName = " + appName);
+//		Log.d("Settings:savePrefs", "soundEnabled = " + soundEnabled);
+//		Log.d("Settings:savePrefs", "controlType = " + controlType);
 
 		prefEditor.putString("AppName", "ArkShift by mmango");
 		prefEditor.putBoolean("SoundEnabled", soundEnabled);
@@ -95,7 +95,7 @@ public class Settings {
 		for (int i = 0; i < 5; i++) {
 			prefEditor.putInt(Integer.toString(i), 0);
 			highscores[i] = 0;
-			Log.d("Settings:resetHighscores", "Preferences highscores[" + i + "] = " + highscores[i]);
+//			Log.d("Settings:resetHighscores", "Preferences highscores[" + i + "] = " + highscores[i]);
 		}
 		for (int i = 0; i < 8; i++) {
 			l = i + 1;
@@ -120,7 +120,7 @@ public class Settings {
 	}
 	
 	public static void clearAllPreferences(GLGame glGame) {
-		Log.d("Settings:clearAllPreferences", "Clear all preferences!");
+//		Log.d("Settings:clearAllPreferences", "Clear all preferences!");
 		SharedPreferences settings = glGame.getSharedPreferences(GAME_PREFERENCES, 0);
 		settings.edit().clear().commit();
 	}
