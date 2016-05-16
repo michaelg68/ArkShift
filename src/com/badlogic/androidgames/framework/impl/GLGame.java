@@ -61,6 +61,8 @@ public abstract class GLGame extends Activity implements Game, Renderer {
         wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame"); 
         
         //for share button:
+        //http://code.tutsplus.com/tutorials/android-sdk-implement-a-share-intent--mobile-8433/
+        //http://stackoverflow.com/questions/17167701/how-to-activate-share-button-in-android-app
 /*        ImageButton sharingButton = new ImageButton(this);
         sharingButton.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         sharingButton.setImageResource(R.drawable.main_menu_button_share);

@@ -274,7 +274,7 @@ public class GameScreen extends GLScreen {
 							moveRacquetLeftTouchZone, touchPoint)) {
 						// Log.d("GameScreen:",
 						// "touched in moveRacquetLeftTouchZone");
-						accelX = -Racquet.RACQUET_VELOCITY;
+						accelX = -Racquet.RACQUET_VELOCITY * 1.4f;
 						// Log.d("GameScreen: TouchLeft", "accelX = " +
 						// Float.toString(accelX));
 
@@ -283,7 +283,7 @@ public class GameScreen extends GLScreen {
 							moveRacquetRightTouchZone, touchPoint)) {
 						// Log.d("GameScreen:",
 						// "touched in moveRacquetLeftTouchZone");
-						accelX = Racquet.RACQUET_VELOCITY;
+						accelX = Racquet.RACQUET_VELOCITY * 1.4f;
 						// Log.d("GameScreen: TouchRight",
 						// "accelX = " + Float.toString(accelX));
 
@@ -323,7 +323,7 @@ public class GameScreen extends GLScreen {
 		case Settings.CONTROL_BY_TILT:
 			// Settings.CONTROL_BY_TILT
 			// Log.d("GameScreen:", "Reading the Accelerometer data");
-			accelX = -game.getInput().getAccelX() * 5f;
+			accelX = -game.getInput().getAccelX() * 4.6f;
 			// Log.d("GameScreen: Accelerometer",
 			// "accelX = " + Float.toString(accelX));
 			break;
