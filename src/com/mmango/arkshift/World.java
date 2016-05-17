@@ -103,7 +103,7 @@ public class World {
 
 		// this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH +
 		// Brick.BRICK_HEIGHT * (level) + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
-		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH + Brick.BRICK_HEIGHT
+		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH
 				+ Racquet.RACQUET_HEIGHT / 2 + 0.5f,
 				Racquet.RACQUET_WIDTH_NORMAL);
 
@@ -188,20 +188,22 @@ public class World {
 				}
 			}
 		}
-		
-		if (bricksInTheHighestFloorColumn == 0)
-			bricksInTheHighestFloorColumn = 1; //the racquet will never lay on the floor
 		racquet.position.y = FRAME_WIDTH + Brick.BRICK_HEIGHT
 				* bricksInTheHighestFloorColumn + Racquet.RACQUET_HEIGHT / 2
 				+ 0.5f;
-//		if (bricksInTheHighestFloorColumn == 0) { // if no bricks on the floor
-//			if ((ball.position.x >= racquet.bounds.lowerLeft.x) 
-//					&& (ball.position.x <= racquet.bounds.lowerLeft.x
-//							+ racquet.bounds.width)) { // and the ball is just under the racquet then donot
-//				racquet.position.y = FRAME_WIDTH + Brick.BRICK_HEIGHT
-//						+ Racquet.RACQUET_HEIGHT / 2 + 0.5f;
-//			}
-//		}
+		if (bricksInTheHighestFloorColumn == 0) { // if no bricks on the floor
+			if (ball.position.y < racquet.position.y) {
+				if ((ball.position.x >= racquet.bounds.lowerLeft.x)
+						&& (ball.position.x <= racquet.bounds.lowerLeft.x
+								+ racquet.bounds.width)) { // and the ball is
+															// just under the
+															// racquet then
+															// donot
+					racquet.position.y = FRAME_WIDTH + Brick.BRICK_HEIGHT
+							+ Racquet.RACQUET_HEIGHT / 2 + 0.5f;
+				}
+			}
+		}
 		racquet.update(deltaTime, accelX);
 	}
 
