@@ -113,6 +113,7 @@ public class Assets {
 	public static TextureRegion helpScreen2Region;
 	//public static Texture helpScreen3;
 	public static TextureRegion helpScreen3Region;	
+	public static TextureRegion helpScreen4Region;
 	//public static Music music;
 	public static Sound clickSound;
 	public static Sound racquetHitSound;
@@ -219,6 +220,7 @@ public class Assets {
 		helpScreen2Region = new TextureRegion(bigAtlas, 0, 1920, 1080, 1920);
 		//helpScreen3 = new Texture(game, "helpScreen3.png");
 		helpScreen3Region = new TextureRegion(bigAtlas, 1080, 1920, 1080, 1920);
+		helpScreen4Region = new TextureRegion(bigAtlas, 2160, 1920, 1080, 1920);
 		
 		//gameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");
 		gameScreenBackgroundRegion = new TextureRegion(bigAtlas, 1080, 0, 1080, 1920);

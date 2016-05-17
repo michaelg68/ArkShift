@@ -3,3 +3,4 @@ background_with_transp_gamefield_1 = 1080 0 1080 1920
 helpScreen1 = 2160 0 1080 1920
 helpScreen2 = 0 1920 1080 1920
 helpScreen3 = 1080 1920 1080 1920
+helpScreen4 = 2160 1920 1080 1920
