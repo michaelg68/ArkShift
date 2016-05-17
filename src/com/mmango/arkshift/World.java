@@ -103,7 +103,7 @@ public class World {
 
 		// this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH +
 		// Brick.BRICK_HEIGHT * (level) + Racquet.RACQUET_HEIGHT / 2 + 0.5f);
-		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH
+		this.racquet = new Racquet(WORLD_WIDTH / 2, FRAME_WIDTH + Brick.BRICK_HEIGHT
 				+ Racquet.RACQUET_HEIGHT / 2 + 0.5f,
 				Racquet.RACQUET_WIDTH_NORMAL);
 
@@ -140,7 +140,7 @@ public class World {
 													// 8. not including 9 which
 													// is GOLD (an additional
 													// ball)
-				if (rand.nextFloat() > 0.98f) { // Approximately 1 brick of 100
+				if (rand.nextFloat() > 0.98f) { // Approximately 2 brick of 100
 												// will be gold
 					// hitting a gold brick will bring an extra ball
 					brick_color = Brick.BRICK_COLOR_GOLD;
@@ -188,9 +188,20 @@ public class World {
 				}
 			}
 		}
+		
+		if (bricksInTheHighestFloorColumn == 0)
+			bricksInTheHighestFloorColumn = 1; //the racquet will never lay on the floor
 		racquet.position.y = FRAME_WIDTH + Brick.BRICK_HEIGHT
 				* bricksInTheHighestFloorColumn + Racquet.RACQUET_HEIGHT / 2
 				+ 0.5f;
+//		if (bricksInTheHighestFloorColumn == 0) { // if no bricks on the floor
+//			if ((ball.position.x >= racquet.bounds.lowerLeft.x) 
+//					&& (ball.position.x <= racquet.bounds.lowerLeft.x
+//							+ racquet.bounds.width)) { // and the ball is just under the racquet then donot
+//				racquet.position.y = FRAME_WIDTH + Brick.BRICK_HEIGHT
+//						+ Racquet.RACQUET_HEIGHT / 2 + 0.5f;
+//			}
+//		}
 		racquet.update(deltaTime, accelX);
 	}
 
@@ -725,11 +736,15 @@ public class World {
 				hitGold = true;
 				score += 7 * scoringSign;
 				// if (brick.atCeiling) {
-				// when hitting the gold brick even if on the ceiling add a ball and change the color from gold to random
+				// when hitting the gold brick even if on the ceiling add a ball
+				// and change the color from gold to random
 				ballsLeft += 1; // add an extra ball and color it in yellow
 				ball.setBallColor(Ball.BALL_COLOR_YELLOW);
-				ball.ballAccel = Ball.BALL_NORMAL_ACCELL; // restore the normal ball's acceleration
-				brick.setColor(rand.nextInt(9)); //select a random color instead of Gold 
+				ball.ballAccel = Ball.BALL_NORMAL_ACCELL; // restore the normal
+															// ball's
+															// acceleration
+				brick.setColor(rand.nextInt(9)); // select a random color
+													// instead of Gold
 				// }
 				break;
 			default:
@@ -787,9 +802,13 @@ public class World {
 				if (ballReady) {
 					ballsLeft -= 1;
 					// when a ball is lost:
-					ball.ballAccel = Ball.BALL_NORMAL_ACCELL; // restore the normal ball's acceleration
+					ball.ballAccel = Ball.BALL_NORMAL_ACCELL; // restore the
+																// normal ball's
+																// acceleration
 					if (!hitGold) {
-					   ball.setBallColor(Ball.BALL_COLOR_WHITE); // restore the color of ball
+						ball.setBallColor(Ball.BALL_COLOR_WHITE); // restore the
+																	// color of
+																	// ball
 					}
 					ballReady = false;
 				}
