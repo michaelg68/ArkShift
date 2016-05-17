@@ -333,15 +333,15 @@ public class World {
 				// + angle);
 
 				// avoid too flat angles, if the angle is less that 45 degrees
-				// than make it equal 45 + a random float between 1f to 5f
+				// than make it equal 45 + a random float between 5f to 10f
 				if ((angle > 90f) && (angle > 135f)) {
-					float randangle = rand.nextFloat() * (5 - 1) + 1;
+					float randangle = rand.nextFloat() * (10 - 5) + 1;
 					// Log.d("World:checkBallCollisionsWithRacquet",
 					// "randangle = " + randangle);
 					angle = 135f - randangle;
 				}
 				if ((angle < 90f) && (angle < 45f)) {
-					float randangle = rand.nextFloat() * (5 - 1) + 1;
+					float randangle = rand.nextFloat() * (10 - 5) + 1;
 					// Log.d("World:checkBallCollisionsWithRacquet",
 					// "randangle = " + randangle);
 					angle = 45 + randangle;
