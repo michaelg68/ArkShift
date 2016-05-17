@@ -8,7 +8,8 @@ import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLGame;
 
 public class Assets {
-	public static Texture mainScreenBackground;
+	//public static Texture mainScreenBackground;
+	public static Texture bigAtlas;
 	public static TextureRegion mainScreenBackgroundRegion;
 
 	public static Texture UIGameElements;
@@ -102,15 +103,15 @@ public class Assets {
 	public static Font fontBebasneue64x64White;
 	public static ScoreFont scoreFont;
  
-	public static Texture gameScreenBackground;
+	//public static Texture gameScreenBackground;
 	public static TextureRegion gameScreenBackgroundRegion;
 
 	
-	public static Texture helpScreen1;
+	//public static Texture helpScreen1;
 	public static TextureRegion helpScreen1Region;
-	public static Texture helpScreen2;
+	//public static Texture helpScreen2;
 	public static TextureRegion helpScreen2Region;
-	public static Texture helpScreen3;
+	//public static Texture helpScreen3;
 	public static TextureRegion helpScreen3Region;	
 	//public static Music music;
 	public static Sound clickSound;
@@ -128,8 +129,9 @@ public class Assets {
 	public static void load(GLGame game) {
 		//mainScreenBackground = new Texture(game, "background_marble_light_flattened.jpg");
 		//mainScreenBackground = new Texture(game, "background_mainscreen.png");
-		mainScreenBackground = new Texture(game, "background_ui.jpg");
-		mainScreenBackgroundRegion = new TextureRegion(mainScreenBackground, 0,	0, 1080, 1920);
+		//mainScreenBackground = new Texture(game, "background_ui.jpg");
+		bigAtlas = new Texture(game, "atlas_bg_hs_.png");
+		mainScreenBackgroundRegion = new TextureRegion(bigAtlas, 0,	0, 1080, 1920);
 		
 		UIGameElements = new Texture(game, "atlas_1.png");
 		alphaOverGameField_60Opacity = new TextureRegion(UIGameElements, 953, 0, 67, 111);
@@ -211,16 +213,15 @@ public class Assets {
 		scoreFont = new ScoreFont(UIGameElements, 128, 128);
 
 		
-		helpScreen1 = new Texture(game, "helpScreen1.png");
-		helpScreen1Region = new TextureRegion(helpScreen1, 0, 0, 1080, 1920);
-		helpScreen2 = new Texture(game, "helpScreen2.png");
-		helpScreen2Region = new TextureRegion(helpScreen2, 0, 0, 1080, 1920);
-		helpScreen3 = new Texture(game, "helpScreen3.png");
-		helpScreen3Region = new TextureRegion(helpScreen3, 0, 0, 1080, 1920);
+		//helpScreen1 = new Texture(game, "helpScreen1.png");
+		helpScreen1Region = new TextureRegion(bigAtlas, 2160, 0, 1080, 1920);
+		//helpScreen2 = new Texture(game, "helpScreen2.png");
+		helpScreen2Region = new TextureRegion(bigAtlas, 0, 1920, 1080, 1920);
+		//helpScreen3 = new Texture(game, "helpScreen3.png");
+		helpScreen3Region = new TextureRegion(bigAtlas, 1080, 1920, 1080, 1920);
 		
-		gameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");
-		gameScreenBackgroundRegion = new TextureRegion(gameScreenBackground, 0,
-				0, 1080, 1920);
+		//gameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");
+		gameScreenBackgroundRegion = new TextureRegion(bigAtlas, 1080, 0, 1080, 1920);
 		
 
 		clickSound = game.getAudio().newSound("click.ogg");
@@ -239,12 +240,13 @@ public class Assets {
 	public static void reload() {
 		//!!!!!    Note: very important - if you add a new texture, don't forget to add it in this method. otherwise you will face 
 		// bugs when GL ES loses context!
-		mainScreenBackground.reload();
-		gameScreenBackground.reload();
+		//mainScreenBackground.reload();
+		//gameScreenBackground.reload();
+		bigAtlas.reload();
 		UIGameElements.reload();
-		helpScreen1.reload();
-		helpScreen2.reload();
-		helpScreen3.reload();
+		//helpScreen1.reload();
+		//helpScreen2.reload();
+		//helpScreen3.reload();
 		//highscoresScreenBackground.reload();
 		//gameFieldGreen.reload();
 		//selectLevelScreenElements.reload();

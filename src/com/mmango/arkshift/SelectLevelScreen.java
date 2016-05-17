@@ -128,7 +128,7 @@ public class SelectLevelScreen extends GLScreen {
 
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		batcher.beginBatch(Assets.mainScreenBackground);
+		batcher.beginBatch(Assets.bigAtlas);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X,
 				RESOLUTION_Y, Assets.mainScreenBackgroundRegion);
 		batcher.endBatch();

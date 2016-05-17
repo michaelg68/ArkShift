@@ -80,10 +80,10 @@ public class HelpScreen extends GLScreen {
 
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		batcher.beginBatch(Assets.mainScreenBackground);
+		batcher.beginBatch(Assets.bigAtlas);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X,
 				RESOLUTION_Y, Assets.mainScreenBackgroundRegion);
-		batcher.endBatch();
+		//batcher.endBatch();
 
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
@@ -99,6 +99,7 @@ public class HelpScreen extends GLScreen {
 			presentHelpScreen3(deltaTime);
 			break;
 		}
+		batcher.endBatch();
 
 		batcher.beginBatch(Assets.UIGameElements);
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 150, 256, 256,
@@ -111,21 +112,21 @@ public class HelpScreen extends GLScreen {
 	}
 
 	public void presentHelpScreen1(float deltaTime) {
-		batcher.beginBatch(Assets.helpScreen1);
+		//batcher.beginBatch(Assets.helpScreen1);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.helpScreen1Region);
-		batcher.endBatch();
+		//batcher.endBatch();
 	}
 	
 	public void presentHelpScreen2(float deltaTime) {
-		batcher.beginBatch(Assets.helpScreen2);
+		//batcher.beginBatch(Assets.helpScreen2);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.helpScreen2Region);
-		batcher.endBatch();
+		//batcher.endBatch();
 	}
 	
 	public void presentHelpScreen3(float deltaTime) {
-		batcher.beginBatch(Assets.helpScreen3);
+		//batcher.beginBatch(Assets.helpScreen3);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.helpScreen3Region);
-		batcher.endBatch();
+		//batcher.endBatch();
 	}
 	
 	@Override

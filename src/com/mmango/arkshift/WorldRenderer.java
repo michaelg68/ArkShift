@@ -98,7 +98,7 @@ public class WorldRenderer {
     }
     
     public void renderBackground() {
-        batcher.beginBatch(Assets.gameScreenBackground);
+        batcher.beginBatch(Assets.bigAtlas);
         batcher.drawSprite(cam.position.x, cam.position.y, World.WORLD_WIDTH, World.WORLD_HEIGHT, 
                            Assets.gameScreenBackgroundRegion);
         batcher.endBatch();
