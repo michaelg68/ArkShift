@@ -311,49 +311,58 @@ public class World {
 			// Log.d("World:checkBallCollisionsWithRacquet",
 			// "after changing ball.velocity.y = " + ball.velocity.y);
 			if (ball.velocity.y < 0) { // only if the ball moves downward!
-				// Log.d("World:checkBallCollisionsWithRacquet",
-				// "Contact with the racket TOP!");
+				Log.d("World:checkBallCollisionsWithRacquet",
+				"Contact with the racket TOP!");
 				ball.velocity.y = ball.velocity.y * (-1);
 				ball.position.y = racquet.position.y + Racquet.RACQUET_HEIGHT
 						/ 2 + Ball.BALL_RADIUS;
 
 				float angleTmp = ball.velocity.angle();
-				// Log.d("World:checkBallCollisionsWithRacquet", "angleTmp = "
-				// + angleTmp);
+				Log.d("World:checkBallCollisionsWithRacquet", "angleTmp = "
+				+ angleTmp);
 
 				// Create a copy of ball.velocity
 				Vector2 ballVelocityCopy = ball.velocity.cpy();
 
+				
+				Log.d("World:checkBallCollisionsWithRacquet", "ballVelocityCopy.len = " + ballVelocityCopy.len() + "; ballVelocityCopy.angle = " + ballVelocityCopy.angle());
+				Log.d("World:checkBallCollisionsWithRacquet", "racquet.velocity.len = " + racquet.velocity.len() + "; racquet.velocity.angle = " + racquet.velocity.angle());
+				
 				// get sum of ballVelocityCopy and racquet.velocity
+				
+				
 				ballVelocityCopy.add(racquet.velocity);
+				
+				
+				Log.d("World:checkBallCollisionsWithRacquet", "After adding the racquet velocity: ballVelocityCopy.len = " + ballVelocityCopy.len() + "; ballVelocityCopy.angle = " + ballVelocityCopy.angle());
 
 				// get the angle between the temp ballVelocityCopy and X
 				float angle = ballVelocityCopy.angle();
-				// Log.d("World:checkBallCollisionsWithRacquet", "angle = "
-				// + angle);
+				Log.d("World:checkBallCollisionsWithRacquet", "angle = "
+				 + angle);
 
 				// avoid too flat angles, if the angle is less that 45 degrees
 				// than make it equal 45 + a random float between 5f to 10f
 				if ((angle > 90f) && (angle > 135f)) {
 					float randangle = rand.nextFloat() * (10 - 5) + 1;
-					// Log.d("World:checkBallCollisionsWithRacquet",
-					// "randangle = " + randangle);
+					Log.d("World:checkBallCollisionsWithRacquet",
+					"(angle > 90f) && (angle > 135f). randangle = " + randangle);
 					angle = 135f - randangle;
 				}
 				if ((angle < 90f) && (angle < 45f)) {
 					float randangle = rand.nextFloat() * (10 - 5) + 1;
-					// Log.d("World:checkBallCollisionsWithRacquet",
-					// "randangle = " + randangle);
+					Log.d("World:checkBallCollisionsWithRacquet",
+					"(angle < 90f) && (angle < 45f). randangle = " + randangle);
 					angle = 45 + randangle;
 				}
 				float newAngle = angle - angleTmp;
 				// rotate ball.velocity on that angle
 				ball.velocity.rotate(newAngle);
-				// Log.d("World:checkBallCollisionsWithRacquet", "newAngle = "
-				// + newAngle);
+				Log.d("World:checkBallCollisionsWithRacquet", "newAngle = "
+				+ newAngle);
 			} else {
-				// Log.d("World:checkBallCollisionsWithRacquet",
-				// "Contact with the racket BOTTOM!");
+				//Log.d("World:checkBallCollisionsWithRacquet",
+				//"Contact with the racket BOTTOM!");
 				ball.position.y = racquet.position.y - Racquet.RACQUET_HEIGHT
 						/ 2 - Ball.BALL_RADIUS;
 				ball.velocity.y = ball.velocity.y * (-1);
