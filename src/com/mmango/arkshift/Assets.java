@@ -8,8 +8,7 @@ import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLGame;
 
 public class Assets {
-	//public static Texture mainScreenBackground;
-	public static Texture atlasBackgroundUI;
+	//public static Texture atlasBackgroundUI;
 	public static TextureRegion backgroundUIRegion;
 
 	//public static Texture atlasGameScreenBackground;
@@ -122,14 +121,13 @@ public class Assets {
 
 
 	public static void load(GLGame game) {
-		atlasBackgroundUI = new Texture(game, "background_ui.jpg");
-		backgroundUIRegion = new TextureRegion(atlasBackgroundUI, 0,	0, 1080, 1920);
+		//atlasBackgroundUI = new Texture(game, "background_ui.jpg");
 		
 		//atlasGameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");
 		
 		
-		atlasUIGameElements = new Texture(game, "atlas.png");
-		
+		atlasUIGameElements = new Texture(game, "atlas_2.png");
+		backgroundUIRegion = new TextureRegion(atlasUIGameElements, 2024, 320, 360, 640);
 		gameScreenBackgroundRegion = new TextureRegion(atlasUIGameElements, 1664, 320, 360, 640);
 
 		alphaOverGameField_60Opacity = new TextureRegion(atlasUIGameElements, 953, 0, 67, 111);
@@ -227,7 +225,7 @@ public class Assets {
 	public static void reload() {
 		//!!!!!    Note: very important - if you add a new texture, don't forget to add it in this method. otherwise you will face 
 		// bugs when GL ES loses context!
-		atlasBackgroundUI.reload();
+		//atlasBackgroundUI.reload();
 		//atlasGameScreenBackground.reload();
 		atlasUIGameElements.reload();
 	}

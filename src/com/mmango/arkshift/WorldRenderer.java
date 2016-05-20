@@ -52,10 +52,12 @@ public class WorldRenderer {
         renderRacquet();
         renderBall();
         renderBricks();
-        batcher.endBatch();
         
+        //Log.d("WorldRenderer:renderObjectsAndBackground", "cam.position.x=" + cam.position.x + "; cam.position.y=" + cam.position.y);
         batcher.drawSprite(cam.position.x, cam.position.y, World.WORLD_WIDTH, World.WORLD_HEIGHT, 
               Assets.gameScreenBackgroundRegion);
+        batcher.endBatch();
+
 
         //temporary batch for drawing the gamefield boundaries
 //        batcher.beginBatch(Assets.gameFieldBlue);

@@ -127,16 +127,17 @@ public class SelectLevelScreen extends GLScreen {
 		guiCam.setViewportAndMatrices();
 
 		gl.glEnable(GL10.GL_TEXTURE_2D);
+		
+		batcher.beginBatch(Assets.atlasUIGameElements);
 
-		batcher.beginBatch(Assets.atlasBackgroundUI);
+		//batcher.beginBatch(Assets.atlasBackgroundUI);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X,
 				RESOLUTION_Y, Assets.backgroundUIRegion);
-		batcher.endBatch();
+		//batcher.endBatch();
 
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
-		batcher.beginBatch(Assets.atlasUIGameElements);
 		batcher.drawSprite(RESOLUTION_X / 2, 1700, 796, 185,
 				Assets.selectLevelMessage);
 

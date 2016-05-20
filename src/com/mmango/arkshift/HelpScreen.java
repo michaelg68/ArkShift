@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.badlogic.androidgames.framework.Game;
@@ -60,7 +61,8 @@ public class HelpScreen extends GLScreen {
 
 			if (event.type == TouchEvent.TOUCH_UP) {
 				if (OverlapTester.pointInRectangle(homeBounds, touchPoint)) {
-					game.setScreen(new MainMenuScreen(game));
+					//game.setScreen(new MainMenuScreen(game));
+					glGame.finish();
 					return;
 				} else  {
 					state++;

@@ -87,3 +87,4 @@ selectLevelMessage = 625 0 328 58
 brickGoldBlueJoker=1089 915 32 32
 brickGoldPinkJoker=1089 948 32 32
 background_with_transp_gamefield_360x640 = 1664 320 360 640
+background_ui = 2024 320 360 640
