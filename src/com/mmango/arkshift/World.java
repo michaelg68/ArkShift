@@ -140,7 +140,7 @@ public class World {
 													// 8. not including 9 which
 													// is GOLD (an additional
 													// ball)
-				if (rand.nextFloat() > 0.98f) { // Approximately 2 brick of 100
+				if (rand.nextFloat() > 0.96f) { // Approximately 2 brick of 100
 												// will be gold
 					// hitting a gold brick will bring an extra ball
 					brick_color = Brick.BRICK_COLOR_GOLD;

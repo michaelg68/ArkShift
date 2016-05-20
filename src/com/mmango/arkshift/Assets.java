@@ -126,7 +126,7 @@ public class Assets {
 		//atlasGameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");
 		
 		
-		atlasUIGameElements = new Texture(game, "atlas_2.png");
+		atlasUIGameElements = new Texture(game, "atlas.png");
 		backgroundUIRegion = new TextureRegion(atlasUIGameElements, 2024, 320, 360, 640);
 		gameScreenBackgroundRegion = new TextureRegion(atlasUIGameElements, 1664, 320, 360, 640);
 
