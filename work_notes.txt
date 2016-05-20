@@ -87,13 +87,10 @@ Need to check if it worth to reuse these objects in (World:checkBallCollisionsWi
 2016/05/20
 Images distribution between atlases
 -----------------
-Atlas atlasBackgroundUI (in Assets and AssetsHelp):
-background_ui.jpg
-
-Atlas atlasGameScreen (in Assets):
-background_with_transp_gamefield_1.png
 
 Atlas atlasUIGameElements (in Assets):
+background_ui.jpg
+background_with_transp_gamefield_1.png
 alphaOverGameField_60Opacity
 mainMenuLogo
 ballRed
@@ -181,16 +178,13 @@ selectLevelMessage
 brickGoldBlueJoker - not necessary
 brickGoldPinkJoker
 
-Atlas atlasHelpScreen (in Assets and AssetsHelpscreen):
+Atlas atlasHelpScreen (in AssetsHelpscreen):
 helpScreen1
 helpScreen2
 helpScreen3	
 helpScreen4
 main_menu_button_home128
 main_menu_text_quit
-
-
-
-
+background_ui.jpg
 
 ====================
