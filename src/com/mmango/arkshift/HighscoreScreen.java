@@ -103,13 +103,13 @@ public class HighscoreScreen extends GLScreen {
 
 			if (event.type == TouchEvent.TOUCH_UP) {
 				if (OverlapTester.pointInRectangle(yesBounds, touchPoint)) {
-					Log.d("HighscoreScreen:updateAsking", "YES pressed");
+					//Log.d("HighscoreScreen:updateAsking", "YES pressed");
 					Settings.resetHighscores(glGame);
 					readHighScore();
 					state = SHOWING_HIGSHSCORE;
 					return;
 				} else if (OverlapTester.pointInRectangle(noBounds, touchPoint)) {
-					Log.d("HighscoreScreen:updateAsking", "NO pressed");
+					//Log.d("HighscoreScreen:updateAsking", "NO pressed");
 					state = SHOWING_HIGSHSCORE;
 					return;
 				} else {
@@ -128,15 +128,15 @@ public class HighscoreScreen extends GLScreen {
 
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		batcher.beginBatch(Assets.bigAtlas);
+		batcher.beginBatch(Assets.atlasBackgroundUI);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X,
-				RESOLUTION_Y, Assets.mainScreenBackgroundRegion);
+				RESOLUTION_Y, Assets.backgroundUIRegion);
 		batcher.endBatch();
 
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
-		batcher.beginBatch(Assets.UIGameElements);
+		batcher.beginBatch(Assets.atlasUIGameElements);
 
 		switch (state) {
 		case SHOWING_HIGSHSCORE:
@@ -201,7 +201,7 @@ public class HighscoreScreen extends GLScreen {
 
 	public void readHighScore() {
 		for (int i = 0; i < 5; i++) {
-			Log.d("HighScoreScreen:readHighScore", "Settings.highscores[" + i + "] = " + Settings.highscores[i]);
+			//Log.d("HighScoreScreen:readHighScore", "Settings.highscores[" + i + "] = " + Settings.highscores[i]);
 			// highScores[i] = (i + 1) + ".." + "" + Settings.highscores[i];
 			int numbOfDots = 6 - (Integer.toString(Settings.highscores[i]))
 					.length();

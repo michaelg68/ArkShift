@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.badlogic.androidgames.framework.Game;
@@ -100,15 +101,11 @@ public class MainMenuScreen extends GLScreen {
 					Assets.playSound(Assets.clickSound);
 					Log.d("MainMenuScreen:update",
 							"helpBounds is touched. Opening HelpScreen");
-					game.setScreen(new HelpScreen(game));
+					//game.setScreen(new HelpScreen(game));
+					Intent it = new Intent(glGame,HelpActivity.class);
+					glGame.startActivity(it);
 					return;
 				}
-				/*
-				 * if(OverlapTester.pointInRectangle(soundBounds, touchPoint)) {
-				 * Assets.playSound(Assets.clickSound); Settings.soundEnabled =
-				 * !Settings.soundEnabled; if(Settings.soundEnabled)
-				 * Assets.music.play(); else Assets.music.pause(); }
-				 */
 			}
 		}
 	}
@@ -121,15 +118,15 @@ public class MainMenuScreen extends GLScreen {
 
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		batcher.beginBatch(Assets.bigAtlas);
+		batcher.beginBatch(Assets.atlasBackgroundUI);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X,
-				RESOLUTION_Y, Assets.mainScreenBackgroundRegion);
+				RESOLUTION_Y, Assets.backgroundUIRegion);
 		batcher.endBatch();
 
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 
-		batcher.beginBatch(Assets.UIGameElements);
+		batcher.beginBatch(Assets.atlasUIGameElements);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y - 190, 1080, 300,
 				Assets.mainMenuLogo);
 

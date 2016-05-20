@@ -3,16 +3,12 @@ package com.mmango.arkshift;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-
-import android.content.Intent;
-//import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.badlogic.androidgames.framework.Screen;
 import com.badlogic.androidgames.framework.impl.GLGame;
 
 public class ArkShift extends GLGame {
-	// public static final String GAME_PREFERENCES = "ArkShiftPrefs";
 
 	boolean firstTimeCreate = true;
 
@@ -62,13 +58,4 @@ public class ArkShift extends GLGame {
 			setScreen(new MainMenuScreen(this));
 		}
 	}
-	
-	private void shareIt() {
-		Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-		sharingIntent.setType("text/plain");
-		String shareBody = "Here is the share content body";
-		sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-	}
-
 }

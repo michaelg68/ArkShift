@@ -81,9 +81,9 @@ public class HelpScreen extends GLScreen {
 
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		batcher.beginBatch(Assets.bigAtlas);
+		batcher.beginBatch(AssetsHelp.atlasHelpScreen);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X,
-				RESOLUTION_Y, Assets.mainScreenBackgroundRegion);
+				RESOLUTION_Y, AssetsHelp.backgroundUIRegion);
 		//batcher.endBatch();
 
 		gl.glEnable(GL10.GL_BLEND);
@@ -103,40 +103,32 @@ public class HelpScreen extends GLScreen {
 			presentHelpScreen4(deltaTime);
 			break;
 		}
-		batcher.endBatch();
+		//batcher.endBatch();
 
-		batcher.beginBatch(Assets.UIGameElements);
+		//batcher.beginBatch(AssetsHelp.atlasHelpScreen);
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 150, 256, 256,
-				Assets.mainMenuButtonHome);
+				AssetsHelp.mainMenuButtonHome);
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 150, 512, 256,
-				Assets.mainMenuTextQuit);
+				AssetsHelp.mainMenuTextQuit);
 		
 		batcher.endBatch();
 		gl.glDisable(GL10.GL_BLEND);
 	}
 
 	public void presentHelpScreen1(float deltaTime) {
-		//batcher.beginBatch(Assets.helpScreen1);
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.helpScreen1Region);
-		//batcher.endBatch();
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, AssetsHelp.helpScreen1Region);
 	}
 	
 	public void presentHelpScreen2(float deltaTime) {
-		//batcher.beginBatch(Assets.helpScreen2);
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.helpScreen2Region);
-		//batcher.endBatch();
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, AssetsHelp.helpScreen2Region);
 	}
 	
 	public void presentHelpScreen3(float deltaTime) {
-		//batcher.beginBatch(Assets.helpScreen3);
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.helpScreen3Region);
-		//batcher.endBatch();
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, AssetsHelp.helpScreen3Region);
 	}
 	
 	public void presentHelpScreen4(float deltaTime) {
-		//batcher.beginBatch(Assets.helpScreen3);
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, Assets.helpScreen4Region);
-		//batcher.endBatch();
+		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, AssetsHelp.helpScreen4Region);
 	}
 	
 	@Override

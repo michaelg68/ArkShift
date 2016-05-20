@@ -48,19 +48,21 @@ public class WorldRenderer {
         //that's so in order to get effect of shifting bricks under the frame 
 
         
-        batcher.beginBatch(Assets.UIGameElements);
+        batcher.beginBatch(Assets.atlasUIGameElements);
         renderRacquet();
         renderBall();
         renderBricks();
         batcher.endBatch();
         
+        batcher.drawSprite(cam.position.x, cam.position.y, World.WORLD_WIDTH, World.WORLD_HEIGHT, 
+              Assets.gameScreenBackgroundRegion);
 
         //temporary batch for drawing the gamefield boundaries
 //        batcher.beginBatch(Assets.gameFieldBlue);
 //        batcher.drawSprite(0, 0, 1040, 1730, Assets.gameFieldBlueRegion);
 //        batcher.endBatch();
         
-        renderBackground();
+        //renderBackground();
         
         gl.glDisable(GL10.GL_BLEND);
     }
@@ -97,10 +99,10 @@ public class WorldRenderer {
         }
     }
     
-    public void renderBackground() {
-        batcher.beginBatch(Assets.bigAtlas);
-        batcher.drawSprite(cam.position.x, cam.position.y, World.WORLD_WIDTH, World.WORLD_HEIGHT, 
-                           Assets.gameScreenBackgroundRegion);
-        batcher.endBatch();
-    }
+//    public void renderBackground() {
+//        batcher.beginBatch(Assets.bigAtlas);
+//        batcher.drawSprite(cam.position.x, cam.position.y, World.WORLD_WIDTH, World.WORLD_HEIGHT, 
+//                           Assets.gameScreenBackgroundRegion);
+//        batcher.endBatch();
+//    }
 }

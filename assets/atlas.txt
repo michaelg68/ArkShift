@@ -82,3 +82,8 @@ scoreDot = 1792 128 64 64
 scoreMinus = 1088 850 64 64
 scoreNone = 1024 914 64 64
 selectLevelMessage = 625 0 328 58
+
+//Added manually:
+brickGoldBlueJoker=1089 915 32 32
+brickGoldPinkJoker=1089 948 32 32
+background_with_transp_gamefield_360x640 = 1664 320 360 640
