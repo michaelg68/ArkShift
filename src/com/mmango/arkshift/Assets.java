@@ -103,6 +103,7 @@ public class Assets {
 	*/
 	public static Font fontBebasneue64x64White;
 	public static ScoreFont scoreFont;
+	public static ScoreBallsFont scoreBallsFont;
 
 
 	
@@ -207,6 +208,7 @@ public class Assets {
 		
 		fontBebasneue64x64White = new Font(atlasUIGameElements, 0, 194, 8, 64, 64);
 		scoreFont = new ScoreFont(atlasUIGameElements, 128, 128);
+		scoreBallsFont = new ScoreBallsFont(atlasUIGameElements, 128, 128);
 
 
 		clickSound = game.getAudio().newSound("click.ogg");
