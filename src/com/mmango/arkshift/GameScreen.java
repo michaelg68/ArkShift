@@ -34,7 +34,7 @@ public class GameScreen extends GLScreen {
 	static final int GAME_PAUSED = 2;
 	static final int GAME_LEVEL_END = 3;
 	static final int GAME_OVER = 4;
-	static final int SPRITES_NUMBER = 200;
+	static final int SPRITES_NUMBER = 250;
 	static final int BUTTON_PAUSE_SIDE = 128;
 	static final int NOTIFICATION_AREA_HEIGHT = 150;
 	static final int NOTIFICATION_AREA_WIDTH = RESOLUTION_X;
@@ -66,7 +66,7 @@ public class GameScreen extends GLScreen {
 		this.level = level;
 		switch (level) {
 		case 1:
-			balls = 78;
+			balls = 2;
 			break;
 		case 2:
 			balls = 2;
@@ -420,6 +420,7 @@ public class GameScreen extends GLScreen {
 				// game.setScreen(new MainMenuScreen(game));
 
 				// finish GameActivity
+				state=GAME_READY;
 				glGame.finish();
 				return;
 			}
@@ -440,6 +441,7 @@ public class GameScreen extends GLScreen {
 				Assets.playSound(Assets.clickSound);
 				// game.setScreen(new SelectLevelScreen(game));
 				// finish GameActivity
+				state=GAME_READY;
 				glGame.finish();
 				return;
 			}
@@ -466,6 +468,7 @@ public class GameScreen extends GLScreen {
 				Settings.savePrefs(glGame);
 				// game.setScreen(new MainMenuScreen(game));
 				// finish GameActivity
+				state=GAME_READY;
 				glGame.finish();
 				return;
 			}

@@ -188,3 +188,10 @@ main_menu_text_quit
 background_ui.jpg
 
 ====================
+
+2016/05/21
+Verify if the number of Sprites in the batcher of GameScreen is correct. It was 200, may be it was not enough.
+May be it was the reason of context loss?
+Increasing it to 250.
+
+
