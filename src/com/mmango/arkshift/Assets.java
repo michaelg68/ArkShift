@@ -8,42 +8,12 @@ import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLGame;
 
 public class Assets {
-	//public static Texture atlasBackgroundUI;
-	public static TextureRegion backgroundUIRegion;
-
 	//public static Texture atlasGameScreenBackground;
-	public static TextureRegion gameScreenBackgroundRegion;
+	//public static TextureRegion gameScreenBackgroundRegion;
 	
-	public static Texture atlasUIGameElements;
-	public static TextureRegion alphaOverGameField_60Opacity;
+	public static Texture atlasUIElements;
 	public static TextureRegion mainMenuLogo;
-	public static TextureRegion ballRed;
-	public static TextureRegion ballWhite;
-	public static TextureRegion ballYellow;
-	public static TextureRegion ballsLeft0;
-	public static TextureRegion ballsLeft1;
-	public static TextureRegion ballsLeft2;
-	public static TextureRegion ballsLeft3;
-	public static TextureRegion ballsLeft4;
-	public static TextureRegion ballsLeft5;
-	public static TextureRegion ballsLeft6;
-	public static TextureRegion ballsLeft7;
-	public static TextureRegion ballsLeft8;
-	public static TextureRegion ballsLeft9;
-	public static TextureRegion ballsSymbol;
-	public static TextureRegion brickBlue;
-	public static TextureRegion brickBluesky;
-	public static TextureRegion brickGold;
-	public static TextureRegion brickGreen;
-	public static TextureRegion brickGrey;
-	public static TextureRegion brickLightviolet;
-	public static TextureRegion brickOrange;
-	public static TextureRegion brickPink;
-	public static TextureRegion brickPurple;
-	public static TextureRegion brickRed;
-	public static TextureRegion brickViolet;
-	//public static TextureRegion brickWheat;
-	public static TextureRegion buttonLevelEmpty;
+	public static TextureRegion backgroundUIRegion;
 	public static TextureRegion buttonLevel1;
 	public static TextureRegion buttonLevel2;
 	public static TextureRegion buttonLevel3;
@@ -53,8 +23,6 @@ public class Assets {
 	public static TextureRegion buttonLevel7;
 	public static TextureRegion buttonLevel8;
 	public static TextureRegion buttonUnavailable;
-	public static TextureRegion gameOverMessage;
-	public static TextureRegion levelPassedMessage;
 	public static TextureRegion mainMenuButtonControlSwipe;
 	public static TextureRegion mainMenuButtonControlTilt;
 	public static TextureRegion mainMenuButtonControlTouch;
@@ -68,7 +36,6 @@ public class Assets {
 	public static TextureRegion mainMenuButtonSoundEnabled;
 	public static TextureRegion mainMenuButtonYes;
 	public static TextureRegion mainMenuTextControl;
-	public static TextureRegion mainMenuTextGoon;
 	public static TextureRegion mainMenuTextHelp;
 	public static TextureRegion mainMenuTextHighscores;
 	public static TextureRegion mainMenuTextNo;
@@ -79,34 +46,10 @@ public class Assets {
 	public static TextureRegion mainMenuTextRetry;
 	public static TextureRegion mainMenuTextSound;
 	public static TextureRegion mainMenuTextYes;
-	public static TextureRegion pauseButton;
-	public static TextureRegion pauseMessage;
-	public static TextureRegion racquet;
-	public static TextureRegion readyMessage;
 	public static TextureRegion resetHighscoresMessage;
 	public static TextureRegion selectLevelMessage;
-
-	/*
-	public static TextureRegion score0;
-	public static TextureRegion score1;
-	public static TextureRegion score2;
-	public static TextureRegion score3;
-	public static TextureRegion score4;
-	public static TextureRegion score5;
-	public static TextureRegion score6;
-	public static TextureRegion score7;
-	public static TextureRegion score8;
-	public static TextureRegion score9;
-	public static TextureRegion scoreDot;
-	public static TextureRegion scoreMinus;
-	public static TextureRegion scoreNone;
-	*/
-	public static Font fontBebasneue64x64White;
-	public static ScoreFont scoreFont;
-	public static ScoreBallsFont scoreBallsFont;
-
-
 	
+	public static ScoreFont scoreFont;
 
 	//public static Music music;
 	public static Sound clickSound;
@@ -127,88 +70,63 @@ public class Assets {
 		//atlasGameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");
 		
 		
-		atlasUIGameElements = new Texture(game, "atlas.png");
-		backgroundUIRegion = new TextureRegion(atlasUIGameElements, 2024, 320, 360, 640);
-		gameScreenBackgroundRegion = new TextureRegion(atlasUIGameElements, 1664, 320, 360, 640);
+		atlasUIElements = new Texture(game, "atlas_ui.png");
 
-		alphaOverGameField_60Opacity = new TextureRegion(atlasUIGameElements, 953, 0, 67, 111);
-		mainMenuLogo = new TextureRegion(atlasUIGameElements, 0, 0, 625, 194);
-		ballRed = new TextureRegion(atlasUIGameElements, 894, 58, 32, 32);
-		ballWhite = new TextureRegion(atlasUIGameElements, 1345, 128, 32, 32);
-		ballYellow = new TextureRegion(atlasUIGameElements, 1152, 786, 32, 32);
-		ballsLeft0 = new TextureRegion(atlasUIGameElements, 625, 116, 64, 64);
-		ballsLeft1 = new TextureRegion(atlasUIGameElements, 689, 116, 64, 64);
-		ballsLeft2 = new TextureRegion(atlasUIGameElements, 768, 916, 64, 64);
-		ballsLeft3 = new TextureRegion(atlasUIGameElements, 832, 916, 64, 64);
-		ballsLeft4 = new TextureRegion(atlasUIGameElements, 1536, 256, 64, 64);
-		ballsLeft5 = new TextureRegion(atlasUIGameElements, 1408, 384, 64, 64);
-		ballsLeft6 = new TextureRegion(atlasUIGameElements, 896, 916, 64, 64);
-		ballsLeft7 = new TextureRegion(atlasUIGameElements, 1280, 570, 64, 64);
-		ballsLeft8 = new TextureRegion(atlasUIGameElements, 1536, 320, 64, 64);
-		ballsLeft9 = new TextureRegion(atlasUIGameElements, 1472, 384, 64, 64);
-		ballsSymbol = new TextureRegion(atlasUIGameElements, 1408, 448, 64, 64);
-		//fontBebasneue64x64White = new TextureRegion(atlasUIGameElements, 0, 194, 512, 512);
-		brickBlue = new TextureRegion(atlasUIGameElements, 1216, 722, 32, 32);
-		brickBluesky = new TextureRegion(atlasUIGameElements, 1877, 64, 32, 32);
-		//brickGold = new TextureRegion(atlasUIGameElements, 1941, 0, 32, 32);  //plain gold
-		//brickGold = new TextureRegion(atlasUIGameElements, 1089, 915, 32, 32); //gold with blue crown
-		brickGold = new TextureRegion(atlasUIGameElements, 1089, 948, 32, 32); //gold with pink crown
-		brickGreen = new TextureRegion(atlasUIGameElements, 1248, 722, 32, 32);   
-		brickGrey = new TextureRegion(atlasUIGameElements, 1216, 754, 32, 32);
-		brickLightviolet = new TextureRegion(atlasUIGameElements, 1152, 818, 32, 32);
-		brickOrange = new TextureRegion(atlasUIGameElements, 1184, 786, 32, 32);
-		brickPink = new TextureRegion(atlasUIGameElements, 1973, 0, 32, 32);
-		brickPurple = new TextureRegion(atlasUIGameElements, 1941, 32, 32, 32);
-		brickRed = new TextureRegion(atlasUIGameElements, 1877, 96, 32, 32);
-		brickViolet = new TextureRegion(atlasUIGameElements, 1909, 64, 32, 32);
-		//brickWheat = new TextureRegion(atlasUIGameElements, 1344, 634, 32, 32);
-		buttonLevelEmpty = new TextureRegion(atlasUIGameElements, 1024, 210, 128, 128);
-		buttonLevel1 = new TextureRegion(atlasUIGameElements, 1217, 58, 128, 128);
-		buttonLevel2 = new TextureRegion(atlasUIGameElements, 1024, 338, 128, 128);
-		buttonLevel3 = new TextureRegion(atlasUIGameElements, 1152, 210, 128, 128);
-		buttonLevel4 = new TextureRegion(atlasUIGameElements, 1365, 0, 128, 128);
-		buttonLevel5 = new TextureRegion(atlasUIGameElements, 1024, 466, 128, 128);
-		buttonLevel6 = new TextureRegion(atlasUIGameElements, 1280, 186, 128, 128);
-		buttonLevel7 = new TextureRegion(atlasUIGameElements, 1152, 338, 128, 128);
-		buttonLevel8 = new TextureRegion(atlasUIGameElements, 1493, 0, 128, 128);
-		buttonUnavailable = new TextureRegion(atlasUIGameElements, 1600, 256, 64, 64);
-		gameOverMessage = new TextureRegion(atlasUIGameElements, 625, 58, 269, 58);
-		levelPassedMessage = new TextureRegion(atlasUIGameElements, 1024, 0, 193, 153);
-		mainMenuButtonControlSwipe = new TextureRegion(atlasUIGameElements, 1280, 314, 128, 128);
-		mainMenuButtonControlTilt = new TextureRegion(atlasUIGameElements, 1408, 128, 128, 128);
-		mainMenuButtonControlTouch = new TextureRegion(atlasUIGameElements, 1152, 466, 128, 128);
-		mainMenuButtonHelp = new TextureRegion(atlasUIGameElements, 1024, 594, 128, 128);
-		mainMenuButtonHome = new TextureRegion(atlasUIGameElements, 1621, 0, 128, 128);
-		mainMenuButtonNo = new TextureRegion(atlasUIGameElements, 1408, 256, 128, 128);
-		mainMenuButtonPlay = new TextureRegion(atlasUIGameElements, 1536, 128, 128, 128);
-		mainMenuButtonReset = new TextureRegion(atlasUIGameElements, 1280, 442, 128, 128);
-		mainMenuButtonScore = new TextureRegion(atlasUIGameElements, 1024, 722, 128, 128);
-		mainMenuButtonSoundDisabled = new TextureRegion(atlasUIGameElements, 1152, 594, 128, 128);
-		mainMenuButtonSoundEnabled = new TextureRegion(atlasUIGameElements, 1749, 0, 128, 128);
-		mainMenuButtonYes = new TextureRegion(atlasUIGameElements, 1664, 128, 128, 128);
-		mainMenuTextControl = new TextureRegion(atlasUIGameElements, 512, 194, 256, 128);
-		mainMenuTextGoon = new TextureRegion(atlasUIGameElements, 512, 322, 256, 128);
-		mainMenuTextHelp = new TextureRegion(atlasUIGameElements, 512, 450, 256, 128);
-		mainMenuTextHighscores = new TextureRegion(atlasUIGameElements, 768, 116, 256, 128);
-		mainMenuTextNo = new TextureRegion(atlasUIGameElements, 768, 244, 256, 128);
-		mainMenuTextPlay = new TextureRegion(atlasUIGameElements, 512, 578, 256, 128);
-		mainMenuTextQuit = new TextureRegion(atlasUIGameElements, 768, 372, 256, 128);
-		mainMenuTextReset = new TextureRegion(atlasUIGameElements, 512, 706, 256, 128);
-		mainMenuTextResume = new TextureRegion(atlasUIGameElements, 768, 500, 256, 128);
-		mainMenuTextRetry = new TextureRegion(atlasUIGameElements, 512, 834, 256, 128);
-		mainMenuTextSound = new TextureRegion(atlasUIGameElements, 768, 628, 256, 128);
-		mainMenuTextYes = new TextureRegion(atlasUIGameElements, 768, 756, 256, 128);
-		pauseButton = new TextureRegion(atlasUIGameElements, 1152, 722, 64, 64);
-		pauseMessage = new TextureRegion(atlasUIGameElements, 1217, 0, 148, 58);
-		racquet = new TextureRegion(atlasUIGameElements, 768, 884, 256, 32);
-		readyMessage = new TextureRegion(atlasUIGameElements, 1024, 153, 182, 57);
-		resetHighscoresMessage = new TextureRegion(atlasUIGameElements, 0, 706, 512, 256);
-		selectLevelMessage = new TextureRegion(atlasUIGameElements, 625, 0, 328, 58);
+		mainMenuLogo = new TextureRegion(atlasUIElements, 0, 0, 625, 194);
+		backgroundUIRegion = new TextureRegion(atlasUIElements, 625, 0, 360, 640);
+		buttonLevel1 = new TextureRegion(atlasUIElements, 985, 128, 128, 128);
+		buttonLevel2 = new TextureRegion(atlasUIElements, 1113, 128, 128, 128);
+		buttonLevel3 = new TextureRegion(atlasUIElements, 985, 256, 128, 128);
+		buttonLevel4 = new TextureRegion(atlasUIElements, 1241, 0, 128, 128);
+		buttonLevel5 = new TextureRegion(atlasUIElements, 1241, 128, 128, 128);
+		buttonLevel6 = new TextureRegion(atlasUIElements, 985, 384, 128, 128);
+		buttonLevel7 = new TextureRegion(atlasUIElements, 1369, 0, 128, 128);
+		buttonLevel8 = new TextureRegion(atlasUIElements, 1113, 256, 128, 128);
+		buttonUnavailable = new TextureRegion(atlasUIElements, 512, 194, 64, 64);
+		mainMenuButtonControlSwipe = new TextureRegion(atlasUIElements, 1113, 384, 128, 128);
+		mainMenuButtonControlTilt = new TextureRegion(atlasUIElements, 985, 512, 128, 128);
+		mainMenuButtonControlTouch = new TextureRegion(atlasUIElements, 1497, 0, 128, 128);
+		mainMenuButtonHelp = new TextureRegion(atlasUIElements, 1369, 128, 128, 128);
+		mainMenuButtonHome = new TextureRegion(atlasUIElements, 1241, 256, 128, 128);
+		mainMenuButtonNo = new TextureRegion(atlasUIElements, 1625, 0, 128, 128);
+		mainMenuButtonPlay = new TextureRegion(atlasUIElements, 1497, 128, 128, 128);
+		mainMenuButtonReset = new TextureRegion(atlasUIElements, 1369, 256, 128, 128);
+		mainMenuButtonScore = new TextureRegion(atlasUIElements, 1241, 384, 128, 128);
+		mainMenuButtonSoundDisabled = new TextureRegion(atlasUIElements, 1113, 512, 128, 128);
+		mainMenuButtonSoundEnabled = new TextureRegion(atlasUIElements, 1024, 640, 128, 128);
+		mainMenuButtonYes = new TextureRegion(atlasUIElements, 1241, 512, 128, 128);
+		mainMenuTextControl = new TextureRegion(atlasUIElements, 0, 508, 256, 128);
+		mainMenuTextHelp = new TextureRegion(atlasUIElements, 0, 636, 256, 128);
+		mainMenuTextHighscores = new TextureRegion(atlasUIElements, 0, 764, 256, 128);
+		mainMenuTextNo = new TextureRegion(atlasUIElements, 256, 508, 256, 128);
+		mainMenuTextPlay = new TextureRegion(atlasUIElements, 256, 636, 256, 128);
+		mainMenuTextQuit = new TextureRegion(atlasUIElements, 256, 764, 256, 128);
+		mainMenuTextReset = new TextureRegion(atlasUIElements, 512, 640, 256, 128);
+		mainMenuTextResume = new TextureRegion(atlasUIElements, 512, 768, 256, 128);
+		mainMenuTextRetry = new TextureRegion(atlasUIElements, 768, 640, 256, 128);
+		mainMenuTextSound = new TextureRegion(atlasUIElements, 768, 768, 256, 128);
+		mainMenuTextYes = new TextureRegion(atlasUIElements, 985, 0, 256, 128);
+		resetHighscoresMessage = new TextureRegion(atlasUIElements, 0, 194, 512, 256);
+		selectLevelMessage = new TextureRegion(atlasUIElements, 0, 450, 328, 58);
 
+		/*
+		score0 = new TextureRegion(atlasUIElements, 512, 258, 64, 64);
+		score1 = new TextureRegion(atlasUIElements, 512, 322, 64, 64);
+		score2 = new TextureRegion(atlasUIElements, 0, 892, 64, 64);
+		score3 = new TextureRegion(atlasUIElements, 512, 386, 64, 64);
+		score4 = new TextureRegion(atlasUIElements, 64, 892, 64, 64);
+		score5 = new TextureRegion(atlasUIElements, 512, 450, 64, 64);
+		score6 = new TextureRegion(atlasUIElements, 128, 892, 64, 64);
+		score7 = new TextureRegion(atlasUIElements, 512, 514, 64, 64);
+		score8 = new TextureRegion(atlasUIElements, 192, 892, 64, 64);
+		score9 = new TextureRegion(atlasUIElements, 256, 892, 64, 64);
+		scoreDot = new TextureRegion(atlasUIElements, 320, 892, 64, 64);
+		scoreMinus = new TextureRegion(atlasUIElements, 384, 892, 64, 64);
+		scoreNone = new TextureRegion(atlasUIElements, 448, 892, 64, 64);
+		*/
+
+		scoreFont = new ScoreFont(atlasUIElements, 128, 128);
 		
-		fontBebasneue64x64White = new Font(atlasUIGameElements, 0, 194, 8, 64, 64);
-		scoreFont = new ScoreFont(atlasUIGameElements, 128, 128);
-		scoreBallsFont = new ScoreBallsFont(atlasUIGameElements, 128, 128);
 
 
 		clickSound = game.getAudio().newSound("click.ogg");
@@ -229,7 +147,7 @@ public class Assets {
 		// bugs when GL ES loses context!
 		//atlasBackgroundUI.reload();
 		//atlasGameScreenBackground.reload();
-		atlasUIGameElements.reload();
+		atlasUIElements.reload();
 	}
 
 	public static void playSound(Sound sound) {

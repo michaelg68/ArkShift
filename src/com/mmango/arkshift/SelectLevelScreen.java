@@ -136,7 +136,7 @@ public class SelectLevelScreen extends GLScreen {
 
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 		
-		batcher.beginBatch(Assets.atlasUIGameElements);
+		batcher.beginBatch(Assets.atlasUIElements);
 
 		//batcher.beginBatch(Assets.atlasBackgroundUI);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X,

@@ -31,10 +31,10 @@ public class GameActivity extends GLGame {
 		super.onSurfaceCreated(gl, config);
 		if (firstTimeCreate) {
 			Log.d("GameActivity:onSurfaceCreated", ".....");
-			Assets.load(this);
+			AssetsGame.load(this);
 			firstTimeCreate = false;
 		} else {
-			Assets.reload();
+			AssetsGame.reload();
 		}
 	}
 
@@ -44,7 +44,7 @@ public class GameActivity extends GLGame {
 		Log.d("GameActivity:onPause", ".......");
 		Settings.savePrefs(this);
 		// if (Settings.soundEnabled)
-		// Assets.music.pause();
+		// AssetsGame.music.pause();
 	}
 
 	@Override

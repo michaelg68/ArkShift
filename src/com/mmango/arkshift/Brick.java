@@ -89,37 +89,37 @@ public class Brick {
 	public void setTextureRegion(int color){
 		switch (color) {
 		case BRICK_COLOR_GOLD:
-			brickTextureRegion = Assets.brickGold;
+			brickTextureRegion = AssetsGame.brickGold;
 			break;
 		case BRICK_COLOR_GREEN:
-			brickTextureRegion = Assets.brickGreen;
+			brickTextureRegion = AssetsGame.brickGreen;
 			break;
 		case BRICK_COLOR_BLUE:
-			brickTextureRegion = Assets.brickBlue;
+			brickTextureRegion = AssetsGame.brickBlue;
 			break;
 		case BRICK_COLOR_ORANGE:
-			brickTextureRegion = Assets.brickOrange;
+			brickTextureRegion = AssetsGame.brickOrange;
 			break;
 		case BRICK_COLOR_GREY:
-			brickTextureRegion = Assets.brickGrey;
+			brickTextureRegion = AssetsGame.brickGrey;
 			break;
 		case BRICK_COLOR_RED:
-			brickTextureRegion = Assets.brickRed;
+			brickTextureRegion = AssetsGame.brickRed;
 			break;
 		case BRICK_COLOR_PINK:
-			brickTextureRegion = Assets.brickPink;
+			brickTextureRegion = AssetsGame.brickPink;
 			break;
 		case BRICK_COLOR_BLUESKY:
-			brickTextureRegion = Assets.brickBluesky;
+			brickTextureRegion = AssetsGame.brickBluesky;
 			break;
 		case BRICK_COLOR_VIOLET:
-			brickTextureRegion = Assets.brickViolet;
+			brickTextureRegion = AssetsGame.brickViolet;
 			break;
 		case BRICK_COLOR_PURPLE:
-			brickTextureRegion = Assets.brickPurple;
+			brickTextureRegion = AssetsGame.brickPurple;
 			break;
 		default:
-			brickTextureRegion = Assets.brickGrey;
+			brickTextureRegion = AssetsGame.brickGrey;
 			break;
 		}
 	}

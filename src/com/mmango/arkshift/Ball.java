@@ -86,13 +86,14 @@ public class Ball extends DynamicGameObjectCircle {
 		this.color = color;
         switch (this.color) {
 		case BALL_COLOR_RED:
-			this.ballTextureRegion = Assets.ballRed;
+			this.ballTextureRegion = AssetsGame.ballRed;
 			break;
 		case BALL_COLOR_YELLOW:
-			this.ballTextureRegion = Assets.ballYellow;
+			this.ballTextureRegion = AssetsGame.ballYellow;
 			break;
 		default:   //BALL_COLOR_WHITE
-			this.ballTextureRegion = Assets.ballWhite;
+			this.ballTextureRegion = AssetsGame.ballWhite;
+			Log.d("Ball:setBallColor","setting ballTextureRegion = AssetsGame.ballWhite **********");
 			break;
 		}
 	}

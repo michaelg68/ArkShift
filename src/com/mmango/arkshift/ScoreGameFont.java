@@ -6,31 +6,31 @@ import com.badlogic.androidgames.framework.gl.SpriteBatcher;
 import com.badlogic.androidgames.framework.gl.Texture;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 
-public class ScoreFont {
+public class ScoreGameFont {
 
 	public final Texture texture;
 	public final int glyphWidth;
 	public final int glyphHeight;
 	public final TextureRegion[] glyphs = new TextureRegion[13];
 
-	public ScoreFont(Texture texture, int glyphWidth, int glyphHeight) {
+	public ScoreGameFont(Texture texture, int glyphWidth, int glyphHeight) {
 		this.texture = texture;
 		this.glyphWidth = glyphWidth;  //128
 		this.glyphHeight = glyphHeight; //128
 
-		glyphs[0] =  new TextureRegion(texture, 512, 258, 64, 64); // 0
-		glyphs[1] =  new TextureRegion(texture, 512, 322, 64, 64);
-		glyphs[2] =  new TextureRegion(texture, 0, 892, 64, 64);
-		glyphs[3] =  new TextureRegion(texture, 512, 386, 64, 64);
-		glyphs[4] =  new TextureRegion(texture, 64, 892, 64, 64);
-		glyphs[5] =  new TextureRegion(texture, 512, 450, 64, 64);
-		glyphs[6] =  new TextureRegion(texture, 128, 892, 64, 64);
-		glyphs[7] =  new TextureRegion(texture, 512, 514, 64, 64);
-		glyphs[8] =  new TextureRegion(texture, 192, 892, 64, 64);
-		glyphs[9] =  new TextureRegion(texture, 256, 892, 64, 64); // 9
-		glyphs[10] = new TextureRegion(texture, 320, 892, 64, 64); // scoreDot
-		glyphs[11] = new TextureRegion(texture, 384, 892, 64, 64); // scoreMinus
-		glyphs[12] = new TextureRegion(texture, 448, 892, 64, 64); // scoreNone
+		glyphs[0] =  new TextureRegion(texture, 872, 448, 64, 64); // 0
+		glyphs[1] =  new TextureRegion(texture, 936, 384, 64, 64);
+		glyphs[2] =  new TextureRegion(texture, 512, 815, 64, 64);
+		glyphs[3] =  new TextureRegion(texture, 448, 896, 64, 64);
+		glyphs[4] =  new TextureRegion(texture, 707, 640, 64, 64);
+		glyphs[5] =  new TextureRegion(texture, 643, 704, 64, 64);
+		glyphs[6] =  new TextureRegion(texture, 576, 768, 64, 64);
+		glyphs[7] =  new TextureRegion(texture, 936, 448, 64, 64);
+		glyphs[8] =  new TextureRegion(texture, 872, 512, 64, 64);
+		glyphs[9] =  new TextureRegion(texture, 512, 879, 64, 64); // 9
+		glyphs[10] = new TextureRegion(texture, 640, 768, 64, 64); // scoreDot
+		glyphs[11] = new TextureRegion(texture, 576, 832, 64, 64); // scoreMinus
+		glyphs[12] = new TextureRegion(texture, 707, 704, 64, 64); // scoreNone
 
 	}
 

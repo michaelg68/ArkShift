@@ -18,17 +18,16 @@ public class ScoreBallsFont {
 		this.glyphWidth = glyphWidth;  //128
 		this.glyphHeight = glyphHeight; //128
 		//instead of ballsLeft:
-		glyphs[0] = new TextureRegion(texture, 625, 116, 64, 64);
-		glyphs[1] = new TextureRegion(texture, 689, 116, 64, 64);
-		glyphs[2] = new TextureRegion(texture, 768, 916, 64, 64);
-		glyphs[3] = new TextureRegion(texture, 832, 916, 64, 64);
-		glyphs[4] = new TextureRegion(texture, 1536, 256, 64, 64);
-		glyphs[5] = new TextureRegion(texture, 1408, 384, 64, 64);
-		glyphs[6] = new TextureRegion(texture, 896, 916, 64, 64);
-		glyphs[7] = new TextureRegion(texture, 1280, 570, 64, 64);
-		glyphs[8] = new TextureRegion(texture, 1536, 320, 64, 64);
-		glyphs[9] = new TextureRegion(texture, 1472, 384, 64, 64);
-
+		glyphs[0] = new TextureRegion(texture, 0, 928, 64, 64);
+		glyphs[1] = new TextureRegion(texture, 64, 928, 64, 64);
+		glyphs[2] = new TextureRegion(texture, 128, 928, 64, 64);
+		glyphs[3] = new TextureRegion(texture, 192, 928, 64, 64);
+		glyphs[4] = new TextureRegion(texture, 256, 896, 64, 64);
+		glyphs[5] = new TextureRegion(texture, 320, 896, 64, 64);
+		glyphs[6] = new TextureRegion(texture, 579, 640, 64, 64);
+		glyphs[7] = new TextureRegion(texture, 872, 384, 64, 64);
+		glyphs[8] = new TextureRegion(texture, 512, 751, 64, 64);
+		glyphs[9] = new TextureRegion(texture, 384, 896, 64, 64);
 	}
 
 	public void drawScoreBallsZoomed(SpriteBatcher batcher, String text, float x, float y, float xZoom, float yZoom) {

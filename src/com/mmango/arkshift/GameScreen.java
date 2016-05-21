@@ -93,39 +93,39 @@ public class GameScreen extends GLScreen {
 		guiCam = new Camera2D(glGraphics, RESOLUTION_X, RESOLUTION_Y);
 		touchPoint = new Vector2();
 		batcher = new SpriteBatcher(glGraphics, SPRITES_NUMBER);
-		ballsLeftRegion = Assets.ballsLeft1;
+		//ballsLeftRegion = AssetsGame.ballsLeft1;
 		worldListener = new WorldListener() {
 
 			public void hitAtRacquet() {
-				Assets.playSound(Assets.racquetHitSound);
+				AssetsGame.playSound(AssetsGame.racquetHitSound);
 			}
 
 			public void hitAtBrick() {
-				Assets.playSound(Assets.brickHitSound);
+				AssetsGame.playSound(AssetsGame.brickHitSound);
 			}
 
 			// public void hitAtBrickFloor() {
-			// //Assets.playSound(Assets.knockSound);
+			// //AssetsGame.playSound(AssetsGame.knockSound);
 			// }
 
 			public void hitAtFrame() {
-				Assets.playSound(Assets.frameHitSound);
+				AssetsGame.playSound(AssetsGame.frameHitSound);
 			}
 
 			public void shiftBrick() {
-				// Assets.playSound(Assets.shiftSound);
+				// AssetsGame.playSound(AssetsGame.shiftSound);
 			}
 
 			public void levelBegins() {
-				// Assets.playSound(Assets.levelStartsSound);
+				// AssetsGame.playSound(AssetsGame.levelStartsSound);
 			}
 
 			public void levelPassed() {
-				// Assets.playSound(Assets.levelPassedSound);
+				// AssetsGame.playSound(AssetsGame.levelPassedSound);
 			}
 
 			public void gameOver() {
-				// Assets.playSound(Assets.gameOverSound);
+				// AssetsGame.playSound(AssetsGame.gameOverSound);
 			}
 		};
 
@@ -162,42 +162,43 @@ public class GameScreen extends GLScreen {
 		// if (deltaTime > 0.1f)
 		// deltaTime = 0.1f;
 
+		/*
 		switch (world.ballsLeft - 1) {
 		case 0:
-			ballsLeftRegion = Assets.ballsLeft0;
+			ballsLeftRegion = AssetsGame.ballsLeft0;
 			break;
 		case 1:
-			ballsLeftRegion = Assets.ballsLeft1;
+			ballsLeftRegion = AssetsGame.ballsLeft1;
 			break;
 		case 2:
-			ballsLeftRegion = Assets.ballsLeft2;
+			ballsLeftRegion = AssetsGame.ballsLeft2;
 			break;
 		case 3:
-			ballsLeftRegion = Assets.ballsLeft3;
+			ballsLeftRegion = AssetsGame.ballsLeft3;
 			break;
 		case 4:
-			ballsLeftRegion = Assets.ballsLeft4;
+			ballsLeftRegion = AssetsGame.ballsLeft4;
 			break;
 		case 5:
-			ballsLeftRegion = Assets.ballsLeft5;
+			ballsLeftRegion = AssetsGame.ballsLeft5;
 			break;
 		case 6:
-			ballsLeftRegion = Assets.ballsLeft6;
+			ballsLeftRegion = AssetsGame.ballsLeft6;
 			break;
 		case 7:
-			ballsLeftRegion = Assets.ballsLeft7;
+			ballsLeftRegion = AssetsGame.ballsLeft7;
 			break;
 		case 8:
-			ballsLeftRegion = Assets.ballsLeft8;
+			ballsLeftRegion = AssetsGame.ballsLeft8;
 			break;
 		case 9:
-			ballsLeftRegion = Assets.ballsLeft9;
+			ballsLeftRegion = AssetsGame.ballsLeft9;
 			break;
 		default:
-			ballsLeftRegion = Assets.ballsLeft0;
+			ballsLeftRegion = AssetsGame.ballsLeft0;
 			break;
 		}
-
+*/
 		switch (state) {
 		case GAME_READY:
 			// Log.d("GameScreen", "case GAME_READY");
@@ -250,7 +251,7 @@ public class GameScreen extends GLScreen {
 				// pauseBounds.width);
 				// Log.d("GameScreen:", "pauseBounds.height = " +
 				// pauseBounds.height);
-				Assets.playSound(Assets.clickSound);
+				AssetsGame.playSound(AssetsGame.clickSound);
 				state = GAME_PAUSED;
 				return;
 			}
@@ -375,19 +376,19 @@ public class GameScreen extends GLScreen {
 			guiCam.touchToWorld(touchPoint);
 
 			if (OverlapTester.pointInRectangle(resumeBounds, touchPoint)) {
-				Assets.playSound(Assets.clickSound);
+				AssetsGame.playSound(AssetsGame.clickSound);
 				state = GAME_RUNNING;
 				return;
 			}
 
 			if (OverlapTester.pointInRectangle(resumeBounds, touchPoint)) {
-				Assets.playSound(Assets.clickSound);
+				AssetsGame.playSound(AssetsGame.clickSound);
 				state = GAME_RUNNING;
 				return;
 			}
 
 			if (OverlapTester.pointInRectangle(controlBounds, touchPoint)) {
-				Assets.playSound(Assets.clickSound);
+				AssetsGame.playSound(AssetsGame.clickSound);
 				Log.d("GameScreen:updatePaused",
 						"controlBounds is touched. Changing the controlType");
 				Settings.controlType++;
@@ -398,18 +399,18 @@ public class GameScreen extends GLScreen {
 			}
 
 			if (OverlapTester.pointInRectangle(soundBounds, touchPoint)) {
-				Assets.playSound(Assets.clickSound);
+				AssetsGame.playSound(AssetsGame.clickSound);
 				Log.d("GameScreen:updatePaused",
 						"soundBounds is touched. Enabling/Disabling sound");
 				Settings.soundEnabled = (Settings.soundEnabled) ? false : true;
 				Settings.savePrefs(glGame);
-				Log.d("MainMenuScreen:update", "Assets.soundEnabled = "
+				Log.d("MainMenuScreen:update", "AssetsGame.soundEnabled = "
 						+ Boolean.toString(Settings.soundEnabled));
 				return;
 			}
 
 			if (OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
-				Assets.playSound(Assets.clickSound);
+				AssetsGame.playSound(AssetsGame.clickSound);
 				// Settings.save(game.getFileIO());
 				Log.d("GameScreen:updatePaused",
 						"Running Settings.savePrefs(glGame)");
@@ -438,7 +439,7 @@ public class GameScreen extends GLScreen {
 			touchPoint.set(event.x, event.y);
 			guiCam.touchToWorld(touchPoint);
 			if (OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
-				Assets.playSound(Assets.clickSound);
+				AssetsGame.playSound(AssetsGame.clickSound);
 				// game.setScreen(new SelectLevelScreen(game));
 				// finish GameActivity
 				state=GAME_READY;
@@ -462,7 +463,7 @@ public class GameScreen extends GLScreen {
 				// Settings.save(game.getFileIO());
 				Log.d("GameScreen:updateGameOver",
 						"Exiting from GameScreen after GameOver");
-				// Assets.playSound(Assets.clickSound);
+				// AssetsGame.playSound(AssetsGame.clickSound);
 				world.score = lastScore;
 				Settings.addScore(lastScore);
 				Settings.savePrefs(glGame);
@@ -486,7 +487,7 @@ public class GameScreen extends GLScreen {
 		guiCam.setViewportAndMatrices();
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		batcher.beginBatch(Assets.atlasUIGameElements);
+		batcher.beginBatch(AssetsGame.atlasGameElements);
 		
 		presentNotificationArea();
 		
@@ -515,7 +516,7 @@ public class GameScreen extends GLScreen {
 
 	private void presentNotificationArea() {
 		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128,
-				Assets.ballsSymbol);
+				AssetsGame.ballsSymbol);
 		// batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128,
 		// ballsLeftRegion);
 		String ballsLeftString = Integer.toString(world.ballsLeft - 1);
@@ -530,136 +531,136 @@ public class GameScreen extends GLScreen {
 		default:
 			break;
 		}
-		Assets.scoreBallsFont.drawScoreBallsZoomed(batcher, ballsLeftString,
+		AssetsGame.scoreBallsFont.drawScoreBallsZoomed(batcher, ballsLeftString,
 				xCoordB, RESOLUTION_Y - 75f, 1f, 1f);
 		
-		Assets.fontBebasneue64x64White.drawTextZoomed(batcher,
+		AssetsGame.fontBebasneue64x64White.drawTextZoomed(batcher,
 				"L" + Integer.toString(world.level), 5 + 64 + 64 + 64,
 				RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
 		
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
-		Assets.scoreFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
+		AssetsGame.scoreGameFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
 				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
 	}
 
 	private void presentReady() {
 
-		// Assets.font.drawTextZoomed(batcher, Integer.toString(world.level),
+		// AssetsGame.font.drawTextZoomed(batcher, Integer.toString(world.level),
 		// 100, RESOLUTION_Y - 75f, 0.5f, 0.5f);
 
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
-				Assets.alphaOverGameField_60Opacity);
+				AssetsGame.alphaOverGameField_60Opacity);
 		// batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 454, 142,
-		// Assets.readyMessage);
+		// AssetsGame.readyMessage);
 		String readyString = "READY?";
 		float xZoom = 2f;
 		float yZoom = 4f;
 		float halfLen = readyString.length()
-				* Assets.fontBebasneue64x64White.glyphWidth / 2;
+				* AssetsGame.fontBebasneue64x64White.glyphWidth / 2;
 		// Log.d("GameScreen:presentReady", "halfLen = " + halfLen);
-		float halfGlyph = Assets.fontBebasneue64x64White.glyphWidth / 2;
+		float halfGlyph = AssetsGame.fontBebasneue64x64White.glyphWidth / 2;
 		// Log.d("GameScreen:presentReady", "halfGlyph = " + halfGlyph);
 
 		float xCoord = RESOLUTION_X / 2 - halfLen + halfGlyph;
 		// Log.d("GameScreen:presentReady", "xCoord = " + xCoord);
-		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, readyString,
+		AssetsGame.fontBebasneue64x64White.drawTextZoomed(batcher, readyString,
 				xCoord + halfGlyph, RESOLUTION_Y / 2, xZoom, yZoom);
 	}
 
 	private void presentRunning() {
 		batcher.drawSprite(RESOLUTION_X - 5 - 128 / 2, RESOLUTION_Y - 75, 128,
-				128, Assets.pauseButton);
+				128, AssetsGame.pauseButton);
 		// Log.d("GameScreen:presentRunning", "scoreString.length() = " +
 		// scoreString.length());
 	}
 
 	private void presentPaused() {
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
-				Assets.alphaOverGameField_60Opacity);
+				AssetsGame.alphaOverGameField_60Opacity);
 
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400, 512, 256,
-				Assets.mainMenuTextResume);
+				AssetsGame.mainMenuTextResume);
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400, 256, 256,
-				Assets.mainMenuButtonPlay);
+				AssetsGame.mainMenuButtonPlay);
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 256, 512, 256,
-				Assets.mainMenuTextControl);
+				AssetsGame.mainMenuTextControl);
 		switch (Settings.controlType) {
 		case Settings.CONTROL_BY_TOUCH:
 			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 256, 256, 256,
-					Assets.mainMenuButtonControlTouch);
+					AssetsGame.mainMenuButtonControlTouch);
 			break;
 		case Settings.CONTROL_BY_SWIPE:
 			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 256, 256, 256,
-					Assets.mainMenuButtonControlSwipe);
+					AssetsGame.mainMenuButtonControlSwipe);
 			break;
 		case Settings.CONTROL_BY_TILT:
 			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 256, 256, 256,
-					Assets.mainMenuButtonControlTilt);
+					AssetsGame.mainMenuButtonControlTilt);
 			break;
 		}
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 512, 512, 256,
-				Assets.mainMenuTextSound);
+				AssetsGame.mainMenuTextSound);
 		if (Settings.soundEnabled) {
 			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 512, 256, 256,
-					Assets.mainMenuButtonSoundEnabled);
+					AssetsGame.mainMenuButtonSoundEnabled);
 		} else {
 			batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 512, 256, 256,
-					Assets.mainMenuButtonSoundDisabled);
+					AssetsGame.mainMenuButtonSoundDisabled);
 		}
 
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
-				Assets.mainMenuTextQuit);
+				AssetsGame.mainMenuTextQuit);
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 768, 256, 256,
-				Assets.mainMenuButtonHome);
+				AssetsGame.mainMenuButtonHome);
 
 	}
 
 	private void presentLevelEnd() {
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
-				Assets.alphaOverGameField_60Opacity);
+				AssetsGame.alphaOverGameField_60Opacity);
 
 		// batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 + 200, 481,
-		// 382, Assets.levelPassedMessage);
+		// 382, AssetsGame.levelPassedMessage);
 		String readyString = "LEVEL PASSED!";
 		float xZoom = 2f;
 		float yZoom = 4f;
 		float halfLen = readyString.length()
-				* Assets.fontBebasneue64x64White.glyphWidth / 2;
+				* AssetsGame.fontBebasneue64x64White.glyphWidth / 2;
 		// Log.d("GameScreen:presentReady", "halfLen = " + halfLen);
-		float halfGlyph = Assets.fontBebasneue64x64White.glyphWidth / 2;
+		float halfGlyph = AssetsGame.fontBebasneue64x64White.glyphWidth / 2;
 		// Log.d("GameScreen:presentReady", "halfGlyph = " + halfGlyph);
 		float xCoord = RESOLUTION_X / 2 - halfLen + halfGlyph;
-		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, readyString,
+		AssetsGame.fontBebasneue64x64White.drawTextZoomed(batcher, readyString,
 				xCoord + halfGlyph, RESOLUTION_Y / 2 + 200, xZoom, yZoom);
 
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
-				Assets.mainMenuTextQuit);
+				AssetsGame.mainMenuTextQuit);
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 768, 256, 256,
-				Assets.mainMenuButtonHome);
+				AssetsGame.mainMenuButtonHome);
 	}
 
 	private void presentGameOver() {
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
-				Assets.alphaOverGameField_60Opacity);
+				AssetsGame.alphaOverGameField_60Opacity);
 
 		// batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 + 200, 676,
-		// 144, Assets.gameOverMessage);
+		// 144, AssetsGame.gameOverMessage);
 		String readyString = "GAME OVER";
 		float xZoom = 2f;
 		float yZoom = 4f;
 		float halfLen = readyString.length()
-				* Assets.fontBebasneue64x64White.glyphWidth / 2;
+				* AssetsGame.fontBebasneue64x64White.glyphWidth / 2;
 		// Log.d("GameScreen:presentReady", "halfLen = " + halfLen);
-		float halfGlyph = Assets.fontBebasneue64x64White.glyphWidth / 2;
+		float halfGlyph = AssetsGame.fontBebasneue64x64White.glyphWidth / 2;
 		// Log.d("GameScreen:presentReady", "halfGlyph = " + halfGlyph);
 		float xCoord = RESOLUTION_X / 2 - halfLen + halfGlyph;
-		Assets.fontBebasneue64x64White.drawTextZoomed(batcher, readyString,
+		AssetsGame.fontBebasneue64x64White.drawTextZoomed(batcher, readyString,
 				xCoord + halfGlyph, RESOLUTION_Y / 2 + 200, xZoom, yZoom);
 
 		batcher.drawSprite(RESOLUTION_X / 2 + 128, 1400 - 768, 512, 256,
-				Assets.mainMenuTextQuit);
+				AssetsGame.mainMenuTextQuit);
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 1400 - 768, 256, 256,
-				Assets.mainMenuButtonHome);
+				AssetsGame.mainMenuButtonHome);
 
 	}
 

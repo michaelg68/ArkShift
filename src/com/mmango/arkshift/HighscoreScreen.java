@@ -128,7 +128,7 @@ public class HighscoreScreen extends GLScreen {
 
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		batcher.beginBatch(Assets.atlasUIGameElements);
+		batcher.beginBatch(Assets.atlasUIElements);
 
 		
 		//batcher.beginBatch(Assets.atlasBackgroundUI);
@@ -174,8 +174,8 @@ public class HighscoreScreen extends GLScreen {
 	}
 
 	private void presentAskReset(float deltaTime) {
-		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 1080, 1920,
-				Assets.alphaOverGameField_60Opacity);
+		//batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, 1080, 1920,
+				//Assets.alphaOverGameField_60Opacity);
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 + 200, 1200, 600,
 				Assets.resetHighscoresMessage);
 		batcher.drawSprite(RESOLUTION_X / 2 - 256, 150 + 256, 256, 256,
