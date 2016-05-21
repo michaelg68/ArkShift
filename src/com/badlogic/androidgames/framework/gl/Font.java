@@ -1,5 +1,9 @@
 package com.badlogic.androidgames.framework.gl;
 
+import com.mmango.arkshift.Assets;
+
+import android.util.Log;
+
 public class Font {
 
 	public final Texture texture;
@@ -44,6 +48,19 @@ public class Font {
 			TextureRegion glyph = glyphs[c];
 			batcher.drawSprite(x, y, glyphWidth * xZoom, glyphHeight * yZoom, glyph);
 			x += glyphWidth;
+		}
+	}
+	
+	public void drawTextZoomedWider(SpriteBatcher batcher, String text, float x, float y, float xZoom, float yZoom ) {
+		int len = text.length();
+		for (int i = 0; i < len; i++) {
+			int c = text.charAt(i) - ' ';
+			if (c < 0 || c > glyphs.length - 1)
+				continue;
+			TextureRegion glyph = glyphs[c];
+			//Log.d("Font:drawTextZoomedWider", "c = " + c + "; x = " + x);
+			batcher.drawSprite(x, y, glyphWidth * xZoom, glyphHeight * yZoom, glyph);
+			x += glyphWidth * xZoom;
 		}
 	}
 

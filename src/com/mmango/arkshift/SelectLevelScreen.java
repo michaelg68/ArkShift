@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.badlogic.androidgames.framework.Game;
@@ -111,8 +113,14 @@ public class SelectLevelScreen extends GLScreen {
 					return;
 				} else if ((level >= 1) && (level <= 8)) {
 					if (Settings.levelEnabled[level - 1]) {
-						game.setScreen(new GameScreen(game, level));
-						secretTapCounter = 0;
+						//game.setScreen(new GameScreen(game, level));
+						//secretTapCounter = 0;
+						
+						Intent it = new Intent(glGame,GameActivity.class);
+						Bundle b = new Bundle();
+						b.putInt("runLevel", level); //Your id
+						it.putExtras(b); //Put your id to your next Intent
+						glGame.startActivity(it);
 					}
 					return;
 				}
