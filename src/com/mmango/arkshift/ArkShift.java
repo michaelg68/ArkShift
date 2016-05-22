@@ -30,6 +30,7 @@ public class ArkShift extends GLGame {
 			Settings.readPrefs(this);
 			Assets.load(this);
 			//AssetsGame.load(this);
+			Assets.ballRollingAndKnockSound.play(1);
 			firstTimeCreate = false;
 		} else {
 			Assets.reload();
