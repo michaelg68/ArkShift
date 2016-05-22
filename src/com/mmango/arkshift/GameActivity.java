@@ -31,7 +31,7 @@ public class GameActivity extends GLGame {
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		super.onSurfaceCreated(gl, config);
 		if (firstTimeCreate) {
-			Log.d("GameActivity:onSurfaceCreated", ".....");
+			//Log.d("GameActivity:onSurfaceCreated", ".....");
 			AssetsGame.load(this);
 			firstTimeCreate = false;
 		} else {

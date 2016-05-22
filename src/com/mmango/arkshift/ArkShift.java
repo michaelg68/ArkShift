@@ -29,9 +29,11 @@ public class ArkShift extends GLGame {
 
 			Settings.readPrefs(this);
 			Assets.load(this);
+			//AssetsGame.load(this);
 			firstTimeCreate = false;
 		} else {
 			Assets.reload();
+			//AssetsGame.reload();
 		}
 	}
 
