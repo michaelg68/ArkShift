@@ -23,6 +23,7 @@ public class GameActivity extends GLGame {
 		int level = -1; // or other values
 		if (b != null)
 			level = b.getInt("runLevel");
+		AssetsGame.load(this);
 		return new GameScreen(this, level);
 	}
 

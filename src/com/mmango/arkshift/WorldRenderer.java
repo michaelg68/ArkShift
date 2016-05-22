@@ -84,7 +84,7 @@ public class WorldRenderer {
         Ball ball = world.ball;
         //Log.d("WorldRenderer:renderBall", "inside method renderBall, before drawSprite");
         //batcher.drawSprite(ball.position.x + ball.BALL_WIDTH / 2, ball.position.y - ball.BALL_HEIGHT / 2, 5.4f, 5.4f, Assets.ballWhite);
-       // batcher.drawSprite(ball.position.x, ball.position.y, Ball.BALL_DIAMETER, Ball.BALL_DIAMETER, ball.ballTextureRegion);
+        batcher.drawSprite(ball.position.x, ball.position.y, Ball.BALL_DIAMETER, Ball.BALL_DIAMETER, ball.ballTextureRegion);
         //Log.d("WorldRenderer:renderBall", "inside method renderBall, after drawSprite");
     }
     
