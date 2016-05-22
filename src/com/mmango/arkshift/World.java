@@ -859,14 +859,6 @@ public class World {
 					floorBricksId[column][level - 1] = NO_OBJECT_ID;
 				break;
 			}
-
-		}
-
-	}
-
-	private void checkGameOver() {
-		if (ballsLeft < 1) {
-			state = WORLD_STATE_GAME_OVER;
 		}
 	}
 }

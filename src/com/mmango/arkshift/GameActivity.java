@@ -50,21 +50,17 @@ public class GameActivity extends GLGame {
 
 	@Override
 	public void onBackPressed() {
-		getCurrentScreen();
-		String className = getCurrentScreen().getClass().getName();
-		// className = currentScreen = com.mmango.arkshift.HighscoreScreen
-		int len = className.split("\\.").length;
-		// Log.d("ArkShift:onBackPressed", "len = " + len);
-		className = className.split("\\.")[len - 1];
-		// Log.d("ArkShift:onBackPressed", "currentScreen = " + className);
-		if (className.equals("GameScreen")) {
-			// setScreen(new MainMenuScreen(this));
-			if (GameScreen.state != GameScreen.GAME_READY) {
+//		getCurrentScreen();
+//		String className = getCurrentScreen().getClass().getName();
+//		int len = className.split("\\.").length;
+//		className = className.split("\\.")[len - 1];
+//		if (className.equals("GameScreen")) {
+			if (GameScreen.state == GameScreen.GAME_RUNNING) {
 				GameScreen.state = GameScreen.GAME_PAUSED;
-			} else {
+			} else if (GameScreen.state == GameScreen.GAME_READY) {
 				super.onBackPressed();
 			}
 
-		}
+	//	}
 	}
 }
