@@ -421,7 +421,7 @@ public class GameScreen extends GLScreen {
 				// game.setScreen(new MainMenuScreen(game));
 
 				// finish GameActivity
-				//state=GAME_READY;
+				state=GAME_READY;
 				glGame.finish();
 				return;
 			}
@@ -442,7 +442,7 @@ public class GameScreen extends GLScreen {
 				AssetsGame.playSound(AssetsGame.clickSound);
 				// game.setScreen(new SelectLevelScreen(game));
 				// finish GameActivity
-				//state=GAME_READY;
+				state=GAME_READY;
 				glGame.finish();
 				return;
 			}
@@ -469,7 +469,7 @@ public class GameScreen extends GLScreen {
 				Settings.savePrefs(glGame);
 				// game.setScreen(new MainMenuScreen(game));
 				// finish GameActivity
-				//state=GAME_READY;
+				state=GAME_READY;
 				glGame.finish();
 				return;
 			}

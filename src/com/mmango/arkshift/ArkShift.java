@@ -23,10 +23,8 @@ public class ArkShift extends GLGame {
 		if (firstTimeCreate) {
 			Log.d("ArkShift:onSurfaceCreated",
 					"Running Settings.readPrefs(glGame)");
-
 			// Settings.clearAllPreferences(this); //total clearing of all
 			// preferences
-
 			Settings.readPrefs(this);
 			Assets.load(this);
 			//AssetsGame.load(this);
