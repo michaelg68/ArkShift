@@ -117,15 +117,15 @@ public class GameScreen extends GLScreen {
 			}
 
 			public void levelBegins() {
-				// AssetsGame.playSound(AssetsGame.levelStartsSound);
+				AssetsGame.playSound(AssetsGame.levelStartsSound);
 			}
 
 			public void levelPassed() {
-				// AssetsGame.playSound(AssetsGame.levelPassedSound);
+				AssetsGame.playSound(AssetsGame.levelPassedSound);
 			}
 
 			public void gameOver() {
-				// AssetsGame.playSound(AssetsGame.gameOverSound);
+				AssetsGame.playSound(AssetsGame.gameOverSound);
 			}
 		};
 
