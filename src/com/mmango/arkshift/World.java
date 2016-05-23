@@ -384,7 +384,7 @@ public class World {
 		// Hopefully this will help to solve the problem of ball swallowing by
 		// the bricks
 
-		for (int i = 0; i < bricksArraySize; i++) { // find all bricks which
+		for (Integer i = 0; i < bricksArraySize; i++) { // find all bricks which
 													// would overlap with the
 													// ball in the next move
 			Brick brick = bricks.get(i);
@@ -681,7 +681,7 @@ public class World {
 
 		// ############################################################
 		// here we analyze what to happen to the bricks: shifting, scoring etc.
-		for (int i = 0; i < bricksAffected.size(); i++) {
+		for (Integer i = 0; i < bricksAffected.size(); i++) {
 			Brick brick = bricks.get(bricksAffected.get(i));
 			listener.hitAtBrick();
 			// if the ceiling brick is hit then we increase the score; else -
