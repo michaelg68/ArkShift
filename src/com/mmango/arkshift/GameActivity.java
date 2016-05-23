@@ -12,10 +12,6 @@ import com.badlogic.androidgames.framework.impl.GLGame;
 public class GameActivity extends GLGame {
 	boolean firstTimeCreate = true;
 
-	// public GameActivity(int level) {
-	// super();
-	// this.level = level;
-	// }
 
 	@Override
 	public Screen getStartScreen() {

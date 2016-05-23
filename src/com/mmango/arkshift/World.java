@@ -131,8 +131,7 @@ public class World {
 		ceilingBricksId = new int[columns][rows];
 		floorBricksId = new int[columns][rows];
 		
-		listener.levelBegins();
-		
+			
 		for (int y = 0; y < rows; y++) {
 			// Log.d("World", "y = " + Integer.toString(y));
 			for (int x = 0; x < columns; x++) {

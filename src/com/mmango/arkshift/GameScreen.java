@@ -60,7 +60,6 @@ public class GameScreen extends GLScreen {
 	float lastX = -1;
 	float lastY = -1;
 	TextureRegion ballsLeftRegion;
-
 	public GameScreen(Game game, int level) {
 		super(game);
 		this.level = level;
@@ -93,7 +92,7 @@ public class GameScreen extends GLScreen {
 		guiCam = new Camera2D(glGraphics, RESOLUTION_X, RESOLUTION_Y);
 		touchPoint = new Vector2();
 		batcher = new SpriteBatcher(glGraphics, SPRITES_NUMBER);
-		//ballsLeftRegion = AssetsGame.ballsLeft1;
+		// ballsLeftRegion = AssetsGame.ballsLeft1;
 		worldListener = new WorldListener() {
 
 			public void hitAtRacquet() {
@@ -117,7 +116,7 @@ public class GameScreen extends GLScreen {
 			}
 
 			public void levelBegins() {
-				AssetsGame.playSound(AssetsGame.levelStartsSound);
+				//AssetsGame.playSound(AssetsGame.levelStartsSound);
 			}
 
 			public void levelPassed() {
@@ -159,49 +158,12 @@ public class GameScreen extends GLScreen {
 
 	@Override
 	public void update(float deltaTime) {
-		// if (deltaTime > 0.1f)
-		// deltaTime = 0.1f;
+		if (deltaTime > 0.1f)
+		 deltaTime = 0.1f;
 
-		/*
-		switch (world.ballsLeft - 1) {
-		case 0:
-			ballsLeftRegion = AssetsGame.ballsLeft0;
-			break;
-		case 1:
-			ballsLeftRegion = AssetsGame.ballsLeft1;
-			break;
-		case 2:
-			ballsLeftRegion = AssetsGame.ballsLeft2;
-			break;
-		case 3:
-			ballsLeftRegion = AssetsGame.ballsLeft3;
-			break;
-		case 4:
-			ballsLeftRegion = AssetsGame.ballsLeft4;
-			break;
-		case 5:
-			ballsLeftRegion = AssetsGame.ballsLeft5;
-			break;
-		case 6:
-			ballsLeftRegion = AssetsGame.ballsLeft6;
-			break;
-		case 7:
-			ballsLeftRegion = AssetsGame.ballsLeft7;
-			break;
-		case 8:
-			ballsLeftRegion = AssetsGame.ballsLeft8;
-			break;
-		case 9:
-			ballsLeftRegion = AssetsGame.ballsLeft9;
-			break;
-		default:
-			ballsLeftRegion = AssetsGame.ballsLeft0;
-			break;
-		}
-*/
 		switch (state) {
 		case GAME_READY:
-			Log.d("GameScreen:update", "case GAME_READY.");
+			//Log.d("GameScreen:update", "case GAME_READY.");
 			updateReady();
 			break;
 		case GAME_RUNNING:
@@ -421,7 +383,7 @@ public class GameScreen extends GLScreen {
 				// game.setScreen(new MainMenuScreen(game));
 
 				// finish GameActivity
-				state=GAME_READY;
+				state = GAME_READY;
 				glGame.finish();
 				return;
 			}
@@ -442,7 +404,7 @@ public class GameScreen extends GLScreen {
 				AssetsGame.playSound(AssetsGame.clickSound);
 				// game.setScreen(new SelectLevelScreen(game));
 				// finish GameActivity
-				state=GAME_READY;
+				state = GAME_READY;
 				glGame.finish();
 				return;
 			}
@@ -469,7 +431,7 @@ public class GameScreen extends GLScreen {
 				Settings.savePrefs(glGame);
 				// game.setScreen(new MainMenuScreen(game));
 				// finish GameActivity
-				state=GAME_READY;
+				state = GAME_READY;
 				glGame.finish();
 				return;
 			}
@@ -488,9 +450,9 @@ public class GameScreen extends GLScreen {
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		batcher.beginBatch(AssetsGame.atlasGameElements);
-		
+
 		presentNotificationArea();
-		
+
 		switch (state) {
 		case GAME_READY:
 			presentReady();
@@ -531,21 +493,23 @@ public class GameScreen extends GLScreen {
 		default:
 			break;
 		}
-		AssetsGame.scoreBallsFont.drawScoreBallsZoomed(batcher, ballsLeftString,
-				xCoordB, RESOLUTION_Y - 75f, 1f, 1f);
-		
-		AssetsGame.fontBebasneue64x64White.drawTextZoomed(batcher,
-				"L" + Integer.toString(world.level), 5 + 64 + 64 + 64,
+		AssetsGame.scoreBallsFont.drawScoreBallsZoomed(batcher,
+				ballsLeftString, xCoordB, RESOLUTION_Y - 75f, 1f, 1f);
+
+		AssetsGame.fontBebasneue64x64White.drawTextZoomed(batcher, "L"
+				+ Integer.toString(world.level), 5 + 64 + 64 + 64,
 				RESOLUTION_Y - 75f + 3, 1.8f, 2.45f);
-		
+
 		float scoreStringHalfLength = scoreString.length() * 128 / 2f;
-		AssetsGame.scoreGameFont.drawScoreZoomed(batcher, scoreString, RESOLUTION_X
-				/ 2f - scoreStringHalfLength + 64, RESOLUTION_Y - 75f, 1f, 1f);
+		AssetsGame.scoreGameFont.drawScoreZoomed(batcher, scoreString,
+				RESOLUTION_X / 2f - scoreStringHalfLength + 64,
+				RESOLUTION_Y - 75f, 1f, 1f);
 	}
 
 	private void presentReady() {
 
-		// AssetsGame.font.drawTextZoomed(batcher, Integer.toString(world.level),
+		// AssetsGame.font.drawTextZoomed(batcher,
+		// Integer.toString(world.level),
 		// 100, RESOLUTION_Y - 75f, 0.5f, 0.5f);
 
 		batcher.drawSprite(RESOLUTION_X / 2, 1730 / 2 + 20, 1040, 1730,
@@ -668,6 +632,7 @@ public class GameScreen extends GLScreen {
 	public void resume() {
 		// if (state == GAME_RUNNING)
 		// state = GAME_PAUSED;
+
 	}
 
 	@Override
@@ -679,8 +644,8 @@ public class GameScreen extends GLScreen {
 
 	@Override
 	public void dispose() {
-		//world.bricks.clear();
-		//world.bricksCeiling.clear();
+		// world.bricks.clear();
+		// world.bricksCeiling.clear();
 	}
 
 }
