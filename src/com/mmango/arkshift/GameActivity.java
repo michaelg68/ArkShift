@@ -12,7 +12,6 @@ import com.badlogic.androidgames.framework.impl.GLGame;
 public class GameActivity extends GLGame {
 	boolean firstTimeCreate = true;
 
-
 	@Override
 	public Screen getStartScreen() {
 		Bundle b = getIntent().getExtras();
@@ -27,7 +26,7 @@ public class GameActivity extends GLGame {
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		super.onSurfaceCreated(gl, config);
 		if (firstTimeCreate) {
-			//Log.d("GameActivity:onSurfaceCreated", ".....");
+			// Log.d("GameActivity:onSurfaceCreated", ".....");
 			AssetsGame.load(this);
 			firstTimeCreate = false;
 		} else {
@@ -46,18 +45,21 @@ public class GameActivity extends GLGame {
 
 	@Override
 	public void onBackPressed() {
-//		getCurrentScreen();
-//		String className = getCurrentScreen().getClass().getName();
-//		int len = className.split("\\.").length;
-//		className = className.split("\\.")[len - 1];
-//		if (className.equals("GameScreen")) {
-			if (GameScreen.state == GameScreen.GAME_RUNNING) {
-				GameScreen.state = GameScreen.GAME_PAUSED;
-			} else if (GameScreen.state == GameScreen.GAME_READY) {
-				super.onBackPressed();
-			}
+		// getCurrentScreen();
+		// String className = getCurrentScreen().getClass().getName();
+		// int len = className.split("\\.").length;
+		// className = className.split("\\.")[len - 1];
+		// if (className.equals("GameScreen")) {
+		if (GameScreen.state == GameScreen.GAME_RUNNING) {
+			GameScreen.state = GameScreen.GAME_PAUSED;
+		} else if (GameScreen.state == GameScreen.GAME_READY) {
+			GameScreen.state = GameScreen.GAME_PAUSED;
+		} else  {
+			GameScreen.state = GameScreen.GAME_PREPARING;
+			super.onBackPressed();
+		}
 
-	//	}
+		// }
 	}
-	
+
 }

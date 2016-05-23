@@ -47,9 +47,10 @@ public class World {
 	public static final float GAME_FIELD_WIDTH = WORLD_WIDTH - FRAME_WIDTH
 			- FRAME_WIDTH;
 
-	public static final int WORLD_STATE_RUNNING = 0;
-	public static final int WORLD_STATE_NEXT_LEVEL = 1;
-	public static final int WORLD_STATE_GAME_OVER = 2;
+	public static final int WORLD_STATE_READY = 0;
+	public static final int WORLD_STATE_RUNNING = 1;
+	public static final int WORLD_STATE_NEXT_LEVEL = 2;
+	public static final int WORLD_STATE_GAME_OVER = 3;
 	public static final int RACQUET_MOVING_LEFT = 0;
 	public static final int RACQUET_MOVING_RIGHT = 1;
 	public static final int COLUMNS = 10;
@@ -85,6 +86,7 @@ public class World {
 	public int state;
 	public int level = 1;
 	public int bricksArraySize;
+	boolean prepared;
 
 	public World(WorldListener listener, int level, int balls) {
 		this.level = level;
@@ -124,14 +126,14 @@ public class World {
 		this.score = 0;
 		this.state = WORLD_STATE_RUNNING;
 		generateLevel(COLUMNS, level);
+		prepared = false;
 	}
 
 	private void generateLevel(int columns, int rows) {
 		int brickId = 0;
 		ceilingBricksId = new int[columns][rows];
 		floorBricksId = new int[columns][rows];
-		
-			
+
 		for (int y = 0; y < rows; y++) {
 			// Log.d("World", "y = " + Integer.toString(y));
 			for (int x = 0; x < columns; x++) {
@@ -149,7 +151,9 @@ public class World {
 				// Log.d("World", "brick_color = " +
 				// Integer.toString(brick_color));
 
-				Brick brick = new Brick(x, y, brick_color);
+				Brick brick = new Brick(0, y, brick_color); // create all the
+															// bricks in the
+															// first column
 				// 2.0f + 5.2f + 10.4f, 192 - 17 - 5.2f
 				// Log.d("World", "Adding a brick");
 				bricks.add(brick);
@@ -165,6 +169,30 @@ public class World {
 		}
 
 		bricksArraySize = bricks.size();
+	}
+
+	public void preparing(float deltaTime) {
+		Log.d("World:preparing", "Running preparing method");
+		// listener.gameOver();
+		if (!prepared) {
+			for (int y = 0; y < level; y++) {
+				for (int x = 0; x < COLUMNS; x++) {
+					Log.d("World:preparing", "x = " + x);
+					bricks.get(ceilingBricksId[x][y]).setHomeCell(x,y);
+				}
+			}
+			prepared = true;
+		}
+
+		for (int i = 0; i < bricksArraySize; i++) {
+			Brick brick = bricks.get(i);
+			brick.updatePreparing(deltaTime);
+		}
+		if (bricks.get(bricksArraySize - 1).state == Brick.BRICK_STATE_STILL) {
+			//the last brick has arrived to it's place. we are ready to play
+			state = WORLD_STATE_READY;
+		}
+		
 	}
 
 	public void update(float deltaTime, float accelX) {

@@ -11,16 +11,19 @@ import com.badlogic.androidgames.framework.math.Vector2;
 //we will not inherit from DynamicGameObject here anymore
 public class Brick {
 
-	public static final int BRICK_STATE_STILL = 0;
-	public static final int BRICK_STATE_SHIFTING_UP = 1;
-	public static final int BRICK_STATE_SHIFTING_DOWN = 2;
-	public static final int BRICK_STATE_SHIFTING_UP_TO_FLOOR = 3;
-	public static final int BRICK_STATE_SHIFTING_DOWN_TO_CEILING = 4;
+	public static final int BRICK_STATE_PREPARING = 0;
+	public static final int BRICK_STATE_STILL = 1;
+	public static final int BRICK_STATE_SHIFTING_UP = 2;
+	public static final int BRICK_STATE_SHIFTING_DOWN = 3;
+	public static final int BRICK_STATE_SHIFTING_UP_TO_FLOOR = 4;
+	public static final int BRICK_STATE_SHIFTING_DOWN_TO_CEILING = 5;
 
 	public static final float BRICK_WIDTH = 10.4f;
 	public static final float BRICK_HEIGHT = 10.4f;
 
-	public static final float BRICK_VELOCITY = 20f;
+	public static final float BRICK_VELOCITY_X = 100f;
+	public static final float BRICK_VELOCITY_Y = 20f;
+
 
 	public final Vector2 position;
 	public final Rectangle bounds;
@@ -50,6 +53,8 @@ public class Brick {
 	public int column;
 	// float xNew;
 	float yDestination;
+	float xPrepDestination;
+	float yPrepDestination;
 	boolean jumpedToFloor;
 	boolean jumpedToCeiling;
 
@@ -79,7 +84,7 @@ public class Brick {
 				- BRICK_HEIGHT / 2, BRICK_WIDTH, BRICK_HEIGHT);
 		// all objects will be created at ceiling.
 		atCeiling = true;
-		state = BRICK_STATE_STILL;
+		state = BRICK_STATE_PREPARING;
 		stateTime = 0;
 		// bounds.lowerLeft.set(position).sub(BRICK_WIDTH / 2, BRICK_WIDTH / 2);
 		jumpedToFloor = false;
@@ -124,9 +129,23 @@ public class Brick {
 		}
 	}
 	
+	public void updatePreparing(float deltaTime) {
+		// position.x = xNew;
+		velocity.set(BRICK_VELOCITY_X, 0);
+		position.add(velocity.x * deltaTime, 0);
+		if (position.x > xPrepDestination) {
+			position.x = xPrepDestination;
+			state = BRICK_STATE_STILL;
+		}
+		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
+		stateTime += deltaTime;
+		Log.d("Brick:updatePreparing", "position.x" + position.x);
+		Log.d("Brick:updatePreparing", "position.y" + position.y);
+	}
+	
 	public void update(float deltaTime) {
 		// position.x = xNew;
-		velocity.set(0, BRICK_VELOCITY);
+		velocity.set(0, BRICK_VELOCITY_Y);
 
 		if (state == BRICK_STATE_SHIFTING_UP_TO_FLOOR) {
 			position.add(0, velocity.y * deltaTime * 2);
@@ -180,6 +199,18 @@ public class Brick {
 		// Log.d("Brick", "position.y" + position.y);
 	}
 
+	
+	public void setHomeCell(int column, int row) {
+		this.column = column;
+		this.row = row;
+
+		xPrepDestination = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
+		yPrepDestination = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
+				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
+				* (float) row;
+
+	}
+	
 	public void setCell(int column, int row) {
 		this.column = column;
 		this.row = row;

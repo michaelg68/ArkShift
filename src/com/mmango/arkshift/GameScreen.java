@@ -29,11 +29,12 @@ public class GameScreen extends GLScreen {
 	int balls;
 	static final int RESOLUTION_X = 1080;
 	static final int RESOLUTION_Y = 1920;
-	static final int GAME_READY = 0;
-	static final int GAME_RUNNING = 1;
-	static final int GAME_PAUSED = 2;
-	static final int GAME_LEVEL_END = 3;
-	static final int GAME_OVER = 4;
+	static final int GAME_PREPARING = 0;
+	static final int GAME_READY = 1;
+	static final int GAME_RUNNING = 2;
+	static final int GAME_PAUSED = 3;
+	static final int GAME_LEVEL_END = 4;
+	static final int GAME_OVER = 5;
 	static final int SPRITES_NUMBER = 250;
 	static final int BUTTON_PAUSE_SIDE = 128;
 	static final int NOTIFICATION_AREA_HEIGHT = 150;
@@ -60,6 +61,7 @@ public class GameScreen extends GLScreen {
 	float lastX = -1;
 	float lastY = -1;
 	TextureRegion ballsLeftRegion;
+
 	public GameScreen(Game game, int level) {
 		super(game);
 		this.level = level;
@@ -116,7 +118,7 @@ public class GameScreen extends GLScreen {
 			}
 
 			public void levelBegins() {
-				//AssetsGame.playSound(AssetsGame.levelStartsSound);
+				AssetsGame.playSound(AssetsGame.levelStartsSound);
 			}
 
 			public void levelPassed() {
@@ -159,11 +161,15 @@ public class GameScreen extends GLScreen {
 	@Override
 	public void update(float deltaTime) {
 		if (deltaTime > 0.1f)
-		 deltaTime = 0.1f;
+			deltaTime = 0.1f;
 
 		switch (state) {
+		case GAME_PREPARING:
+			// Log.d("GameScreen:update", "case GAME_PREPARING.");
+			updatePreparing(deltaTime);
+			break;
 		case GAME_READY:
-			//Log.d("GameScreen:update", "case GAME_READY.");
+			// Log.d("GameScreen:update", "case GAME_READY.");
 			updateReady();
 			break;
 		case GAME_RUNNING:
@@ -182,6 +188,13 @@ public class GameScreen extends GLScreen {
 			// Log.d("GameScreen", "case GAME_OVER");
 			updateGameOver();
 			break;
+		}
+	}
+
+	private void updatePreparing(float deltaTime) {
+		world.preparing(deltaTime);
+		if (world.state == World.WORLD_STATE_READY) {
+			state = GAME_READY;
 		}
 	}
 
@@ -383,7 +396,7 @@ public class GameScreen extends GLScreen {
 				// game.setScreen(new MainMenuScreen(game));
 
 				// finish GameActivity
-				state = GAME_READY;
+				state = GAME_PREPARING;
 				glGame.finish();
 				return;
 			}
@@ -404,7 +417,7 @@ public class GameScreen extends GLScreen {
 				AssetsGame.playSound(AssetsGame.clickSound);
 				// game.setScreen(new SelectLevelScreen(game));
 				// finish GameActivity
-				state = GAME_READY;
+				state = GAME_PREPARING;
 				glGame.finish();
 				return;
 			}
@@ -431,7 +444,7 @@ public class GameScreen extends GLScreen {
 				Settings.savePrefs(glGame);
 				// game.setScreen(new MainMenuScreen(game));
 				// finish GameActivity
-				state = GAME_READY;
+				state = GAME_PREPARING;
 				glGame.finish();
 				return;
 			}
@@ -454,6 +467,9 @@ public class GameScreen extends GLScreen {
 		presentNotificationArea();
 
 		switch (state) {
+		case GAME_PREPARING:
+			presentPreparing();
+			break;
 		case GAME_READY:
 			presentReady();
 			break;
@@ -504,6 +520,12 @@ public class GameScreen extends GLScreen {
 		AssetsGame.scoreGameFont.drawScoreZoomed(batcher, scoreString,
 				RESOLUTION_X / 2f - scoreStringHalfLength + 64,
 				RESOLUTION_Y - 75f, 1f, 1f);
+	}
+
+	private void presentPreparing() {
+		batcher.drawSprite(RESOLUTION_X - 5 - 128 / 2, RESOLUTION_Y - 75, 128,
+				128, AssetsGame.pauseButton);
+		Log.d("GameScreen:presentPreparing", "in GameScreen:presentPreparing");
 	}
 
 	private void presentReady() {
