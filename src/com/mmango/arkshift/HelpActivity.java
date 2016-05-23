@@ -33,7 +33,7 @@ public class HelpActivity extends GLGame {
 	public void onPause() {
 		super.onPause();
 		Log.d("HelpActivity:onPause", ".......");
-		Settings.savePrefs(this);
+		//Settings.savePrefs(this);
 		// if (Settings.soundEnabled)
 		// Assets.music.pause();
 	}

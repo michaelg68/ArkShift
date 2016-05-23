@@ -201,7 +201,7 @@ public class GameScreen extends GLScreen {
 */
 		switch (state) {
 		case GAME_READY:
-			// Log.d("GameScreen", "case GAME_READY");
+			Log.d("GameScreen:update", "case GAME_READY.");
 			updateReady();
 			break;
 		case GAME_RUNNING:
@@ -646,8 +646,8 @@ public class GameScreen extends GLScreen {
 		// batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2 + 200, 676,
 		// 144, AssetsGame.gameOverMessage);
 		String readyString = "GAME OVER";
-		float xZoom = 2f;
-		float yZoom = 4f;
+		float xZoom = 1.9f;
+		float yZoom = 3.8f;
 		float halfLen = readyString.length()
 				* AssetsGame.fontBebasneue64x64White.glyphWidth / 2;
 		// Log.d("GameScreen:presentReady", "halfLen = " + halfLen);
@@ -679,9 +679,8 @@ public class GameScreen extends GLScreen {
 
 	@Override
 	public void dispose() {
-		world.bricks.clear();
-		world.bricksCeiling.clear();
-
+		//world.bricks.clear();
+		//world.bricksCeiling.clear();
 	}
 
 }
