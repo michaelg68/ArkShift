@@ -155,9 +155,9 @@ public class World {
 
 				
 				if (y % 2 == 0) { // in even rows like 0, 2, 4
-					prepColumn = 0;
+					prepColumn = -2;
 				} else { // in odd rows like 1, 3, 5
-					prepColumn = 1;
+					prepColumn = -1;
 				}
 				Log.d("World:generateLevel", "y = " + y + "; prepColumn = " + prepColumn);
 				
@@ -193,7 +193,7 @@ public class World {
 		}
 		//Log.d("World:preparing", "deltaTime = " + deltaTime);		
 		timePassed += deltaTime;
-		if (timePassed >= 0.1f) {
+		if (timePassed >= 0.2f) {
 			listener.hitAtBrick();
 			timePassed = 0;
 		}
