@@ -133,6 +133,7 @@ public class World {
 		int brickId = 0;
 		ceilingBricksId = new int[columns][rows];
 		floorBricksId = new int[columns][rows];
+		int prepColumn = 0;
 
 		for (int y = 0; y < rows; y++) {
 			// Log.d("World", "y = " + Integer.toString(y));
@@ -151,9 +152,15 @@ public class World {
 				// Log.d("World", "brick_color = " +
 				// Integer.toString(brick_color));
 
-				Brick brick = new Brick(0, y, brick_color); // create all the
-															// bricks in the
-															// first column
+				
+				if (y % 2 == 0) { // in even rows like 0, 2, 4
+					prepColumn = 0;
+				} else { // in odd rows like 1, 3, 5
+					prepColumn = 1;
+				}
+				Log.d("World:generateLevel", "y = " + y + "; prepColumn = " + prepColumn);
+				
+				Brick brick = new Brick(prepColumn, y, brick_color); 
 				// 2.0f + 5.2f + 10.4f, 192 - 17 - 5.2f
 				// Log.d("World", "Adding a brick");
 				bricks.add(brick);
@@ -172,23 +179,29 @@ public class World {
 	}
 
 	public void preparing(float deltaTime) {
-		Log.d("World:preparing", "Running preparing method");
+		//Log.d("World:preparing", "Running preparing method");
 		// listener.gameOver();
 		if (!prepared) {
 			for (int y = 0; y < level; y++) {
 				for (int x = 0; x < COLUMNS; x++) {
-					Log.d("World:preparing", "x = " + x);
+					//Log.d("World:preparing", "x = " + x);
 					bricks.get(ceilingBricksId[x][y]).setHomeCell(x,y);
 				}
 			}
 			prepared = true;
 		}
-
+		
+		boolean bricksMoving = false;
 		for (int i = 0; i < bricksArraySize; i++) {
 			Brick brick = bricks.get(i);
 			brick.updatePreparing(deltaTime);
+			if (brick.state == Brick.BRICK_STATE_PREPARING) { 
+				bricksMoving = true;
+			} else {
+				listener.hitAtBrick();
+			}
 		}
-		if (bricks.get(bricksArraySize - 1).state == Brick.BRICK_STATE_STILL) {
+		if (!bricksMoving) {
 			//the last brick has arrived to it's place. we are ready to play
 			state = WORLD_STATE_READY;
 		}

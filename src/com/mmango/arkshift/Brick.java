@@ -21,9 +21,8 @@ public class Brick {
 	public static final float BRICK_WIDTH = 10.4f;
 	public static final float BRICK_HEIGHT = 10.4f;
 
-	public static final float BRICK_VELOCITY_X = 100f;
+	public static final float BRICK_VELOCITY_X = 60f;
 	public static final float BRICK_VELOCITY_Y = 20f;
-
 
 	public final Vector2 position;
 	public final Rectangle bounds;
@@ -32,17 +31,25 @@ public class Brick {
 	public boolean atCeiling;
 
 	public static final int BRICK_COLOR_PURPLE = 0; // 2 point
-	public static final int BRICK_COLOR_GREEN = 1;  //5 points, reset the normal acceleration and changes the ball color to white
-	public static final int BRICK_COLOR_BLUE = 2;   // 3 points
+	public static final int BRICK_COLOR_GREEN = 1; // 5 points, reset the normal
+													// acceleration and changes
+													// the ball color to white
+	public static final int BRICK_COLOR_BLUE = 2; // 3 points
 	public static final int BRICK_COLOR_ORANGE = 3; // 6 points
-	public static final int BRICK_COLOR_GREY = 4; //5 points set the narrow/wide racquet
-	public static final int BRICK_COLOR_RED = 5;  //5 points. set the double acceleration and changes the ball color to red until a green brick is hit  
+	public static final int BRICK_COLOR_GREY = 4; // 5 points set the
+													// narrow/wide racquet
+	public static final int BRICK_COLOR_RED = 5; // 5 points. set the double
+													// acceleration and changes
+													// the ball color to red
+													// until a green brick is
+													// hit
 	public static final int BRICK_COLOR_PINK = 6; // 6 points
-	public static final int BRICK_COLOR_BLUESKY = 7;  // 4 points
+	public static final int BRICK_COLOR_BLUESKY = 7; // 4 points
 	public static final int BRICK_COLOR_VIOLET = 8; // 1 point
-	public static final int BRICK_COLOR_GOLD = 9; // 7  points. Adds one ball. The ball will be yellow till it is lost.
+	public static final int BRICK_COLOR_GOLD = 9; // 7 points. Adds one ball.
+													// The ball will be yellow
+													// till it is lost.
 
-	
 	public int color;
 	public TextureRegion brickTextureRegion;
 	int state;
@@ -62,8 +69,7 @@ public class Brick {
 		this.column = column;
 		this.row = row;
 		this.color = color;
-		
-		
+
 		setTextureRegion(this.color);
 
 		x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
@@ -90,8 +96,7 @@ public class Brick {
 		jumpedToFloor = false;
 	}
 
-	
-	public void setTextureRegion(int color){
+	public void setTextureRegion(int color) {
 		switch (color) {
 		case BRICK_COLOR_GOLD:
 			brickTextureRegion = AssetsGame.brickGold;
@@ -128,21 +133,29 @@ public class Brick {
 			break;
 		}
 	}
-	
+
 	public void updatePreparing(float deltaTime) {
 		// position.x = xNew;
 		velocity.set(BRICK_VELOCITY_X, 0);
 		position.add(velocity.x * deltaTime, 0);
-		if (position.x > xPrepDestination) {
-			position.x = xPrepDestination;
-			state = BRICK_STATE_STILL;
+		//if (row % 2 == 0) { //even row
+			if (position.x > xPrepDestination) {
+				position.x = xPrepDestination;
+				state = BRICK_STATE_STILL;
+/*			}
+		} else { // odd row
+			if (position.x < xPrepDestination) {
+				position.x = xPrepDestination;
+				state = BRICK_STATE_STILL;
+			}*/
 		}
+
 		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
 		stateTime += deltaTime;
-		Log.d("Brick:updatePreparing", "position.x" + position.x);
-		Log.d("Brick:updatePreparing", "position.y" + position.y);
+		//Log.d("Brick:updatePreparing", "position.x = " + position.x);
+		//Log.d("Brick:updatePreparing", "position.y = " + position.y);
 	}
-	
+
 	public void update(float deltaTime) {
 		// position.x = xNew;
 		velocity.set(0, BRICK_VELOCITY_Y);
@@ -199,18 +212,18 @@ public class Brick {
 		// Log.d("Brick", "position.y" + position.y);
 	}
 
-	
 	public void setHomeCell(int column, int row) {
 		this.column = column;
 		this.row = row;
 
-		xPrepDestination = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float) column;
+		xPrepDestination = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH
+				* (float) column;
 		yPrepDestination = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
 				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
 				* (float) row;
 
 	}
-	
+
 	public void setCell(int column, int row) {
 		this.column = column;
 		this.row = row;
@@ -225,7 +238,7 @@ public class Brick {
 		// Log.d("Brick", "yDestination = " + yDestination);
 
 	}
-	
+
 	public void setColor(int color) {
 		this.color = color;
 		setTextureRegion(this.color);

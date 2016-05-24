@@ -525,7 +525,7 @@ public class GameScreen extends GLScreen {
 	private void presentPreparing() {
 		batcher.drawSprite(RESOLUTION_X - 5 - 128 / 2, RESOLUTION_Y - 75, 128,
 				128, AssetsGame.pauseButton);
-		Log.d("GameScreen:presentPreparing", "in GameScreen:presentPreparing");
+		//Log.d("GameScreen:presentPreparing", "in GameScreen:presentPreparing");
 	}
 
 	private void presentReady() {
