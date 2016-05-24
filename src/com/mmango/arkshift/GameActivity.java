@@ -50,16 +50,16 @@ public class GameActivity extends GLGame {
 		// int len = className.split("\\.").length;
 		// className = className.split("\\.")[len - 1];
 		// if (className.equals("GameScreen")) {
-		if (GameScreen.state == GameScreen.GAME_RUNNING) {
+		//}
+		
+		/*if (GameScreen.state == GameScreen.GAME_RUNNING) {
 			GameScreen.state = GameScreen.GAME_PAUSED;
 		} else if (GameScreen.state == GameScreen.GAME_READY) {
 			GameScreen.state = GameScreen.GAME_PAUSED;
 		} else  {
 			GameScreen.state = GameScreen.GAME_PREPARING;
 			super.onBackPressed();
-		}
-
-		// }
+		}*/
+		GameScreen.state = GameScreen.GAME_PAUSED;
 	}
-
 }
