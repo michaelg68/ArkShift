@@ -441,8 +441,7 @@ public class World {
 			// would overlap with the
 			// ball in the next move
 			Brick brick = bricks.get(i);
-			if ((OverlapTester
-					.overlapCircleRectangle(ball.bounds, brick.bounds) && (brick.state == Brick.BRICK_STATE_STILL))) {
+			if (OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) ) {
 				bricksTouched.add(i);
 
 				// temporary, to test the level passed situation:
@@ -736,6 +735,9 @@ public class World {
 		// here we analyze what to happen to the bricks: shifting, scoring etc.
 		for (Integer i = 0; i < bricksAffected.size(); i++) {
 			Brick brick = bricks.get(bricksAffected.get(i));
+			if (brick.state != Brick.BRICK_STATE_STILL) {
+				continue;
+			}
 			listener.hitAtBrick();
 			// if the ceiling brick is hit then we increase the score; else -
 			// decrease;
