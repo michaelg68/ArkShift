@@ -87,6 +87,7 @@ public class World {
 	public int level = 1;
 	public int bricksArraySize;
 	boolean prepared;
+	float timePassed = 0f;
 
 	public World(WorldListener listener, int level, int balls) {
 		this.level = level;
@@ -180,7 +181,6 @@ public class World {
 
 	public void preparing(float deltaTime) {
 		//Log.d("World:preparing", "Running preparing method");
-		// listener.gameOver();
 		if (!prepared) {
 			for (int y = 0; y < level; y++) {
 				for (int x = 0; x < COLUMNS; x++) {
@@ -188,8 +188,16 @@ public class World {
 					bricks.get(ceilingBricksId[x][y]).setHomeCell(x,y);
 				}
 			}
+			listener.hitAtBrick();
 			prepared = true;
 		}
+		//Log.d("World:preparing", "deltaTime = " + deltaTime);		
+		timePassed += deltaTime;
+		if (timePassed >= 0.1f) {
+			listener.hitAtBrick();
+			timePassed = 0;
+		}
+
 		
 		boolean bricksMoving = false;
 		for (int i = 0; i < bricksArraySize; i++) {
@@ -197,14 +205,15 @@ public class World {
 			brick.updatePreparing(deltaTime);
 			if (brick.state == Brick.BRICK_STATE_PREPARING) { 
 				bricksMoving = true;
-			} else {
-				listener.hitAtBrick();
-			}
+			} 
 		}
 		if (!bricksMoving) {
 			//the last brick has arrived to it's place. we are ready to play
+			listener.levelPassed();
 			state = WORLD_STATE_READY;
 		}
+		
+		
 		
 	}
 
