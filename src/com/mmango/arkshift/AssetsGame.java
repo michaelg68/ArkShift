@@ -164,9 +164,9 @@ public class AssetsGame {
 
 
 		clickSound = game.getAudio().newSound("click.ogg");
-		racquetHitSound = game.getAudio().newSound("racquet_hit_sound.ogg");
-		frameHitSound = game.getAudio().newSound("frame_hit_sound.ogg");
-		brickHitSound = game.getAudio().newSound("brick_hit_sound.ogg");
+		racquetHitSound = game.getAudio().newSound("racquet_hit_sound_8_22050.wav");
+		frameHitSound = game.getAudio().newSound("frame_hit_sound_8_22050.wav");
+		brickHitSound = game.getAudio().newSound("brick_hit_sound_8_22050.wav");
 		levelStartsSound = game.getAudio().newSound("level_starts_sound.ogg");
 		//ballRollingAndKnockSound = game.getAudio().newSound("ball_rolling_and_knock_sound.ogg");
 	
