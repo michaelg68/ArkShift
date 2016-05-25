@@ -79,10 +79,12 @@ public class HighscoreScreen extends GLScreen {
 
 			if (event.type == TouchEvent.TOUCH_UP) {
 				if (OverlapTester.pointInRectangle(homeBounds, touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					game.setScreen(new MainMenuScreen(game));
 					return;
 				} else if (OverlapTester.pointInRectangle(resetBounds,
 						touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					state = ASKING_TO_RESET;
 					return;
 				} else {
@@ -104,12 +106,14 @@ public class HighscoreScreen extends GLScreen {
 			if (event.type == TouchEvent.TOUCH_UP) {
 				if (OverlapTester.pointInRectangle(yesBounds, touchPoint)) {
 					//Log.d("HighscoreScreen:updateAsking", "YES pressed");
+					Assets.playSound(Assets.clickSound);
 					Settings.resetHighscores(glGame);
 					readHighScore();
 					state = SHOWING_HIGSHSCORE;
 					return;
 				} else if (OverlapTester.pointInRectangle(noBounds, touchPoint)) {
 					//Log.d("HighscoreScreen:updateAsking", "NO pressed");
+					Assets.playSound(Assets.clickSound);
 					state = SHOWING_HIGSHSCORE;
 					return;
 				} else {

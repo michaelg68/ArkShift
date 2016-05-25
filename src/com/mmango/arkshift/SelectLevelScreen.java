@@ -69,27 +69,35 @@ public class SelectLevelScreen extends GLScreen {
 			if (event.type == TouchEvent.TOUCH_UP) {
 				if (OverlapTester.pointInRectangle(level1ButtonBounds,
 						touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					level = 1;
 				} else if (OverlapTester.pointInRectangle(level2ButtonBounds,
 						touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					level = 2;
 				} else if (OverlapTester.pointInRectangle(level3ButtonBounds,
 						touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					level = 3;
 				} else if (OverlapTester.pointInRectangle(level4ButtonBounds,
 						touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					level = 4;
 				} else if (OverlapTester.pointInRectangle(level5ButtonBounds,
 						touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					level = 5;
 				} else if (OverlapTester.pointInRectangle(level6ButtonBounds,
 						touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					level = 6;
 				} else if (OverlapTester.pointInRectangle(level7ButtonBounds,
 						touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					level = 7;
 				} else if (OverlapTester.pointInRectangle(level8ButtonBounds,
 						touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					level = 8;
 					secretTapCounter = secretTapCounter + 1;
 					// Log.d("SelectLevelScreen:update", "UsecretTapCounter = "
@@ -98,12 +106,16 @@ public class SelectLevelScreen extends GLScreen {
 					if (secretTapCounter == 8) {
 						Log.d("SelectLevelScreen:update",
 								"Unlocking all levels");
+						Assets.playSound(Assets.clickSound);
+						Assets.playSound(Assets.clickSound);
+						Assets.playSound(Assets.clickSound);
 						Settings.unlockAllLevels(glGame);
 						return;
 					}
 
 				} else if (OverlapTester.pointInRectangle(homeBounds,
 						touchPoint)) {
+					Assets.playSound(Assets.clickSound);
 					level = 0;
 				}
 

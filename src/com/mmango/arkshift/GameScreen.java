@@ -217,7 +217,7 @@ public class GameScreen extends GLScreen {
 			guiCam.touchToWorld(touchPoint);
 
 			if (OverlapTester.pointInRectangle(pauseBounds, touchPoint)) {
-				Log.d("GameScreen:", "touched in pauseBounds");
+				//Log.d("GameScreen:", "touched in pauseBounds");
 				// Log.d("GameScreen:", "pauseBounds.lowerLeft.x = " +
 				// pauseBounds.lowerLeft.x);
 				// Log.d("GameScreen:", "pauseBounds.lowerLeft.y = " +
@@ -435,9 +435,8 @@ public class GameScreen extends GLScreen {
 			touchPoint.set(event.x, event.y);
 			guiCam.touchToWorld(touchPoint);
 			if (OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
-				// Settings.save(game.getFileIO());
-				Log.d("GameScreen:updateGameOver",
-						"Exiting from GameScreen after GameOver");
+				AssetsGame.playSound(AssetsGame.clickSound);
+				//Log.d("GameScreen:updateGameOver", "Exiting from GameScreen after GameOver");
 				// AssetsGame.playSound(AssetsGame.clickSound);
 				world.score = lastScore;
 				Settings.addScore(lastScore);
