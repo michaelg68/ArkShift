@@ -1,7 +1,6 @@
 package com.mmango.arkshift;
 
-import android.util.Log;
-
+//import android.util.Log;
 import com.badlogic.androidgames.framework.DynamicGameObjectCircle;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 
@@ -47,40 +46,12 @@ public class Ball extends DynamicGameObjectCircle {
 		//Log.d("Ball:update", "position.y = " + position.y);
 		//Log.d("Ball:update", "velocity.x = " + velocity.x);
 		//Log.d("Ball:update", "velocity.y = " + velocity.y);
-
-
 		if (velocity.x != 0 || velocity.y != 0) {
 			state = BALL_STATE_MOVING;
 			stateTime = 0;
 		}
-
-
 		stateTime += deltaTime;
 	}
-    
-/*    public void hitCielingBrick () {
-        velocity.set(0,0);
-        state = BALL_STATE_HIT_CEILING_BRICK;        
-        stateTime = 0;
-    }
-    
-    public void hitFloorBrick() {
-        velocity.set(0,0);
-        state = BALL_STATE_HIT_FLOOR_BRICK;        
-        stateTime = 0;
-    }
-
-    public void hitRacquet() {
-        velocity.set(0,0);
-        state = BALL_STATE_HIT_RACQUET;        
-        stateTime = 0;
-    }
-    
-    public void hitFrame() {
-        velocity.set(0,0);
-        state = BALL_STATE_HIT_FRAME;        
-        stateTime = 0;
-    }*/
 
 	public void setBallColor(int color) {
 		this.color = color;
@@ -93,9 +64,8 @@ public class Ball extends DynamicGameObjectCircle {
 			break;
 		default:   //BALL_COLOR_WHITE
 			this.ballTextureRegion = AssetsGame.ballWhite;
-			Log.d("Ball:setBallColor","setting ballTextureRegion = AssetsGame.ballWhite **********");
+			//Log.d("Ball:setBallColor","setting ballTextureRegion = AssetsGame.ballWhite **********");
 			break;
 		}
 	}
-
 }

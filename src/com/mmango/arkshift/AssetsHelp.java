@@ -10,7 +10,7 @@ public class AssetsHelp {
 	
 	public static Texture atlasBackgroundUI;
 	public static TextureRegion backgroundUIRegion;
-	
+
 	public static Texture atlasHelpScreen;
 	public static TextureRegion helpScreen1Region;
 	public static TextureRegion helpScreen2Region;

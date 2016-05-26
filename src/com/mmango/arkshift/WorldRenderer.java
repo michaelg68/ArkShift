@@ -2,7 +2,7 @@ package com.mmango.arkshift;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.util.Log;
+//import android.util.Log;
 
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
@@ -31,12 +31,10 @@ public class WorldRenderer {
 
         this.batcher = batcher;        
     }
-
     
     public void render() {
         cam.setViewportAndMatrices();
         renderObjectsAndBackground();        
-        //renderBackground();
     }
     
     public void renderObjectsAndBackground() {
@@ -46,7 +44,6 @@ public class WorldRenderer {
         
         //we first render the object and only after that the background 
         //that's so in order to get effect of shifting bricks under the frame 
-
         
         batcher.beginBatch(AssetsGame.atlasGameElements);
         renderRacquet();
@@ -100,11 +97,4 @@ public class WorldRenderer {
             batcher.drawSprite(brick.position.x, brick.position.y, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brick.brickTextureRegion);
         }
     }
-    
-//    public void renderBackground() {
-//        batcher.beginBatch(Assets.bigAtlas);
-//        batcher.drawSprite(cam.position.x, cam.position.y, World.WORLD_WIDTH, World.WORLD_HEIGHT, 
-//                           Assets.gameScreenBackgroundRegion);
-//        batcher.endBatch();
-//    }
 }

@@ -1,6 +1,6 @@
 package com.mmango.arkshift;
 
-import android.util.Log;
+//import android.util.Log;
 
 import com.badlogic.androidgames.framework.DynamicGameObject;
 import com.mmango.arkshift.World;
@@ -50,7 +50,5 @@ public class Racquet extends DynamicGameObject {
 		 * 0; }
 		 */
 		stateTime += deltaTime;
-
 	}
-
 }

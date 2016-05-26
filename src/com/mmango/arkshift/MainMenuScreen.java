@@ -5,7 +5,7 @@ import java.util.List;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Intent;
-import android.util.Log;
+//import android.util.Log;
 
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
@@ -63,15 +63,15 @@ public class MainMenuScreen extends GLScreen {
 
 				if (OverlapTester.pointInRectangle(playBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					Log.d("MainMenuScreen:update",
-							"playBounds is touched. Opening SelectLevelScreen");
+//					Log.d("MainMenuScreen:update",
+//							"playBounds is touched. Opening SelectLevelScreen");
 					game.setScreen(new SelectLevelScreen(game));
 					return;
 				}
 				if (OverlapTester.pointInRectangle(controlBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					Log.d("MainMenuScreen:update",
-							"controlBounds is touched. Changing the controlType");
+//					Log.d("MainMenuScreen:update",
+//							"controlBounds is touched. Changing the controlType");
 					Settings.controlType++;
 					if (Settings.controlType > 2)
 						Settings.controlType = 0;
@@ -80,27 +80,27 @@ public class MainMenuScreen extends GLScreen {
 				}
 				if (OverlapTester.pointInRectangle(soundBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					Log.d("MainMenuScreen:update",
-							"soundBounds is touched. Enabling/Disabling sound");
+//					Log.d("MainMenuScreen:update",
+//							"soundBounds is touched. Enabling/Disabling sound");
 					Settings.soundEnabled = (Settings.soundEnabled) ? false
 							: true;
 					Settings.savePrefs(glGame);
-					Log.d("MainMenuScreen:update", "Assets.soundEnabled = "
-							+ Boolean.toString(Settings.soundEnabled));
+//					Log.d("MainMenuScreen:update", "Assets.soundEnabled = "
+//							+ Boolean.toString(Settings.soundEnabled));
 					return;
 				}
 				if (OverlapTester
 						.pointInRectangle(highscoresBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					Log.d("MainMenuScreen:update",
-							"highscoresBounds is touched. Opening HighscoreScreen");
+//					Log.d("MainMenuScreen:update",
+//							"highscoresBounds is touched. Opening HighscoreScreen");
 					game.setScreen(new HighscoreScreen(game));
 					return;
 				}
 				if (OverlapTester.pointInRectangle(helpBounds, touchPoint)) {
 					Assets.playSound(Assets.clickSound);
-					Log.d("MainMenuScreen:update",
-							"helpBounds is touched. Opening HelpScreen");
+//					Log.d("MainMenuScreen:update",
+//							"helpBounds is touched. Opening HelpScreen");
 					//game.setScreen(new HelpScreen(game));
 					Intent it = new Intent(glGame,HelpActivity.class);
 					glGame.startActivity(it);

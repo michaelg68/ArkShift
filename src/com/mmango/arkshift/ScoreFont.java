@@ -1,6 +1,6 @@
 package com.mmango.arkshift;
 
-import android.util.Log;
+//import android.util.Log;
 
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
 import com.badlogic.androidgames.framework.gl.Texture;

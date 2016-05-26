@@ -1,8 +1,7 @@
 package com.mmango.arkshift;
 
-import android.util.Log;
+//import android.util.Log;
 
-import com.badlogic.androidgames.framework.DynamicGameObject;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.math.Rectangle;
 import com.badlogic.androidgames.framework.math.Vector2;
@@ -221,7 +220,6 @@ public class Brick {
 		yPrepDestination = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
 				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
 				* (float) row;
-
 	}
 
 	public void setCell(int column, int row) {
@@ -236,12 +234,10 @@ public class Brick {
 					* (float) row;
 		}
 		// Log.d("Brick", "yDestination = " + yDestination);
-
 	}
 
 	public void setColor(int color) {
 		this.color = color;
 		setTextureRegion(this.color);
 	}
-
 }

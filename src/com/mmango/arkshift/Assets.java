@@ -2,15 +2,13 @@ package com.mmango.arkshift;
 
 //import com.badlogic.androidgames.framework.Music;
 import com.badlogic.androidgames.framework.Sound;
-import com.badlogic.androidgames.framework.gl.Font;
+//import com.badlogic.androidgames.framework.gl.Font;
 import com.badlogic.androidgames.framework.gl.Texture;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLGame;
 
 public class Assets {
-	//public static Texture atlasGameScreenBackground;
-	//public static TextureRegion gameScreenBackgroundRegion;
-	
+
 	public static Texture atlasUIElements;
 	public static TextureRegion mainMenuLogo;
 	public static TextureRegion backgroundUIRegion;
@@ -51,25 +49,9 @@ public class Assets {
 	
 	public static ScoreFont scoreFont;
 
-	//public static Music music;
 	public static Sound clickSound;
-	public static Sound racquetHitSound;
-	public static Sound frameHitSound;
-	public static Sound brickHitSound;
-//	public static Sound levelStartsSound;
-	public static Sound ballRollingAndKnockSound;
-//	public static Sound shiftSound;
-//	public static Sound gameOverSound;
-//	public static Sound gameOverLongSound;
-//	public static Sound levelPassedSound;
-
 
 	public static void load(GLGame game) {
-		//atlasBackgroundUI = new Texture(game, "background_ui.jpg");
-		
-		//atlasGameScreenBackground = new Texture(game, "background_with_transp_gamefield_1.png");
-		
-		
 		atlasUIElements = new Texture(game, "atlas_ui.png");
 
 		mainMenuLogo = new TextureRegion(atlasUIElements, 0, 0, 625, 194);
@@ -126,27 +108,12 @@ public class Assets {
 		*/
 
 		scoreFont = new ScoreFont(atlasUIElements, 128, 128);
-		
-
-
 		clickSound = game.getAudio().newSound("click.ogg");
-//		racquetHitSound = game.getAudio().newSound("Hit_Hurt26.wav");
-//		frameHitSound = game.getAudio().newSound("Hit_Hurt26.wav");
-//		brickHitSound = game.getAudio().newSound("Hit_Hurt26.wav");
-		//levelStartsSound = game.getAudio().newSound("level_starts_sound.ogg");
-		ballRollingAndKnockSound = game.getAudio().newSound("ball_rolling_and_knock_sound.ogg");
-	
-		//shiftSound = game.getAudio().newSound("shift_8b_22050.ogg");
-		//gameOverSound = game.getAudio().newSound("game_over.ogg");
-		//gameOverLongSound = game.getAudio().newSound("game_over_long_8b_22050Hz.ogg");
-		//levelPassedSound = game.getAudio().newSound("level_passed.ogg");
 	}
 
 	public static void reload() {
 		//!!!!!    Note: very important - if you add a new texture, don't forget to add it in this method. otherwise you will face 
 		// bugs when GL ES loses context!
-		//atlasBackgroundUI.reload();
-		//atlasGameScreenBackground.reload();
 		atlasUIElements.reload();
 	}
 
@@ -154,5 +121,4 @@ public class Assets {
 		if (Settings.soundEnabled)
 			sound.play(1);
 	}
-
 }

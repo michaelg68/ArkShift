@@ -4,9 +4,6 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Intent;
-import android.util.Log;
-
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
@@ -146,6 +143,4 @@ public class HelpScreen extends GLScreen {
 	@Override
 	public void dispose() {
 	}
-
-
 }

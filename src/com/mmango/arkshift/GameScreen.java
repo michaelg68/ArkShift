@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.util.Log;
+//import android.util.Log;
 
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
@@ -16,13 +16,11 @@ import com.badlogic.androidgames.framework.impl.GLScreen;
 import com.badlogic.androidgames.framework.math.OverlapTester;
 import com.badlogic.androidgames.framework.math.Rectangle;
 import com.badlogic.androidgames.framework.math.Vector2;
-import com.mmango.arkshift.Assets;
-import com.mmango.arkshift.MainMenuScreen;
 import com.mmango.arkshift.Settings;
 import com.mmango.arkshift.World;
 import com.mmango.arkshift.WorldRenderer;
 import com.mmango.arkshift.World.WorldListener;
-import com.badlogic.androidgames.framework.gl.FPSCounter;
+//import com.badlogic.androidgames.framework.gl.FPSCounter;
 
 public class GameScreen extends GLScreen {
 	int level;
@@ -364,8 +362,7 @@ public class GameScreen extends GLScreen {
 
 			if (OverlapTester.pointInRectangle(controlBounds, touchPoint)) {
 				AssetsGame.playSound(AssetsGame.clickSound);
-				Log.d("GameScreen:updatePaused",
-						"controlBounds is touched. Changing the controlType");
+				//Log.d("GameScreen:updatePaused", "controlBounds is touched. Changing the controlType");
 				Settings.controlType++;
 				if (Settings.controlType > 2)
 					Settings.controlType = 0;
@@ -375,20 +372,17 @@ public class GameScreen extends GLScreen {
 
 			if (OverlapTester.pointInRectangle(soundBounds, touchPoint)) {
 				AssetsGame.playSound(AssetsGame.clickSound);
-				Log.d("GameScreen:updatePaused",
-						"soundBounds is touched. Enabling/Disabling sound");
+				//Log.d("GameScreen:updatePaused", "soundBounds is touched. Enabling/Disabling sound");
 				Settings.soundEnabled = (Settings.soundEnabled) ? false : true;
 				Settings.savePrefs(glGame);
-				Log.d("MainMenuScreen:update", "AssetsGame.soundEnabled = "
-						+ Boolean.toString(Settings.soundEnabled));
+				//Log.d("MainMenuScreen:update", "AssetsGame.soundEnabled = " + Boolean.toString(Settings.soundEnabled));
 				return;
 			}
 
 			if (OverlapTester.pointInRectangle(quitBounds, touchPoint)) {
 				AssetsGame.playSound(AssetsGame.clickSound);
 				// Settings.save(game.getFileIO());
-				Log.d("GameScreen:updatePaused",
-						"Running Settings.savePrefs(glGame)");
+				//Log.d("GameScreen:updatePaused", "Running Settings.savePrefs(glGame)");
 				Settings.savePrefs(glGame);
 				// Log.d("GameScreen:updatePaused",
 				// "Running Settings.readPrefs(glGame)");
@@ -653,7 +647,6 @@ public class GameScreen extends GLScreen {
 	public void resume() {
 		// if (state == GAME_RUNNING)
 		// state = GAME_PAUSED;
-
 	}
 
 	@Override
@@ -668,5 +661,4 @@ public class GameScreen extends GLScreen {
 		// world.bricks.clear();
 		// world.bricksCeiling.clear();
 	}
-
 }

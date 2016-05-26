@@ -37,9 +37,4 @@ public class HelpActivity extends GLGame {
 		// if (Settings.soundEnabled)
 		// Assets.music.pause();
 	}
-
-/*	@Override
-	public void onBackPressed() {
-
-	}*/
 }

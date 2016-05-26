@@ -4,7 +4,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 
 import com.badlogic.androidgames.framework.Screen;
 import com.badlogic.androidgames.framework.impl.GLGame;
@@ -37,7 +37,7 @@ public class GameActivity extends GLGame {
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.d("GameActivity:onPause", ".......");
+		//Log.d("GameActivity:onPause", ".......");
 		Settings.savePrefs(this);
 		// if (Settings.soundEnabled)
 		// AssetsGame.music.pause();

@@ -45,7 +45,7 @@ public class Settings {
 //		Log.d("Settings:readPrefs", "controlType = " + controlType);
 		for (int i = 0; i < 5; i++) {
 			highscores[i] = settings.getInt(Integer.toString(i), 0);
-			Log.d("Settings:readPrefs", "Now highscores[" + i + "] = "	+  highscores[i]);
+			//Log.d("Settings:readPrefs", "Now highscores[" + i + "] = "	+  highscores[i]);
 		}
 		
 		for (int i = 0; i < 8; i++) {
@@ -55,7 +55,7 @@ public class Settings {
 			} else {
 				levelEnabled[i] = settings.getBoolean("Level_" + Integer.toString(l), false); //for Level_2 to _8 the default is Disabled
 			}
-			Log.d("Settings:readPrefs", "Now Level_" + l + " = " + levelEnabled[i]);
+			//Log.d("Settings:readPrefs", "Now Level_" + l + " = " + levelEnabled[i]);
 		}
 
 	}
@@ -73,8 +73,8 @@ public class Settings {
 		prefEditor.putBoolean("SoundEnabled", soundEnabled);
 		prefEditor.putInt("ControlType", controlType);
 		for (int i = 0; i < 5; i++) {
-			Log.d("Settings:savePrefs", "Preferences highscores[" + i + "] = "
-					+ highscores[i]);
+//			Log.d("Settings:savePrefs", "Preferences highscores[" + i + "] = "
+//					+ highscores[i]);
 			prefEditor.putInt(Integer.toString(i), highscores[i]);
 		}
 		for (int i = 0; i < 8; i++) {
