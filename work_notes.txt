@@ -194,4 +194,20 @@ Verify if the number of Sprites in the batcher of GameScreen is correct. It was 
 May be it was the reason of context loss?
 Increasing it to 250.
 
+=====================
+2016-05-26
+Important:
+Your application must be signed with a cryptographic key whose validity period ends after 22 October 2033
+https://developer.android.com/studio/publish/preparing.html
+
+Calculation using http://www.timeanddate.com/date/duration.html:
+From and including: Thursday, May 26, 2016
+To and including: Saturday, October 22, 2033
+Result: 6359 days
+It is 6359 days from the start date to the end date, end date included
+Or 17 years, 4 months, 27 days including the end date
+
+
+
+
 
