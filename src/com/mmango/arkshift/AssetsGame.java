@@ -73,8 +73,8 @@ public class AssetsGame {
 	public static ScoreBallsFont scoreBallsFont;
 
 	public static Sound clickSound;
-	public static Sound racquetHitSound;
-	public static Sound frameHitSound;
+//	public static Sound racquetHitSound;
+//	public static Sound frameHitSound;
 	public static Sound brickHitSound;
 	public static Sound levelStartsSound;
 	public static Sound gameOverSound;
@@ -150,9 +150,9 @@ public class AssetsGame {
 
 
 		clickSound = game.getAudio().newSound("click.ogg");
-		racquetHitSound = game.getAudio().newSound("racquet_hit_sound_8_22050.wav");
-		frameHitSound = game.getAudio().newSound("frame_hit_sound_8_22050.wav");
-		brickHitSound = game.getAudio().newSound("brick_hit_sound_8_22050.wav");
+		//racquetHitSound = game.getAudio().newSound("racquet_hit_sound_8_22050.wav");
+		//frameHitSound = game.getAudio().newSound("frame_hit_sound_8_22050.wav");
+		brickHitSound = game.getAudio().newSound("brick_hit_sound_16_16000.wav");
 		levelStartsSound = game.getAudio().newSound("level_starts_sound.ogg");
 	
 		gameOverSound = game.getAudio().newSound("game_over.ogg");

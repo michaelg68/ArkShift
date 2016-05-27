@@ -14,13 +14,11 @@ import com.mmango.games.framework.math.MyOverlapTester;
 
 public class World {
 	public interface WorldListener {
-		public void hitAtRacquet();
+//		public void hitAtRacquet();
 
 		public void hitAtBrick();
 
-		// public void hitAtBrickFloor();
-
-		public void hitAtFrame();
+//		public void hitAtFrame();
 
 		public void shiftBrick();
 
@@ -291,7 +289,7 @@ public class World {
 				ball.bounds, gameField);
 
 		if (breaktrhough == FRAME_TOP_BORDER_ID) {
-			listener.hitAtFrame();
+			listener.hitAtBrick();
 			// Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " +
 			// breaktrhough);
 			// Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = "
@@ -304,7 +302,7 @@ public class World {
 								// the ball ready
 
 		} else if (breaktrhough == FRAME_BOTTOM_BORDER_ID) {
-			listener.hitAtFrame();
+			listener.hitAtBrick();
 			// Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " +
 			// breaktrhough);
 			// Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = "
@@ -313,7 +311,7 @@ public class World {
 			ball.position.y = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.y = ball.velocity.y * (-1);
 		} else if (breaktrhough == FRAME_LEFT_BORDER_ID) {
-			listener.hitAtFrame();
+			listener.hitAtBrick();
 			// Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " +
 			// breaktrhough);
 			// Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = "
@@ -323,7 +321,7 @@ public class World {
 			ball.position.x = FRAME_WIDTH + Ball.BALL_RADIUS;
 			ball.velocity.x = ball.velocity.x * (-1);
 		} else if (breaktrhough == FRAME_RIGHT_BORDER_ID) {
-			listener.hitAtFrame();
+			listener.hitAtBrick();
 			// Log.d("World:checkBallCollisionsWithFrame", "breaktrhough = " +
 			// breaktrhough);
 			// Log.d("World:checkBallCollisionsWithFrame", "ball.position.x = "
@@ -344,7 +342,7 @@ public class World {
 			// Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet",
 			// "there was a contact!");
 
-			listener.hitAtRacquet();
+			listener.hitAtBrick();
 			// Log.d("World:checkBallCollisionsWithRacquet:checkBallCollisionsWithRacquet",
 			// "racquet.racquetWidth = " + racquet.racquetWidth);
 			//

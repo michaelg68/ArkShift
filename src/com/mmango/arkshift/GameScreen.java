@@ -95,9 +95,9 @@ public class GameScreen extends GLScreen {
 		// ballsLeftRegion = AssetsGame.ballsLeft1;
 		worldListener = new WorldListener() {
 
-			public void hitAtRacquet() {
-				AssetsGame.playSound(AssetsGame.racquetHitSound);
-			}
+//			public void hitAtRacquet() {
+//				AssetsGame.playSound(AssetsGame.racquetHitSound);
+//			}
 
 			public void hitAtBrick() {
 				AssetsGame.playSound(AssetsGame.brickHitSound);
@@ -107,9 +107,9 @@ public class GameScreen extends GLScreen {
 			// //AssetsGame.playSound(AssetsGame.knockSound);
 			// }
 
-			public void hitAtFrame() {
-				AssetsGame.playSound(AssetsGame.frameHitSound);
-			}
+//			public void hitAtFrame() {
+//				AssetsGame.playSound(AssetsGame.frameHitSound);
+//			}
 
 			public void shiftBrick() {
 				// AssetsGame.playSound(AssetsGame.shiftSound);
@@ -488,9 +488,9 @@ public class GameScreen extends GLScreen {
 	private void presentNotificationArea() {
 		batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128,
 				AssetsGame.ballsSymbol);
-		// batcher.drawSprite(5 + 64, RESOLUTION_Y - 75f, 128, 128,
-		// ballsLeftRegion);
-		String ballsLeftString = Integer.toString(world.ballsLeft - 1);
+
+		//never show negative number of ballsLeft
+		String ballsLeftString = ((world.ballsLeft - 1) < 0) ? " " : Integer.toString(world.ballsLeft - 1);
 		float xCoordB = 0;
 		switch (ballsLeftString.length()) {
 		case 1:
