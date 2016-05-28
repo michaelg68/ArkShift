@@ -1,14 +1,14 @@
 package com.mmango.games.framework.math;
 
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 import com.badlogic.androidgames.framework.math.Circle;
 import com.badlogic.androidgames.framework.math.Rectangle;
-import com.badlogic.androidgames.framework.math.Vector2;
-import com.mmango.arkshift.Brick;
-
-import android.util.Log;
+//import com.badlogic.androidgames.framework.math.Vector2;
+//import com.mmango.arkshift.Brick;
+//
+//import android.util.Log;
 
 public class MyOverlapTester {
 

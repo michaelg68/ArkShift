@@ -207,6 +207,20 @@ Result: 6359 days
 It is 6359 days from the start date to the end date, end date included
 Or 17 years, 4 months, 27 days including the end date
 
+=====================
+2016-05-28
+Publishing
+Title:
+ArkShift
+
+Short description:
+Bounce the ball to get rid of the bricks at the top.
+
+Full description:
+Use the ball to push the bricks up! The uppermost brick will re-appear at the bottom, lifting the racquet.
+Each color has it's price, some colors will change the gameplay.
+Do not let the ball to hit the bottom bricks or you will lose some points. One ball will be lost too.
+To pass the level you need to remove all the bricks from the top.
 
 
 
