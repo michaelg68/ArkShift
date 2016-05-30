@@ -1,10 +1,11 @@
-package com.mmango.arkshift;
+	package com.mmango.arkshift;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 //import android.util.Log;
+
 
 import com.badlogic.androidgames.framework.math.Circle;
 import com.badlogic.androidgames.framework.math.OverlapTester;
@@ -85,6 +86,8 @@ public class World {
 	public int bricksArraySize;
 	boolean prepared;
 	float timePassed = 0f;
+	
+	MySpatialHashGrid grid;
 
 	public World(WorldListener listener, int level, int balls) {
 		this.level = level;
@@ -125,6 +128,7 @@ public class World {
 		this.state = WORLD_STATE_RUNNING;
 		generateLevel(COLUMNS, level);
 		prepared = false;
+		grid = new MySpatialHashGrid(WORLD_WIDTH, WORLD_HEIGHT, 25.6f);
 	}
 
 	private void generateLevel(int columns, int rows) {
@@ -207,11 +211,23 @@ public class World {
 		if (!bricksMoving) {
 			//the last brick has arrived to it's place. we are ready to play
 			listener.levelPassed();
+			
+			//add brick to the grid
+			insertToGrid();
 			state = WORLD_STATE_READY;
 		}
 		
 		
 		
+	}
+	
+	public void insertToGrid() {
+		for (int y = 0; y < level; y++) {
+			for (int x = 0; x < COLUMNS; x++) {
+				//Log.d("insertToGrid", "x = " + x);
+				grid.insertDynamicObject(bricks.get(ceilingBricksId[x][y]));
+			}
+		}
 	}
 
 	public void update(float deltaTime, float accelX) {

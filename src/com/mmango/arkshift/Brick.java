@@ -2,13 +2,14 @@ package com.mmango.arkshift;
 
 //import android.util.Log;
 
+import com.badlogic.androidgames.framework.DynamicGameObject;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.math.Rectangle;
 import com.badlogic.androidgames.framework.math.Vector2;
 
 //public class Brick extends DynamicGameObject {
 //we will not inherit from DynamicGameObject here anymore
-public class Brick {
+public class Brick extends MyGameObject {
 
 	public static final int BRICK_STATE_PREPARING = 0;
 	public static final int BRICK_STATE_STILL = 1;
@@ -65,6 +66,7 @@ public class Brick {
 	boolean jumpedToCeiling;
 
 	public Brick(int column, int row, int color) {
+		super(0, 0, BRICK_WIDTH, BRICK_WIDTH);
 		this.column = column;
 		this.row = row;
 		this.color = color;
@@ -75,7 +77,9 @@ public class Brick {
 		y = World.WORLD_HEIGHT - World.NOTIFICATION_AREA_HEIGHT
 				- World.FRAME_WIDTH - BRICK_WIDTH / 2 - BRICK_WIDTH
 				* (float) row;
-
+		super.x = x;
+		super.y = y;
+		
 		/*
 		 * x = World.FRAME_WIDTH + BRICK_WIDTH / 2 + BRICK_WIDTH * (float)
 		 * column; y = World.WORLD_HEIGHT - World.FRAME_WIDTH - BRICK_WIDTH / 2
