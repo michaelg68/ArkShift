@@ -13,7 +13,7 @@ public class Settings {
 	public static final int CONTROL_BY_SWIPE = 1;
 	public static final int CONTROL_BY_TILT = 2;
 	public static String appName = "ArkShift by mmango";
-	public static boolean soundEnabled = true;
+	public static boolean soundEnabled = false;
 	public static int controlType = CONTROL_BY_SWIPE;
 	public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
 	public static boolean[] levelEnabled = new boolean[] {true, false, false, false, false, false, false, false};

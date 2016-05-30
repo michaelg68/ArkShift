@@ -41,7 +41,7 @@ public abstract class GLGame extends Activity implements Game, Renderer {
     GLGameState state = GLGameState.Initialized;
     Object stateChanged = new Object();
     long startTime = System.nanoTime();
-    WakeLock wakeLock;
+    //WakeLock wakeLock;
 
     @Override 
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public abstract class GLGame extends Activity implements Game, Renderer {
         audio = new AndroidAudio(this);
         input = new AndroidInput(this, glView, 1, 1);
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame"); 
+        //wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame"); 
         
         //for share button:
         //http://code.tutsplus.com/tutorials/android-sdk-implement-a-share-intent--mobile-8433/
@@ -73,7 +73,7 @@ public abstract class GLGame extends Activity implements Game, Renderer {
     public void onResume() {
         super.onResume();
         glView.onResume();
-        wakeLock.acquire();
+        //wakeLock.acquire();
     }
     
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {        
@@ -139,7 +139,7 @@ public abstract class GLGame extends Activity implements Game, Renderer {
                 }
             }
         }
-        wakeLock.release();
+        //wakeLock.release();
         glView.onPause();  
         super.onPause();
     }  
