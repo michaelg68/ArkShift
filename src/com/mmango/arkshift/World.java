@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-//import android.util.Log;
+import android.util.Log;
 
 import com.badlogic.androidgames.framework.math.Circle;
 import com.badlogic.androidgames.framework.math.OverlapTester;
@@ -456,11 +456,13 @@ public class World {
 				// temporary, to test the level passed situation:
 				// state = WORLD_STATE_NEXT_LEVEL;
 			}
+			
 		}
+		if (bricksTouchedCounter != 0)
+			Log.d("World:checkBallCollisionsWithBricks", "bricksTouchedCounter = " +bricksTouchedCounter);
 
 		if (bricksTouchedCounter == 2) { // I expect it be not more than 2
-			// Log.d("World:checkBallCollisionsWithBricks",
-			// "More that one Bricks are touched! length = " + length);
+			Log.d("World:checkBallCollisionsWithBricks", "2 bricks are touched!");
 			// for (int k = 0; k < length; k++) {
 			// Log.d("World:checkBallCollisionsWithBricks",
 			// "brickID in bricks = " + bricksTouched.get(k));
@@ -619,8 +621,9 @@ public class World {
 			}
 
 		} else if (bricksTouchedCounter == 3) {
+			Log.d("World:checkBallCollisionsWithBricks", "3 bricks are touched! This is a kind of IN-CORNER collision");
 			// Log.d("World:checkBallCollisionsWithBricks",
-			// "Three bricks would be overlaped. This is a kind of IN-CORNER collision";
+			
 			// Actually it is geometricaly impossible for a circle to touch
 			// three rectangles so I will probaly fix it
 			// The questions is how costly will be calculation
@@ -656,6 +659,8 @@ public class World {
 
 		} else if (bricksTouchedCounter == 1) { // only one brick would be
 												// overlap
+			Log.d("World:checkBallCollisionsWithBricks", "1 brick is touched!");
+
 			bricksAffected[0] = bricksTouched[0]; // in this array I
 													// store the ID of the
 													// actually hit brick
