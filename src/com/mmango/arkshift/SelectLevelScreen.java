@@ -6,7 +6,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
@@ -104,8 +104,8 @@ public class SelectLevelScreen extends GLScreen {
 					// + secretTapCounter);
 					// If "8" level button tapped 8 times then unlock all levels
 					if (secretTapCounter == 8) {
-						Log.d("SelectLevelScreen:update",
-								"Unlocking all levels");
+						//Log.d("SelectLevelScreen:update",
+						//		"Unlocking all levels");
 						Assets.playSound(Assets.clickSound);
 						Assets.playSound(Assets.clickSound);
 						Assets.playSound(Assets.clickSound);

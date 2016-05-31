@@ -4,7 +4,7 @@ package com.mmango.arkshift;
 import com.badlogic.androidgames.framework.impl.GLGame;
 
 import android.content.SharedPreferences;
-import android.util.Log;
+//import android.util.Log;
 
 
 public class Settings {
@@ -79,7 +79,7 @@ public class Settings {
 		}
 		for (int i = 0; i < 8; i++) {
 			l = i + 1;
-			Log.d("Settings:savePrefs", "Preferences Level_" + l + " = " + levelEnabled[i]);
+			//Log.d("Settings:savePrefs", "Preferences Level_" + l + " = " + levelEnabled[i]);
 			prefEditor.putBoolean("Level_" + Integer.toString(l), levelEnabled[i]);
 		}
 		
@@ -88,7 +88,7 @@ public class Settings {
 	
 	public static void resetHighscores(GLGame glGame) {
 		int l;
-		Log.d("Settings:resetHighscores", "Resetting highscores");
+		//Log.d("Settings:resetHighscores", "Resetting highscores");
 		SharedPreferences settings = glGame.getSharedPreferences(
 				GAME_PREFERENCES, 0);
 		SharedPreferences.Editor prefEditor = settings.edit();

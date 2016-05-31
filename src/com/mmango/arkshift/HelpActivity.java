@@ -3,7 +3,7 @@ package com.mmango.arkshift;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.util.Log;
+//import android.util.Log;
 
 import com.badlogic.androidgames.framework.Screen;
 import com.badlogic.androidgames.framework.impl.GLGame;
@@ -21,7 +21,7 @@ public class HelpActivity extends GLGame {
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		super.onSurfaceCreated(gl, config);
 		if (firstTimeCreate) {
-			Log.d("HelpActivity:onSurfaceCreated", ".....");
+			//Log.d("HelpActivity:onSurfaceCreated", ".....");
 			AssetsHelp.load(this);
 			firstTimeCreate = false;
 		} else {
@@ -32,7 +32,7 @@ public class HelpActivity extends GLGame {
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.d("HelpActivity:onPause", ".......");
+		//Log.d("HelpActivity:onPause", ".......");
 		//Settings.savePrefs(this);
 		// if (Settings.soundEnabled)
 		// Assets.music.pause();
