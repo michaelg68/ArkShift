@@ -14,11 +14,11 @@ import com.mmango.games.framework.math.MyOverlapTester;
 
 public class World {
 	public interface WorldListener {
-//		public void hitAtRacquet();
+		// public void hitAtRacquet();
 
 		public void hitAtBrick();
 
-//		public void hitAtFrame();
+		// public void hitAtFrame();
 
 		public void shiftBrick();
 
@@ -150,15 +150,15 @@ public class World {
 				// Log.d("World", "brick_color = " +
 				// Integer.toString(brick_color));
 
-				
 				if (y % 2 == 0) { // in even rows like 0, 2, 4
 					prepColumn = -2;
 				} else { // in odd rows like 1, 3, 5
 					prepColumn = -1;
 				}
-				//Log.d("World:generateLevel", "y = " + y + "; prepColumn = " + prepColumn);
-				
-				Brick brick = new Brick(prepColumn, y, brick_color); 
+				// Log.d("World:generateLevel", "y = " + y + "; prepColumn = " +
+				// prepColumn);
+
+				Brick brick = new Brick(prepColumn, y, brick_color);
 				// 2.0f + 5.2f + 10.4f, 192 - 17 - 5.2f
 				// Log.d("World", "Adding a brick");
 				bricks.add(brick);
@@ -177,41 +177,38 @@ public class World {
 	}
 
 	public void preparing(float deltaTime) {
-		//Log.d("World:preparing", "Running preparing method");
+		// Log.d("World:preparing", "Running preparing method");
 		if (!prepared) {
 			for (int y = 0; y < level; y++) {
 				for (int x = 0; x < COLUMNS; x++) {
-					//Log.d("World:preparing", "x = " + x);
-					bricks.get(ceilingBricksId[x][y]).setHomeCell(x,y);
+					// Log.d("World:preparing", "x = " + x);
+					bricks.get(ceilingBricksId[x][y]).setHomeCell(x, y);
 				}
 			}
 			listener.hitAtBrick();
 			prepared = true;
 		}
-		//Log.d("World:preparing", "deltaTime = " + deltaTime);		
+		// Log.d("World:preparing", "deltaTime = " + deltaTime);
 		timePassed += deltaTime;
 		if (timePassed >= 0.2f) {
 			listener.hitAtBrick();
 			timePassed = 0;
 		}
 
-		
 		boolean bricksMoving = false;
 		for (int i = 0; i < bricksArraySize; i++) {
 			Brick brick = bricks.get(i);
 			brick.updatePreparing(deltaTime);
-			if (brick.state == Brick.BRICK_STATE_PREPARING) { 
+			if (brick.state == Brick.BRICK_STATE_PREPARING) {
 				bricksMoving = true;
-			} 
+			}
 		}
 		if (!bricksMoving) {
-			//the last brick has arrived to it's place. we are ready to play
+			// the last brick has arrived to it's place. we are ready to play
 			listener.levelPassed();
 			state = WORLD_STATE_READY;
 		}
-		
-		
-		
+
 	}
 
 	public void update(float deltaTime, float accelX) {
@@ -359,64 +356,64 @@ public class World {
 			// Log.d("World:checkBallCollisionsWithRacquet",
 			// "after changing ball.velocity.y = " + ball.velocity.y);
 			if (ball.velocity.y < 0) { // only if the ball moves downward!
-//				Log.d("World:checkBallCollisionsWithRacquet",
-//						"Contact with the racket TOP!");
+			// Log.d("World:checkBallCollisionsWithRacquet",
+			// "Contact with the racket TOP!");
 				ball.velocity.y = ball.velocity.y * (-1);
 				ball.position.y = racquet.position.y + Racquet.RACQUET_HEIGHT
 						/ 2 + Ball.BALL_RADIUS;
 
 				float angleTmp = ball.velocity.angle();
-//				Log.d("World:checkBallCollisionsWithRacquet", "angleTmp = "
-//						+ angleTmp);
+				// Log.d("World:checkBallCollisionsWithRacquet", "angleTmp = "
+				// + angleTmp);
 
 				// Create a copy of ball.velocity
 				Vector2 ballVelocityCopy = ball.velocity.cpy();
 
-//				Log.d("World:checkBallCollisionsWithRacquet",
-//						"ballVelocityCopy.len = " + ballVelocityCopy.len()
-//								+ "; ballVelocityCopy.angle = "
-//								+ ballVelocityCopy.angle());
-//				Log.d("World:checkBallCollisionsWithRacquet",
-//						"racquet.velocity.len = " + racquet.velocity.len()
-//								+ "; racquet.velocity.angle = "
-//								+ racquet.velocity.angle());
+				// Log.d("World:checkBallCollisionsWithRacquet",
+				// "ballVelocityCopy.len = " + ballVelocityCopy.len()
+				// + "; ballVelocityCopy.angle = "
+				// + ballVelocityCopy.angle());
+				// Log.d("World:checkBallCollisionsWithRacquet",
+				// "racquet.velocity.len = " + racquet.velocity.len()
+				// + "; racquet.velocity.angle = "
+				// + racquet.velocity.angle());
 
 				// get sum of ballVelocityCopy and racquet.velocity
 
 				ballVelocityCopy.add(racquet.velocity);
 
-//				Log.d("World:checkBallCollisionsWithRacquet",
-//						"After adding the racquet velocity: ballVelocityCopy.len = "
-//								+ ballVelocityCopy.len()
-//								+ "; ballVelocityCopy.angle = "
-//								+ ballVelocityCopy.angle());
+				// Log.d("World:checkBallCollisionsWithRacquet",
+				// "After adding the racquet velocity: ballVelocityCopy.len = "
+				// + ballVelocityCopy.len()
+				// + "; ballVelocityCopy.angle = "
+				// + ballVelocityCopy.angle());
 
 				// get the angle between the temp ballVelocityCopy and X
 				float angle = ballVelocityCopy.angle();
-//				Log.d("World:checkBallCollisionsWithRacquet", "angle = "
-//						+ angle);
+				// Log.d("World:checkBallCollisionsWithRacquet", "angle = "
+				// + angle);
 
 				// avoid too flat angles, if the angle is less that 45 degrees
 				// than make it equal 45 + a random float between 5f to 10f
 				if ((angle > 90f) && (angle > 135f)) {
 					float randangle = rand.nextFloat() * (10 - 5) + 1;
-//					Log.d("World:checkBallCollisionsWithRacquet",
-//							"(angle > 90f) && (angle > 135f). randangle = "
-//									+ randangle);
+					// Log.d("World:checkBallCollisionsWithRacquet",
+					// "(angle > 90f) && (angle > 135f). randangle = "
+					// + randangle);
 					angle = 135f - randangle;
 				}
 				if ((angle < 90f) && (angle < 45f)) {
 					float randangle = rand.nextFloat() * (10 - 5) + 1;
-//					Log.d("World:checkBallCollisionsWithRacquet",
-//							"(angle < 90f) && (angle < 45f). randangle = "
-//									+ randangle);
+					// Log.d("World:checkBallCollisionsWithRacquet",
+					// "(angle < 90f) && (angle < 45f). randangle = "
+					// + randangle);
 					angle = 45 + randangle;
 				}
 				float newAngle = angle - angleTmp;
 				// rotate ball.velocity on that angle
 				ball.velocity.rotate(newAngle);
-//				Log.d("World:checkBallCollisionsWithRacquet", "newAngle = "
-//						+ newAngle);
+				// Log.d("World:checkBallCollisionsWithRacquet", "newAngle = "
+				// + newAngle);
 			} else {
 				// Log.d("World:checkBallCollisionsWithRacquet",
 				// "Contact with the racket BOTTOM!");
@@ -430,8 +427,8 @@ public class World {
 
 	private void checkBallCollisionsWithBricks() {
 
-//		List<Integer> bricksTouched = new ArrayList<Integer>();
-//		List<Integer> bricksAffected = new ArrayList<Integer>();
+		// List<Integer> bricksTouched = new ArrayList<Integer>();
+		// List<Integer> bricksAffected = new ArrayList<Integer>();
 		int[] bricksTouched = new int[3];
 		int[] bricksAffected = new int[3];
 		int bricksTouchedCounter = 0;
@@ -439,7 +436,7 @@ public class World {
 		boolean isCeiling = false;
 
 		// int b = 0;
-		//int length = 0;
+		// int length = 0;
 		// Log.d("World:checkBallCollisionsWithBricks", "----");
 
 		// first I must check if the collision happened with more than one
@@ -451,10 +448,10 @@ public class World {
 			// would overlap with the
 			// ball in the next move
 			Brick brick = bricks.get(i);
-			if (OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) ) {
+			if (OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds)) {
 				bricksTouched[bricksTouchedCounter] = i;
 				bricksTouchedCounter++;
-				//bricksTouched.add(i);
+				// bricksTouched.add(i);
 
 				// temporary, to test the level passed situation:
 				// state = WORLD_STATE_NEXT_LEVEL;
@@ -494,17 +491,17 @@ public class World {
 				if ((ball.bounds.center.x <= bricks.get(bricksTouched[0]).x
 						+ Brick.BRICK_WIDTH / 2)) {
 					bricksAffected[0] = bricksTouched[0]; // in this array
-																// list I store
-																// the ID of the
-																// actually hit
-																// brick
+															// list I store
+															// the ID of the
+															// actually hit
+															// brick
 					bricksAffectedCounter = 1;
 				} else {
 					bricksAffected[0] = bricksTouched[1]; // in this array
-																// list I store
-																// the ID of the
-																// actually hit
-																// brick
+															// list I store
+															// the ID of the
+															// actually hit
+															// brick
 					bricksAffectedCounter = 1;
 				}
 
@@ -536,17 +533,17 @@ public class World {
 				if ((ball.bounds.center.y >= bricks.get(bricksTouched[0]).y
 						- Brick.BRICK_HEIGHT / 2)) {
 					bricksAffected[0] = (bricksTouched[0]); // in this array
-																// list I store
-																// the ID of the
-																// actually hit
-																// brick
+															// list I store
+															// the ID of the
+															// actually hit
+															// brick
 					bricksAffectedCounter = 1;
 				} else {
 					bricksAffected[0] = (bricksTouched[1]); // in this array
-																// list I store
-																// the ID of the
-																// actually hit
-																// brick
+															// list I store
+															// the ID of the
+															// actually hit
+															// brick
 					bricksAffectedCounter = 1;
 				}
 				// now check which side of the brick is hit - left or right
@@ -576,14 +573,14 @@ public class World {
 					.get(bricksTouched[1]).row)
 					&& (bricks.get(bricksTouched[0]).column != bricks
 							.get(bricksTouched[1]).column)) {
-//				Log.d("World:checkBallCollisionsWithBricks",
-//						"Two bricks are in the different rows and columns! This is a IN-CORNER collision");
+				// Log.d("World:checkBallCollisionsWithBricks",
+				// "Two bricks are in the different rows and columns! This is a IN-CORNER collision");
 				// we consider that both bricks have been affected
 				bricksAffected[0] = bricksTouched[0];
 				bricksAffected[1] = bricksTouched[1];
 				bricksAffectedCounter = 2;
 
-				if (bricks.get(bricksAffected[0]).atCeiling){
+				if (bricks.get(bricksAffected[0]).atCeiling) {
 					isCeiling = true;
 				}
 				// MyOverlapTester.overlapCircleInCorner(ball.bounds,
@@ -624,19 +621,44 @@ public class World {
 		} else if (bricksTouchedCounter == 3) {
 			// Log.d("World:checkBallCollisionsWithBricks",
 			// "Three bricks would be overlaped. This is a kind of IN-CORNER collision";
-			// Actually it is geometricaly impossible for a circle to touch three rectangles so I will probaly fix it
-			// The questions is how coustly will be calculation
-			bricksAffected[0] = bricksTouched[0];
-			bricksAffected[1] = bricksTouched[1];
-			bricksAffected[2] = bricksTouched[2];
-			bricksAffectedCounter = 3;
+			// Actually it is geometricaly impossible for a circle to touch
+			// three rectangles so I will probaly fix it
+			// The questions is how costly will be calculation
+
+			// int soleR = 999; // the id of the lower/upper brick
+			int maxR = 0; // the id of the lower/upper brick
+			int r = 0;
+
+			for (int i = 0; i < 3; i++) {
+				// find the lower brick, the one with the biggest row number
+				if (bricks.get(bricksTouched[i]).row > maxR) {
+					maxR = bricks.get(bricksTouched[i]).row;
+					r = i;
+				}
+			}
+			// add to the affected list the lower(ceiling)/upper(bottom) brick:
+			bricksAffected[0] = bricksTouched[r]; 
+
+			// if the ball "overlaps" three bricks at the ceiling than the brick
+			// which is just above the lower one should be excluded
+			int column = bricks.get(bricksAffected[0]).column;
+			for (int i = 0; i < 3; i++) {
+				if (i == r) {
+					continue;
+				} else {
+					if (bricks.get(bricksTouched[i]).column != column) {
+						bricksAffected[1] = bricksTouched[i];
+					}
+				}
+			}
+			bricksAffectedCounter = 2;
 			ball.velocity.mul(-1);
 
 		} else if (bricksTouchedCounter == 1) { // only one brick would be
 												// overlap
 			bricksAffected[0] = bricksTouched[0]; // in this array I
-														// store the ID of the
-														// actually hit brick
+													// store the ID of the
+													// actually hit brick
 			bricksAffectedCounter = 1;
 
 			Brick brick = bricks.get(bricksAffected[0]);
@@ -872,7 +894,8 @@ public class World {
 				for (int y = 0; y < level - 1; y++) {
 					ceilingBricksId[column][y] = ceilingBricksId[column][y + 1];
 					if (ceilingBricksId[column][y] != NO_OBJECT_ID) {
-						bricks.get(ceilingBricksId[column][y]).setCell(column, y);
+						bricks.get(ceilingBricksId[column][y]).setCell(column,
+								y);
 						bricks.get(ceilingBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_UP;
 					}
 				}
@@ -903,7 +926,8 @@ public class World {
 				for (int y = level - 1; y > 0; y--) {
 					ceilingBricksId[column][y] = ceilingBricksId[column][y - 1];
 					if (ceilingBricksId[column][y] != NO_OBJECT_ID) {
-						bricks.get(ceilingBricksId[column][y]).setCell(column, y);
+						bricks.get(ceilingBricksId[column][y]).setCell(column,
+								y);
 						bricks.get(ceilingBricksId[column][y]).state = Brick.BRICK_STATE_SHIFTING_DOWN;
 					}
 				}
