@@ -430,12 +430,16 @@ public class World {
 
 	private void checkBallCollisionsWithBricks() {
 
-		List<Integer> bricksTouched = new ArrayList<Integer>();
-		List<Integer> bricksAffected = new ArrayList<Integer>();
+//		List<Integer> bricksTouched = new ArrayList<Integer>();
+//		List<Integer> bricksAffected = new ArrayList<Integer>();
+		int[] bricksTouched = new int[3];
+		int[] bricksAffected = new int[3];
+		int bricksTouchedCounter = 0;
+		int bricksAffectedCounter = 0;
 		boolean isCeiling = false;
 
 		// int b = 0;
-		int length = 0;
+		//int length = 0;
 		// Log.d("World:checkBallCollisionsWithBricks", "----");
 
 		// first I must check if the collision happened with more than one
@@ -448,15 +452,16 @@ public class World {
 			// ball in the next move
 			Brick brick = bricks.get(i);
 			if (OverlapTester.overlapCircleRectangle(ball.bounds, brick.bounds) ) {
-				bricksTouched.add(i);
+				bricksTouched[bricksTouchedCounter] = i;
+				bricksTouchedCounter++;
+				//bricksTouched.add(i);
 
 				// temporary, to test the level passed situation:
 				// state = WORLD_STATE_NEXT_LEVEL;
 			}
 		}
 
-		length = bricksTouched.size();
-		if (length == 2) { // I expect it be not more than 2
+		if (bricksTouchedCounter == 2) { // I expect it be not more than 2
 			// Log.d("World:checkBallCollisionsWithBricks",
 			// "More that one Bricks are touched! length = " + length);
 			// for (int k = 0; k < length; k++) {
@@ -474,8 +479,8 @@ public class World {
 			// }
 
 			// two bricks in the same row:
-			if (bricks.get(bricksTouched.get(0)).row == bricks
-					.get(bricksTouched.get(1)).row) {
+			if (bricks.get(bricksTouched[0]).row == bricks
+					.get(bricksTouched[1]).row) {
 				// Log.d("World:checkBallCollisionsWithBricks",
 				// "Two bricks are in the same row. row = "
 				// + bricks.get(bricksTouched.get(1)).row);
@@ -486,34 +491,36 @@ public class World {
 				// MyOverlapTester.overlapCircleRectangleHorisontal(ball.bounds,
 				// bricks.get(bricksTouched.get(0)).bounds,
 				// bricks.get(bricksTouched.get(1)).bounds);
-				if ((ball.bounds.center.x <= bricks.get(bricksTouched.get(0)).x
+				if ((ball.bounds.center.x <= bricks.get(bricksTouched[0]).x
 						+ Brick.BRICK_WIDTH / 2)) {
-					bricksAffected.add(bricksTouched.get(0)); // in this array
+					bricksAffected[0] = bricksTouched[0]; // in this array
 																// list I store
 																// the ID of the
 																// actually hit
 																// brick
+					bricksAffectedCounter = 1;
 				} else {
-					bricksAffected.add(bricksTouched.get(1)); // in this array
+					bricksAffected[0] = bricksTouched[1]; // in this array
 																// list I store
 																// the ID of the
 																// actually hit
 																// brick
+					bricksAffectedCounter = 1;
 				}
 
-				if (bricks.get(bricksAffected.get(0)).atCeiling) {
-					ball.position.y = bricks.get(bricksAffected.get(0)).bounds.lowerLeft.y
+				if (bricks.get(bricksAffected[0]).atCeiling) {
+					ball.position.y = bricks.get(bricksAffected[0]).bounds.lowerLeft.y
 							- Ball.BALL_RADIUS;
 				} else {
-					ball.position.y = bricks.get(bricksAffected.get(0)).bounds.lowerLeft.y
+					ball.position.y = bricks.get(bricksAffected[0]).bounds.lowerLeft.y
 							+ Brick.BRICK_HEIGHT + Ball.BALL_RADIUS;
 				}
 				ball.velocity.y = ball.velocity.y * (-1);
 			}
 
 			// two bricks in the same column:
-			if (bricks.get(bricksTouched.get(0)).column == bricks
-					.get(bricksTouched.get(1)).column) {
+			if (bricks.get(bricksTouched[0]).column == bricks
+					.get(bricksTouched[1]).column) {
 				// Log.d("World:checkBallCollisionsWithBricks",
 				// "Two bricks are in the same column. column = "
 				// + bricks.get(bricksTouched.get(1)).column);
@@ -526,24 +533,26 @@ public class World {
 				// bricks.get(bricksTouched.get(1)).bounds);
 				// the brick with lesser ID will be always on top of the brick
 				// with bigger ID. either on ceiling or floor
-				if ((ball.bounds.center.y >= bricks.get(bricksTouched.get(0)).y
+				if ((ball.bounds.center.y >= bricks.get(bricksTouched[0]).y
 						- Brick.BRICK_HEIGHT / 2)) {
-					bricksAffected.add(bricksTouched.get(0)); // in this array
+					bricksAffected[0] = (bricksTouched[0]); // in this array
 																// list I store
 																// the ID of the
 																// actually hit
 																// brick
+					bricksAffectedCounter = 1;
 				} else {
-					bricksAffected.add(bricksTouched.get(1)); // in this array
+					bricksAffected[0] = (bricksTouched[1]); // in this array
 																// list I store
 																// the ID of the
 																// actually hit
 																// brick
+					bricksAffectedCounter = 1;
 				}
 				// now check which side of the brick is hit - left or right
 				if (ball.velocity.x > 0) { // the ball was flying from left to
 											// right so the left side is hit
-					ball.position.x = bricks.get(bricksAffected.get(0)).bounds.lowerLeft.x
+					ball.position.x = bricks.get(bricksAffected[0]).bounds.lowerLeft.x
 							- Ball.BALL_RADIUS; // the
 					// brick
 					// was
@@ -553,7 +562,7 @@ public class World {
 					// left
 				} else { // the ball was flying from right to left so the rigth
 							// side is hit
-					ball.position.x = bricks.get(bricksAffected.get(0)).bounds.lowerLeft.x
+					ball.position.x = bricks.get(bricksAffected[0]).bounds.lowerLeft.x
 							+ Brick.BRICK_WIDTH + Ball.BALL_RADIUS; // the brick
 																	// was hit
 																	// from the
@@ -563,23 +572,25 @@ public class World {
 				ball.velocity.x = ball.velocity.x * (-1);
 			}
 
-			if ((bricks.get(bricksTouched.get(0)).row != bricks
-					.get(bricksTouched.get(1)).row)
-					&& (bricks.get(bricksTouched.get(0)).column != bricks
-							.get(bricksTouched.get(1)).column)) {
+			if ((bricks.get(bricksTouched[0]).row != bricks
+					.get(bricksTouched[1]).row)
+					&& (bricks.get(bricksTouched[0]).column != bricks
+							.get(bricksTouched[1]).column)) {
 //				Log.d("World:checkBallCollisionsWithBricks",
 //						"Two bricks are in the different rows and columns! This is a IN-CORNER collision");
 				// we consider that both bricks have been affected
-				bricksAffected.add(bricksTouched.get(0));
-				bricksAffected.add(bricksTouched.get(1));
+				bricksAffected[0] = bricksTouched[0];
+				bricksAffected[1] = bricksTouched[1];
+				bricksAffectedCounter = 2;
 
-				if (bricks.get(bricksTouched.get(0)).atCeiling)
+				if (bricks.get(bricksAffected[0]).atCeiling){
 					isCeiling = true;
+				}
 				// MyOverlapTester.overlapCircleInCorner(ball.bounds,
 				// bricks.get(bricksTouched.get(0)).bounds,
 				// bricks.get(bricksTouched.get(1)).bounds, isCeling);
-				Rectangle r0 = bricks.get(bricksTouched.get(0)).bounds;
-				Rectangle r1 = bricks.get(bricksTouched.get(1)).bounds;
+				Rectangle r0 = bricks.get(bricksTouched[0]).bounds;
+				Rectangle r1 = bricks.get(bricksTouched[1]).bounds;
 
 				if (isCeiling) { // hitting the ceiling bricks
 					ball.position.y = Math.max(r0.lowerLeft.y, r1.lowerLeft.y)
@@ -610,24 +621,28 @@ public class World {
 
 			}
 
-		} else if (bricksTouched.size() == 3) {
+		} else if (bricksTouchedCounter == 3) {
 			// Log.d("World:checkBallCollisionsWithBricks",
-			// "Three bricks would be overlaped. This is a kind of IN-CORNER collision");
-			bricksAffected.add(bricksTouched.get(0));
-			bricksAffected.add(bricksTouched.get(1));
-			bricksAffected.add(bricksTouched.get(2));
+			// "Three bricks would be overlaped. This is a kind of IN-CORNER collision";
+			// Actually it is geometricaly impossible for a circle to touch three rectangles so I will probaly fix it
+			// The questions is how coustly will be calculation
+			bricksAffected[0] = bricksTouched[0];
+			bricksAffected[1] = bricksTouched[1];
+			bricksAffected[2] = bricksTouched[2];
+			bricksAffectedCounter = 3;
 			ball.velocity.mul(-1);
 
-		} else if (bricksTouched.size() == 1) { // only one brick would be
+		} else if (bricksTouchedCounter == 1) { // only one brick would be
 												// overlap
-			bricksAffected.add(bricksTouched.get(0)); // in this array list I
+			bricksAffected[0] = bricksTouched[0]; // in this array I
 														// store the ID of the
 														// actually hit brick
+			bricksAffectedCounter = 1;
 
-			Brick brick = bricks.get(bricksAffected.get(0));
+			Brick brick = bricks.get(bricksAffected[0]);
 			Circle c = ball.bounds;
 			Rectangle r = brick.bounds;
-			if (bricks.get(bricksTouched.get(0)).atCeiling)
+			if (bricks.get(bricksTouched[0]).atCeiling)
 				isCeiling = true;
 			if (isCeiling) {
 				if (ball.velocity.x > 0) { // the ball is flying right
@@ -739,8 +754,8 @@ public class World {
 
 		// ############################################################
 		// here we analyze what to happen to the bricks: shifting, scoring etc.
-		for (Integer i = 0; i < bricksAffected.size(); i++) {
-			Brick brick = bricks.get(bricksAffected.get(i));
+		for (int i = 0; i < bricksAffectedCounter; i++) {
+			Brick brick = bricks.get(bricksAffected[i]);
 			if (brick.state != Brick.BRICK_STATE_STILL) {
 				continue;
 			}
