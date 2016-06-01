@@ -60,7 +60,7 @@ public class HelpScreen extends GLScreen {
 				if (OverlapTester.pointInRectangle(homeBounds, touchPoint)) {
 					//game.setScreen(new MainMenuScreen(game));
 					AssetsHelp.playSound(AssetsHelp.clickSound);
-					glGame.finish();
+					finishActivity();
 					return;
 				} else  {
 					AssetsHelp.playSound(AssetsHelp.clickSound);
@@ -130,6 +130,10 @@ public class HelpScreen extends GLScreen {
 	
 	public void presentHelpScreen4(float deltaTime) {
 		batcher.drawSprite(RESOLUTION_X / 2, RESOLUTION_Y / 2, RESOLUTION_X, RESOLUTION_Y, AssetsHelp.helpScreen4Region);
+	}
+	
+	public void finishActivity() {
+		glGame.finish();
 	}
 	
 	@Override

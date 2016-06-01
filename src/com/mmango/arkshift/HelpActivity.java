@@ -9,7 +9,7 @@ import com.badlogic.androidgames.framework.Screen;
 import com.badlogic.androidgames.framework.impl.GLGame;
 
 public class HelpActivity extends GLGame {
-
+	
 	boolean firstTimeCreate = true;
 
 	@Override
@@ -37,4 +37,11 @@ public class HelpActivity extends GLGame {
 		// if (Settings.soundEnabled)
 		// Assets.music.pause();
 	}
+	
+	@Override
+	public void onBackPressed() {
+		HelpScreen screen = (HelpScreen)getCurrentScreen();
+		screen.finishActivity();
+	}
+
 }
