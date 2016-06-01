@@ -25,13 +25,15 @@ public class AssetsHelp {
 	public static void load(GLGame game) {
 
 		atlasHelpScreen = new Texture(game, "atlas_bg_hs.png");
-		backgroundUIRegion = new TextureRegion(atlasHelpScreen, 0, 0, 1080, 1920);
-		helpScreen1Region = new TextureRegion(atlasHelpScreen, 1080, 0, 1080, 1920);
-		helpScreen2Region = new TextureRegion(atlasHelpScreen, 2160, 0, 1080, 1920);
-		helpScreen3Region = new TextureRegion(atlasHelpScreen, 0, 1920, 1080, 1920);
-		helpScreen4Region = new TextureRegion(atlasHelpScreen, 1080, 1920, 1080, 1920);
-		mainMenuButtonHome = new TextureRegion(atlasHelpScreen, 3240, 128, 128, 128);
+		backgroundUIRegion = new TextureRegion(atlasHelpScreen, 1080, 1920, 360, 640);
+		helpScreen1Region = new TextureRegion(atlasHelpScreen, 0, 0, 1080, 1920);
+		helpScreen2Region = new TextureRegion(atlasHelpScreen, 1080, 0, 1080, 1920);
+		helpScreen3Region = new TextureRegion(atlasHelpScreen, 2160, 0, 1080, 1920);
+		helpScreen4Region = new TextureRegion(atlasHelpScreen, 0, 1920, 1080, 1920);
+		mainMenuButtonHome = new TextureRegion(atlasHelpScreen, 1440, 1920, 128, 128);
 		mainMenuTextQuit = new TextureRegion(atlasHelpScreen, 3240, 0, 256, 128);
+
+
 
 		clickSound = game.getAudio().newSound("click.ogg");
 	}

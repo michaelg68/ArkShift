@@ -1,7 +1,7 @@
-background_ui = 0 0 1080 1920
-helpScreen1 = 1080 0 1080 1920
-helpScreen2 = 2160 0 1080 1920
-helpScreen3 = 0 1920 1080 1920
-helpScreen4 = 1080 1920 1080 1920
-main_menu_button_home128 = 3240 128 128 128
-main_menu_text_quit = 3240 0 256 128
+backgroundUIRegion = 1080 1920 360 640
+helpScreen1Region = 0 0 1080 1920
+helpScreen2Region = 1080 0 1080 1920
+helpScreen3Region = 2160 0 1080 1920
+helpScreen4Region = 0 1920 1080 1920
+mainMenuButtonHome = 1440 1920 128 128
+mainMenuTextQuit = 3240 0 256 128
