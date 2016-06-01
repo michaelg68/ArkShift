@@ -444,7 +444,7 @@ public class World {
 		// Hopefully this will help to solve the problem of ball swallowing by
 		// the bricks
 
-		for (Integer i = 0; i < bricksArraySize; i++) { // find all bricks which
+		for (int i = 0; i < bricksArraySize; i++) { // find all bricks which
 			// would overlap with the
 			// ball in the next move
 			Brick brick = bricks.get(i);
