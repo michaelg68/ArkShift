@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import android.util.FloatMath;
 import android.util.Log;
 
 import com.badlogic.androidgames.framework.math.Circle;
@@ -89,6 +88,8 @@ public class World {
 	float timePassed = 0f;
 	int[] cellIds = new int[4]; // for calculation the ball's rectBounds
 								// vertices
+	int cellsPerRow;
+	int cellsPerCol;
 
 	public World(WorldListener listener, int level, int balls) {
 		this.level = level;
@@ -100,6 +101,8 @@ public class World {
 		// Log.d("World", "gameField.lowerLeft.y = " + gameField.lowerLeft.y);
 		// Log.d("World", "gameField.width = " + gameField.width);
 		// Log.d("World", "gameField.height = " + gameField.height);
+		this.cellsPerRow = (int) Math.ceil(GAME_FIELD_WIDTH / CELL_SIZE);
+		this.cellsPerCol = (int) Math.ceil(GAME_FIELD_HEIGHT / CELL_SIZE);
 
 		rand = new Random();
 
@@ -431,20 +434,70 @@ public class World {
 
 	public int[] getCellIds(Ball ball, boolean aboveRacquet) {
 		if (aboveRacquet) {
-			int x1 = (int) Math.floor((ball.rectBounds.lowerLeft.x - FRAME_WIDTH) / CELL_SIZE);
-			int y1 = (int) Math.floor((WORLD_HEIGHT - ball.rectBounds.lowerLeft.y - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH) / CELL_SIZE);
-			int x2 = (int) Math
-					.floor((ball.rectBounds.lowerLeft.x - FRAME_WIDTH + ball.rectBounds.width)/ CELL_SIZE);
-			int y2 = (int) Math
-					.floor((WORLD_HEIGHT - ball.rectBounds.lowerLeft.y - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH + ball.rectBounds.height)
+			int x1 = (int) Math
+					.floor((ball.rectBounds.lowerLeft.x - FRAME_WIDTH)
 							/ CELL_SIZE);
+			int y1 = (int) Math
+					.floor((WORLD_HEIGHT - ball.rectBounds.lowerLeft.y
+							- NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH)
+							/ CELL_SIZE);
+			int x2 = (int) Math.floor((ball.rectBounds.lowerLeft.x
+					- FRAME_WIDTH + ball.rectBounds.width)
+					/ CELL_SIZE);
+			int y2 = (int) Math.floor((WORLD_HEIGHT
+					- ball.rectBounds.lowerLeft.y - NOTIFICATION_AREA_HEIGHT
+					- FRAME_WIDTH + ball.rectBounds.height)
+					/ CELL_SIZE);
 
-			Log.d("World:getCellIds", "The ball is in cells: x1=" + x1 + " y1=" + y1 + " x2=" + x2 + " y2=" + y2);
-			
+			Log.d("World:getCellIds", "The ball is in cells: x1=" + x1 + " y1="
+					+ y1 + " x2=" + x2 + " y2=" + y2);
+
 			if (x1 == x2 && y1 == y2) {
 				Log.d("World:getCellIds", "the ball is completely in one cell");
+				if (x1 >= 0 && x1 < cellsPerRow && y1 >= 0 && y1 < cellsPerCol) {
+					cellIds[0] = x1 + y1 * cellsPerRow;
+				} else {
+					cellIds[0] = -1;
+					cellIds[1] = -1;
+					cellIds[2] = -1;
+					cellIds[3] = -1;
+				}
+			} else if (x1 == x2) {
+				int i = 0;
+				if (x1 >= 0 && x1 < cellsPerRow) {
+					if (y1 >= 0 && y1 < cellsPerCol)
+						cellIds[i++] = x1 + y1 * cellsPerRow;
+					if (y2 >= 0 && y2 < cellsPerCol)
+						cellIds[i++] = x1 + y2 * cellsPerRow;
+				}
+				while (i <= 3)
+					cellIds[i++] = -1;
+			} else if (y1 == y2) {
+				int i = 0;
+				if (y1 >= 0 && y1 < cellsPerCol) {
+					if (x1 >= 0 && x1 < cellsPerRow)
+						cellIds[i++] = x1 + y1 * cellsPerRow;
+					if (x2 >= 0 && x2 < cellsPerRow)
+						cellIds[i++] = x2 + y1 * cellsPerRow;
+				}
+				while (i <= 3)
+					cellIds[i++] = -1;
+			} else {
+				int i = 0;
+				int y1CellsPerRow = y1 * cellsPerRow;
+				int y2CellsPerRow = y2 * cellsPerRow;
+				if (x1 >= 0 && x1 < cellsPerRow && y1 >= 0 && y1 < cellsPerCol)
+					cellIds[i++] = x1 + y1CellsPerRow;
+				if (x2 >= 0 && x2 < cellsPerRow && y1 >= 0 && y1 < cellsPerCol)
+					cellIds[i++] = x2 + y1CellsPerRow;
+				if (x2 >= 0 && x2 < cellsPerRow && y2 >= 0 && y2 < cellsPerCol)
+					cellIds[i++] = x2 + y2CellsPerRow;
+				if (x1 >= 0 && x1 < cellsPerRow && y2 >= 0 && y2 < cellsPerCol)
+					cellIds[i++] = x1 + y2CellsPerRow;
+				while (i <= 3)
+					cellIds[i++] = -1;
 			}
-		}
+		} // end of aboveRacquet == true
 
 		return cellIds;
 	}
@@ -481,6 +534,10 @@ public class World {
 						+ " y=" + ball.rectBounds.lowerLeft.y);
 		// example: ball.rectBounds.lowerLeft x=85.97813 y=161.30772
 		getCellIds(ball, ballAboveRacquet);
+		//for (int z = 0; z < )
+		Log.d("World:checkBallCollisionsWithBricks", "cellIds[0]=" + cellIds[0]);
+
+		
 
 		for (int i = 0; i < bricksArraySize; i++) { // find all bricks which
 			// would overlap with the
