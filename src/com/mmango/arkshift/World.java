@@ -446,7 +446,7 @@ public class World {
 					/ CELL_SIZE);
 			int y2 = (int) Math.floor((WORLD_HEIGHT
 					- ball.rectBounds.lowerLeft.y - NOTIFICATION_AREA_HEIGHT
-					- FRAME_WIDTH + ball.rectBounds.height)
+					- FRAME_WIDTH - ball.rectBounds.height)
 					/ CELL_SIZE);
 
 			Log.d("World:getCellIds", "The ball is in cells: x1=" + x1 + " y1="
@@ -512,6 +512,8 @@ public class World {
 		int bricksAffectedCounter = 0;
 		boolean isCeiling = false;
 		boolean ballAboveRacquet = false;
+		int xCell = -1;
+		int yCell = -1;
 
 		// int b = 0;
 		// int length = 0;
@@ -534,10 +536,13 @@ public class World {
 						+ " y=" + ball.rectBounds.lowerLeft.y);
 		// example: ball.rectBounds.lowerLeft x=85.97813 y=161.30772
 		getCellIds(ball, ballAboveRacquet);
-		//for (int z = 0; z < )
-		Log.d("World:checkBallCollisionsWithBricks", "cellIds[0]=" + cellIds[0]);
-
-		
+		for (int z = 0; z < 4; z++) {
+			Log.d("World:checkBallCollisionsWithBricks", "cellIds[" + z + "]="
+					+ cellIds[z]);
+//			if (z != -1) {
+//				xCell = 
+//			}
+		}
 
 		for (int i = 0; i < bricksArraySize; i++) { // find all bricks which
 			// would overlap with the
