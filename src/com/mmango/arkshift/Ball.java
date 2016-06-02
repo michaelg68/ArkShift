@@ -3,6 +3,7 @@ package com.mmango.arkshift;
 //import android.util.Log;
 import com.badlogic.androidgames.framework.DynamicGameObjectCircle;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
+import com.badlogic.androidgames.framework.math.Rectangle;
 
 public class Ball extends DynamicGameObjectCircle {
 	public static final int BALL_STATE_STILL = 0;
@@ -22,6 +23,7 @@ public class Ball extends DynamicGameObjectCircle {
 	public static final int BALL_COLOR_RED = 2;
 	public TextureRegion ballTextureRegion;
 	public float ballAccel;
+	public Rectangle rectBounds;
 
 	
 	public int color;
@@ -36,12 +38,15 @@ public class Ball extends DynamicGameObjectCircle {
         ballAccel = BALL_NORMAL_ACCELL;
         velocity.set(2, 10);
         setBallColor(color);
+        rectBounds = new Rectangle(position.x - BALL_RADIUS, position.y
+        		- BALL_RADIUS, BALL_DIAMETER, BALL_DIAMETER);
     }
     
     public void update(float deltaTime) {
 		//velocity.add(0 * deltaTime, 0 * deltaTime);
 		position.add(velocity.x * ballAccel * deltaTime, velocity.y * ballAccel * deltaTime);
 		bounds.center.set(position);
+		rectBounds.lowerLeft.set(position).sub(rectBounds.width / 2, rectBounds.height / 2);
 		//Log.d("Ball:update", "position.x = " + position.x);
 		//Log.d("Ball:update", "position.y = " + position.y);
 		//Log.d("Ball:update", "velocity.x = " + velocity.x);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import android.util.FloatMath;
 import android.util.Log;
 
 import com.badlogic.androidgames.framework.math.Circle;
@@ -39,6 +40,7 @@ public class World {
 	public static final int FRAME_RIGHT_BORDER_ID = 4;
 
 	public static final float FRAME_WIDTH = 2f;
+	public static final float CELL_SIZE = Brick.BRICK_HEIGHT;
 	public static final float GAME_FIELD_HEIGHT = WORLD_HEIGHT - FRAME_WIDTH
 			- FRAME_WIDTH - NOTIFICATION_AREA_HEIGHT;
 	public static final float GAME_FIELD_WIDTH = WORLD_WIDTH - FRAME_WIDTH
@@ -85,6 +87,8 @@ public class World {
 	public int bricksArraySize;
 	boolean prepared;
 	float timePassed = 0f;
+	int[] cellIds = new int[4]; // for calculation the ball's rectBounds
+								// vertices
 
 	public World(WorldListener listener, int level, int balls) {
 		this.level = level;
@@ -231,7 +235,7 @@ public class World {
 				}
 			}
 		}
-		racquet.position.y = FRAME_WIDTH + Brick.BRICK_HEIGHT
+		racquet.position.y = FRAME_WIDTH + CELL_SIZE
 				* bricksInTheHighestFloorColumn + Racquet.RACQUET_HEIGHT / 2
 				+ 0.5f;
 		if (bricksInTheHighestFloorColumn == 0) { // if no bricks on the floor
@@ -242,7 +246,7 @@ public class World {
 															// just under the
 															// racquet then
 															// donot
-					racquet.position.y = FRAME_WIDTH + Brick.BRICK_HEIGHT
+					racquet.position.y = FRAME_WIDTH + CELL_SIZE
 							+ Racquet.RACQUET_HEIGHT / 2 + 0.5f;
 				}
 			}
@@ -356,8 +360,8 @@ public class World {
 			// Log.d("World:checkBallCollisionsWithRacquet",
 			// "after changing ball.velocity.y = " + ball.velocity.y);
 			if (ball.velocity.y < 0) { // only if the ball moves downward!
-			// Log.d("World:checkBallCollisionsWithRacquet",
-			// "Contact with the racket TOP!");
+				// Log.d("World:checkBallCollisionsWithRacquet",
+				// "Contact with the racket TOP!");
 				ball.velocity.y = ball.velocity.y * (-1);
 				ball.position.y = racquet.position.y + Racquet.RACQUET_HEIGHT
 						/ 2 + Ball.BALL_RADIUS;
@@ -425,6 +429,26 @@ public class World {
 		}
 	}
 
+	public int[] getCellIds(Ball ball, boolean aboveRacquet) {
+		if (aboveRacquet) {
+			int x1 = (int) Math.floor((ball.rectBounds.lowerLeft.x - FRAME_WIDTH) / CELL_SIZE);
+			int y1 = (int) Math.floor((WORLD_HEIGHT - ball.rectBounds.lowerLeft.y - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH) / CELL_SIZE);
+			int x2 = (int) Math
+					.floor((ball.rectBounds.lowerLeft.x - FRAME_WIDTH + ball.rectBounds.width)/ CELL_SIZE);
+			int y2 = (int) Math
+					.floor((WORLD_HEIGHT - ball.rectBounds.lowerLeft.y - NOTIFICATION_AREA_HEIGHT - FRAME_WIDTH + ball.rectBounds.height)
+							/ CELL_SIZE);
+
+			Log.d("World:getCellIds", "The ball is in cells: x1=" + x1 + " y1=" + y1 + " x2=" + x2 + " y2=" + y2);
+			
+			if (x1 == x2 && y1 == y2) {
+				Log.d("World:getCellIds", "the ball is completely in one cell");
+			}
+		}
+
+		return cellIds;
+	}
+
 	private void checkBallCollisionsWithBricks() {
 
 		// List<Integer> bricksTouched = new ArrayList<Integer>();
@@ -434,6 +458,7 @@ public class World {
 		int bricksTouchedCounter = 0;
 		int bricksAffectedCounter = 0;
 		boolean isCeiling = false;
+		boolean ballAboveRacquet = false;
 
 		// int b = 0;
 		// int length = 0;
@@ -443,6 +468,19 @@ public class World {
 		// brick!
 		// Hopefully this will help to solve the problem of ball swallowing by
 		// the bricks
+
+		if (ball.position.y > racquet.position.y) {
+			ballAboveRacquet = true;
+		} else {
+			ballAboveRacquet = false;
+		}
+
+		// calculate cells where the corners of ball.rectBounds are located
+		Log.d("World:checkBallCollisionsWithBricks",
+				"ball.rectBounds.lowerLeft x=" + ball.rectBounds.lowerLeft.x
+						+ " y=" + ball.rectBounds.lowerLeft.y);
+		// example: ball.rectBounds.lowerLeft x=85.97813 y=161.30772
+		getCellIds(ball, ballAboveRacquet);
 
 		for (int i = 0; i < bricksArraySize; i++) { // find all bricks which
 			// would overlap with the
@@ -456,13 +494,18 @@ public class World {
 				// temporary, to test the level passed situation:
 				// state = WORLD_STATE_NEXT_LEVEL;
 			}
-			
+
 		}
-		if (bricksTouchedCounter != 0)
-			Log.d("World:checkBallCollisionsWithBricks", "bricksTouchedCounter = " +bricksTouchedCounter);
+		if (bricksTouchedCounter != 0) {
+			Log.d("World:checkBallCollisionsWithBricks",
+					"bricksTouchedCounter = " + bricksTouchedCounter);
+			Log.d("World:checkBallCollisionsWithBricks", "ballAtCeiling = "
+					+ ballAboveRacquet);
+		}
 
 		if (bricksTouchedCounter == 2) { // I expect it be not more than 2
-			Log.d("World:checkBallCollisionsWithBricks", "2 bricks are touched!");
+			Log.d("World:checkBallCollisionsWithBricks",
+					"2 bricks are touched!");
 			// for (int k = 0; k < length; k++) {
 			// Log.d("World:checkBallCollisionsWithBricks",
 			// "brickID in bricks = " + bricksTouched.get(k));
@@ -512,7 +555,7 @@ public class World {
 							- Ball.BALL_RADIUS;
 				} else {
 					ball.position.y = bricks.get(bricksAffected[0]).bounds.lowerLeft.y
-							+ Brick.BRICK_HEIGHT + Ball.BALL_RADIUS;
+							+ CELL_SIZE + Ball.BALL_RADIUS;
 				}
 				ball.velocity.y = ball.velocity.y * (-1);
 			}
@@ -533,7 +576,7 @@ public class World {
 				// the brick with lesser ID will be always on top of the brick
 				// with bigger ID. either on ceiling or floor
 				if ((ball.bounds.center.y >= bricks.get(bricksTouched[0]).y
-						- Brick.BRICK_HEIGHT / 2)) {
+						- CELL_SIZE / 2)) {
 					bricksAffected[0] = (bricksTouched[0]); // in this array
 															// list I store
 															// the ID of the
@@ -621,9 +664,10 @@ public class World {
 			}
 
 		} else if (bricksTouchedCounter == 3) {
-			Log.d("World:checkBallCollisionsWithBricks", "3 bricks are touched! This is a kind of IN-CORNER collision");
+			Log.d("World:checkBallCollisionsWithBricks",
+					"3 bricks are touched! This is a kind of IN-CORNER collision");
 			// Log.d("World:checkBallCollisionsWithBricks",
-			
+
 			// Actually it is geometricaly impossible for a circle to touch
 			// three rectangles so I will probaly fix it
 			// The questions is how costly will be calculation
@@ -640,7 +684,7 @@ public class World {
 				}
 			}
 			// add to the affected list the lower(ceiling)/upper(bottom) brick:
-			bricksAffected[0] = bricksTouched[r]; 
+			bricksAffected[0] = bricksTouched[r];
 
 			// if the ball "overlaps" three bricks at the ceiling than the brick
 			// which is just above the lower one should be excluded
@@ -667,6 +711,11 @@ public class World {
 			bricksAffectedCounter = 1;
 
 			Brick brick = bricks.get(bricksAffected[0]);
+			Log.d("World:checkBallCollisionsWithBricks",
+					"brick.bounds.lowerLeft x=" + brick.bounds.lowerLeft.x
+							+ " y=" + brick.bounds.lowerLeft.y);
+			// example brick.bounds.lowerLeft x=85.2 y=164.6
+
 			Circle c = ball.bounds;
 			Rectangle r = brick.bounds;
 			if (bricks.get(bricksTouched[0]).atCeiling)
