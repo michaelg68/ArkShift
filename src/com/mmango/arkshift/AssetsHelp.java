@@ -35,6 +35,7 @@ public class AssetsHelp {
 
 
 
+
 		clickSound = game.getAudio().newSound("click.ogg");
 	}
 
