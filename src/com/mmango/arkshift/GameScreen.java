@@ -9,7 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
-import com.badlogic.androidgames.framework.gl.FPSCounter;
+//import com.badlogic.androidgames.framework.gl.FPSCounter;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLScreen;
@@ -55,7 +55,7 @@ public class GameScreen extends GLScreen {
 	Rectangle moveRacquetRightTouchZone;
 	int lastScore;
 	String scoreString;
-	FPSCounter fpsCounter;
+	//FPSCounter fpsCounter;
 	float lastX = -1;
 	float lastY = -1;
 	TextureRegion ballsLeftRegion;
@@ -153,7 +153,7 @@ public class GameScreen extends GLScreen {
 						- FRAME_WIDTH);
 		lastScore = 0;
 		scoreString = Integer.toString(lastScore);
-		fpsCounter = new FPSCounter();
+		//fpsCounter = new FPSCounter();
 	}
 
 	@Override
@@ -481,7 +481,7 @@ public class GameScreen extends GLScreen {
 		}
 		batcher.endBatch();
 		gl.glDisable(GL10.GL_BLEND);
-		fpsCounter.logFrame();
+		//fpsCounter.logFrame();
 
 	}
 

@@ -39,7 +39,7 @@ public class Settings {
 				GAME_PREFERENCES, 0);
 		appName = settings.getString("AppName", "none :(");
 		soundEnabled = settings.getBoolean("SoundEnabled", true);
-		controlType = settings.getInt("ControlType", CONTROL_BY_TOUCH);
+		controlType = settings.getInt("ControlType", CONTROL_BY_SWIPE);
 //		Log.d("Settings:readPrefs", "AppName = " + appName);
 //		Log.d("Settings:readPrefs", "soundEnabled = " + soundEnabled);
 //		Log.d("Settings:readPrefs", "controlType = " + controlType);
