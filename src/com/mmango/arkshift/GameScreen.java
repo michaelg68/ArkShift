@@ -391,7 +391,7 @@ public class GameScreen extends GLScreen {
 
 				// finish GameActivity
 				state = GAME_PREPARING;
-				glGame.finish();
+				glGame.finishAndRemoveTask();
 				return;
 			}
 
@@ -412,7 +412,7 @@ public class GameScreen extends GLScreen {
 				// game.setScreen(new SelectLevelScreen(game));
 				// finish GameActivity
 				state = GAME_PREPARING;
-				glGame.finish();
+				glGame.finishAndRemoveTask();
 				return;
 			}
 
@@ -438,7 +438,7 @@ public class GameScreen extends GLScreen {
 				// game.setScreen(new MainMenuScreen(game));
 				// finish GameActivity
 				state = GAME_PREPARING;
-				glGame.finish();
+				glGame.finishAndRemoveTask();
 				return;
 			}
 		}
