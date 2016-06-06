@@ -57,7 +57,7 @@ public class SelectLevelScreen extends GLScreen {
 
 	@Override
 	public void update(float deltaTime) {
-		int level = 9999;
+		int level = -1;
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 		game.getInput().getKeyEvents();
 		int len = touchEvents.size();
