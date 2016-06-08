@@ -434,16 +434,20 @@ public class World {
 
 	private void setNoCellIds() {
 		for (int z = 1; z < 12; z++) {
-			cellIds[z] = 999;
+			cellIds[z] = NO_OBJECT_ID;
 		}
 	}
 
-	private int[] getCellIds(Ball ball, boolean aboveRacquet) {
+	private boolean getCellIds(Ball ball, boolean aboveRacquet) {
 		// order of cells:
 		// 1) x1y1 - left bottom corner
 		// 2) x2y2 - right top corner
 		// 3) x3y3 - right bottom corner
 		// 4) x4y4 - left top corner
+
+		//populate cellIds[] with the NO_OBJECT_ID 
+		
+		setNoCellIds();
 
 		if (aboveRacquet) {
 
@@ -454,12 +458,11 @@ public class World {
 			if (y2 > level - 1) { // if the right up corner of the ball rect is
 									// lower than the lowest possible row
 				// then no collision is possible
-				 Log.d("World:getCellIds",
-				 "right up corner of the ball rect is in cell y2 = "
-				 + y2
-				 + " which is lower than the lowest possible row");
-				setNoCellIds();
-				return cellIds;
+				Log.d("World:getCellIds",
+						"right up corner of the ball rect is in cell y2 = "
+								+ y2
+								+ " which is lower than the lowest possible row");
+				return false;
 			}
 
 			int x2 = (int) Math.floor((ball.rectBounds.lowerLeft.x
@@ -495,22 +498,12 @@ public class World {
 
 			if ((x1 == x2) && (y1 == y2)) {
 				Log.d("World:getCellIds", "The ball is completely in one cell");
-				cellIds[2] = NO_OBJECT_ID; // the ball is completely in one cell
-				cellIds[3] = NO_OBJECT_ID; // so no need to duplicate the cell IDs. One is
-									// enough
-				cellIds[4] = NO_OBJECT_ID;
-				cellIds[5] = NO_OBJECT_ID;
-				cellIds[6] = NO_OBJECT_ID;
-				cellIds[7] = NO_OBJECT_ID;
+				// the ball is completely in one cell so no need to duplicate
+				// the cell IDs. One is enough
 				if (y1 > 0) {
 					cellIds[8] = x1;
 					cellIds[9] = y1 - 1;
-				} else {
-					cellIds[8] = NO_OBJECT_ID;
-					cellIds[9] = NO_OBJECT_ID;
 				}
-				cellIds[10] = NO_OBJECT_ID;
-				cellIds[11] = NO_OBJECT_ID;
 			} else if ((x1 == x2) || (y1 == y2)) {
 				Log.d("World:getCellIds",
 						"The ball overlaps only two cells either in same column or same row");
@@ -520,25 +513,13 @@ public class World {
 				cellIds[2] = x2; // in this case only two cells should be
 									// checked
 				cellIds[3] = y2;
-				cellIds[4] = NO_OBJECT_ID;
-				cellIds[5] = NO_OBJECT_ID;
-				cellIds[6] = NO_OBJECT_ID;
-				cellIds[7] = NO_OBJECT_ID;
 				if (y2 > 0) {
 					if (x1 != x2) {
 						cellIds[8] = x1;
 						cellIds[9] = y2 - 1;
-					} else {
-						cellIds[8] = NO_OBJECT_ID;
-						cellIds[9] = NO_OBJECT_ID;
 					}
 					cellIds[10] = x2;
 					cellIds[11] = y2 - 1;
-				} else {
-					cellIds[8] = NO_OBJECT_ID;
-					cellIds[9] = NO_OBJECT_ID;
-					cellIds[10] = NO_OBJECT_ID;
-					cellIds[11] = NO_OBJECT_ID;
 				}
 
 			} else { // the ball overlaps 4 cells
@@ -558,11 +539,6 @@ public class World {
 					cellIds[9] = y2 - 1;
 					cellIds[10] = x2;
 					cellIds[11] = y2 - 1;
-				} else {
-					cellIds[8] = NO_OBJECT_ID;
-					cellIds[9] = NO_OBJECT_ID;
-					cellIds[10] = NO_OBJECT_ID;
-					cellIds[11] = NO_OBJECT_ID;
 				}
 			}
 			// end of aboveRacquet == true
@@ -576,12 +552,11 @@ public class World {
 			if (y1 > level - 1) { // if the left bottom corner of the ball rect
 									// is higher than the highest possible row
 									// then no collision is possible
-				 Log.d("World:getCellIds",
-				 "The left bottom corner of the ball rect is in cell y1 = "
-				 + y1
-				 + " which is higher than the highest possible row");
-				setNoCellIds();
-				return cellIds;
+				Log.d("World:getCellIds",
+						"The left bottom corner of the ball rect is in cell y1 = "
+								+ y1
+								+ " which is higher than the highest possible row");
+				return false;
 			}
 
 			int x1 = (int) Math
@@ -618,50 +593,28 @@ public class World {
 
 			if (x1 == x2 && y1 == y2) {
 				Log.d("World:getCellIds", "The ball is completely in one cell");
-				cellIds[2] = NO_OBJECT_ID; // the ball is completely in one cell
-				cellIds[3] = NO_OBJECT_ID; // so no need to duplicate the cell IDs. One is
-									// enough
-				cellIds[4] = NO_OBJECT_ID;
-				cellIds[5] = NO_OBJECT_ID;
-				cellIds[6] = NO_OBJECT_ID;
-				cellIds[7] = NO_OBJECT_ID;
+				// the ball is completely in one cell
+				// so no need to duplicate the cell IDs. One is
+				// enough
 				if (y1 > 0) {
 					cellIds[8] = x1;
 					cellIds[9] = y1 - 1;
-				} else {
-					cellIds[8] = NO_OBJECT_ID;
-					cellIds[9] = NO_OBJECT_ID;
 				}
-				cellIds[10] = NO_OBJECT_ID;
-				cellIds[11] = NO_OBJECT_ID;
 			} else if ((x1 == x2) || (y1 == y2)) {
 				Log.d("World:getCellIds",
 						"The ball overlaps only two cells either in same column or same row");
-
 				// the ball is in one column
 				// or in one row
 				cellIds[2] = x2; // in this case only two cells should be
 									// checked
 				cellIds[3] = y2;
-				cellIds[4] = NO_OBJECT_ID;
-				cellIds[5] = NO_OBJECT_ID;
-				cellIds[6] = NO_OBJECT_ID;
-				cellIds[7] = NO_OBJECT_ID;
 				if (y1 > 0) {
 					if (x1 != x2) {
 						cellIds[8] = x1;
 						cellIds[9] = y1 - 1;
-					} else {
-						cellIds[8] = NO_OBJECT_ID;
-						cellIds[9] = NO_OBJECT_ID;
 					}
 					cellIds[10] = x2;
 					cellIds[11] = y1 - 1;
-				} else {
-					cellIds[8] = NO_OBJECT_ID;
-					cellIds[9] = NO_OBJECT_ID;
-					cellIds[10] = NO_OBJECT_ID;
-					cellIds[11] = NO_OBJECT_ID;
 				}
 			} else { // the ball overlaps 4 cells
 				Log.d("World:getCellIds", "The ball overlaps four cells");
@@ -680,11 +633,6 @@ public class World {
 					cellIds[9] = y1 - 1;
 					cellIds[10] = x2;
 					cellIds[11] = y1 - 1;
-				} else {
-					cellIds[8] = NO_OBJECT_ID;
-					cellIds[9] = NO_OBJECT_ID;
-					cellIds[10] = NO_OBJECT_ID;
-					cellIds[11] = NO_OBJECT_ID;
 				}
 			}
 		}
@@ -693,7 +641,7 @@ public class World {
 			Log.d("World:getCellIds", "cellIds[" + i + "]=" + cellIds[i]);
 		}
 
-		return cellIds;
+		return true;
 	}
 
 	private void checkBallCollisionsWithBricks() {
@@ -744,14 +692,16 @@ public class World {
 		if (ball.position.y > racquet.position.y) {
 			Log.d("World:checkBallCollisionsWithBricks",
 					"Getting the potential cells from the ceiling");
-			getCellIds(ball, true); // get the potential cells from the ceiling
-			if (cellIds[0] != 999) { // do these operations only if the ball is
-										// not
+			// get the potential cells from the ceiling
+			if (getCellIds(ball, true)) { // do these operations only if the
+											// ball is
+											// not
 				// completely out of the grid, either
 				// ceiling or floor.
 				for (int z = 0; z < 12; z++) {
 					int w = z + 1;
-					if ((cellIds[z] == NO_OBJECT_ID) || (cellIds[w] > level - 1)) {
+					if ((cellIds[z] == NO_OBJECT_ID)
+							|| (cellIds[w] > level - 1)) {
 						z = w;
 						continue;
 					}
@@ -768,14 +718,15 @@ public class World {
 		} else { // lower than the racquet:
 			Log.d("World:checkBallCollisionsWithBricks",
 					"Getting the potential cells from the floor");
-			getCellIds(ball, false); // get the potential cells from the floor
-			if (cellIds[0] != 999) { // do these operations only if the ball is
-										// not
+			// get the potential cells from the floor
+			if (getCellIds(ball, false)) { // do these operations only if the
+											// ball is not
 				// completely out of the grid, either
 				// ceiling or floor.
 				for (int z = 0; z < 12; z++) {
 					int w = z + 1;
-					if ((cellIds[z] == NO_OBJECT_ID) || (cellIds[w] > level - 1)) {
+					if ((cellIds[z] == NO_OBJECT_ID)
+							|| (cellIds[w] > level - 1)) {
 						z = w;
 						continue;
 					}
@@ -1157,13 +1108,15 @@ public class World {
 		// here we analyze what to happen to the bricks: shifting, scoring etc.
 		for (int i = 0; i < bricksAffectedCounter; i++) {
 			Brick brick = bricks.get(bricksAffected[i]);
-			
-			
-			Log.d("World:checkBallCollisionsWithBricks","bricksAffected[" + i + "] = " + bricksAffected[i]);
-					
+
+			Log.d("World:checkBallCollisionsWithBricks", "bricksAffected[" + i
+					+ "] = " + bricksAffected[i]);
+
 			listener.hitAtBrick();
 			if (brick.state != Brick.BRICK_STATE_STILL) {
-				Log.d("World:checkBallCollisionsWithBricks","It is a Moving brick, we don't count it as affected. ID = " + bricksAffected[i]);
+				Log.d("World:checkBallCollisionsWithBricks",
+						"It is a Moving brick, we don't count it as affected. ID = "
+								+ bricksAffected[i]);
 				continue;
 			}
 			// if the ceiling brick is hit then we increase the score; else -
