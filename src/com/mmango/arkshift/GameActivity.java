@@ -37,7 +37,7 @@ public class GameActivity extends GLGame {
 	@Override
 	public void onPause() {
 		super.onPause();
-		//Log.d("GameActivity:onPause", ".......");
+		// Log.d("GameActivity:onPause", ".......");
 		Settings.savePrefs(this);
 		// if (Settings.soundEnabled)
 		// AssetsGame.music.pause();
@@ -50,29 +50,32 @@ public class GameActivity extends GLGame {
 		// int len = className.split("\\.").length;
 		// className = className.split("\\.")[len - 1];
 		// if (className.equals("GameScreen")) {
-		//}
-		
-		/*if (GameScreen.state == GameScreen.GAME_RUNNING) {
+		// }
+
+		/*
+		 * if (GameScreen.state == GameScreen.GAME_RUNNING) { GameScreen.state =
+		 * GameScreen.GAME_PAUSED; } else if (GameScreen.state ==
+		 * GameScreen.GAME_READY) { GameScreen.state = GameScreen.GAME_PAUSED; }
+		 * else { GameScreen.state = GameScreen.GAME_PREPARING;
+		 * super.onBackPressed(); }
+		 */
+		if (GameScreen.state != GameScreen.GAME_PREPARING) {
 			GameScreen.state = GameScreen.GAME_PAUSED;
-		} else if (GameScreen.state == GameScreen.GAME_READY) {
-			GameScreen.state = GameScreen.GAME_PAUSED;
-		} else  {
-			GameScreen.state = GameScreen.GAME_PREPARING;
-			super.onBackPressed();
-		}*/
-		GameScreen.state = GameScreen.GAME_PAUSED;
+		}
 	}
-	
-    @Override
-    public void finish() {
-    	Log.d("GameActivity:finish", "Performing ArkShift->GameActivity->finish()");
-        super.finish();
-        super.finishAndRemoveTask();
-    }
-    
-    @Override
-    public void finishAndRemoveTask() {
-    	Log.d("GameActivity:finishAndRemoveTask", "Performing ArkShift->GameActivity->finishAndRemoveTask()");
-        super.finishAndRemoveTask();
-    }
+
+	@Override
+	public void finish() {
+		Log.d("GameActivity:finish",
+				"Performing ArkShift->GameActivity->finish()");
+		super.finish();
+		super.finishAndRemoveTask();
+	}
+
+	@Override
+	public void finishAndRemoveTask() {
+		Log.d("GameActivity:finishAndRemoveTask",
+				"Performing ArkShift->GameActivity->finishAndRemoveTask()");
+		super.finishAndRemoveTask();
+	}
 }

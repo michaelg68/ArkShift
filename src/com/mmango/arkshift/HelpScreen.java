@@ -133,7 +133,7 @@ public class HelpScreen extends GLScreen {
 	}
 	
 	public void finishActivity() {
-		glGame.finishAndRemoveTask();
+		glGame.finish();
 	}
 	
 	@Override
