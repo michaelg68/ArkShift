@@ -5,8 +5,9 @@
     android:versionName="1.0"
     android:installLocation="auto">
 
+            <!-- from API16 Android 4.1.1 to API 23 Android 6.0-->
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="16"
         android:targetSdkVersion="23" />
 
     <application

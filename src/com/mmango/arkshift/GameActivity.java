@@ -4,7 +4,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 
 import com.badlogic.androidgames.framework.Screen;
 import com.badlogic.androidgames.framework.impl.GLGame;
@@ -66,16 +66,8 @@ public class GameActivity extends GLGame {
 
 	@Override
 	public void finish() {
-		Log.d("GameActivity:finish",
-				"Performing ArkShift->GameActivity->finish()");
+//		Log.d("GameActivity:finish",
+//				"Performing ArkShift->GameActivity->finish()");
 		super.finish();
-		super.finishAndRemoveTask();
-	}
-
-	@Override
-	public void finishAndRemoveTask() {
-		Log.d("GameActivity:finishAndRemoveTask",
-				"Performing ArkShift->GameActivity->finishAndRemoveTask()");
-		super.finishAndRemoveTask();
 	}
 }
