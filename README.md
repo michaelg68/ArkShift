@@ -1,6 +1,10 @@
 # README #
 
 Ark-Shift - my arcade game
+Release on Google Play on June 10, 2016
+https://play.google.com/store/apps/details?id=com.mmango.arkshift
+
+######################
 
 
 Don't forget to do:
