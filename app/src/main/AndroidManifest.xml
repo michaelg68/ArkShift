@@ -5,11 +5,14 @@
     android:versionName="1.0"
     android:installLocation="auto">
 
-            <!-- from API16 Android 4.1.1 to API 23 Android 6.0-->
+    <!-- from API16 Android 4.1.1 to API 23 Android 6.0-->
+    <!--
+    Warning:(10, 9) This `minSdkVersion` value (`16`) is not used; it is always overridden by the value specified in the Gradle build script (`16`)
+    Warning:(11, 9) This `targetSdkVersion` value (`30`) is not used; it is always overridden by the value specified in the Gradle build script (`23`)
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="23" />
-
+        android:targetSdkVersion="30" />
+    -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_laucher_arkshift"
