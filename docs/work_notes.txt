@@ -1,0 +1,236 @@
+-----------------------
+20160411 22:21
+
+do tomorrow:
+Brick.java
+    
+public void update(float deltaTime) {
+ 
+      	velocity.set(0, BRICK_VELOCITY);
+
+position.add(0, velocity.y * deltaTime);
+
+stateTime += deltaTime;
+	
+}
+
+---------------------
+2016/05/01
+Smartphone resolutions (I need it for Icons)
+
+
+Android Icon Size and Location for Apps
+DENSITY	SIZE	LOCATION	RATIO	SCREEN	MARGIN
+XXXHDPI	192×192	drawable-xxxhdpi	4	640 DPI	12 to 16 pixels
+XXHDPI	144×144	drawable-xxhdpi	3	480 DPI	8 to 12 pixels
+XHDPI	96×96	drawable-xhdpi	2	320 DPI	6 to 8 pixels
+HDPI	72×72	drawable-hdpi	1.5	240 DPI	4 to 6 pixels
+MDPI	48×48	drawable-mdpi	1	160 DPI	3 to 4 pixels
+MDPI	48×48	drawable (Cupcake)	1	160 DPI	3 to 4 pixels
+LDPI	36×36	drawable-ldpi	0.75	120 DPI	2 to 3 pixels
+
+
+
+-----------------------
+2016/05/03
+Image atlases
+Use Sprite Sheet Packer for easy generating an atlas from multiple images 
+http://spritesheetpacker.codeplex.com/
+It generates a text file with rectangles.
+Example:
+ready_message = 0 1730 454 142
+score_0 = 2879 129 128 128
+
+To generate Java code for multiple lines
+$ cat  atlas.txt | perl -pe 's/=/= new TextureRegion(UIGameElements,/'  | perl -pe 's/(\d+) /$1, /g' | perl -pe 's/\r//'  | perl -pe 's/$/\)\;/' | perl -pe 's/, =/ =/'
+ready_message = new TextureRegion(mainScreenUIElements, 0, 730, 54, 42);
+score_0 = new TextureRegion(mainScreenUIElements, 2879, 29, 28, 28);
+
+$ cat atlas.txt  | awk -F= '{print $1}' | perl -pe 's/\s//' | perl -pe 's/(.+)/public static TextureRegion $1;/' 
+public static TextureRegion ready_message;
+public static TextureRegion score_0;
+
+
+
+
+====================
+2016/05/05
+To add (change) to atlas_ui_elements.png:
+level_symbol.png - done.
+Make the alphaOverGameField1040x1730 grey, not blue. also make it less transparent. also make it smaller - 
+done. new file: alpha_grey_267x445_60opacity.png (25% size.) I can stretch this image while rendering.
+Make the corners of buttonUnavailableX rounded. - done. new file button_unavailable_y.png
+Remake message "Reset the highscore records" - done. new file reset_highscores_message.png
+
+Not sure if I need this:
+	Tips for the "Ready?" screen:
+	a) "touch in this area to move the racquet left " 
+	and 
+	"touch in this area to move the racquet left"
+	b) "swipe left or right to move the racquet"
+	c) tilt the device to left or right to move the racquet.
+	
+====================
+2016/05/07
+To add (change) to atlas_ui_elements.png:
+1) Reset button (!) and reset text should be black, not red? not sure....
+2) The Yes and No buttons should be redrawn, they are too ugly now.
+3) The reset message should said that the passed levels will be closed.
+
+===================
+2016/05/10
+Need to check if it worth to reuse these objects in (World:checkBallCollisionsWithBricks()
+		List<Integer> bricksTouched = new ArrayList<Integer>();
+		List<Integer> bricksAffected = new ArrayList<Integer>();
+		
+====================
+2016/05/20
+Images distribution between atlases
+-----------------
+
+Atlas atlasUIGameElements (in Assets):
+background_ui.jpg
+background_with_transp_gamefield_1.png
+alphaOverGameField_60Opacity
+mainMenuLogo
+ballRed
+ballWhite
+ballYellow
+ballsLeft0
+ballsLeft1
+ballsLeft2
+ballsLeft3
+ballsLeft4
+ballsLeft5
+ballsLeft6
+ballsLeft7
+ballsLeft8
+ballsLeft9
+ballsSymbol
+fontBebasneue64x64White
+brickBlue
+brickBluesky
+brickGold
+brickGreen
+brickGrey
+brickLightviolet
+brickOrange
+brickPink
+brickPurple
+brickRed
+brickViolet
+brickWheat
+buttonLevelEmpty
+buttonLevel1
+buttonLevel2
+buttonLevel3
+buttonLevel4
+buttonLevel5
+buttonLevel6
+buttonLevel7
+buttonLevel8
+buttonUnavailable
+gameOverMessage
+levelPassedMessage
+mainMenuButtonControlSwipe
+mainMenuButtonControlTilt
+mainMenuButtonControlTouch
+mainMenuButtonHelp
+mainMenuButtonHome
+mainMenuButtonNo
+mainMenuButtonPlay
+mainMenuButtonReset
+mainMenuButtonScore
+mainMenuButtonSoundDisabled
+mainMenuButtonSoundEnabled
+mainMenuButtonYes
+mainMenuTextControl
+mainMenuTextGoon
+mainMenuTextHelp
+mainMenuTextHighscores
+mainMenuTextNo
+mainMenuTextPlay
+mainMenuTextQuit
+mainMenuTextReset
+mainMenuTextResume
+mainMenuTextRetry
+mainMenuTextSound
+mainMenuTextYes
+pauseButton
+pauseMessage
+racquet
+readyMessage
+resetHighscoresMessage
+score0
+score1
+score2
+score3
+score4
+score5
+score6
+score7
+score8
+score9
+scoreDot
+scoreMinus
+scoreNone
+selectLevelMessage
+brickGoldBlueJoker - not necessary
+brickGoldPinkJoker
+
+Atlas atlasHelpScreen (in AssetsHelpscreen):
+helpScreen1
+helpScreen2
+helpScreen3	
+helpScreen4
+main_menu_button_home128
+main_menu_text_quit
+background_ui.jpg
+
+====================
+
+2016/05/21
+Verify if the number of Sprites in the batcher of GameScreen is correct. It was 200, may be it was not enough.
+May be it was the reason of context loss?
+Increasing it to 250.
+
+=====================
+2016-05-26
+Important:
+Your application must be signed with a cryptographic key whose validity period ends after 22 October 2033
+https://developer.android.com/studio/publish/preparing.html
+
+Calculation using http://www.timeanddate.com/date/duration.html:
+From and including: Thursday, May 26, 2016
+To and including: Saturday, October 22, 2033
+Result: 6359 days
+It is 6359 days from the start date to the end date, end date included
+Or 17 years, 4 months, 27 days including the end date
+
+=====================
+2016-05-28
+Publishing
+Title:
+ArkShift
+
+Short description:
+Bounce the ball to get rid of the bricks at the top.
+
+Full description:
+Use the ball to push the bricks up! The uppermost brick will re-appear at the bottom, lifting the racquet.
+Each color has it's price, some colors will change the gameplay.
+Do not let the ball to hit the bottom bricks or you will lose some points. One ball will be lost too.
+To pass the level you need to remove all the bricks from the top.
+
+
+
+==================
+2020-11-03 11:11
+Preparing to release with support of SDK30 (Android 11)
+
+In order to run the application on a connected Android device install Android USB Driver for Windows
+Samsung: https://developer.samsung.com/mobile/android-usb-driver.html
+
+
+
+
