@@ -1,6 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\mike_\\Documents\\Keys\\ArkShift\\mmangosoft-release-key.keystore')
+            keyAlias 'mmangosoft-release-key'
+            storePassword 'PutHereThePassword'
+            keyPassword 'PutHereThePassword'
+        }
+        release {
+            storeFile file('C:\\Users\\mike_\\Documents\\Keys\\ArkShift\\mmangosoft-release-key.keystore')
+            keyPassword 'PutHereThePassword'
+            storePassword 'PutHereThePassword'
+            keyAlias 'mmangosoft-release-key'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -14,6 +28,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 }
